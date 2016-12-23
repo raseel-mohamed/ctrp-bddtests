@@ -25,13 +25,14 @@ When(/^I used the "([^"]*)" CTRP service with Content\-Type "([^"]*)" Accept "([
   @user2 = 'ctrpqatester1'
   headers = {:content_type => arg2, :accept => arg3}
   service = arg1.upcase
-  if service == 'POST'
+  case service
+  when 'POST'
     service_url = ENV['create_organization']
     @request_hash = Organization_helper.prepare_create_organization(@org_name, @org_address_line1, @org_address_line2, @org_city, @org_state_or_province, @org_country, @org_postal_code, @org_contact_email, @org_contact_phone, @org_contact_fax, @org_contact_tty, @org_contact_url, @org_status)
     payload_string = @request_hash.to_json.to_s
     @response = Helper.request(service, service_url, @user2, payload_string, headers)
     @response
-  elsif service == 'GET'
+  when 'GET'
     service_url = ENV['create_organization']+@org_id.to_s
     @response = Helper.request(service, service_url, @user2, nil, headers)
     @response
