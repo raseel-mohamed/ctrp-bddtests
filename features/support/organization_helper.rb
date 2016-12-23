@@ -51,4 +51,23 @@ def self.verify_organization(name, ctep_id, address_line1, address_line2, city, 
   assert_equal(org_id,response['id'], 'Organization ID' + @error_string )
 end
 
+  def self.prepare_update_organization(name, address_line1, address_line2, city, state_or_province, country, postal_code,contact_email, contact_phone, contact_fax, contact_TTY, contact_URL, org_id, status)
+    @request_hash = load_organization_templates('update_organization')
+    @request_hash['name'] = name
+    @request_hash['address']['line1'] = address_line1
+    @request_hash['address']['line2'] = address_line2
+    @request_hash['address']['city'] = city
+    @request_hash['address']['stateOrProvince'] = state_or_province
+    @request_hash['address']['country'] = country
+    @request_hash['address']['postalcode'] = postal_code
+    @request_hash['contact'][0]['value'] = contact_email
+    @request_hash['contact'][1]['value']= contact_phone
+    @request_hash['contact'][2]['value'] = contact_fax
+    @request_hash['contact'][3]['value'] = contact_TTY
+    @request_hash['contact'][4]['value'] = contact_URL
+    @request_hash['id'] = org_id
+    @request_hash['status'] = status
+    @request_hash
+  end
+
 end
