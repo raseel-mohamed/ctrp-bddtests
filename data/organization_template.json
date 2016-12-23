@@ -1,0 +1,36 @@
+{
+  "create_organization": {
+    "name": "Mayo Clinic Test",
+    "address": {
+      "line1": "200 First Street Southwest",
+      "line2": "Test",
+      "city": "Rochester",
+      "stateOrProvince": "MN",
+      "country": "USA",
+      "postalcode": "55905"
+    },
+    "contact": [
+      {
+        "value": "mayo.test@mail.nih.gov",
+        "type": "EMAIL"
+      },
+      {
+        "value": "111-222-3333",
+        "type": "PHONE"
+      },
+      {
+        "value": "111-222-3344",
+        "type": "FAX"
+      },
+      {
+        "value": "111-222-3355",
+        "type": "TTY"
+      },
+      {
+        "value": "http://www.mayoclinic.org",
+        "type": "URL"
+      }
+    ],
+    "status": "PENDING"
+  }
+}
