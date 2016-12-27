@@ -1,7 +1,4 @@
-require 'json'
-require 'rest-client'
-require_relative '../support/organization_helper.rb'
-require_relative '../support/helper.rb'
+
 
 Given(/^I want to create Organization with values$/) do |table|
   @org_name = table.rows_hash['name']

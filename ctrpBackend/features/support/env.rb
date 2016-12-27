@@ -1,3 +1,11 @@
+require 'rspec'
+require 'json'
+require 'rest-client'
+require 'rspec/expectations'
+require "test/unit/assertions"
+include Test::Unit::Assertions
+
+
 base_qa2 = 'https://trials-qa2.nci.nih.gov/'
 base_local = 'https://localhost/'
 

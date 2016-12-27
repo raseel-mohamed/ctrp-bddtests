@@ -1,15 +1,10 @@
-require 'rspec'
-require 'json'
-require 'rest-client'
-require 'rspec/expectations'
-require "test/unit/assertions"
-include Test::Unit::Assertions
+
 class Organization_helper
 
   @error_string = ' does not match'
 
 def self.load_organization_templates(type)
-  location = "#{File.dirname(__FILE__)}/../../data/organization_template.json"
+  location = "#{File.dirname(__FILE__)}/../../../data/organization_template.json"
   whole_json = JSON(IO.read(location))
   # whole_json = JSON(IO.read('./public/patient_message_templates.json'))
   whole_json[type]
