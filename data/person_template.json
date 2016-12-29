@@ -1,0 +1,68 @@
+//{
+//  "create_person": {
+//    "prefix":"Dr.",
+//    "firstame":"John",
+//    "middlename":"M",
+//    "lastname":"Phillips",
+//    "suffix":"Phillips",
+//    "address":{
+//      "line1":"4100 John R Street",
+//      "line2":"Division of Hematology",
+//      "city":"Detroit",
+//      "stateOrProvince":"MI",
+//      "country":"USA",
+//      "postalcode":"48201"
+//    },
+//    "contact":[
+//      {
+//        "value":"philipp@karmanos.org",
+//        "type":"EMAIL"
+//      },
+//      {
+//        "value":"313-576-9363",
+//        "type":"PHONE"
+//      },
+//      {
+//        "value":"313-576-8729",
+//        "type":"FAX"
+//      }
+//    ],
+//    "status":"ACTIVE"
+//  }
+//}
+
+{
+  "create_person":{
+  "prefix":"Dr.",
+  "firstName":"John",
+  "middleName":"M",
+  "lastName":"Phillips",
+  "suffix":"Vasu"},
+  "address":{
+    "line1":"4100 John R Street",
+    "line2":"Division of Hematology",
+    "city":"Detroit",
+    "stateOrProvince":"MI",
+    "country":"USA",
+    "postalcode":"48201"
+  },
+  "contact":[
+    {
+      "value":"philipp@karmanos.org",
+      "type":"EMAIL"
+    },
+    {
+      "value":"philipp222@karmanos.org",
+      "type":"EMAIL"
+    },
+    {
+      "value":"313-576-9363",
+      "type":"PHONE"
+    },
+    {
+      "value":"313-576-8729",
+      "type":"FAX"
+    }
+  ],
+  "status":"ACTIVE"
+}
