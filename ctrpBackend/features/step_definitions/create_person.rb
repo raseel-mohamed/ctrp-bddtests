@@ -1,6 +1,9 @@
-
+# require_relative '../support/organization_helper.rb'
+# require_relative '../support/person_helper.rb'
+# require_relative '../support/helper.rb'
 
 Given(/^I want to create person with values$/) do |table|
+  puts table
   @person_prefix = table.rows_hash['prefix']
   @person_firstname = table.rows_hash['firstname']
   @person_middlename = table.rows_hash['middlename']
@@ -49,7 +52,7 @@ end
 # Then(/^response to "([^"]*)" should be "([^"]*)"$/) do |arg1, arg2|
 #   expect(@response_code.to_s).to eq arg2
 # end
-
-Then(/^response body should include above created Person values$/) do
-  Person_helper.verify_person(@person_prefix, @person_firstname, @person_middlename, @person_lastname, @person_suffix, @person_address_line1, @person_address_line2, @person_cityl, @person_state_or_province, @person_country, @person_postal_code, @person_contact_email, @person_contact_phone, @person_contact_fax, @person_status, @per_id, @response_body)
-end
+#
+# Then(/^response body should include above created Person values$/) do
+#   Person_helper.verify_person(@person_prefix, @person_firstname, @person_middlename, @person_lastname, @person_suffix, @person_address_line1, @person_address_line2, @person_city, @person_state_or_province, @person_country, @person_postal_code, @person_contact_email, @person_contact_phone, @person_contact_fax, @person_status, @per_id, @response_body)
+# end
