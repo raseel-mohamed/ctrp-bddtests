@@ -16,15 +16,15 @@ Feature: 01 Create Organization
       | contact_TTY       | 111-222-3355              |
       | contact_URL       | http://www.mayoclinic.org |
       | status            | PENDING                   |
-    When I used the "POST" CTRP service with Content-Type "application/json" Accept "application/json"
+    When I used the "POST" CTRP service with Content-Type "application/json" Accept "application/json" for "Organization"
     Then response to "POST" should be "201"
     And response body should include above created Organization values
-    When I used the "GET" CTRP service with Content-Type "application/json" Accept "application/json"
+    When I used the "GET" CTRP service with Content-Type "application/json" Accept "application/json" for "Organization"
     Then response to "GET" should be "200"
     And response body should include above created Organization values
 
 
-  @critical2
+  @critical
   Scenario: #2 To Update an Organization in CTRP
     Given an Organization exist with values
       | name              | Mayo Clinic Test2         |
@@ -54,10 +54,9 @@ Feature: 01 Create Organization
       | contact_TTY       | 111-666-3355                 |
       | contact_URL       | http://www.mayoclinicCCT.org |
       | status            | ACTIVE                       |
-
-    When I used the "PUT" CTRP service with Content-Type "application/json" Accept "application/json"
+    When I used the "PUT" CTRP service with Content-Type "application/json" Accept "application/json" for "Organization"
     Then response to "PUT" should be "200"
     And response body should include above created Organization values
-    When I used the "GET" CTRP service with Content-Type "application/json" Accept "application/json"
+    When I used the "GET" CTRP service with Content-Type "application/json" Accept "application/json" for "Organization"
     Then response to "GET" should be "200"
     And response body should include above created Organization values

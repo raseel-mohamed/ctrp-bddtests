@@ -23,30 +23,30 @@ end
 
 
 
-When(/^I used the "([^"]*)" CTRP service with Content\-Type "([^"]*)" Accept "([^"]*)" for "([^"]*)"$/) do |arg1, arg2, arg3, arg4|
-  @user2 = 'ctrpqatester1'
-  headers = {:content_type => arg2, :accept => arg3}
-  service = arg1.upcase
-  case service
-    when 'POST'
-      service_url = ENV['create_person']
-      @request_hash = Person_helper.prepare_create_person(@person_prefix, @person_firstname, @person_middlename, @person_lastname, @person_suffix, @person_address_line1, @person_address_line2, @person_city, @person_state_or_province, @person_country, @person_postal_code, @person_contact_email, @person_contact_phone, @person_contact_fax, @person_status)
-      payload_string = @request_hash.to_json.to_s
-      @response = Helper.request(service, service_url, @user2, payload_string, headers)
-      @response
-    when 'GET'
-      service_url = ENV['create_person']+@per_id.to_s
-      @response = Helper.request(service, service_url, @user2, nil, headers)
-      @response
-
-    else
-      flunk 'Please choose correct service. Provided service <<' + arg1 + '>> does not exist'
-  end
-  @response_code = @response.code
-  @response_body = JSON.parse(@response.body)
-  @per_id = @response_body['id']
-  puts 'Person ID is: ' + @per_id.to_s
-end
+# When(/^I used the "([^"]*)" CTRP service with Content\-Type "([^"]*)" Accept "([^"]*)" for "([^"]*)"$/) do |arg1, arg2, arg3, arg4|
+#   @user2 = 'ctrpqatester1'
+#   headers = {:content_type => arg2, :accept => arg3}
+#   service = arg1.upcase
+#   case service
+#     when 'POST'
+#       service_url = ENV['create_person']
+#       @request_hash = Person_helper.prepare_create_person(@person_prefix, @person_firstname, @person_middlename, @person_lastname, @person_suffix, @person_address_line1, @person_address_line2, @person_city, @person_state_or_province, @person_country, @person_postal_code, @person_contact_email, @person_contact_phone, @person_contact_fax, @person_status)
+#       payload_string = @request_hash.to_json.to_s
+#       @response = Helper.request(service, service_url, @user2, payload_string, headers)
+#       @response
+#     when 'GET'
+#       service_url = ENV['create_person']+@per_id.to_s
+#       @response = Helper.request(service, service_url, @user2, nil, headers)
+#       @response
+#
+#     else
+#       flunk 'Please choose correct service. Provided service <<' + arg1 + '>> does not exist'
+#   end
+#   @response_code = @response.code
+#   @response_body = JSON.parse(@response.body)
+#   @per_id = @response_body['id']
+#   puts 'Person ID is: ' + @per_id.to_s
+# end
 
 
 # Then(/^response to "([^"]*)" should be "([^"]*)"$/) do |arg1, arg2|

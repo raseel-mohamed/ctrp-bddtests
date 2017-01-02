@@ -1,6 +1,6 @@
 Feature: 01 Create Person
 
-  @criticalper
+  @critical
   Scenario: #1 To Create a person in CTRP
     Given I want to create person with values
       | prefix              | Dr                        |

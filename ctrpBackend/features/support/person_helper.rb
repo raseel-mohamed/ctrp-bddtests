@@ -6,11 +6,7 @@ class Person_helper
 def self.load_person_templates(type)
   location = "#{File.dirname(__FILE__)}/../../../data/person_template.json"
   whole_json = JSON(IO.read(location))
-  # whole_json = JSON(IO.read('./public/patient_message_templates.json'))
-  puts 'json'
-  puts whole_json[type]
   whole_json[type]
-
 end
 
   def self.prepare_create_person(prefix, firstname, middlename, lastname, suffix, address_line1, address_line2, city, state_or_province, country, postal_code, contact_email, contact_phone, contact_fax, status)
@@ -33,5 +29,26 @@ end
     @request_hash
   end
 
+  def self.trigger_create_person_post(service, service_url_method, username, headers, person_prefix, person_firstname, person_middlename, person_lastname, person_suffix, person_address_line1, person_address_line2, person_city, person_state_or_province, person_country, person_postal_code, person_contact_email, person_contact_phone, person_contact_fax, person_status)
+    service_url = ENV[service_url_method]
+    @request_hash = prepare_create_person(person_prefix, person_firstname, person_middlename, person_lastname, person_suffix, person_address_line1, person_address_line2, person_city, person_state_or_province, person_country, person_postal_code, person_contact_email, person_contact_phone, person_contact_fax, person_status)
+    payload_string = @request_hash.to_json.to_s
+    @response = Helper.request(service, service_url, username, payload_string, headers)
+    @response
+  end
+
+  def self.trigger_get_person(service, service_url_method, username, headers, org_id)
+    service_url = ENV[service_url_method] + org_id.to_s
+    @response = Helper.request(service, service_url, username, nil, headers)
+    @response
+  end
+
+  def self.trigger_update_person_put(service, service_url_method, username, headers, org_id, org_name, org_address_line1, org_address_line2, org_city, org_state_or_province, org_country, org_postal_code, org_contact_email, org_contact_phone, org_contact_fax, org_contact_tty, org_contact_url, org_status)
+    service_url = ENV[service_url_method] + org_id.to_s
+    @request_hash = Organization_helper.prepare_update_organization(org_name, org_address_line1, org_address_line2, org_city, org_state_or_province, org_country, org_postal_code, org_contact_email, org_contact_phone, org_contact_fax, org_contact_tty, org_contact_url, org_id, org_status)
+    payload_string = @request_hash.to_json.to_s
+    @response = Helper.request(service, service_url, username, payload_string, headers)
+    @response
+  end
 
 end
