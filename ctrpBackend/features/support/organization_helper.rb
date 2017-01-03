@@ -45,25 +45,25 @@ class Organization_helper
     @request_hash
   end
 
-  def self.trigger_create_org_post(service, service_url_method, username, headers, org_name, org_address_line1, org_address_line2, org_city, org_state_or_province, org_country, org_postal_code, org_contact_email, org_contact_phone, org_contact_fax, org_contact_tty, org_contact_url, org_status)
+  def self.trigger_create_org_post(service, service_url_method, username, password, headers, org_name, org_address_line1, org_address_line2, org_city, org_state_or_province, org_country, org_postal_code, org_contact_email, org_contact_phone, org_contact_fax, org_contact_tty, org_contact_url, org_status)
     service_url = ENV[service_url_method]
     @request_hash = prepare_create_organization(org_name, org_address_line1, org_address_line2, org_city, org_state_or_province, org_country, org_postal_code, org_contact_email, org_contact_phone, org_contact_fax, org_contact_tty, org_contact_url, org_status)
     payload_string = @request_hash.to_json.to_s
-    @response = Helper.request(service, service_url, username, payload_string, headers)
+    @response = Helper.request(service, service_url, username,password, payload_string, headers)
     @response
   end
 
-  def self.trigger_get_org(service, service_url_method, username, headers, org_id)
+  def self.trigger_get_org(service, service_url_method, username,password, headers, org_id)
     service_url = ENV[service_url_method] + org_id.to_s
-    @response = Helper.request(service, service_url, username, nil, headers)
+    @response = Helper.request(service, service_url, username, password,nil, headers)
     @response
   end
 
-  def self.trigger_update_org_put(service, service_url_method, username, headers, org_id, org_name, org_address_line1, org_address_line2, org_city, org_state_or_province, org_country, org_postal_code, org_contact_email, org_contact_phone, org_contact_fax, org_contact_tty, org_contact_url, org_status)
+  def self.trigger_update_org_put(service, service_url_method, username, password,headers, org_id, org_name, org_address_line1, org_address_line2, org_city, org_state_or_province, org_country, org_postal_code, org_contact_email, org_contact_phone, org_contact_fax, org_contact_tty, org_contact_url, org_status)
     service_url = ENV[service_url_method] + org_id.to_s
     @request_hash = Organization_helper.prepare_update_organization(org_name, org_address_line1, org_address_line2, org_city, org_state_or_province, org_country, org_postal_code, org_contact_email, org_contact_phone, org_contact_fax, org_contact_tty, org_contact_url, org_id, org_status)
     payload_string = @request_hash.to_json.to_s
-    @response = Helper.request(service, service_url, username, payload_string, headers)
+    @response = Helper.request(service, service_url, username,password, payload_string, headers)
     @response
   end
 

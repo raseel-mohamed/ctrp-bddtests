@@ -16,6 +16,7 @@ per_endpoint = 'person-rest-service/person/'
 
 ENV['choose_ENV'] = 'qa2'
 ENV['user1'] = 'ctrpqatester1'
+ENV['user1_password'] = 'Welcome@1'
 
 case ENV['choose_ENV']
   when 'qa2'
