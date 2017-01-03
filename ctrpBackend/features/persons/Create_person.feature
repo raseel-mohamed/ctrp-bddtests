@@ -24,3 +24,4 @@ Feature: 01 Create Person
     When I used the "GET" CTRP service with Content-Type "application/json" Accept "application/json" for "Person"
     Then response to "GET" should be "200"
     And response body should include above created person values
+
