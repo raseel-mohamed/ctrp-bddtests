@@ -29,25 +29,25 @@ end
     @request_hash
   end
 
-  def self.trigger_create_person_post(service, service_url_method, username, headers, person_prefix, person_firstname, person_middlename, person_lastname, person_suffix, person_address_line1, person_address_line2, person_city, person_state_or_province, person_country, person_postal_code, person_contact_email, person_contact_phone, person_contact_fax, person_status)
+  def self.trigger_create_person_post(service, service_url_method, username, password,headers, person_prefix, person_firstname, person_middlename, person_lastname, person_suffix, person_address_line1, person_address_line2, person_city, person_state_or_province, person_country, person_postal_code, person_contact_email, person_contact_phone, person_contact_fax, person_status)
     service_url = ENV[service_url_method]
     @request_hash = prepare_create_person(person_prefix, person_firstname, person_middlename, person_lastname, person_suffix, person_address_line1, person_address_line2, person_city, person_state_or_province, person_country, person_postal_code, person_contact_email, person_contact_phone, person_contact_fax, person_status)
     payload_string = @request_hash.to_json.to_s
-    @response = Helper.request(service, service_url, username, payload_string, headers)
+    @response = Helper.request(service, service_url, username,password, payload_string, headers)
     @response
   end
 
-  def self.trigger_get_person(service, service_url_method, username, headers, org_id)
+  def self.trigger_get_person(service, service_url_method, username, password,headers, org_id)
     service_url = ENV[service_url_method] + org_id.to_s
-    @response = Helper.request(service, service_url, username, nil, headers)
+    @response = Helper.request(service, service_url, username,password, nil, headers)
     @response
   end
 
-  def self.trigger_update_person_put(service, service_url_method, username, headers, org_id, org_name, org_address_line1, org_address_line2, org_city, org_state_or_province, org_country, org_postal_code, org_contact_email, org_contact_phone, org_contact_fax, org_contact_tty, org_contact_url, org_status)
+  def self.trigger_update_person_put(service, service_url_method, username, password,headers, org_id, org_name, org_address_line1, org_address_line2, org_city, org_state_or_province, org_country, org_postal_code, org_contact_email, org_contact_phone, org_contact_fax, org_contact_tty, org_contact_url, org_status)
     service_url = ENV[service_url_method] + org_id.to_s
     @request_hash = Organization_helper.prepare_update_organization(org_name, org_address_line1, org_address_line2, org_city, org_state_or_province, org_country, org_postal_code, org_contact_email, org_contact_phone, org_contact_fax, org_contact_tty, org_contact_url, org_id, org_status)
     payload_string = @request_hash.to_json.to_s
-    @response = Helper.request(service, service_url, username, payload_string, headers)
+    @response = Helper.request(service, service_url, username, password,payload_string, headers)
     @response
   end
 

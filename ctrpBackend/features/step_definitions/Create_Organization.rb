@@ -23,23 +23,23 @@ When(/^I used the "([^"]*)" CTRP service with Content\-Type "([^"]*)" Accept "([
     when 'POST'
       case type
         when 'ORGANIZATION'
-          @response = Organization_helper.trigger_create_org_post(service, 'create_organization', ENV['user1'], headers, @org_name, @org_address_line1, @org_address_line2, @org_city, @org_state_or_province, @org_country, @org_postal_code, @org_contact_email, @org_contact_phone, @org_contact_fax, @org_contact_tty, @org_contact_url, @org_status)
+          @response = Organization_helper.trigger_create_org_post(service, 'create_organization', ENV['user1'], ENV['user1_password'], headers, @org_name, @org_address_line1, @org_address_line2, @org_city, @org_state_or_province, @org_country, @org_postal_code, @org_contact_email, @org_contact_phone, @org_contact_fax, @org_contact_tty, @org_contact_url, @org_status)
         when 'PERSON'
-          @response = Person_helper.trigger_create_person_post(service, 'create_person', ENV['user1'], headers, @person_prefix, @person_firstname, @person_middlename, @person_lastname, @person_suffix, @person_address_line1, @person_address_line2, @person_city, @person_state_or_province, @person_country, @person_postal_code, @person_contact_email, @person_contact_phone, @person_contact_fax, @person_status)
+          @response = Person_helper.trigger_create_person_post(service, 'create_person', ENV['user1'], ENV['user1_password'], headers, @person_prefix, @person_firstname, @person_middlename, @person_lastname, @person_suffix, @person_address_line1, @person_address_line2, @person_city, @person_state_or_province, @person_country, @person_postal_code, @person_contact_email, @person_contact_phone, @person_contact_fax, @person_status)
         else
           flunk 'Please provide correct type. Provided type <<' + arg4 + '>> does not exist'
       end
     when 'GET'
       case type
         when 'ORGANIZATION'
-          @response = Organization_helper.trigger_get_org(service, 'create_organization', ENV['user1'], headers, @id)
+          @response = Organization_helper.trigger_get_org(service, 'create_organization', ENV['user1'], ENV['user1_password'],headers, @id)
         else
           flunk 'Please provide correct type. Provided type <<' + arg4 + '>> does not exist'
       end
     when 'PUT'
       case type
         when 'ORGANIZATION'
-          @response = Organization_helper.trigger_update_org_put(service, 'update_organization', ENV['user1'], headers, @id, @org_name_update, @org_address_line1, @org_address_line2, @org_city, @org_state_or_province, @org_country, @org_postal_code, @org_contact_email, @org_contact_phone, @org_contact_fax, @org_contact_tty, @org_contact_url, @org_status)
+          @response = Organization_helper.trigger_update_org_put(service, 'update_organization', ENV['user1'],ENV['user1_password'], headers, @id, @org_name_update, @org_address_line1, @org_address_line2, @org_city, @org_state_or_province, @org_country, @org_postal_code, @org_contact_email, @org_contact_phone, @org_contact_fax, @org_contact_tty, @org_contact_url, @org_status)
         else
           flunk 'Please provide correct type. Provided type <<' + arg4 + '>> does not exist'
       end
@@ -77,7 +77,7 @@ Given(/^an Organization exist with values$/) do |table|
   @org_status = table.rows_hash['status']
 
   headers = {:content_type => 'application/json', :accept => 'application/json'}
-  @response = Organization_helper.trigger_create_org_post('post', 'create_organization', ENV['user1'], headers, @org_name, @org_address_line1, @org_address_line2, @org_city, @org_state_or_province, @org_country, @org_postal_code, @org_contact_email, @org_contact_phone, @org_contact_fax, @org_contact_tty, @org_contact_url, @org_status)
+  @response = Organization_helper.trigger_create_org_post('post', 'create_organization', ENV['user1'], ENV['user1_password'],headers, @org_name, @org_address_line1, @org_address_line2, @org_city, @org_state_or_province, @org_country, @org_postal_code, @org_contact_email, @org_contact_phone, @org_contact_fax, @org_contact_tty, @org_contact_url, @org_status)
   puts 'Response code for Created Organization: ' + @response.code.to_s
   @response_body = JSON.parse(@response.body)
   @id = @response_body['id']
