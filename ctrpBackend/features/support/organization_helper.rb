@@ -53,9 +53,9 @@ class Organization_helper
     @response
   end
 
-  def self.trigger_get_org(service, service_url_method, username,password, headers, org_id)
+  def self.trigger_get_org(service, service_url_method, username, password, headers, org_id)
     service_url = ENV[service_url_method] + org_id.to_s
-    @response = Helper.request(service, service_url, username, password,nil, headers)
+    @response = Helper.request(service, service_url, username, password, nil, headers)
     @response
   end
 
