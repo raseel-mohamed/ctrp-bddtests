@@ -33,6 +33,8 @@ When(/^I used the "([^"]*)" CTRP service with Content\-Type "([^"]*)" Accept "([
       case type
         when 'ORGANIZATION'
           @response = Organization_helper.trigger_get_org(service, 'create_organization', ENV['user1'], ENV['user1_password'],headers, @id)
+        when 'PERSON'
+          @response = Person_helper.trigger_get_person(service, 'create_person', ENV['user1'], ENV['user1_password'], headers, @id)
         when 'FAMILY'
           @response = Family_helper.trigger_get_family(service, 'search_family', @family_search_by_url, ENV['user1'], ENV['user1_password'],headers, @family_search_val)
         else
@@ -42,6 +44,8 @@ When(/^I used the "([^"]*)" CTRP service with Content\-Type "([^"]*)" Accept "([
       case type
         when 'ORGANIZATION'
           @response = Organization_helper.trigger_update_org_put(service, 'update_organization', ENV['user1'],ENV['user1_password'], headers, @id, @org_name_update, @org_address_line1, @org_address_line2, @org_city, @org_state_or_province, @org_country, @org_postal_code, @org_contact_email, @org_contact_phone, @org_contact_fax, @org_contact_tty, @org_contact_url, @org_status)
+        when 'PERSON'
+          @response = Person_helper.trigger_update_person_post(service, 'create_person', ENV['user1'], ENV['user1_password'], headers,@id, @person_prefix, @person_firstname, @person_middlename, @person_lastname, @person_suffix, @person_address_line1, @person_address_line2, @person_city, @person_state_or_province, @person_country, @person_postal_code, @person_contact_email, @person_contact_phone, @person_contact_fax, @person_status)
         else
           flunk 'Please provide correct type. Provided type <<' + arg4 + '>> does not exist'
       end
