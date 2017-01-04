@@ -1,88 +1,35 @@
-class Organization_helper
+class Family_helper
 
   @error_string = ' does not match'
 
-  def self.load_organization_templates(type)
-    location = "#{File.dirname(__FILE__)}/../../../data/organization_template.json"
+  def self.load_family_templates(type)
+    location = "#{File.dirname(__FILE__)}/../../../data/family_template.json"
     whole_json = JSON(IO.read(location))
     whole_json[type]
   end
 
-  def self.prepare_create_organization(name, address_line1, address_line2, city, state_or_province, country, postal_code, contact_email, contact_phone, contact_fax, contact_TTY, contact_URL, status)
-    @request_hash = load_organization_templates('create_organization')
-    @request_hash['name'] = name
-    @request_hash['address']['line1'] = address_line1
-    @request_hash['address']['line2'] = address_line2
-    @request_hash['address']['city'] = city
-    @request_hash['address']['stateOrProvince'] = state_or_province
-    @request_hash['address']['country'] = country
-    @request_hash['address']['postalcode'] = postal_code
-    @request_hash['contact'][0]['value'] = contact_email
-    @request_hash['contact'][1]['value']= contact_phone
-    @request_hash['contact'][2]['value'] = contact_fax
-    @request_hash['contact'][3]['value'] = contact_TTY
-    @request_hash['contact'][4]['value'] = contact_URL
-    @request_hash['status'] = status
-    @request_hash
-  end
-
-  def self.prepare_update_organization(name, address_line1, address_line2, city, state_or_province, country, postal_code, contact_email, contact_phone, contact_fax, contact_TTY, contact_URL, org_id, status)
-    @request_hash = load_organization_templates('update_organization')
-    @request_hash['name'] = name
-    @request_hash['address']['line1'] = address_line1
-    @request_hash['address']['line2'] = address_line2
-    @request_hash['address']['city'] = city
-    @request_hash['address']['stateOrProvince'] = state_or_province
-    @request_hash['address']['country'] = country
-    @request_hash['address']['postalcode'] = postal_code
-    @request_hash['contact'][0]['value'] = contact_email
-    @request_hash['contact'][1]['value']= contact_phone
-    @request_hash['contact'][2]['value'] = contact_fax
-    @request_hash['contact'][3]['value'] = contact_TTY
-    @request_hash['contact'][4]['value'] = contact_URL
-    @request_hash['id'] = org_id
-    @request_hash['status'] = status
-    @request_hash
-  end
-
-  def self.trigger_create_org_post(service, service_url_method, username, password, headers, org_name, org_address_line1, org_address_line2, org_city, org_state_or_province, org_country, org_postal_code, org_contact_email, org_contact_phone, org_contact_fax, org_contact_tty, org_contact_url, org_status)
-    service_url = ENV[service_url_method]
-    @request_hash = prepare_create_organization(org_name, org_address_line1, org_address_line2, org_city, org_state_or_province, org_country, org_postal_code, org_contact_email, org_contact_phone, org_contact_fax, org_contact_tty, org_contact_url, org_status)
-    payload_string = @request_hash.to_json.to_s
-    @response = Helper.request(service, service_url, username,password, payload_string, headers)
-    @response
-  end
-
-  def self.trigger_get_org(service, service_url_method, username,password, headers, org_id)
-    service_url = ENV[service_url_method] + org_id.to_s
+  def self.trigger_get_family(service, service_url_method, service_url_by, username,password, headers, family_search_val)
+    service_url = ENV[service_url_method] + service_url_by + family_search_val.to_s
+    puts service_url
     @response = Helper.request(service, service_url, username, password,nil, headers)
     @response
   end
 
-  def self.trigger_update_org_put(service, service_url_method, username, password,headers, org_id, org_name, org_address_line1, org_address_line2, org_city, org_state_or_province, org_country, org_postal_code, org_contact_email, org_contact_phone, org_contact_fax, org_contact_tty, org_contact_url, org_status)
-    service_url = ENV[service_url_method] + org_id.to_s
-    @request_hash = Organization_helper.prepare_update_organization(org_name, org_address_line1, org_address_line2, org_city, org_state_or_province, org_country, org_postal_code, org_contact_email, org_contact_phone, org_contact_fax, org_contact_tty, org_contact_url, org_id, org_status)
-    payload_string = @request_hash.to_json.to_s
-    @response = Helper.request(service, service_url, username,password, payload_string, headers)
-    @response
+  def self.verify_family(name, start_date, serial_number, family_id, organization_id, type, start_date1, end_date, id, status, response)
+    @end_date_null = end_date=='null' ? nil : end_date
+    response['family'].each { |this_family|
+      assert_equal(name, this_family['name'], 'family name ' + @error_string)
+      assert_equal(start_date.to_s, this_family['startDate'].to_s, 'family start date ' + @error_string)
+      assert_equal(serial_number.to_s, this_family['p30SerialNumber'].to_s, 'family serial number ' + @error_string)
+      assert_equal(family_id.to_s, this_family['member'][0]['familyId'].to_s, 'family ID ' + @error_string)
+      assert_equal(organization_id.to_s, this_family['member'][0]['organizationId'].to_s, 'family Org ID ' + @error_string)
+      assert_equal(type.to_s, this_family['member'][0]['type'].to_s, 'family type ' + @error_string)
+      assert_equal(start_date1.to_s, this_family['member'][0]['startDate'].to_s, 'family start date ' + @error_string)
+      assert_equal(@end_date_null.to_s, this_family['member'][0]['endDate'].to_s, 'family end date ' + @error_string)
+      assert_equal(id.to_s, this_family['id'].to_s, 'family id ' + @error_string)
+      assert_equal(status.to_s, this_family['status'].to_s, 'family status ' + @error_string)
+    }
   end
 
-  def self.verify_organization(name, ctep_id, address_line1, address_line2, city, state_or_province, country, postal_code, contact_email, contact_phone, contact_fax, contact_tty, contact_url, status, org_id, response)
-    assert_equal(name, response['name'], 'organization name' + @error_string)
-    assert_equal(ctep_id, response['ctepId'], 'organization ctepId' + @error_string)
-    assert_equal(address_line1, response['address']['line1'], 'organization address Line1' + @error_string)
-    assert_equal(address_line2, response['address']['line2'], 'organization address Line2' + @error_string)
-    assert_equal(city, response['address']['city'], 'organization city' + @error_string)
-    assert_equal(state_or_province, response['address']['stateOrProvince'], 'organization stateOrProvince' + @error_string)
-    assert_equal(country, response['address']['country'], 'organization country' + @error_string)
-    assert_equal(postal_code, response['address']['postalcode'], 'organization name' + @error_string)
-    assert_equal(contact_email, response['contact'][0]['value'], 'organization email' + @error_string)
-    assert_equal(contact_phone, response['contact'][1]['value'], 'organization phone' + @error_string)
-    assert_equal(contact_fax, response['contact'][2]['value'], 'organization fax' + @error_string)
-    assert_equal(contact_tty, response['contact'][3]['value'], 'organization TTY' + @error_string)
-    assert_equal(contact_url, response['contact'][4]['value'], 'organization URL' + @error_string)
-    assert_equal(status, response['status'], 'organization status' + @error_string)
-    assert_equal(org_id, response['id'], 'organization ID' + @error_string)
-  end
 
 end

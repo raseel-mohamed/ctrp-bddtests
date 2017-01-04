@@ -1,32 +1,20 @@
 {
-  "create_person": {
-    "prefix": "Dr.",
-    "firstName": "John",
-    "middleName": "M",
-    "lastName": "Phillips",
-    "suffix": "Vasu",
-    "address": {
-      "line1": "4100 John R Street",
-      "line2": "Division of Hematology",
-      "city": "Detroit",
-      "stateOrProvince": "MI",
-      "country": "USA",
-      "postalcode": "48201"
-    },
-    "contact": [
-      {
-        "value": "philipp@karmanos.org",
-        "type": "EMAIL"
-      },
-      {
-        "value": "313-576-9363",
-        "type": "PHONE"
-      },
-      {
-        "value": "313-576-8729",
-        "type": "FAX"
-      }
-    ],
-    "status": "PENDING"
-  }
+  "family": [
+    {
+      "name": "Holden Comprehensive Cancer Center",
+      "startDate": 1230786000000,
+      "p30SerialNumber": "86862",
+      "member": [
+        {
+          "familyId": 16491545,
+          "organizationId": 91802,
+          "type": "ORGANIZATIONAL",
+          "startDate": 1230786000000,
+          "endDate": null
+        }
+      ],
+      "id": 16491545,
+      "status": "ACTIVE"
+    }
+  ]
 }

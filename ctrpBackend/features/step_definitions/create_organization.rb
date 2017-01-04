@@ -33,6 +33,8 @@ When(/^I used the "([^"]*)" CTRP service with Content\-Type "([^"]*)" Accept "([
       case type
         when 'ORGANIZATION'
           @response = Organization_helper.trigger_get_org(service, 'create_organization', ENV['user1'], ENV['user1_password'],headers, @id)
+        when 'FAMILY'
+          @response = Family_helper.trigger_get_family(service, 'search_family', @family_search_by_url, ENV['user1'], ENV['user1_password'],headers, @family_search_val)
         else
           flunk 'Please provide correct type. Provided type <<' + arg4 + '>> does not exist'
       end
@@ -48,8 +50,8 @@ When(/^I used the "([^"]*)" CTRP service with Content\-Type "([^"]*)" Accept "([
   end
   @response_code = @response.code
   @response_body = JSON.parse(@response.body)
-  @id = @response_body['id']
-  puts arg4 + ' ID is: ' + @id.to_s
+  # @id = @response_body['id']
+  # puts arg4 + ' ID is: ' + @id.to_s
 end
 
 

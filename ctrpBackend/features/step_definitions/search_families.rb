@@ -1,103 +1,58 @@
-Given(/^I want to create Organization with values$/) do |table|
-  @org_name = table.rows_hash['name']
-  @org_address_line1 = table.rows_hash['address_line1']
-  @org_address_line2 = table.rows_hash['address_line2']
-  @org_city = table.rows_hash['city']
-  @org_state_or_province = table.rows_hash['state_or_province']
-  @org_country = table.rows_hash['country']
-  @org_postal_code = table.rows_hash['postal_code']
-  @org_contact_email = table.rows_hash['contact_email']
-  @org_contact_phone = table.rows_hash['contact_phone']
-  @org_contact_fax = table.rows_hash['contact_fax']
-  @org_contact_tty = table.rows_hash['contact_TTY']
-  @org_contact_url = table.rows_hash['contact_URL']
-  @org_status = table.rows_hash['status']
-end
+# | name               | Holden Comprehensive Cancer Center         |
+# | startDate          | 1230786000000                              |
+# | p30SerialNumber    | 86862                                      |
+# | member             |                                            |
+# | familyId           | 16491545                                   |
+# | organizationId     | 91802                                      |
+# | type               | ORGANIZATIONAL                             |
+# | startDate1          | 1230786000000                             |
+# | endDate            | null                                       |
+# | id                 | 16491545                                   |
+# | status             | ACTIVE                                     |
 
-
-When(/^I used the "([^"]*)" CTRP service with Content\-Type "([^"]*)" Accept "([^"]*)" for "([^"]*)"$/) do |arg1, arg2, arg3, arg4|
-  headers = {:content_type => arg2, :accept => arg3}
-  service = arg1.upcase
-  type = arg4.upcase
-  case service
-    when 'POST'
-      case type
-        when 'ORGANIZATION'
-          @response = Organization_helper.trigger_create_org_post(service, 'create_organization', ENV['user1'], ENV['user1_password'], headers, @org_name, @org_address_line1, @org_address_line2, @org_city, @org_state_or_province, @org_country, @org_postal_code, @org_contact_email, @org_contact_phone, @org_contact_fax, @org_contact_tty, @org_contact_url, @org_status)
-        when 'PERSON'
-          @response = Person_helper.trigger_create_person_post(service, 'create_person', ENV['user1'], ENV['user1_password'], headers, @person_prefix, @person_firstname, @person_middlename, @person_lastname, @person_suffix, @person_address_line1, @person_address_line2, @person_city, @person_state_or_province, @person_country, @person_postal_code, @person_contact_email, @person_contact_phone, @person_contact_fax, @person_status)
-        else
-          flunk 'Please provide correct type. Provided type <<' + arg4 + '>> does not exist'
-      end
-    when 'GET'
-      case type
-        when 'ORGANIZATION'
-          @response = Organization_helper.trigger_get_org(service, 'create_organization', ENV['user1'], ENV['user1_password'],headers, @id)
-        else
-          flunk 'Please provide correct type. Provided type <<' + arg4 + '>> does not exist'
-      end
-    when 'PUT'
-      case type
-        when 'ORGANIZATION'
-          @response = Organization_helper.trigger_update_org_put(service, 'update_organization', ENV['user1'],ENV['user1_password'], headers, @id, @org_name_update, @org_address_line1, @org_address_line2, @org_city, @org_state_or_province, @org_country, @org_postal_code, @org_contact_email, @org_contact_phone, @org_contact_fax, @org_contact_tty, @org_contact_url, @org_status)
-        else
-          flunk 'Please provide correct type. Provided type <<' + arg4 + '>> does not exist'
-      end
+Given(/^I want to search a family with following fileds: "([^"]*)" and values: "([^"]*)"$/) do |arg1, arg2|
+  fields = arg1.upcase
+  case fields
+    when 'NAME'
+      @family_search_by_url = 'families?name='
+      @family_search_val = arg2
+    when 'ID'
+      @family_search_by_url = 'family/'
+      @family_search_val = arg2.to_s
+    when 'ORGANIZATIONID'
+      @family_search_by_url = 'families?organizationId='
+      @family_search_val = arg2.to_s
     else
-      flunk 'Please choose correct service. Provided service <<' + arg1 + '>> does not exist'
+      flunk 'Please provide correct fields. Provided fields <<' + arg1 + '>> does not exist'
   end
-  @response_code = @response.code
-  @response_body = JSON.parse(@response.body)
-  @id = @response_body['id']
-  puts arg4 + ' ID is: ' + @id.to_s
+ #test
 end
 
-
-Then(/^response to "([^"]*)" should be "([^"]*)"$/) do |arg1, arg2|
-  expect(@response_code.to_s).to eq arg2
+And(/^the "([^"]*)" response body should be a "([^"]*)" array with elements$/) do |arg1, arg2, table|
+  # table is a Cucumber::Core::Ast::DataTable
+    @family_name = table.rows_hash['name']
+    @start_date = table.rows_hash['startDate']
+    @serial_number = table.rows_hash['p30SerialNumber']
+    @member = table.rows_hash['']
+    @family_id = table.rows_hash['familyId']
+    @organization_id = table.rows_hash['organizationId']
+    @type = table.rows_hash['type']
+    @start_date1 = table.rows_hash['startDate1']
+    @end_date = table.rows_hash['endDate']
+    @id = table.rows_hash['id']
+    @status = table.rows_hash['status']
+  # Write code here that turns the phrase above into concrete actions
+    case arg1.upcase
+      when 'JSON'
+        case arg2.upcase
+          when 'FAMILY'
+            Family_helper.verify_family(@family_name, @start_date, @serial_number, @family_id, @organization_id, @type, @start_date1, @end_date, @id, @status, @response_body)
+          else
+            flunk 'Provided <<' + arg2 + '>> does not exist'
+        end
+      when 'XML'
+        #Need to add function
+      else
+        flunk 'Please provide JSON or XML to verify. Provided [' + arg1 + '>] does not exist'
+    end
 end
-
-Then(/^response body should include above created Organization values$/) do
-  Organization_helper.verify_organization(@org_name, nil, @org_address_line1, @org_address_line2, @org_city, @org_state_or_province, @org_country, @org_postal_code, @org_contact_email, @org_contact_phone, @org_contact_fax, @org_contact_tty, @org_contact_url, @org_status, @id, @response_body)
-end
-
-Given(/^an Organization exist with values$/) do |table|
-  @org_name = table.rows_hash['name']
-  @org_address_line1 = table.rows_hash['address_line1']
-  @org_address_line2 = table.rows_hash['address_line2']
-  @org_city = table.rows_hash['city']
-  @org_state_or_province = table.rows_hash['state_or_province']
-  @org_country = table.rows_hash['country']
-  @org_postal_code = table.rows_hash['postal_code']
-  @org_contact_email = table.rows_hash['contact_email']
-  @org_contact_phone = table.rows_hash['contact_phone']
-  @org_contact_fax = table.rows_hash['contact_fax']
-  @org_contact_tty = table.rows_hash['contact_TTY']
-  @org_contact_url = table.rows_hash['contact_URL']
-  @org_status = table.rows_hash['status']
-
-  headers = {:content_type => 'application/json', :accept => 'application/json'}
-  @response = Organization_helper.trigger_create_org_post('post', 'create_organization', ENV['user1'], ENV['user1_password'],headers, @org_name, @org_address_line1, @org_address_line2, @org_city, @org_state_or_province, @org_country, @org_postal_code, @org_contact_email, @org_contact_phone, @org_contact_fax, @org_contact_tty, @org_contact_url, @org_status)
-  puts 'Response code for Created organization: ' + @response.code.to_s
-  @response_body = JSON.parse(@response.body)
-  @id = @response_body['id']
-  puts 'organization ID is: ' + @id.to_s
-end
-
-Given(/^I want to update the organization with values$/) do |table|
-  @org_name_update = table.rows_hash['name']
-  @org_address_line1 = table.rows_hash['address_line1']
-  @org_address_line2 = table.rows_hash['address_line2']
-  @org_city = table.rows_hash['city']
-  @org_state_or_province = table.rows_hash['state_or_province']
-  @org_country = table.rows_hash['country']
-  @org_postal_code = table.rows_hash['postal_code']
-  @org_contact_email = table.rows_hash['contact_email']
-  @org_contact_phone = table.rows_hash['contact_phone']
-  @org_contact_fax = table.rows_hash['contact_fax']
-  @org_contact_tty = table.rows_hash['contact_TTY']
-  @org_contact_url = table.rows_hash['contact_URL']
-  @org_status = table.rows_hash['status']
-end
-
-
