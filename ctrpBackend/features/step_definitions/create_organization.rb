@@ -50,7 +50,9 @@ When(/^I used the "([^"]*)" CTRP service with Content\-Type "([^"]*)" Accept "([
   end
   @response_code = @response.code
   @response_body = JSON.parse(@response.body)
-  @response_body['family'].each { |this_family|
+  list_key = arg4.to_s
+
+  @response_body[list_key].each { |this_family|
     @id = this_family['id']
     puts arg4 + ' ID is: ' + @id.to_s
   }
