@@ -35,6 +35,8 @@ When(/^I used the "([^"]*)" CTRP service with Content\-Type "([^"]*)" Accept "([
           @response = Organization_helper.trigger_get_org(service, 'create_organization', ENV['user1'], ENV['user1_password'],headers, @id)
         when 'PERSON'
           @response = Person_helper.trigger_get_person(service, 'create_person', ENV['user1'], ENV['user1_password'], headers, @id)
+        when 'FAMILY'
+          @response = Family_helper.trigger_get_family(service, 'search_family', @family_search_by_url, ENV['user1'], ENV['user1_password'],headers, @family_search_val)
         else
           flunk 'Please provide correct type. Provided type <<' + arg4 + '>> does not exist'
       end
@@ -52,8 +54,12 @@ When(/^I used the "([^"]*)" CTRP service with Content\-Type "([^"]*)" Accept "([
   end
   @response_code = @response.code
   @response_body = JSON.parse(@response.body)
-  @id = @response_body['id']
-  puts arg4 + ' ID is: ' + @id.to_s
+  @response_body['family'].each { |this_family|
+    @id = this_family['id']
+    puts arg4 + ' ID is: ' + @id.to_s
+  }
+  # @id = @response_body['id']
+  # puts arg4 + ' ID is: ' + @id.to_s
 end
 
 
@@ -82,10 +88,10 @@ Given(/^an Organization exist with values$/) do |table|
 
   headers = {:content_type => 'application/json', :accept => 'application/json'}
   @response = Organization_helper.trigger_create_org_post('post', 'create_organization', ENV['user1'], ENV['user1_password'],headers, @org_name, @org_address_line1, @org_address_line2, @org_city, @org_state_or_province, @org_country, @org_postal_code, @org_contact_email, @org_contact_phone, @org_contact_fax, @org_contact_tty, @org_contact_url, @org_status)
-  puts 'Response code for Created Organization: ' + @response.code.to_s
+  puts 'Response code for Created organization: ' + @response.code.to_s
   @response_body = JSON.parse(@response.body)
   @id = @response_body['id']
-  puts 'Organization ID is: ' + @id.to_s
+  puts 'organization ID is: ' + @id.to_s
 end
 
 Given(/^I want to update the organization with values$/) do |table|
