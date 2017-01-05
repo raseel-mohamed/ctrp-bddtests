@@ -1,3 +1,6 @@
+require 'rspec'
+require 'json'
+require 'rest-client'
 class Organization_helper
 
   @error_string = ' does not match'
@@ -51,12 +54,22 @@ class Organization_helper
     payload_string = @request_hash.to_json.to_s
     @response = Helper.request(service, service_url, username,password, payload_string, headers)
     @response
+    @response_code = @response.code
+    @response_body = JSON.parse(@response.body)
+    @id = @response_body['id']
+    puts  'Org ID is: ' + @id.to_s
+    return @response, @response_code, @response_body, @id
   end
 
   def self.trigger_get_org(service, service_url_method, username,password, headers, org_id)
     service_url = ENV[service_url_method] + org_id.to_s
     @response = Helper.request(service, service_url, username, password,nil, headers)
     @response
+    @response_code = @response.code
+    @response_body = JSON.parse(@response.body)
+    @id = @response_body['id']
+    puts ' ID is: ' + @id.to_s
+    return @response, @response_code, @response_body, @id
   end
 
   def self.trigger_update_org_put(service, service_url_method, username, password,headers, org_id, org_name, org_address_line1, org_address_line2, org_city, org_state_or_province, org_country, org_postal_code, org_contact_email, org_contact_phone, org_contact_fax, org_contact_tty, org_contact_url, org_status)
@@ -65,6 +78,11 @@ class Organization_helper
     payload_string = @request_hash.to_json.to_s
     @response = Helper.request(service, service_url, username,password, payload_string, headers)
     @response
+    @response_code = @response.code
+    @response_body = JSON.parse(@response.body)
+    @id = @response_body['id']
+    puts ' ID is: ' + @id.to_s
+    return @response, @response_code, @response_body, @id
   end
 
   def self.verify_organization(name, ctep_id, address_line1, address_line2, city, state_or_province, country, postal_code, contact_email, contact_phone, contact_fax, contact_tty, contact_url, status, org_id, response)

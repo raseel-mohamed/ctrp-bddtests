@@ -1,4 +1,6 @@
-
+require 'rspec'
+require 'json'
+require 'rest-client'
 class Helper
 
   def self.request(service, url, username, password, payload, headers)
