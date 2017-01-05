@@ -1,6 +1,6 @@
 Feature: 01 Create Organization
 
-  @critical @runthis1
+  @critical
   Scenario: #1 To Create an Organization in CTRP
     Given I want to create Organization with values
       | name              | Mayo Clinic Test1         |
@@ -24,7 +24,7 @@ Feature: 01 Create Organization
     And response body should include above created Organization values
 
 
-  @critical @runthis1
+  @critical
   Scenario: #2 To Update an Organization in CTRP
     Given an Organization exist with values
       | name              | Mayo Clinic Test2         |
