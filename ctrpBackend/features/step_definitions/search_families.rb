@@ -16,12 +16,15 @@ Given(/^I want to search a family with following fileds: "([^"]*)" and values: "
     when 'NAME'
       @family_search_by_url = 'families?name='
       @family_search_val = arg2
+      @search_by_flag = fields
     when 'ID'
       @family_search_by_url = 'family/'
       @family_search_val = arg2.to_s
+      @search_by_flag = fields
     when 'ORGANIZATIONID'
       @family_search_by_url = 'families?organizationId='
       @family_search_val = arg2.to_s
+      @search_by_flag = fields
     else
       flunk 'Please provide correct fields. Provided fields <<' + arg1 + '>> does not exist'
   end
@@ -46,7 +49,7 @@ And(/^the "([^"]*)" response body should be a "([^"]*)" array with elements$/) d
       when 'JSON'
         case arg2.upcase
           when 'FAMILY'
-            Family_helper.verify_family(@family_name, @start_date, @serial_number, @family_id, @organization_id, @type, @start_date1, @end_date, @id, @status, @response_body)
+            Family_helper.verify_family(@family_name, @start_date, @serial_number, @family_id, @organization_id, @type, @start_date1, @end_date, @id, @status, @response_body, @search_by_flag)
           else
             flunk 'Provided <<' + arg2 + '>> does not exist'
         end

@@ -1,6 +1,6 @@
 Feature: Family service
 
-  @critical
+  @critical1
   Scenario Outline: Search a Family
     Given I want to search a family with following fileds: "<fields>" and values: "<values>"
     When I used the "GET" CTRP service with Content-Type "" Accept "application/json" for "Family"
@@ -21,5 +21,5 @@ Feature: Family service
     Examples:
       | fields             | values                                     |
       | name               | Holden Comprehensive Cancer Center         |
-#      | id                 | 16491545                                   |
-#      | organizationId     | 91802                                      |
+      | id                 | 16491545                                   |
+      | organizationId     | 91802                                      |

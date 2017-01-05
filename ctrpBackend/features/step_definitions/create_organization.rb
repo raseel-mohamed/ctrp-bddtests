@@ -40,7 +40,7 @@ When(/^I used the "([^"]*)" CTRP service with Content\-Type "([^"]*)" Accept "([
         when 'PERSON'
           @response, @response_code, @response_body, @id  = Person_helper.trigger_get_person(service, 'create_person', ENV['user1'], ENV['user1_password'], headers, @id)
         when 'FAMILY'
-          @response,@response_code, @response_body, @id = Family_helper.trigger_get_family(service, 'search_family', @family_search_by_url, ENV['user1'], ENV['user1_password'],headers, @family_search_val)
+          @response,@response_code, @response_body, @id = Family_helper.trigger_get_family(service, 'search_family', @family_search_by_url, ENV['user1'], ENV['user1_password'],headers, @family_search_val, @search_by_flag)
         else
           flunk 'Please provide correct type. Provided type <<' + arg4 + '>> does not exist'
       end
