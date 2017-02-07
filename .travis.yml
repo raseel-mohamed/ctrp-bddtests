@@ -27,9 +27,9 @@ before_script:
   - gem install bundler
   - bundle install
   # Update Node UI test dependencies
-  - cd nci-match-ui-bddtests
-  - npm install
-  - cd ..
+  # - cd nci-match-ui-bddtests
+  # - npm install
+  # - cd ..
   # Version reporting
   - ruby -v
   - bundle --version
