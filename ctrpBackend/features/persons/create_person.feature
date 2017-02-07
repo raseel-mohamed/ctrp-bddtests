@@ -1,6 +1,6 @@
 Feature: 01 Create Person
 
-  @critical
+  @po_high
   Scenario: #1 To Create a person in CTRP
     Given I want to create person with values
       | prefix              | Dr.                       |
@@ -26,7 +26,7 @@ Feature: 01 Create Person
     And response body should include above created person values
 
 
-  @critical
+  @po_medium
   Scenario: #2 To Update a person in CTRP
     Given a person exists with values
       | prefix              | Dr.                       |
