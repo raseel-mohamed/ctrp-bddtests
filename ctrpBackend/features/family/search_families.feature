@@ -1,4 +1,4 @@
-Feature: Family service
+git Feature: Family service
 
   @critical1
   Scenario Outline: Search a Family
