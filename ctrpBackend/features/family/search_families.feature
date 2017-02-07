@@ -1,4 +1,4 @@
-git Feature: Family service
+Feature: Family service
 
   @po_low
   Scenario Outline: Search a Family
