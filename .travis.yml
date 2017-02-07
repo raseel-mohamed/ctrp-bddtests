@@ -65,6 +65,8 @@ script:
   - "sh -e /etc/init.d/xvfb start"
   - sleep 3 # give xvfb some time to start
   # Run UI tests
+  - pwd
+  - cucumber ctrpBackend/features/ -r ctrpBackend/features/
   # - cd nci-match-ui-bddtests/
   # Run protractor only if the tag is UI or demo
   # - if [ "$CUC_TAG" = "@ui" -o "$CUC_TAG" = "@demo" ]; then protractor config.js --cucumberOpts.tags='~@broken' --cucumberOpts.tags=$CUC_TAG$P1,$CUC_TAG$P2 --troubleshoot; fi
