@@ -15,7 +15,7 @@ org_endpoint = 'organization-rest-service/organization/'
 per_endpoint = 'person-rest-service/person/'
 fam_endpoint = 'family-rest-service/'
 
-ENV['choose_ENV'] = 'qa2'
+ENV['choose_ENV'] = 'local'
 ENV['user1'] = 'ctrpqatester1'
 ENV['user1_password'] = 'Welcome@1'
 
