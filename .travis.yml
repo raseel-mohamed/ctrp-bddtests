@@ -55,6 +55,10 @@ script:
   - export P3="_p3"
   # Run Cucumber @tag specific tests
   # - ls -alt results
+  # Run ctrp-bddtests
+  - pwd
+  - cd ctrp-bddtests
+  - cucumber ctrpBackend/features/ -r ctrpBackend/features/
   # - rm results/*
   # - cd uMATCH/PedMATCH; bundle exec parallel_cucumber features/ -o '-r features/step_definitions/ -r features/support/ -t $CUC_TAG$P1,$CUC_TAG$P2 --format json --out ../../results/output-$CUC_TAG$P1-$TEST_ENV_NUMBER.json --expand' -n 2
   # - cd ../..
@@ -65,8 +69,6 @@ script:
   - "sh -e /etc/init.d/xvfb start"
   - sleep 3 # give xvfb some time to start
   # Run UI tests
-  - pwd
-  - cucumber ctrpBackend/features/ -r ctrpBackend/features/
   # - cd nci-match-ui-bddtests/
   # Run protractor only if the tag is UI or demo
   # - if [ "$CUC_TAG" = "@ui" -o "$CUC_TAG" = "@demo" ]; then protractor config.js --cucumberOpts.tags='~@broken' --cucumberOpts.tags=$CUC_TAG$P1,$CUC_TAG$P2 --troubleshoot; fi
