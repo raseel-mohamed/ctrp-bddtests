@@ -6,6 +6,7 @@ addons:
   - firefox: "45.0"
 node_js:
   - 6
+  
 before_install:
   - echo $TRIGGER_REPO
   - echo $AUTHOR
