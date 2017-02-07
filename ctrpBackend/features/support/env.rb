@@ -2,7 +2,7 @@ require 'rspec'
 require 'json'
 require 'rest-client'
 require 'rspec/expectations'
-require "test/unit/assertions"
+require 'test/unit/assertions'
 include Test::Unit::Assertions
 
 
