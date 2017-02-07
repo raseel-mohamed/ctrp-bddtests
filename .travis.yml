@@ -57,7 +57,10 @@ script:
   # - ls -alt results
   # Run ctrp-bddtests
   - pwd
+  - ls -ltar
   - cd ctrp-bddtests
+  - pwd
+  - ls -ltar
   - cucumber ctrpBackend/features/ -r ctrpBackend/features/
   # - rm results/*
   # - cd uMATCH/PedMATCH; bundle exec parallel_cucumber features/ -o '-r features/step_definitions/ -r features/support/ -t $CUC_TAG$P1,$CUC_TAG$P2 --format json --out ../../results/output-$CUC_TAG$P1-$TEST_ENV_NUMBER.json --expand' -n 2
