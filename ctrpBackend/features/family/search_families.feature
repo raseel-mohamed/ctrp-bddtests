@@ -7,13 +7,13 @@ Feature: Family service
     Then response to "GET" should be "200"
     And the "JSON" response body should be a "Family" array with elements
        | name               | Holden Comprehensive Cancer Center        |
-       | startDate          | 1230786000000                             |
+       | startDate          | 1230768000000                             |
        | p30SerialNumber    | 86862                                     |
        | member             |                                           |
        | familyId           | 16491545                                  |
        | organizationId     | 91802                                     |
        | type               | ORGANIZATIONAL                            |
-       | startDate1         | 1230786000000                             |
+       | startDate1         | 1230768000000                             |
        | endDate            | null                                      |
        | id                 | 16491545                                  |
        | status             | ACTIVE                                    |

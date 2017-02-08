@@ -17,7 +17,7 @@ per_endpoint = 'person-rest-service/person/'
 fam_endpoint = 'family-rest-service/'
 
 ENV['choose_ENV'] = 'aws'
-ENV['user1'] = 'curator'
+ENV['user1'] = 'ctrpqatester1'
 ENV['user1_password'] = 'pass'
 
 case ENV['choose_ENV']
