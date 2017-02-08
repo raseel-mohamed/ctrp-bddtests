@@ -1,6 +1,6 @@
 Feature: Importing trial from clinical trials.gov
 
-  @high @FDAAA
+  @high @FDAAA @CTRPMICRO-16
   Scenario: Import a Trial from clinical trials.gov and verify fields in Regulatory Information section(PA)
     Given I Import a trial with NCT ID "NCT03045783"
     When I go to Regulatory Information section in PA app
@@ -28,7 +28,7 @@ Feature: Importing trial from clinical trials.gov
       |Field Name                                   |New Field Name |
       |Delayed Posting Indicator                    |Unapproved/Uncleared Device|
 
-  @high @FDAAA
+  @high @FDAAA @CTRPMICRO-17
   Scenario: Import a Trial from clinical trials.gov and verify fields in Eligibility Criteria section(PA)
     Given I Import a trial with NCT ID "NCT03045770"
     When I go to Eligibility Criteria section in PA app
