@@ -1,5 +1,6 @@
 Feature: Importing trial from clinical trials.gov
 
+
   @high @FDAAA @CTRPMICRO-16 @CTRPMICRO-18
   Scenario: Import a Trial from clinical trials.gov and verify fields in Regulatory Information section(PA)
     Given I Import a trial with NCT ID "NCT03045783"
@@ -46,3 +47,4 @@ Feature: Importing trial from clinical trials.gov
     And these existing fields value should be updated
       |Field Name               |Existing Field Value |New Field Value|
       |Sex(old name: Gender)    |Both                 |All            |
+
