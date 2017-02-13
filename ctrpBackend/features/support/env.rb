@@ -8,7 +8,7 @@ include Test::Unit::Assertions
 
 base_qa2 = 'https://trials-qa2.nci.nih.gov/'
 base_local = 'https://localhost/'
-base_aws = 'http://ctrp-external-alb-1048354744.us-east-1.elb.amazonaws.com:39080/'
+base_aws = 'http://ctrp-po-inttest-elb-1603106388.us-east-1.elb.amazonaws.com:39080/'
 
 
 po_point = 'po-webservices/services/'
