@@ -1,14 +1,3 @@
-# | name               | Holden Comprehensive Cancer Center         |
-# | startDate          | 1230786000000                              |
-# | p30SerialNumber    | 86862                                      |
-# | member             |                                            |
-# | familyId           | 16491545                                   |
-# | organizationId     | 91802                                      |
-# | type               | ORGANIZATIONAL                             |
-# | startDate1          | 1230786000000                             |
-# | endDate            | null                                       |
-# | id                 | 16491545                                   |
-# | status             | ACTIVE                                     |
 
 Given(/^I want to search a family with following fileds: "([^"]*)" and values: "([^"]*)"$/) do |arg1, arg2|
   fields = arg1.upcase
