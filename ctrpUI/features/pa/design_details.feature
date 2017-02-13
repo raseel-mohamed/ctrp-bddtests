@@ -23,6 +23,7 @@ Feature: Design Details
       | Existing Field Value                 | New Field Value                  |
       | Subject                              | Participant                      |
       | Caregiver                            | Care Provider                    |
+      | Trial Phase 0                        | Early Phase 1                    |
     And the conditional fields should be
       | Field Name                     | Condition                                                               |
       | No Masking                     | When No Masking is selected other fields in masking should be Null      |
