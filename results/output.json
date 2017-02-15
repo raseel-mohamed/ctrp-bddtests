@@ -1,6 +1,6 @@
 [
   {
-    "uri": "ctrpBackend/features/pa_reg/eligibility_criteria.feature",
+    "uri": "features/pa_reg/eligibility_criteria.feature",
     "id": "eligibility-criteria",
     "keyword": "Feature",
     "name": "Eligibility Criteria",
@@ -34,7 +34,7 @@
             "name": "I created a new Trial through rest service",
             "line": 23,
             "match": {
-              "location": "ctrpBackend/features/pa_reg/eligibility_criteria.feature:23"
+              "location": "features/pa_reg/eligibility_criteria.feature:23"
             },
             "result": {
               "status": "undefined"
@@ -65,7 +65,7 @@
               }
             ],
             "match": {
-              "location": "ctrpBackend/features/step_definitions/import_trials.rb:13"
+              "location": "features/step_definitions/import_trials.rb:13"
             },
             "result": {
               "status": "skipped"
@@ -96,7 +96,7 @@
               }
             ],
             "match": {
-              "location": "ctrpBackend/features/step_definitions/import_trials.rb:23"
+              "location": "features/step_definitions/import_trials.rb:23"
             },
             "result": {
               "status": "skipped"
@@ -121,7 +121,7 @@
               }
             ],
             "match": {
-              "location": "ctrpBackend/features/step_definitions/import_trials.rb:33"
+              "location": "features/step_definitions/import_trials.rb:33"
             },
             "result": {
               "status": "skipped"
@@ -148,10 +148,78 @@
               }
             ],
             "match": {
-              "location": "ctrpBackend/features/step_definitions/import_trials.rb:43"
+              "location": "features/step_definitions/import_trials.rb:43"
             },
             "result": {
               "status": "skipped"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "uri": "features/pa_reg/outcome_measures.feature",
+    "id": "outcome-measures",
+    "keyword": "Feature",
+    "name": "Outcome Measures",
+    "description": "",
+    "line": 1,
+    "elements": [
+      {
+        "id": "outcome-measures;import-a-trial-from-clinical-trials.gov-through-rest-and-verify-fields-in-outcome-measures-section",
+        "keyword": "Scenario",
+        "name": "Import a Trial from clinical trials.gov through Rest and verify fields in Outcome Measures section",
+        "description": "",
+        "line": 4,
+        "type": "scenario",
+        "tags": [
+          {
+            "name": "@pa_high",
+            "line": 3
+          },
+          {
+            "name": "@FDAAA",
+            "line": 3
+          },
+          {
+            "name": "@CTRPMICRO-35",
+            "line": 3
+          }
+        ],
+        "steps": [
+          {
+            "keyword": "Given ",
+            "name": "I Import a trial with NCT ID \"NCT03046680\" through rest service",
+            "line": 5,
+            "match": {
+              "location": "features/pa_reg/outcome_measures.feature:5"
+            },
+            "result": {
+              "status": "undefined"
+            }
+          },
+          {
+            "keyword": "Then ",
+            "name": "for the Outcome measures table these columns should be removed",
+            "line": 6,
+            "rows": [
+              {
+                "cells": [
+                  "Column Name"
+                ]
+              },
+              {
+                "cells": [
+                  "Safety Issue"
+                ]
+              }
+            ],
+            "match": {
+              "location": "features/pa_reg/outcome_measures.feature:6"
+            },
+            "result": {
+              "status": "undefined"
             }
           }
         ]

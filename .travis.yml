@@ -57,7 +57,10 @@ script:
   # - ls -alt results
   # Run ctrp-bddtests
   - cd ctrp-bddtests/
-  - cucumber ctrpBackend/features/ -r ctrpBackend/features/ --format json --out ../results/output.json --expand
+  # run all:
+  - cucumber ctrpBackend/features/ -r ctrpBackend/features/
+  # run by tag(s)
+  #- cucumber features/ -t @CTRPMICRO-34,@CTRPMICRO-35 --format json --out ../results/output.json --expand
   # - rm results/*
   # - cd uMATCH/PedMATCH; bundle exec parallel_cucumber features/ -o '-r features/step_definitions/ -r features/support/ -t $CUC_TAG$P1,$CUC_TAG$P2 --format json --out ../../results/output-$CUC_TAG$P1-$TEST_ENV_NUMBER.json --expand' -n 2
   # - cd ../..
