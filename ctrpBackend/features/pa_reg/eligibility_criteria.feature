@@ -1,8 +1,8 @@
 Feature: Eligibility Criteria
 
-  @pa_high @FDAAA @CTRPMICRO-17
-  Scenario: Import a Trial from clinical trials.gov and verify fields in Eligibility Criteria section(PA)
-    Given I Import a trial with NCT ID "NCT03049878"
+  @pa_high @FDAAA @CTRPMICRO-33
+  Scenario: Import a Trial from clinical trials.gov through Rest service and verify fields in Eligibility Criteria section
+    Given I Import a trial with NCT ID "NCT03049878" through rest service
     Then new fields with options should be there
       | Field Name                     | List Of Value |
       | Gender                         | Yes\NO        |
@@ -18,10 +18,9 @@ Feature: Eligibility Criteria
       | Field Name            | Existing Field Value | New Field Value |
       | Sex(old name: Gender) | Both                 | All             |
 
-  @pa_high @FDAAA @CTRPMICRO-17
-  Scenario: Register a Trial and verify fields in Eligibility Criteria section(PA)
-    Given I registered a new Trial
-    When I go to Eligibility Criteria section in PA app
+  @pa_high @FDAAA @CTRPMICRO-34
+  Scenario: Verify fields in Eligibility Criteria section for a new Trial through Rest service
+    Given I created a new Trial through rest service
     Then new fields with options should be there
       | Field Name                     | List Of Value |
       | Gender                         | Yes\NO        |

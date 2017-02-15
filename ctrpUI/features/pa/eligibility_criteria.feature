@@ -19,8 +19,8 @@ Feature: Eligibility Criteria
       | Field Name            | Existing Field Value | New Field Value |
       | Sex(old name: Gender) | Both                 | All             |
 
-  @pa_high @FDAAA @CTRPMICRO-17
-  Scenario: Register a Trial and verify fields in Eligibility Criteria section(PA)
+  @pa_high @FDAAA @CTRPMICRO-24
+  Scenario: Verify fields in Eligibility Criteria section for a new Trial (PA)
     Given I registered a new Trial
     When I go to Eligibility Criteria section in PA app
     Then new fields with options should be there

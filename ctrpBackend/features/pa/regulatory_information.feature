@@ -1,1 +1,0 @@
-Feature: Regulatory_Information

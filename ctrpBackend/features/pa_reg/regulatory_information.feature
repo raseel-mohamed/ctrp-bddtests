@@ -1,9 +1,8 @@
 Feature: Regulatory_Information
 
-  @pa_high @FDAAA @CTRPMICRO-16 @pa
-  Scenario: Import a Trial from clinical trials.gov and verify fields in Regulatory Information section(PA)
-    Given I Import a trial with NCT ID "NCT03045783"
-    When I go to Regulatory Information section in PA app
+  @pa_high @FDAAA @CTRPMICRO-36
+  Scenario: Import a Trial from clinical trials.gov through Rest and verify fields in Regulatory Information section
+    Given I Import a trial with NCT ID "NCT03045783" through rest service
     Then new fields with options should be there
       | Field Name                                   | List Of Value |
       | Studies a U.S. FDA-regulated Drug Product    | Yes\NO        |
@@ -29,10 +28,9 @@ Feature: Regulatory_Information
       | Delayed Posting Indicator | Unapproved/Uncleared Device |
 
 
-  @pa_high @FDAAA @CTRPMICRO-28 @pa
-  Scenario: Verify fields in Regulatory Information section(PA) for new Trial
-    Given I registered a new Trial
-    When I go to Regulatory Information section in PA app
+  @pa_high @FDAAA @CTRPMICRO-38
+  Scenario: Verify fields in Regulatory Information section for a new Trial through Rest service
+    Given I created a new Trial through rest service
     Then new fields with options should be there
       | Field Name                                   | List Of Value |
       | Studies a U.S. FDA-regulated Drug Product    | Yes\NO        |

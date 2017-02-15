@@ -12,7 +12,7 @@ Feature: Outcome Measures
       | Field Name   |
       | Safety Issue |
 
-  @pa_high @FDAAA  @pa
+  @pa_high @FDAAA  @pa @CTRPMICRO-27
   Scenario: Register a trial and verify fields in Outcome Measures section(PA)
     Given I registered a new Trial
     When I go to Outcome Measures section in PA app
