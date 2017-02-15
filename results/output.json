@@ -1,0 +1,161 @@
+[
+  {
+    "uri": "ctrpBackend/features/pa_reg/eligibility_criteria.feature",
+    "id": "eligibility-criteria",
+    "keyword": "Feature",
+    "name": "Eligibility Criteria",
+    "description": "",
+    "line": 1,
+    "elements": [
+      {
+        "id": "eligibility-criteria;verify-fields-in-eligibility-criteria-section-for-a-new-trial-through-rest-service",
+        "keyword": "Scenario",
+        "name": "Verify fields in Eligibility Criteria section for a new Trial through Rest service",
+        "description": "",
+        "line": 22,
+        "type": "scenario",
+        "tags": [
+          {
+            "name": "@pa_high",
+            "line": 21
+          },
+          {
+            "name": "@FDAAA",
+            "line": 21
+          },
+          {
+            "name": "@CTRPMICRO-34",
+            "line": 21
+          }
+        ],
+        "steps": [
+          {
+            "keyword": "Given ",
+            "name": "I created a new Trial through rest service",
+            "line": 23,
+            "match": {
+              "location": "ctrpBackend/features/pa_reg/eligibility_criteria.feature:23"
+            },
+            "result": {
+              "status": "undefined"
+            }
+          },
+          {
+            "keyword": "Then ",
+            "name": "new fields with options should be there",
+            "line": 24,
+            "rows": [
+              {
+                "cells": [
+                  "Field Name",
+                  "List Of Value"
+                ]
+              },
+              {
+                "cells": [
+                  "Gender",
+                  "Yes\\NO"
+                ]
+              },
+              {
+                "cells": [
+                  "Gender Eligibility Description",
+                  ""
+                ]
+              }
+            ],
+            "match": {
+              "location": "ctrpBackend/features/step_definitions/import_trials.rb:13"
+            },
+            "result": {
+              "status": "skipped"
+            }
+          },
+          {
+            "keyword": "And ",
+            "name": "the conditional fields should be",
+            "line": 28,
+            "rows": [
+              {
+                "cells": [
+                  "Field Name",
+                  "Condition"
+                ]
+              },
+              {
+                "cells": [
+                  "Gender",
+                  "Required if \"Sex\" is \"Male\" or \"Female\""
+                ]
+              },
+              {
+                "cells": [
+                  "Gender Eligibility Description",
+                  "Optional if Gender is \"Yes\", not available if Gender is \"No\""
+                ]
+              }
+            ],
+            "match": {
+              "location": "ctrpBackend/features/step_definitions/import_trials.rb:23"
+            },
+            "result": {
+              "status": "skipped"
+            }
+          },
+          {
+            "keyword": "And ",
+            "name": "these existing fields should be updated",
+            "line": 32,
+            "rows": [
+              {
+                "cells": [
+                  "Field Name",
+                  "New Field Name"
+                ]
+              },
+              {
+                "cells": [
+                  "Gender",
+                  "Sex"
+                ]
+              }
+            ],
+            "match": {
+              "location": "ctrpBackend/features/step_definitions/import_trials.rb:33"
+            },
+            "result": {
+              "status": "skipped"
+            }
+          },
+          {
+            "keyword": "And ",
+            "name": "these existing fields value should be updated",
+            "line": 35,
+            "rows": [
+              {
+                "cells": [
+                  "Field Name",
+                  "Existing Field Value",
+                  "New Field Value"
+                ]
+              },
+              {
+                "cells": [
+                  "Sex(old name: Gender)",
+                  "Both",
+                  "All"
+                ]
+              }
+            ],
+            "match": {
+              "location": "ctrpBackend/features/step_definitions/import_trials.rb:43"
+            },
+            "result": {
+              "status": "skipped"
+            }
+          }
+        ]
+      }
+    ]
+  }
+]

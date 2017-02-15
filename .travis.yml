@@ -57,7 +57,7 @@ script:
   # - ls -alt results
   # Run ctrp-bddtests
   - cd ctrp-bddtests/
-  # - cucumber ctrpBackend/features/ -r ctrpBackend/features/
+  - cucumber ctrpBackend/features/ -r ctrpBackend/features/ --format json --out ../results/output.json --expand
   # - rm results/*
   # - cd uMATCH/PedMATCH; bundle exec parallel_cucumber features/ -o '-r features/step_definitions/ -r features/support/ -t $CUC_TAG$P1,$CUC_TAG$P2 --format json --out ../../results/output-$CUC_TAG$P1-$TEST_ENV_NUMBER.json --expand' -n 2
   # - cd ../..
@@ -75,6 +75,8 @@ script:
   # - for filename in ../results/*.json; do filesize=$(wc -c <"$filename"); if [ $filesize -le 0 ]; then echo $filename is 0 bytes, deleted it; rm $filename; fi; done
   # - node support/generate_report.js
   # - cd ..
+  # To export the results to the JIRA test execution set
+  # - curl -H "Content-Type: application/json" -X POST -u ahmeds6:pass --data @results/output.json  https://tracker.nci.nih.gov/rest/raven/1.0/import/execution/cucumber
   - ls -alt
   # - mv results/ results_critical/; mkdir results
 after_success:
