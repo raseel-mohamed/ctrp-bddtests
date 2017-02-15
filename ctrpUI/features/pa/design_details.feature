@@ -1,6 +1,6 @@
 Feature: Design Details
 
-  @pa_high @FDAAA
+  @pa_high @FDAAA @CTRPMICRO-26
   Scenario: Import a Trial from clinical trials.gov and verify fields in Design Details section(PA)
     Given I Import a trial with NCT ID "NCT03045770"
     When I go to Design Details section in PA app
