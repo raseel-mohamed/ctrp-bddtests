@@ -13,3 +13,9 @@ To run the test using cucumber
 cucumber ctrpBackend/features/ -r ctrpBackend/features/
 
 ```
+
+
+To export the results to the JIRA test execution set
+```
+curl -H "Content-Type: application/json" -X POST -u ahmeds6:pass --data @results/output.json  https://tracker.nci.nih.gov/rest/raven/1.0/import/execution/cucumber
+```
