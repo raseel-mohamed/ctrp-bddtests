@@ -1,6 +1,6 @@
 Feature: Family service
 
-  @po_low
+  @po_low @po_test
   Scenario Outline: Search a Family
     Given I want to search a family with following fileds: "<fields>" and values: "<values>"
     When I used the "GET" CTRP service with Content-Type "" Accept "application/json" for "Family"

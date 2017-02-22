@@ -19,6 +19,11 @@ fam_endpoint = 'family-rest-service/'
 ENV['choose_ENV'] = 'aws'
 ENV['user1'] = 'ctrpqatester1'
 ENV['user1_password'] = 'pass'
+#put ENV["USER1_ID"]
+#put ENV["USER1_PASS"]
+
+puts 'user name: '+process.env.USER1_ID
+puts 'user pass: '+process.env.USER1_PASS
 
 case ENV['choose_ENV']
   when 'qa2'

@@ -1,225 +1,416 @@
 [
   {
-    "uri": "features/pa_reg/eligibility_criteria.feature",
-    "id": "eligibility-criteria",
+    "uri": "features/family/search_families.feature",
+    "id": "family-service",
     "keyword": "Feature",
-    "name": "Eligibility Criteria",
+    "name": "Family service",
     "description": "",
     "line": 1,
     "elements": [
       {
-        "id": "eligibility-criteria;verify-fields-in-eligibility-criteria-section-for-a-new-trial-through-rest-service",
-        "keyword": "Scenario",
-        "name": "Verify fields in Eligibility Criteria section for a new Trial through Rest service",
+        "id": "family-service;search-a-family;;2",
+        "keyword": "Scenario Outline",
+        "name": "Search a Family",
         "description": "",
-        "line": 22,
+        "line": 23,
         "type": "scenario",
         "tags": [
           {
-            "name": "@pa_high",
-            "line": 21
+            "name": "@po_low",
+            "line": 3
           },
           {
-            "name": "@FDAAA",
-            "line": 21
-          },
-          {
-            "name": "@CTRPMICRO-34",
-            "line": 21
+            "name": "@po_test",
+            "line": 3
           }
         ],
         "steps": [
           {
             "keyword": "Given ",
-            "name": "I created a new Trial through rest service",
+            "name": "I want to search a family with following fileds: \"name\" and values: \"Holden Comprehensive Cancer Center\"",
             "line": 23,
             "match": {
-              "location": "features/pa_reg/eligibility_criteria.feature:23"
+              "location": "features/step_definitions/search_families.rb:2"
             },
             "result": {
-              "status": "undefined"
+              "status": "passed",
+              "duration": 40337
+            }
+          },
+          {
+            "keyword": "When ",
+            "name": "I used the \"GET\" CTRP service with Content-Type \"\" Accept \"application/json\" for \"Family\"",
+            "line": 23,
+            "match": {
+              "location": "features/step_definitions/create_organization.rb:22"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 119425931
             }
           },
           {
             "keyword": "Then ",
-            "name": "new fields with options should be there",
+            "name": "response to \"GET\" should be \"200\"",
+            "line": 23,
+            "match": {
+              "location": "features/step_definitions/create_organization.rb:62"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 938660
+            }
+          },
+          {
+            "keyword": "And ",
+            "name": "the \"JSON\" response body should be a \"Family\" array with elements",
+            "line": 23,
+            "rows": [
+              {
+                "cells": [
+                  "name",
+                  "Holden Comprehensive Cancer Center"
+                ]
+              },
+              {
+                "cells": [
+                  "startDate",
+                  "1230768000000"
+                ]
+              },
+              {
+                "cells": [
+                  "p30SerialNumber",
+                  "86862"
+                ]
+              },
+              {
+                "cells": [
+                  "member",
+                  ""
+                ]
+              },
+              {
+                "cells": [
+                  "familyId",
+                  "16491545"
+                ]
+              },
+              {
+                "cells": [
+                  "organizationId",
+                  "91802"
+                ]
+              },
+              {
+                "cells": [
+                  "type",
+                  "ORGANIZATIONAL"
+                ]
+              },
+              {
+                "cells": [
+                  "startDate1",
+                  "1230768000000"
+                ]
+              },
+              {
+                "cells": [
+                  "endDate",
+                  "null"
+                ]
+              },
+              {
+                "cells": [
+                  "id",
+                  "16491545"
+                ]
+              },
+              {
+                "cells": [
+                  "status",
+                  "ACTIVE"
+                ]
+              }
+            ],
+            "match": {
+              "location": "features/step_definitions/search_families.rb:23"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 506327
+            }
+          }
+        ]
+      },
+      {
+        "id": "family-service;search-a-family;;3",
+        "keyword": "Scenario Outline",
+        "name": "Search a Family",
+        "description": "",
+        "line": 24,
+        "type": "scenario",
+        "tags": [
+          {
+            "name": "@po_low",
+            "line": 3
+          },
+          {
+            "name": "@po_test",
+            "line": 3
+          }
+        ],
+        "steps": [
+          {
+            "keyword": "Given ",
+            "name": "I want to search a family with following fileds: \"id\" and values: \"16491545\"",
+            "line": 24,
+            "match": {
+              "location": "features/step_definitions/search_families.rb:2"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 37829
+            }
+          },
+          {
+            "keyword": "When ",
+            "name": "I used the \"GET\" CTRP service with Content-Type \"\" Accept \"application/json\" for \"Family\"",
+            "line": 24,
+            "match": {
+              "location": "features/step_definitions/create_organization.rb:22"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 28263521
+            }
+          },
+          {
+            "keyword": "Then ",
+            "name": "response to \"GET\" should be \"200\"",
+            "line": 24,
+            "match": {
+              "location": "features/step_definitions/create_organization.rb:62"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 79012
+            }
+          },
+          {
+            "keyword": "And ",
+            "name": "the \"JSON\" response body should be a \"Family\" array with elements",
             "line": 24,
             "rows": [
               {
                 "cells": [
-                  "Field Name",
-                  "List Of Value"
+                  "name",
+                  "Holden Comprehensive Cancer Center"
                 ]
               },
               {
                 "cells": [
-                  "Gender",
-                  "Yes\\NO"
+                  "startDate",
+                  "1230768000000"
                 ]
               },
               {
                 "cells": [
-                  "Gender Eligibility Description",
+                  "p30SerialNumber",
+                  "86862"
+                ]
+              },
+              {
+                "cells": [
+                  "member",
                   ""
                 ]
-              }
-            ],
-            "match": {
-              "location": "features/step_definitions/import_trials.rb:13"
-            },
-            "result": {
-              "status": "skipped"
-            }
-          },
-          {
-            "keyword": "And ",
-            "name": "the conditional fields should be",
-            "line": 28,
-            "rows": [
+              },
               {
                 "cells": [
-                  "Field Name",
-                  "Condition"
+                  "familyId",
+                  "16491545"
                 ]
               },
               {
                 "cells": [
-                  "Gender",
-                  "Required if \"Sex\" is \"Male\" or \"Female\""
+                  "organizationId",
+                  "91802"
                 ]
               },
               {
                 "cells": [
-                  "Gender Eligibility Description",
-                  "Optional if Gender is \"Yes\", not available if Gender is \"No\""
-                ]
-              }
-            ],
-            "match": {
-              "location": "features/step_definitions/import_trials.rb:23"
-            },
-            "result": {
-              "status": "skipped"
-            }
-          },
-          {
-            "keyword": "And ",
-            "name": "these existing fields should be updated",
-            "line": 32,
-            "rows": [
-              {
-                "cells": [
-                  "Field Name",
-                  "New Field Name"
+                  "type",
+                  "ORGANIZATIONAL"
                 ]
               },
               {
                 "cells": [
-                  "Gender",
-                  "Sex"
-                ]
-              }
-            ],
-            "match": {
-              "location": "features/step_definitions/import_trials.rb:33"
-            },
-            "result": {
-              "status": "skipped"
-            }
-          },
-          {
-            "keyword": "And ",
-            "name": "these existing fields value should be updated",
-            "line": 35,
-            "rows": [
-              {
-                "cells": [
-                  "Field Name",
-                  "Existing Field Value",
-                  "New Field Value"
+                  "startDate1",
+                  "1230768000000"
                 ]
               },
               {
                 "cells": [
-                  "Sex(old name: Gender)",
-                  "Both",
-                  "All"
+                  "endDate",
+                  "null"
+                ]
+              },
+              {
+                "cells": [
+                  "id",
+                  "16491545"
+                ]
+              },
+              {
+                "cells": [
+                  "status",
+                  "ACTIVE"
                 ]
               }
             ],
             "match": {
-              "location": "features/step_definitions/import_trials.rb:43"
+              "location": "features/step_definitions/search_families.rb:23"
             },
             "result": {
-              "status": "skipped"
+              "status": "passed",
+              "duration": 379607
             }
           }
         ]
-      }
-    ]
-  },
-  {
-    "uri": "features/pa_reg/outcome_measures.feature",
-    "id": "outcome-measures",
-    "keyword": "Feature",
-    "name": "Outcome Measures",
-    "description": "",
-    "line": 1,
-    "elements": [
+      },
       {
-        "id": "outcome-measures;import-a-trial-from-clinical-trials.gov-through-rest-and-verify-fields-in-outcome-measures-section",
-        "keyword": "Scenario",
-        "name": "Import a Trial from clinical trials.gov through Rest and verify fields in Outcome Measures section",
+        "id": "family-service;search-a-family;;4",
+        "keyword": "Scenario Outline",
+        "name": "Search a Family",
         "description": "",
-        "line": 4,
+        "line": 25,
         "type": "scenario",
         "tags": [
           {
-            "name": "@pa_high",
+            "name": "@po_low",
             "line": 3
           },
           {
-            "name": "@FDAAA",
-            "line": 3
-          },
-          {
-            "name": "@CTRPMICRO-35",
+            "name": "@po_test",
             "line": 3
           }
         ],
         "steps": [
           {
             "keyword": "Given ",
-            "name": "I Import a trial with NCT ID \"NCT03046680\" through rest service",
-            "line": 5,
+            "name": "I want to search a family with following fileds: \"organizationId\" and values: \"91802\"",
+            "line": 25,
             "match": {
-              "location": "features/pa_reg/outcome_measures.feature:5"
+              "location": "features/step_definitions/search_families.rb:2"
             },
             "result": {
-              "status": "undefined"
+              "status": "passed",
+              "duration": 38714
+            }
+          },
+          {
+            "keyword": "When ",
+            "name": "I used the \"GET\" CTRP service with Content-Type \"\" Accept \"application/json\" for \"Family\"",
+            "line": 25,
+            "match": {
+              "location": "features/step_definitions/create_organization.rb:22"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 34846796
             }
           },
           {
             "keyword": "Then ",
-            "name": "for the Outcome measures table these columns should be removed",
-            "line": 6,
+            "name": "response to \"GET\" should be \"200\"",
+            "line": 25,
+            "match": {
+              "location": "features/step_definitions/create_organization.rb:62"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 58534
+            }
+          },
+          {
+            "keyword": "And ",
+            "name": "the \"JSON\" response body should be a \"Family\" array with elements",
+            "line": 25,
             "rows": [
               {
                 "cells": [
-                  "Column Name"
+                  "name",
+                  "Holden Comprehensive Cancer Center"
                 ]
               },
               {
                 "cells": [
-                  "Safety Issue"
+                  "startDate",
+                  "1230768000000"
+                ]
+              },
+              {
+                "cells": [
+                  "p30SerialNumber",
+                  "86862"
+                ]
+              },
+              {
+                "cells": [
+                  "member",
+                  ""
+                ]
+              },
+              {
+                "cells": [
+                  "familyId",
+                  "16491545"
+                ]
+              },
+              {
+                "cells": [
+                  "organizationId",
+                  "91802"
+                ]
+              },
+              {
+                "cells": [
+                  "type",
+                  "ORGANIZATIONAL"
+                ]
+              },
+              {
+                "cells": [
+                  "startDate1",
+                  "1230768000000"
+                ]
+              },
+              {
+                "cells": [
+                  "endDate",
+                  "null"
+                ]
+              },
+              {
+                "cells": [
+                  "id",
+                  "16491545"
+                ]
+              },
+              {
+                "cells": [
+                  "status",
+                  "ACTIVE"
                 ]
               }
             ],
             "match": {
-              "location": "features/pa_reg/outcome_measures.feature:6"
+              "location": "features/step_definitions/search_families.rb:23"
             },
             "result": {
-              "status": "undefined"
+              "status": "passed",
+              "duration": 270682
             }
           }
         ]

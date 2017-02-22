@@ -1,3 +1,9 @@
 .idea/*
 .idea/workspace.xml
 Gemfile.lock
+
+# Ignore node modules
+/ctrpUI/node_modules
+
+# Ignore results dir
+/results

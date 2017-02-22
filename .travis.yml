@@ -34,6 +34,8 @@ before_script:
   - ruby -v
   - bundle --version
   - gem --version
+  # Database drop and recreate
+  # - mvn -Dhttps.protocols=TLSv1.1,TLSv1.2 -Pinit-db,local sql:execute
   # - cd DataSetup
   # Purge queues
   # - ruby -r "./sqs_utilities.rb" -e "SQSUtilities.purge_queue 'ion_reporter_queue'"
@@ -47,7 +49,6 @@ before_script:
   # - cd ..
   # # Reset ECOG Mock service Data
   # - curl -X POST "http://pedmatch-int.nci.nih.gov:3000/restart" -d ''
-
 script:
 
   #- export P1="_p1"
@@ -58,9 +59,11 @@ script:
   # Run ctrp-bddtests
   - cd ctrp-bddtests/
   # run all:
-  - cucumber ctrpBackend/features/ -r ctrpBackend/features/
+  #- cucumber ctrpBackend/features/ -r ctrpBackend/features/
   # run by tag(s)
   #- cucumber features/ -t @CTRPMICRO-34,@CTRPMICRO-35 --format json --out ../results/output.json --expand
+  - cucumber features/ -t @po_high --format json --out ../results/output.json --expand
+  - cucumber features/ -t @po_medium --format json --out ../results/output.json --expand
   # - rm results/*
   # - cd uMATCH/PedMATCH; bundle exec parallel_cucumber features/ -o '-r features/step_definitions/ -r features/support/ -t $CUC_TAG$P1,$CUC_TAG$P2 --format json --out ../../results/output-$CUC_TAG$P1-$TEST_ENV_NUMBER.json --expand' -n 2
   # - cd ../..
@@ -83,6 +86,8 @@ script:
   - ls -alt
   # - mv results/ results_critical/; mkdir results
 after_success:
+  # Run Low tag
+  - cucumber features/ -t @po_low --format json --out ../results/output.json --expand
   #Run P3 cucumber tests
   # - cd uMATCH/PedMATCH; bundle exec parallel_cucumber features/ -o '-r features/step_definitions/ -r features/support/ -t $CUC_TAG$P3 --format json --out ../../results/output-$CUC_TAG$P3-$TEST_ENV_NUMBER.json --expand' -n 2
   #Run protractor tests
