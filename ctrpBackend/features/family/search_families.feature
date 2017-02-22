@@ -23,3 +23,4 @@ Feature: Family service
       | name               | Holden Comprehensive Cancer Center         |
       | id                 | 16491545                                   |
       | organizationId     | 91802                                      |
+      | familyId           | 16491545                                   |
