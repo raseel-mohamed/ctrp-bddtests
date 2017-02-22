@@ -1,6 +1,6 @@
 Feature: Eligibility Criteria
 
-  @pa_high @FDAAA @CTRPMICRO-17
+  @pa_high @FDAAA @CTRPMICRO-17 @UI
   Scenario: Import a Trial from clinical trials.gov and verify fields in Eligibility Criteria section(PA)
     Given I Import a trial with NCT ID "NCT03045770"
     When I go to Eligibility Criteria section in PA app
@@ -19,7 +19,7 @@ Feature: Eligibility Criteria
       | Field Name            | Existing Field Value | New Field Value |
       | Sex(old name: Gender) | Both                 | All             |
 
-  @pa_high @FDAAA @CTRPMICRO-24
+  @pa_high @FDAAA @CTRPMICRO-24 @UI
   Scenario: Verify fields in Eligibility Criteria section for a new Trial (PA)
     Given I registered a new Trial
     When I go to Eligibility Criteria section in PA app

@@ -1,6 +1,6 @@
 Feature: Regulatory_Information
 
-  @pa_high @FDAAA @CTRPMICRO-16 @pa
+  @pa_high @FDAAA @CTRPMICRO-16 @pa @UI
   Scenario: Import a Trial from clinical trials.gov and verify fields in Regulatory Information section(PA)
     Given I Import a trial with NCT ID "NCT03045783"
     When I go to Regulatory Information section in PA app
