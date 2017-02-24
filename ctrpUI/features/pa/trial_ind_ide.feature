@@ -31,3 +31,11 @@ Feature: IND/IDE
       | Field Name             | Condition                                                      |
       | Expanded Access Record | only available when "Availability of Expanded Access" is "Yes" |
 
+  Scenario: Verify the "Unknown" radio button is displayed in the IND/IDE screen
+    Given I search for a trial
+    And I navigate to IND/IDE screen
+    When I click on Add button
+    Then Availability of Expanded Access should display "Yes" "No" and "Unknown" radio buttons
+
+
+
