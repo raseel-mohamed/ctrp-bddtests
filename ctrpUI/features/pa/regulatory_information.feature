@@ -41,3 +41,14 @@ Scenario: Verify the following fields are required in the Regulatory Information
     Then these existing fields should be updated
       | Field Name                | New Field Name              |
       | Delayed Posting Indicator | Unapproved/Uncleared Device |
+
+  @pa_high @FDAAA @pa @CTRPMICRO-70
+  Scenario: Verify the following field (Post Prior to U.S. FDA Approval or Clearance) condition in the Regulatory Information(PA) screen
+    Given I search for a trial
+    And I navigate to Regulatory Information screen
+    When "Unapproved/Uncleared Device" is "Yes"
+    Then the conditional fields should be
+      | Field Name                                   | Condition                                                                                               |
+      | Post Prior to U.S. FDA Approval or Clearance | Optional and only available when "Unapproved/Uncleared Device" is "Yes"                                 |
+
+
