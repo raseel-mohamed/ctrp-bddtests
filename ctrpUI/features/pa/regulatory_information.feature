@@ -52,3 +52,20 @@ Scenario: Verify the following fields are required in the Regulatory Information
       | Post Prior to U.S. FDA Approval or Clearance | Optional and only available when "Unapproved/Uncleared Device" is "Yes"                                 |
 
 
+  @pa_high @FDAAA @pa @CTRPMICRO-71
+  Scenario: Verify the following field (Pediatric Post-market Surveillance)condition in the Regulatory Information(PA) screen
+    Given I search for a trial
+    And I navigate to Regulatory Information screen
+    When "Pediatric Post-market Surveillance" is "Yes"
+    Then the conditional fields should be
+      | Field Name                                   | Condition                                                                                               |
+      | Pediatric Post-market Surveillance           | Required only if this a pediatric post market surveillance of a device product ordered by the U.S. FDA. |
+
+  @pa_high @FDAAA @pa @CTRPMICRO-72
+  Scenario: Verify the following field (Product Exported from the U.S)condition in the Regulatory Information(PA) screen
+    Given I search for a trial
+    And I navigate to Regulatory Information screen
+    When "Product Exported from the U.S" is "Yes"
+    Then the conditional fields should be
+      | Field Name                                   | Condition                                                                                               |
+      | Product Exported from the U.S                | Required only if a product is manufactured in and exported from the US                                  |
