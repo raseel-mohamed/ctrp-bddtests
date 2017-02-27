@@ -33,3 +33,11 @@ Scenario: Verify the following fields are required in the Regulatory Information
     | Field Name                                  |
     | Studies a U.S. FDA-regulated Drug Product   |
     | Studies a U.S. FDA-regulated Device Product |
+
+  @pa_high @FDAAA @pa @CTRPMICRO-69
+  Scenario: Verify the following field is updated in the Regulatory Information(PA) screen
+    Given I search for a trial
+    And I navigate to Regulatory Information screen
+    Then these existing fields should be updated
+      | Field Name                | New Field Name              |
+      | Delayed Posting Indicator | Unapproved/Uncleared Device |
