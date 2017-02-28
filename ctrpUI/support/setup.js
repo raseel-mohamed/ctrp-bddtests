@@ -4,8 +4,8 @@ var q = require ('q');
 exports.getFireFoxProfile = function() {
     var deferred = q.defer();
     var firefoxProfile = new FirefoxProfile();
-    var downloadPath = process.env.HOME + '/Downloads';
-
+    // var downloadPath = process.env.HOME + '/Downloads';
+    var downloadPath = '/Downloads';
 
     firefoxProfile.setPreference('browser.download.folderList', 2);
     firefoxProfile.setPreference('browser.download.dir', downloadPath);

@@ -5,7 +5,7 @@ exports.config = {
     framework: 'cucumber',
     //framework: 'jasmine2',
 
-    seleniumAddress: 'http://localhost:4444/wd/hub',
+    //seleniumAddress: 'http://localhost:4444/wd/hub',
 
     baseUrl: 'http://ctrp-ci.nci.nih.gov/ctrp/',
     //baseUrl: process.env.UI_HOSTNAME,  //when developing tests use http://localhost:9000',
@@ -21,7 +21,7 @@ exports.config = {
 
     specs: [
             // Login Page
-            'features/pa/design_details.feature'
+            'features/pa/regulatory_information.feature'
            ],
 
     getPageTimeout: 10000,
