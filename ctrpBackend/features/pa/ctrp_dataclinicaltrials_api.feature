@@ -3,6 +3,20 @@
 Feature: Tests for clinical trials api service in ctrp_dataclinicaltrials_api system
 
   Scenario: DCT_API01. new field values can be recorded with NCI ID successfully
+    Given NCI ID is "NCI77777"
+    And template field values are
+      |fda_regulated_drug     |11111 fda_regulated_drug     |
+      |fda_regulated_device   |11111 fda_regulated_device   |
+      |post_prior_to_approval |11111 post_prior_to_approval |
+      |ped_postmarket_surv    |11111 ped_postmarket_surv    |
+      |exported_from_us       |11111 sequential             |
+      |sequential_assignment  |11111 sequential_assignment  |
+      |model_description      |11111 model_description      |
+      |masking_description    |11111 masking_description    |
+      |gender_based           |11111 gender_based           |
+      |gender_description     |11111 gender_description     |
+      |extra_fields           |This is extra fields         |
+    When POST to ctrp_dataclinicaltrials_api system, response includes "successfully" with code "200"
 
   Scenario: DCT_API02. new field values can be retrieve successfully with NCI ID
 
