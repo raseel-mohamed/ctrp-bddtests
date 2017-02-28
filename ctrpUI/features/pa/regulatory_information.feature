@@ -69,3 +69,25 @@ Scenario: Verify the following fields are required in the Regulatory Information
     Then the conditional fields should be
       | Field Name                                   | Condition                                                                                               |
       | Product Exported from the U.S                | Required only if a product is manufactured in and exported from the US                                  |
+
+  @pa_high @FDAAA @pa @CTRPMICRO-75
+  Scenario: Verify the description for "Post Prior to U.S. FDA Approval or Clearance" is displayed in the Regulatory Information(PA) screen
+    Given I search for a trial
+    And I navigate to Regulatory Information screen
+    When "Post Prior to U.S. FDA Approval or Clearance" is "Yes"
+    Then the description should be "Optional. Authorize posting of study record on ClinicalTrials.gov prior to U.S. FDA approval/clearance of device product?"
+
+
+  @pa_high @FDAAA @pa @CTRPMICRO-76
+  Scenario: Verify the description for "Studies a U.S. FDA-regulated Drug Product" is displayed in the Regulatory Information(PA) screen
+    Given I search for a trial
+    And I navigate to Regulatory Information screen
+    When "Studies a U.S. FDA-regulated Drug Product" is "Yes"
+    Then the description should be "Studying one or more U.S. FDA-regulated drug or biologic products?"
+
+  @pa_high @FDAAA @pa @CTRPMICRO-77
+  Scenario: Verify the description for "Pediatric Post-market Surveillance" is displayed in the Regulatory Information(PA) screen
+    Given I search for a trial
+    And I navigate to Regulatory Information screen
+    When "Pediatric Post-market Surveillance" is "Yes"
+    Then the description should be "Required only if this a pediatric postmarket surveillance of a device product ordered by the U.S. FDA"
