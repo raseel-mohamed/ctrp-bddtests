@@ -1,0 +1,14 @@
+{
+  "nci_id": "NCI77777",
+  "exported_from_us": "No",
+  "gender_description": "22222 gender_description",
+  "sequential_assignment": "22222 sequential_assignment",
+  "fda_regulated_drug": "22222 fda_regulated_drug",
+  "post_prior_to_approval": "22222 post_prior_to_approval",
+  "ped_postmarket_surv": "22222 ped_postmarket_surv",
+  "masking_description": "22222 masking_description",
+  "fda_regulated_device": "22222 fda_regulated_device",
+  "model_description": "22222 model_description",
+  "gender_based": "22222 gender_based",
+  "extra_fields": "This is a extra field"
+}
