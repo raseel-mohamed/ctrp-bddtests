@@ -58,7 +58,6 @@ Feature: Regulatory_Information
 
   @pa_high @FDAAA @CTRPMICRO-39 @REST
   Scenario: Import a Trial from clinical trials.gov through Rest and verify fields in Regulatory Information section
-    #NOTE: This Scenario needs more detail as requirement to change in Rest call is not there in PPt OR Excel
     Given I Import a trial with NCT ID "NCT03049202" through rest service
     Then these existing fields should be updated
       | Field Name                | New Field Name                  |
@@ -71,7 +70,6 @@ Feature: Regulatory_Information
 
   @pa_high @FDAAA @CTRPMICRO-40 @REST
   Scenario: Verify fields in Regulatory Information section for a new Trial through Rest service
-    #NOTE: This Scenario needs more detail as requirement to change in Rest call is not there in PPt OR Excel
     Given I created a new Trial through rest service
     Then these existing fields should be updated
       | Field Name           | New Field Name                  |
