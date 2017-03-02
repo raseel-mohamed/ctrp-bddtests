@@ -1,3 +1,4 @@
+# Parent Jira Ticket # CTRPMICRO-73
 Feature: Design Details
 
   @pa_high @FDAAA @CTRPMICRO-26
@@ -8,25 +9,55 @@ Feature: Design Details
       | Field Name                                   | List of Value          |
       | Interventional Study Model                   | Sequential Assignment  |
       | Primary Purpose                              | Device Feasibility     |
-    And the new fields should be there
+
+  @pa_high @FDAAA @CTRPMICRO-105
+  Scenario: Verify new description fields in Design Details section(PA)
+    Given I Import a trial with NCT ID "NCT03045770"
+    When I go to Design Details section in PA app
+    Then the new fields should be there
       | Field Name                                     |
       | Model Description                              |
       | Masking Description                            |
-    And these existing fields should be updated
+
+  @pa_high @FDAAA @CTRPMICRO-106
+  Scenario: Verify Interventional Study Model field is updated in Design Details section(PA)
+    Given I Import a trial with NCT ID "NCT03045770"
+    When I go to Design Details section in PA app
+    Then these existing fields should be updated
       | Existing Field                       |
       | Interventional Study Model           |
-    And these existing fields should be removed
+
+  @pa_high @FDAAA @CTRPMICRO-107
+  Scenario: Verify Masking and  Study Classification fields are removed in Design Details section(PA)
+    Given I Import a trial with NCT ID "NCT03045770"
+    When I go to Design Details section in PA app
+    Then these existing fields should be removed
       | Field Name            |
       | Masking               |
       | Study Classification  |
-    And these existing fields value should be updated
+
+  @pa_high @FDAAA @CTRPMICRO-108
+  Scenario: Verify existing field values are updated in Design Details section(PA)
+    Given I Import a trial with NCT ID "NCT03045770"
+    When I go to Design Details section in PA app
+    Then these existing fields value should be updated
       | Existing Field Value                 | New Field Value                  |
       | Subject                              | Participant                      |
       | Caregiver                            | Care Provider                    |
       | Trial Phase 0                        | Early Phase 1                    |
-    And the conditional fields should be
+
+  @pa_high @FDAAA @CTRPMICRO-109
+  Scenario: Verify condition on No Masking field in Design Details section(PA)
+    Given I Import a trial with NCT ID "NCT03045770"
+    When I go to Design Details section in PA app
+    Then the conditional fields should be
       | Field Name                     | Condition                                                               |
       | No Masking                     | When No Masking is selected other fields in masking should be Null      |
-    And the required fields should be
+
+  @pa_high @FDAAA @CTRPMICRO-110
+  Scenario: Verify the required field in Design Details section(PA)
+    Given I Import a trial with NCT ID "NCT03045770"
+    When I go to Design Details section in PA app
+    Then the required fields should be
       | Field Name                                  |
       | Interventional Study Model                  |
