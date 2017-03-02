@@ -1,106 +1,98 @@
 require 'rspec'
 require 'json'
 require 'rest-client'
-class Organization_helper
+class Dataclinicaltrials_api_helper
 
   @error_string = ' does not match'
 
-  def self.load_organization_templates(type)
-    location = "#{File.dirname(__FILE__)}/../../../data/organization_template.json"
+  def self.load_dataclinicaltrials_templates(type)
+    location = "#{File.dirname(__FILE__)}/../../../data/dataclinicaltrials_ms_template.json"
     whole_json = JSON(IO.read(location))
     whole_json[type]
   end
 
-  def self.prepare_create_organization(name, address_line1, address_line2, city, state_or_province, country, postal_code, contact_email, contact_phone, contact_fax, contact_TTY, contact_URL, status)
-    @request_hash = load_organization_templates('create_organization')
-    @request_hash['name'] = name
-    @request_hash['address']['line1'] = address_line1
-    @request_hash['address']['line2'] = address_line2
-    @request_hash['address']['city'] = city
-    @request_hash['address']['stateOrProvince'] = state_or_province
-    @request_hash['address']['country'] = country
-    @request_hash['address']['postalcode'] = postal_code
-    @request_hash['contact'][0]['value'] = contact_email
-    @request_hash['contact'][1]['value']= contact_phone
-    @request_hash['contact'][2]['value'] = contact_fax
-    @request_hash['contact'][3]['value'] = contact_TTY
-    @request_hash['contact'][4]['value'] = contact_URL
-    @request_hash['status'] = status
+  def self.prepare_add_values_dct_ms(nci_id, exported_from_us, gender_description, seq_assignment, fda_regulated_drug, post_prior_apprval, ped_postmarket_surv, masking_description, fda_regulated_device, model_description, gender_based)
+    @request_hash = load_dataclinicaltrials_templates('add_values')
+    @request_hash['nci_id'] = nci_id
+    @request_hash['exported_from_us'] = exported_from_us
+    @request_hash['gender_description'] = gender_description
+    @request_hash['sequential_assignment'] = seq_assignment
+    @request_hash['fda_regulated_drug'] = fda_regulated_drug
+    @request_hash['post_prior_to_approval'] = post_prior_apprval
+    @request_hash['ped_postmarket_surv'] = ped_postmarket_surv
+    @request_hash['masking_description'] = masking_description
+    @request_hash['fda_regulated_device'] = fda_regulated_device
+    @request_hash['model_description'] = model_description
+    @request_hash['gender_based'] = gender_based
     @request_hash
   end
 
-  def self.prepare_update_organization(name, address_line1, address_line2, city, state_or_province, country, postal_code, contact_email, contact_phone, contact_fax, contact_TTY, contact_URL, org_id, status)
-    @request_hash = load_organization_templates('update_organization')
-    @request_hash['name'] = name
-    @request_hash['address']['line1'] = address_line1
-    @request_hash['address']['line2'] = address_line2
-    @request_hash['address']['city'] = city
-    @request_hash['address']['stateOrProvince'] = state_or_province
-    @request_hash['address']['country'] = country
-    @request_hash['address']['postalcode'] = postal_code
-    @request_hash['contact'][0]['value'] = contact_email
-    @request_hash['contact'][1]['value']= contact_phone
-    @request_hash['contact'][2]['value'] = contact_fax
-    @request_hash['contact'][3]['value'] = contact_TTY
-    @request_hash['contact'][4]['value'] = contact_URL
-    @request_hash['id'] = org_id
-    @request_hash['status'] = status
+  def self.prepare_update_values_dct_ms(nci_id, exported_from_us, gender_description, seq_assignment, fda_regulated_drug, post_prior_apprval, ped_postmarket_surv, masking_description, fda_regulated_device, model_description, gender_based)
+    @request_hash = load_organization_templates('update_values')
+    @request_hash['nci_id'] = nci_id
+    @request_hash['exported_from_us'] = exported_from_us
+    @request_hash['gender_description'] = gender_description
+    @request_hash['sequential_assignment'] = seq_assignment
+    @request_hash['fda_regulated_drug'] = fda_regulated_drug
+    @request_hash['post_prior_to_approval'] = post_prior_apprval
+    @request_hash['ped_postmarket_surv'] = ped_postmarket_surv
+    @request_hash['masking_description'] = masking_description
+    @request_hash['fda_regulated_device'] = fda_regulated_device
+    @request_hash['model_description'] = model_description
+    @request_hash['gender_based'] = gender_based
+    @request_hash
     @request_hash
   end
 
-  def self.trigger_create_org_post(service, service_url_method, username, password, headers, org_name, org_address_line1, org_address_line2, org_city, org_state_or_province, org_country, org_postal_code, org_contact_email, org_contact_phone, org_contact_fax, org_contact_tty, org_contact_url, org_status)
+  def self.trigger_field_values_post(service, service_url_method, username, password, headers, nci_id_dct, exported_from_us_dct, gender_desc_dct, seq_assignment_dct, fda_reglted_drug_dct, post_pror_aprval_dct, ped_pstmrkt_srv_dct, masking_desc_dct, fda_rglatd_divce_dct, model_desc_dct, gender_based_dct)
     service_url = ENV[service_url_method]
-    @request_hash = prepare_create_organization(org_name, org_address_line1, org_address_line2, org_city, org_state_or_province, org_country, org_postal_code, org_contact_email, org_contact_phone, org_contact_fax, org_contact_tty, org_contact_url, org_status)
+    @request_hash = prepare_add_values_dct_ms(nci_id_dct, exported_from_us_dct, gender_desc_dct, seq_assignment_dct, fda_reglted_drug_dct, post_pror_aprval_dct, ped_pstmrkt_srv_dct, masking_desc_dct, fda_rglatd_divce_dct, model_desc_dct, gender_based_dct)
     payload_string = @request_hash.to_json.to_s
     @response = Helper.request(service, service_url, username,password, payload_string, headers)
     @response
     @response_code = @response.code
     @response_body = JSON.parse(@response.body)
-    @id = @response_body['id']
-    puts  'Org ID is: ' + @id.to_s
-    return @response, @response_code, @response_body, @id
+    @nci_id = @response_body['nci_id']
+    puts  'NCI ID is: ' + @nci_id.to_s
+    return @response, @response_code, @response_body, @nci_id
   end
 
-  def self.trigger_get_org(service, service_url_method, username, password, headers, org_id)
-    service_url = ENV[service_url_method] + org_id.to_s
+  def self.trigger_get_field_values(service, service_url_method, username, password, headers, nci_id)
+    service_url = ENV[service_url_method] + nci_id.to_s
     @response = Helper.request(service, service_url, username, password, nil, headers)
     @response
     @response_code = @response.code
     @response_body = JSON.parse(@response.body)
-    @id = @response_body['id']
-    puts ' ID is: ' + @id.to_s
-    return @response, @response_code, @response_body, @id
+    @nci_id = @response_body['nci_id']
+    puts  'NCI ID is: ' + @nci_id.to_s
+    return @response, @response_code, @response_body, @nci_id
   end
 
-  def self.trigger_update_org_put(service, service_url_method, username, password,headers, org_id, org_name, org_address_line1, org_address_line2, org_city, org_state_or_province, org_country, org_postal_code, org_contact_email, org_contact_phone, org_contact_fax, org_contact_tty, org_contact_url, org_status)
-    service_url = ENV[service_url_method] + org_id.to_s
-    @request_hash = Organization_helper.prepare_update_organization(org_name, org_address_line1, org_address_line2, org_city, org_state_or_province, org_country, org_postal_code, org_contact_email, org_contact_phone, org_contact_fax, org_contact_tty, org_contact_url, org_id, org_status)
+  def self.trigger_update_field_values(service, service_url_method, username, password, headers, nci_id, nci_id_dct, exported_from_us_dct, gender_desc_dct, seq_assignment_dct, fda_reglted_drug_dct, post_pror_aprval_dct, ped_pstmrkt_srv_dct, masking_desc_dct, fda_rglatd_divce_dct, model_desc_dct, gender_based_dct)
+    service_url = ENV[service_url_method] + nci_id.to_s
+    @request_hash = Dataclinicaltrials_api_helper.prepare_update_values_dct_ms(nci_id_dct, exported_from_us_dct, gender_desc_dct, seq_assignment_dct, fda_reglted_drug_dct, post_pror_aprval_dct, ped_pstmrkt_srv_dct, masking_desc_dct, fda_rglatd_divce_dct, model_desc_dct, gender_based_dct)
     payload_string = @request_hash.to_json.to_s
-    @response = Helper.request(service, service_url, username,password, payload_string, headers)
+    @response = Helper.request(service, service_url, username, password, payload_string, headers)
     @response
     @response_code = @response.code
     @response_body = JSON.parse(@response.body)
-    @id = @response_body['id']
-    puts ' ID is: ' + @id.to_s
-    return @response, @response_code, @response_body, @id
+    @nci_id = @response_body['nci_id']
+    puts 'NCI ID is: ' + @nci_id.to_s
+    return @response, @response_code, @response_body, @nci_id
   end
 
-  def self.verify_organization(name, ctep_id, address_line1, address_line2, city, state_or_province, country, postal_code, contact_email, contact_phone, contact_fax, contact_tty, contact_url, status, org_id, response)
-    assert_equal(name, response['name'], 'organization name' + @error_string)
-    assert_equal(ctep_id, response['ctepId'], 'organization ctepId' + @error_string)
-    assert_equal(address_line1, response['address']['line1'], 'organization address Line1' + @error_string)
-    assert_equal(address_line2, response['address']['line2'], 'organization address Line2' + @error_string)
-    assert_equal(city, response['address']['city'], 'organization city' + @error_string)
-    assert_equal(state_or_province, response['address']['stateOrProvince'], 'organization stateOrProvince' + @error_string)
-    assert_equal(country, response['address']['country'], 'organization country' + @error_string)
-    assert_equal(postal_code, response['address']['postalcode'], 'organization name' + @error_string)
-    assert_equal(contact_email, response['contact'][0]['value'], 'organization email' + @error_string)
-    assert_equal(contact_phone, response['contact'][1]['value'], 'organization phone' + @error_string)
-    assert_equal(contact_fax, response['contact'][2]['value'], 'organization fax' + @error_string)
-    assert_equal(contact_tty, response['contact'][3]['value'], 'organization TTY' + @error_string)
-    assert_equal(contact_url, response['contact'][4]['value'], 'organization URL' + @error_string)
-    assert_equal(status, response['status'], 'organization status' + @error_string)
-    assert_equal(org_id, response['id'], 'organization ID' + @error_string)
+  def self.verify_field_values(nci_id_dct, exported_from_us_dct, gender_desc_dct, seq_assignment_dct, fda_reglted_drug_dct, post_pror_aprval_dct, ped_pstmrkt_srv_dct, masking_desc_dct, fda_rglatd_divce_dct, model_desc_dct, gender_based_dct, response)
+    assert_equal(nci_id_dct, response['nci_id'], '' + @error_string)
+    assert_equal(exported_from_us_dct, response['exported_from_us'], '' + @error_string)
+    assert_equal(gender_desc_dct, response['gender_desc'], '' + @error_string)
+    assert_equal(seq_assignment_dct, response['seq_assignment'], '' + @error_string)
+    assert_equal(fda_reglted_drug_dct, response['fda_reglted_drug'], '' + @error_string)
+    assert_equal(post_pror_aprval_dct, response['post_pror_aprval'], '' + @error_string)
+    assert_equal(ped_pstmrkt_srv_dct, response['ped_pstmrkt_srv'], '' + @error_string)
+    assert_equal(masking_desc_dct, response['masking_desc'], '' + @error_string)
+    assert_equal(fda_rglatd_divce_dct, response['fda_rglatd_divce'], '' + @error_string)
+    assert_equal(model_desc_dct, response['model_desc'], '' + @error_string)
+    assert_equal(gender_based_dct, response['gender_based'], '' + @error_string)
   end
 
 end

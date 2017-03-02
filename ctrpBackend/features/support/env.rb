@@ -9,6 +9,7 @@ include Test::Unit::Assertions
 base_qa2 = 'https://trials-qa2.nci.nih.gov/'
 base_local = 'https://localhost/'
 base_aws = 'http://ctrp-po-inttest-elb-1603106388.us-east-1.elb.amazonaws.com:39080/'
+base_dataclinicaltrials_ms = ''
 
 #PO Endpoints
 po_endpoint = 'po-webservices/services/'
@@ -22,6 +23,8 @@ fam_endpoint = 'family-rest-service/'
 ENV['choose_ENV'] = 'aws'
 ENV['user1'] = 'ctrpqatester1'
 ENV['user1_password'] = 'pass'
+ENV['dct_usr'] = 'ctrpqatester1'
+ENV['dct_pass'] = 'pass'
 #put ENV["USER1_ID"]
 #put ENV["USER1_PASS"]
 
@@ -35,18 +38,21 @@ case ENV['choose_ENV']
     ENV['create_person'] = base_qa2 + po_endpoint + per_endpoint
     ENV['update_person'] = base_qa2 + po_endpoint + per_endpoint
     ENV['search_family'] = base_qa2 + po_endpoint + fam_endpoint
+    ENV['dataclinicaltrials_ms'] = base_dataclinicaltrials_ms
   when 'local'
     ENV['create_organization'] = base_local + po_endpoint + org_endpoint
     ENV['update_organization'] = base_local + po_endpoint + org_endpoint
     ENV['create_person'] = base_local + po_endpoint + per_endpoint
     ENV['update_person'] = base_local + po_endpoint + per_endpoint
     ENV['search_family'] = base_local + po_endpoint + fam_endpoint
+    ENV['dataclinicaltrials_ms'] = base_dataclinicaltrials_ms
   when 'aws'
     ENV['create_organization'] = base_aws + po_endpoint + org_endpoint
     ENV['update_organization'] = base_aws + po_endpoint + org_endpoint
     ENV['create_person'] = base_aws + po_endpoint + per_endpoint
     ENV['update_person'] = base_aws + po_endpoint + per_endpoint
     ENV['search_family'] = base_aws + po_endpoint + fam_endpoint
+    ENV['dataclinicaltrials_ms'] = base_dataclinicaltrials_ms
   else
     puts 'Please choose correct Environment.'
 end
