@@ -1,416 +1,153 @@
 [
   {
-    "uri": "features/family/search_families.feature",
-    "id": "family-service",
+    "uri": "features/pa/ctrp_dataclinicaltrials_api.feature",
+    "id": "tests-for-clinical-trials-api-service-in-ctrp_dataclinicaltrials_api-system",
     "keyword": "Feature",
-    "name": "Family service",
+    "name": "Tests for clinical trials api service in ctrp_dataclinicaltrials_api system",
     "description": "",
     "line": 1,
     "elements": [
       {
-        "id": "family-service;search-a-family;;2",
-        "keyword": "Scenario Outline",
-        "name": "Search a Family",
+        "id": "tests-for-clinical-trials-api-service-in-ctrp_dataclinicaltrials_api-system;dct_api01.-new-field-values-can-be-recorded-with-nci-id-successfully",
+        "keyword": "Scenario",
+        "name": "DCT_API01. new field values can be recorded with NCI ID successfully",
         "description": "",
-        "line": 23,
+        "line": 5,
         "type": "scenario",
         "tags": [
           {
-            "name": "@po_low",
-            "line": 3
+            "name": "@CTRPMICRO-79",
+            "line": 4
           },
           {
-            "name": "@po_test",
+            "name": "@REST",
+            "line": 4
+          },
+          {
+            "name": "@Tests",
+            "line": 4
+          }
+        ],
+        "comments": [
+          {
+            "value": "#@ctrp_dataclinicaltrials_api",
             "line": 3
           }
         ],
         "steps": [
           {
             "keyword": "Given ",
-            "name": "I want to search a family with following fileds: \"name\" and values: \"Holden Comprehensive Cancer Center\"",
-            "line": 23,
-            "match": {
-              "location": "features/step_definitions/search_families.rb:2"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 40337
-            }
-          },
-          {
-            "keyword": "When ",
-            "name": "I used the \"GET\" CTRP service with Content-Type \"\" Accept \"application/json\" for \"Family\"",
-            "line": 23,
-            "match": {
-              "location": "features/step_definitions/create_organization.rb:22"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 119425931
-            }
-          },
-          {
-            "keyword": "Then ",
-            "name": "response to \"GET\" should be \"200\"",
-            "line": 23,
-            "match": {
-              "location": "features/step_definitions/create_organization.rb:62"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 938660
-            }
-          },
-          {
-            "keyword": "And ",
-            "name": "the \"JSON\" response body should be a \"Family\" array with elements",
-            "line": 23,
+            "name": "I want to add following new filed values to the ctrp_dataclinicaltrials_api MS",
+            "line": 6,
             "rows": [
               {
                 "cells": [
-                  "name",
-                  "Holden Comprehensive Cancer Center"
+                  "nci_id",
+                  "NCI77777"
                 ]
               },
               {
                 "cells": [
-                  "startDate",
-                  "1230768000000"
+                  "exported_from_us",
+                  "No"
                 ]
               },
               {
                 "cells": [
-                  "p30SerialNumber",
-                  "86862"
+                  "gender_description",
+                  "11111 gender_description"
                 ]
               },
               {
                 "cells": [
-                  "member",
-                  ""
+                  "sequential_assignment",
+                  "11111 sequential_assignment"
                 ]
               },
               {
                 "cells": [
-                  "familyId",
-                  "16491545"
+                  "fda_regulated_drug",
+                  "11111 fda_regulated_drug"
                 ]
               },
               {
                 "cells": [
-                  "organizationId",
-                  "91802"
+                  "post_prior_to_approval",
+                  "11111 post_prior_to_approval"
                 ]
               },
               {
                 "cells": [
-                  "type",
-                  "ORGANIZATIONAL"
+                  "ped_postmarket_surv",
+                  "11111 ped_postmarket_surv"
                 ]
               },
               {
                 "cells": [
-                  "startDate1",
-                  "1230768000000"
+                  "masking_description",
+                  "11111 masking_description"
                 ]
               },
               {
                 "cells": [
-                  "endDate",
-                  "null"
+                  "fda_regulated_device",
+                  "11111 fda_regulated_device"
                 ]
               },
               {
                 "cells": [
-                  "id",
-                  "16491545"
+                  "model_description",
+                  "11111 model_description"
                 ]
               },
               {
                 "cells": [
-                  "status",
-                  "ACTIVE"
+                  "gender_based",
+                  "11111 gender_based"
                 ]
               }
             ],
             "match": {
-              "location": "features/step_definitions/search_families.rb:23"
+              "location": "features/step_definitions/ctrp_dataclinicaltrials_api.rb:19"
             },
             "result": {
               "status": "passed",
-              "duration": 506327
-            }
-          }
-        ]
-      },
-      {
-        "id": "family-service;search-a-family;;3",
-        "keyword": "Scenario Outline",
-        "name": "Search a Family",
-        "description": "",
-        "line": 24,
-        "type": "scenario",
-        "tags": [
-          {
-            "name": "@po_low",
-            "line": 3
-          },
-          {
-            "name": "@po_test",
-            "line": 3
-          }
-        ],
-        "steps": [
-          {
-            "keyword": "Given ",
-            "name": "I want to search a family with following fileds: \"id\" and values: \"16491545\"",
-            "line": 24,
-            "match": {
-              "location": "features/step_definitions/search_families.rb:2"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 37829
+              "duration": 170826
             }
           },
           {
             "keyword": "When ",
-            "name": "I used the \"GET\" CTRP service with Content-Type \"\" Accept \"application/json\" for \"Family\"",
-            "line": 24,
+            "name": "I used the \"POST\" to ctrp_dataclinicaltrials_api MS with Content-Type \"application/json\" Accept \"application/json\" for \"FDAAA_FIELDS\"",
+            "line": 18,
             "match": {
-              "location": "features/step_definitions/create_organization.rb:22"
+              "location": "features/step_definitions/ctrp_dataclinicaltrials_api.rb:33"
             },
             "result": {
-              "status": "passed",
-              "duration": 28263521
+              "status": "failed",
+              "error_message": "bad URI(no host provided): http:// (URI::InvalidURIError)\n./features/support/helper.rb:10:in `request'\n./features/support/dataclinicaltrials_api_helper.rb:51:in `trigger_field_values_post'\n./features/step_definitions/ctrp_dataclinicaltrials_api.rb:41:in `/^I used the \"([^\"]*)\" to ctrp_dataclinicaltrials_api MS with Content\\-Type \"([^\"]*)\" Accept \"([^\"]*)\" for \"([^\"]*)\"$/'\nfeatures/pa/ctrp_dataclinicaltrials_api.feature:18:in `When I used the \"POST\" to ctrp_dataclinicaltrials_api MS with Content-Type \"application/json\" Accept \"application/json\" for \"FDAAA_FIELDS\"'",
+              "duration": 862852
             }
           },
           {
             "keyword": "Then ",
-            "name": "response to \"GET\" should be \"200\"",
-            "line": 24,
+            "name": "ctrp_dataclinicaltrials_api MS response to \"POST\" should be \"201\"",
+            "line": 19,
             "match": {
-              "location": "features/step_definitions/create_organization.rb:62"
+              "location": "features/step_definitions/ctrp_dataclinicaltrials_api.rb:64"
             },
             "result": {
-              "status": "passed",
-              "duration": 79012
+              "status": "skipped"
             }
           },
           {
             "keyword": "And ",
-            "name": "the \"JSON\" response body should be a \"Family\" array with elements",
-            "line": 24,
-            "rows": [
-              {
-                "cells": [
-                  "name",
-                  "Holden Comprehensive Cancer Center"
-                ]
-              },
-              {
-                "cells": [
-                  "startDate",
-                  "1230768000000"
-                ]
-              },
-              {
-                "cells": [
-                  "p30SerialNumber",
-                  "86862"
-                ]
-              },
-              {
-                "cells": [
-                  "member",
-                  ""
-                ]
-              },
-              {
-                "cells": [
-                  "familyId",
-                  "16491545"
-                ]
-              },
-              {
-                "cells": [
-                  "organizationId",
-                  "91802"
-                ]
-              },
-              {
-                "cells": [
-                  "type",
-                  "ORGANIZATIONAL"
-                ]
-              },
-              {
-                "cells": [
-                  "startDate1",
-                  "1230768000000"
-                ]
-              },
-              {
-                "cells": [
-                  "endDate",
-                  "null"
-                ]
-              },
-              {
-                "cells": [
-                  "id",
-                  "16491545"
-                ]
-              },
-              {
-                "cells": [
-                  "status",
-                  "ACTIVE"
-                ]
-              }
-            ],
+            "name": "response body should include above recorded FDAAA field values",
+            "line": 20,
             "match": {
-              "location": "features/step_definitions/search_families.rb:23"
+              "location": "features/step_definitions/ctrp_dataclinicaltrials_api.rb:68"
             },
             "result": {
-              "status": "passed",
-              "duration": 379607
-            }
-          }
-        ]
-      },
-      {
-        "id": "family-service;search-a-family;;4",
-        "keyword": "Scenario Outline",
-        "name": "Search a Family",
-        "description": "",
-        "line": 25,
-        "type": "scenario",
-        "tags": [
-          {
-            "name": "@po_low",
-            "line": 3
-          },
-          {
-            "name": "@po_test",
-            "line": 3
-          }
-        ],
-        "steps": [
-          {
-            "keyword": "Given ",
-            "name": "I want to search a family with following fileds: \"organizationId\" and values: \"91802\"",
-            "line": 25,
-            "match": {
-              "location": "features/step_definitions/search_families.rb:2"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 38714
-            }
-          },
-          {
-            "keyword": "When ",
-            "name": "I used the \"GET\" CTRP service with Content-Type \"\" Accept \"application/json\" for \"Family\"",
-            "line": 25,
-            "match": {
-              "location": "features/step_definitions/create_organization.rb:22"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 34846796
-            }
-          },
-          {
-            "keyword": "Then ",
-            "name": "response to \"GET\" should be \"200\"",
-            "line": 25,
-            "match": {
-              "location": "features/step_definitions/create_organization.rb:62"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 58534
-            }
-          },
-          {
-            "keyword": "And ",
-            "name": "the \"JSON\" response body should be a \"Family\" array with elements",
-            "line": 25,
-            "rows": [
-              {
-                "cells": [
-                  "name",
-                  "Holden Comprehensive Cancer Center"
-                ]
-              },
-              {
-                "cells": [
-                  "startDate",
-                  "1230768000000"
-                ]
-              },
-              {
-                "cells": [
-                  "p30SerialNumber",
-                  "86862"
-                ]
-              },
-              {
-                "cells": [
-                  "member",
-                  ""
-                ]
-              },
-              {
-                "cells": [
-                  "familyId",
-                  "16491545"
-                ]
-              },
-              {
-                "cells": [
-                  "organizationId",
-                  "91802"
-                ]
-              },
-              {
-                "cells": [
-                  "type",
-                  "ORGANIZATIONAL"
-                ]
-              },
-              {
-                "cells": [
-                  "startDate1",
-                  "1230768000000"
-                ]
-              },
-              {
-                "cells": [
-                  "endDate",
-                  "null"
-                ]
-              },
-              {
-                "cells": [
-                  "id",
-                  "16491545"
-                ]
-              },
-              {
-                "cells": [
-                  "status",
-                  "ACTIVE"
-                ]
-              }
-            ],
-            "match": {
-              "location": "features/step_definitions/search_families.rb:23"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 270682
+              "status": "skipped"
             }
           }
         ]
