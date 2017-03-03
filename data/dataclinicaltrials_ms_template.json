@@ -1,28 +1,45 @@
 {
   "add_values": {
-    "nci_id": "NCI77777",
-    "exported_from_us": "No",
+    "study_protocol_id": "11111111",
+    "nci_id": "NCI77777777",
+    "exported_from_us": "true",
+    "gender_description": "11111 gender_description",
+    "sequential_assignment": "11111 sequential_assignment",
+    "fda_regulated_drug": "true",
+    "post_prior_to_approval": "true",
+    "ped_postmarket_surv": "true",
+    "masking_description": "11111 masking_description",
+    "fda_regulated_device": "11111 fda_regulated_device",
+    "model_description": "11111 model_description",
+    "gender_based": "true"
+  },
+  "update_values": {
+    "study_protocol_id": "22222222",
+    "nci_id": "NCI55555555",
+    "exported_from_us": "true",
     "gender_description": "22222 gender_description",
     "sequential_assignment": "22222 sequential_assignment",
-    "fda_regulated_drug": "22222 fda_regulated_drug",
-    "post_prior_to_approval": "22222 post_prior_to_approval",
-    "ped_postmarket_surv": "22222 ped_postmarket_surv",
+    "fda_regulated_drug": "true",
+    "post_prior_to_approval": "true",
+    "ped_postmarket_surv": "true",
     "masking_description": "22222 masking_description",
     "fda_regulated_device": "22222 fda_regulated_device",
     "model_description": "22222 model_description",
-    "gender_based": "22222 gender_based"
+    "gender_based": "true"
   },
-  "update_values": {
+  "extra_fields": {
+    "study_protocol_id": "22222222",
     "nci_id": "NCI55555555",
-    "exported_from_us": "No",
-    "gender_description": "44444 gender_description",
-    "sequential_assignment": "44444 sequential_assignment",
-    "fda_regulated_drug": "44444 fda_regulated_drug",
-    "post_prior_to_approval": "44444 post_prior_to_approval",
-    "ped_postmarket_surv": "44444 ped_postmarket_surv",
-    "masking_description": "44444 masking_description",
-    "fda_regulated_device": "44444 fda_regulated_device",
-    "model_description": "44444 model_description",
-    "gender_based": "44444 gender_based"
+    "exported_from_us": "true",
+    "gender_description": "22222 gender_description",
+    "sequential_assignment": "22222 sequential_assignment",
+    "fda_regulated_drug": "true",
+    "post_prior_to_approval": "true",
+    "ped_postmarket_surv": "true",
+    "masking_description": "22222 masking_description",
+    "fda_regulated_device": "22222 fda_regulated_device",
+    "model_description": "22222 model_description",
+    "gender_based": "true",
+    "extra_field": "this is a extra field"
   }
 }

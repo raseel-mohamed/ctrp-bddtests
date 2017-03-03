@@ -23,8 +23,8 @@ fam_endpoint = 'family-rest-service/'
 ENV['choose_ENV'] = 'aws'
 ENV['user1'] = 'ctrpqatester1'
 ENV['user1_password'] = 'pass'
-ENV['dct_usr'] = 'ctrpqatester1'
-ENV['dct_pass'] = 'pass'
+ENV['dct_usr'] = ''
+ENV['dct_pass'] = ''
 #put ENV["USER1_ID"]
 #put ENV["USER1_PASS"]
 
