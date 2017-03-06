@@ -33,7 +33,7 @@ Given(/^I want to add following new filed values to the ctrp_dataclinicaltrials_
 end
 
 When(/^I used the "([^"]*)" to ctrp_dataclinicaltrials_api MS with Content\-Type "([^"]*)" Accept "([^"]*)" for "([^"]*)"$/) do |arg1, arg2, arg3, arg4|
-  headers = {:content_type => arg2, :accept => arg3}
+  headers = {:content_type => "", :accept => ""}
   service = arg1.upcase
   type = arg4.upcase
   case service

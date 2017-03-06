@@ -66,6 +66,7 @@ Feature: Tests for clinical trials api service in ctrp_dataclinicaltrials_api sy
     Then ctrp_dataclinicaltrials_api MS response to "GET" should be "404"
     And response body should return "No Data with the following Study Protocol ID"
 
+  @CTRPMICRO-83 @REST @Tests @PA_HIGH
   Scenario: DCT_API05. update existing FDAAA field values should be successful with Study protocol ID
     Given following FDAAA field values exists in the ctrp_dataclinicaltrials_api MS
       |study_protocol_id        |55555555                     |
@@ -167,6 +168,7 @@ Feature: Tests for clinical trials api service in ctrp_dataclinicaltrials_api sy
     When I used invalid Study Protocol ID to "DELETE" FDAAA field values
     Then ctrp_dataclinicaltrials_api MS response to "DELETE" should be "200"
 
+  @CTRPMICRO-88 @REST @Tests @PA_MEDIUM
   Scenario: DCT_API10. field values can be posted as null and should be successful
     Given I want to add following FDAAA filed values along with null value to the ctrp_dataclinicaltrials_api MS
       |study_protocol_id        |20202020                     |
@@ -185,8 +187,8 @@ Feature: Tests for clinical trials api service in ctrp_dataclinicaltrials_api sy
     Then ctrp_dataclinicaltrials_api MS response to "POST" should be "200"
     And response body should return "Data has been updated successfully"
 
-
-  Scenario: DCT_API11. none of the fields are required as per MS
+  @CTRPMICRO-89 @REST @Tests @PA_LOW
+  Scenario: DCT_API11. FDAA fields are not required when micro service is called
     Given I want to add following FDAAA filed values along with all the null field values to the ctrp_dataclinicaltrials_api MS
       |study_protocol_id        |90909090                     |
       |nci_id                   |                             |
@@ -204,6 +206,7 @@ Feature: Tests for clinical trials api service in ctrp_dataclinicaltrials_api sy
     Then ctrp_dataclinicaltrials_api MS response to "POST" should be "200"
     And response body should return "Data has been updated successfully"
 
+  @CTRPMICRO-90 @REST @Tests @PA_LOW
   Scenario: DCT_API12. extra key-value pair in the message body should NOT fail
     Given I want to add following FDAAA filed values to the ctrp_dataclinicaltrials_api MS with extra fields
       |study_protocol_id        |40404040                     |
