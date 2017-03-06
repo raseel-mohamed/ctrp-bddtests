@@ -56,7 +56,7 @@ script:
   #- export P3="_p3"
   # Run Cucumber @tag specific tests
   # - ls -alt results
-  # Run ctrp-bddtests
+  # run ctrp-bddtests/ctrpBackend tests
   - pwd
   - ls -ltar
   - cd ctrp-bddtests/

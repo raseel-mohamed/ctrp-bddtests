@@ -47,7 +47,7 @@ When(/^I used the "([^"]*)" to ctrp_dataclinicaltrials_api MS with Content\-Type
     when 'GET'
       case type
         when 'FDAAA_FIELDS'
-          puts  'Study protocol ID is: ' + @study_protocol_id
+          puts  'Study protocol ID: ' + @study_protocol_id
           @response, @response_code, @response_body, @nci_id, @study_protocol_id, @response_message = Dataclinicaltrials_api_helper.trigger_get_field_values(service, 'dataclinicaltrials_ms', ENV['dct_usr'], ENV['dct_pass'], headers, @study_protocol_id)
         else
           flunk 'Please provide correct type. Provided type <<' + arg4 + '>> does not exist'
