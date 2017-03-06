@@ -56,11 +56,8 @@ script:
   #- export P3="_p3"
   # Run Cucumber @tag specific tests
   # - ls -alt results
-  # run ctrp-bddtests/ctrpBackend tests
-  - pwd
-  - ls -ltar
+  # run ctrp-bddtests/ctrpBackend tests by the tag name
   - cd ctrp-bddtests/
-  # run all @PA_HIGH:
   - cucumber features/ -t @PA_HIGH --format json --out ../results/output.json --expand
   # run by tag(s)
   #- cucumber features/ -t @CTRPMICRO-34,@CTRPMICRO-35 --format json --out ../results/output.json --expand
@@ -84,8 +81,8 @@ script:
   # - node support/generate_report.js
   # - cd ..
   # To export the results to the JIRA test execution set
-   - curl -H "Content-Type: application/json" -X POST -u ahmeds6:pass --data @results/output.json  https://tracker.nci.nih.gov/rest/raven/1.0/import/execution/cucumber
-  - ls -alt
+  # - curl -H "Content-Type: application/json" -X POST -u ahmeds6:pass --data @results/output.json  https://tracker.nci.nih.gov/rest/raven/1.0/import/execution/cucumber
+  # - ls -alt
   # - mv results/ results_critical/; mkdir results
 after_success:
   # Run Low tag
@@ -99,7 +96,7 @@ after_success:
   # - for filename in ../results/*.json; do filesize=$(wc -c <"$filename"); if [ $filesize -le 0 ]; then echo $filename is 0 bytes, deleted it; rm $filename; fi; done
   # - node support/generate_report.js
   # - cd ..
-  - ls -alt
+  #- ls -alt
 
   # Deploy to AWS UAT (comment this to disable UAT push)
   - echo "Deploying to AWS UAT"
