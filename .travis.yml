@@ -57,8 +57,9 @@ script:
   # Run Cucumber @tag specific tests
   # - ls -alt results
   # run ctrp-bddtests/ctrpBackend tests by the tag name
-  - cd ctrp-bddtests/
-  - cucumber features/ -t @PA_HIGH --format json --out ../results/output.json --expand
+  - cd ctrp-bddtests/ctrpBackend/
+  - cucumber features/ -r features/
+  #- cucumber features/ -t @PA_HIGH --format json --out ../results/output.json --expand
   # run by tag(s)
   #- cucumber features/ -t @CTRPMICRO-34,@CTRPMICRO-35 --format json --out ../results/output.json --expand
   #- cucumber features/ -t @po_high --format json --out ../results/output.json --expand
