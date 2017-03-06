@@ -60,6 +60,8 @@ script:
   - cd ctrp-bddtests/ctrpBackend/
   #- cucumber features/ -r features/
   - cucumber features/ -t @PA_HIGH --format json --out ../results/output.json --expand
+  - echo PA_HIGH_RESULT = $?
+  - if [ "PA_HIGH_RESULT" = "0" ]; then cucumber features/ -t @PA_MEDIUM --format json --out ../results/output.json --expand; fi
   # run by tag(s)
   #- cucumber features/ -t @CTRPMICRO-34,@CTRPMICRO-35 --format json --out ../results/output.json --expand
   #- cucumber features/ -t @po_high --format json --out ../results/output.json --expand
@@ -87,6 +89,7 @@ script:
   # - mv results/ results_critical/; mkdir results
 after_success:
   # Run Low tag
+  - cucumber features/ -t @PA_LOW --format json --out ../results/output.json --expand
   #- cucumber features/ -t @po_low --format json --out ../results/output.json --expand
   #Run P3 cucumber tests
   # - cd uMATCH/PedMATCH; bundle exec parallel_cucumber features/ -o '-r features/step_definitions/ -r features/support/ -t $CUC_TAG$P3 --format json --out ../../results/output-$CUC_TAG$P3-$TEST_ENV_NUMBER.json --expand' -n 2

@@ -8,46 +8,52 @@
     "line": 1,
     "elements": [
       {
-        "id": "tests-for-clinical-trials-api-service-in-ctrp_dataclinicaltrials_api-system;dct_api03.-field-values-cannot-be-posted-with-invalid-study-protocol-id",
+        "id": "tests-for-clinical-trials-api-service-in-ctrp_dataclinicaltrials_api-system;dct_api01.-new-field-values-can-be-recorded-with-study-protocol-id-successfully",
         "keyword": "Scenario",
-        "name": "DCT_API03. field values cannot be posted with invalid Study Protocol ID",
+        "name": "DCT_API01. new field values can be recorded with Study Protocol ID successfully",
         "description": "",
-        "line": 45,
+        "line": 5,
         "type": "scenario",
         "tags": [
           {
-            "name": "@CTRPMICRO-81",
-            "line": 44
+            "name": "@CTRPMICRO-79",
+            "line": 4
           },
           {
             "name": "@REST",
-            "line": 44
+            "line": 4
           },
           {
             "name": "@Tests",
-            "line": 44
+            "line": 4
           },
           {
-            "name": "@PA_MEDIUM",
-            "line": 44
+            "name": "@PA_HIGH",
+            "line": 4
+          }
+        ],
+        "comments": [
+          {
+            "value": "#@ctrp_dataclinicaltrials_api",
+            "line": 3
           }
         ],
         "steps": [
           {
             "keyword": "Given ",
-            "name": "I want to add following FDAAA filed values to the ctrp_dataclinicaltrials_api MS with an invalid Study Protocol ID",
-            "line": 46,
+            "name": "I want to add following new filed values to the ctrp_dataclinicaltrials_api MS",
+            "line": 6,
             "rows": [
               {
                 "cells": [
                   "study_protocol_id",
-                  "Test"
+                  "11111111"
                 ]
               },
               {
                 "cells": [
                   "nci_id",
-                  "NCI44444444"
+                  "NCI77777777"
                 ]
               },
               {
@@ -59,231 +65,13 @@
               {
                 "cells": [
                   "gender_description",
-                  "44444 gender_description"
+                  "11111 gender_description"
                 ]
               },
               {
                 "cells": [
                   "sequential_assignment",
-                  "44444 sequential_assignment"
-                ]
-              },
-              {
-                "cells": [
-                  "fda_regulated_drug",
-                  "false"
-                ]
-              },
-              {
-                "cells": [
-                  "post_prior_to_approval",
-                  "true"
-                ]
-              },
-              {
-                "cells": [
-                  "ped_postmarket_surv",
-                  "true"
-                ]
-              },
-              {
-                "cells": [
-                  "masking_description",
-                  "44444 masking_description"
-                ]
-              },
-              {
-                "cells": [
-                  "fda_regulated_device",
-                  "true"
-                ]
-              },
-              {
-                "cells": [
-                  "model_description",
-                  "44444 model_description"
-                ]
-              },
-              {
-                "cells": [
-                  "gender_based",
-                  "true"
-                ]
-              }
-            ],
-            "match": {
-              "location": "features/step_definitions/ctrp_dataclinicaltrials_api.rb:104"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 211305
-            }
-          },
-          {
-            "keyword": "When ",
-            "name": "I used the \"POST\" to ctrp_dataclinicaltrials_api MS with Content-Type \"\" Accept \"\" for \"FDAAA_FIELDS\"",
-            "line": 59,
-            "match": {
-              "location": "features/step_definitions/ctrp_dataclinicaltrials_api.rb:35"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 459611472
-            }
-          },
-          {
-            "keyword": "Then ",
-            "name": "ctrp_dataclinicaltrials_api MS response to \"POST\" should be \"400\" Bad Request",
-            "line": 60,
-            "match": {
-              "location": "features/step_definitions/ctrp_dataclinicaltrials_api.rb:119"
-            },
-            "result": {
-              "status": "failed",
-              "error_message": "\nexpected: \"400\"\n     got: \"200\"\n\n(compared using ==)\n (RSpec::Expectations::ExpectationNotMetError)\n./features/step_definitions/ctrp_dataclinicaltrials_api.rb:120:in `/^ctrp_dataclinicaltrials_api MS response to \"([^\"]*)\" should be \"([^\"]*)\" Bad Request$/'\nfeatures/pa/ctrp_dataclinicaltrials_api.feature:60:in `Then ctrp_dataclinicaltrials_api MS response to \"POST\" should be \"400\" Bad Request'",
-              "duration": 16262873
-            }
-          }
-        ]
-      },
-      {
-        "id": "tests-for-clinical-trials-api-service-in-ctrp_dataclinicaltrials_api-system;dct_api04.-retrieve-fdaaa-field-values-with-a-study-protocol-id-that-does-not-exist-will-return-an-error-message",
-        "keyword": "Scenario",
-        "name": "DCT_API04. retrieve FDAAA field values with a Study Protocol ID that does not exist will return an error message",
-        "description": "",
-        "line": 63,
-        "type": "scenario",
-        "tags": [
-          {
-            "name": "@CTRPMICRO-82",
-            "line": 62
-          },
-          {
-            "name": "@REST",
-            "line": 62
-          },
-          {
-            "name": "@Tests",
-            "line": 62
-          },
-          {
-            "name": "@PA_MEDIUM",
-            "line": 62
-          }
-        ],
-        "steps": [
-          {
-            "keyword": "Given ",
-            "name": "I want to search FDAAA fields with a Study Protocol ID that does not exists: \"12122017NOTEXIST\"",
-            "line": 64,
-            "match": {
-              "location": "features/step_definitions/ctrp_dataclinicaltrials_api.rb:124"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 27729
-            }
-          },
-          {
-            "keyword": "When ",
-            "name": "I used the \"GET\" to ctrp_dataclinicaltrials_api MS with Content-Type \"\" Accept \"\" for \"FDAAA_FIELDS\"",
-            "line": 65,
-            "output": [
-              "Study protocol ID: 12122017NOTEXIST"
-            ],
-            "match": {
-              "location": "features/step_definitions/ctrp_dataclinicaltrials_api.rb:35"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 44969387
-            }
-          },
-          {
-            "keyword": "Then ",
-            "name": "ctrp_dataclinicaltrials_api MS response to \"GET\" should be \"404\"",
-            "line": 66,
-            "match": {
-              "location": "features/step_definitions/ctrp_dataclinicaltrials_api.rb:67"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 57776
-            }
-          },
-          {
-            "keyword": "And ",
-            "name": "response body should return \"No Data with the following Study Protocol ID\"",
-            "line": 67,
-            "match": {
-              "location": "features/step_definitions/ctrp_dataclinicaltrials_api.rb:71"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 1506374
-            }
-          }
-        ]
-      },
-      {
-        "id": "tests-for-clinical-trials-api-service-in-ctrp_dataclinicaltrials_api-system;dct_api10.-field-values-can-be-posted-as-null-and-should-be-successful",
-        "keyword": "Scenario",
-        "name": "DCT_API10. field values can be posted as null and should be successful",
-        "description": "",
-        "line": 172,
-        "type": "scenario",
-        "tags": [
-          {
-            "name": "@CTRPMICRO-88",
-            "line": 171
-          },
-          {
-            "name": "@REST",
-            "line": 171
-          },
-          {
-            "name": "@Tests",
-            "line": 171
-          },
-          {
-            "name": "@PA_MEDIUM",
-            "line": 171
-          }
-        ],
-        "steps": [
-          {
-            "keyword": "Given ",
-            "name": "I want to add following FDAAA filed values along with null value to the ctrp_dataclinicaltrials_api MS",
-            "line": 173,
-            "rows": [
-              {
-                "cells": [
-                  "study_protocol_id",
-                  "20202020"
-                ]
-              },
-              {
-                "cells": [
-                  "nci_id",
-                  "NCI10101010"
-                ]
-              },
-              {
-                "cells": [
-                  "exported_from_us",
-                  "true"
-                ]
-              },
-              {
-                "cells": [
-                  "gender_description",
-                  ""
-                ]
-              },
-              {
-                "cells": [
-                  "sequential_assignment",
-                  ""
+                  "11111 sequential_assignment"
                 ]
               },
               {
@@ -307,19 +95,19 @@
               {
                 "cells": [
                   "masking_description",
-                  ""
+                  "11111 masking_description"
                 ]
               },
               {
                 "cells": [
                   "fda_regulated_device",
-                  ""
+                  "11111 fda_regulated_device"
                 ]
               },
               {
                 "cells": [
                   "model_description",
-                  ""
+                  "11111 model_description"
                 ]
               },
               {
@@ -330,47 +118,529 @@
               }
             ],
             "match": {
-              "location": "features/step_definitions/ctrp_dataclinicaltrials_api.rb:158"
+              "location": "features/step_definitions/ctrp_dataclinicaltrials_api.rb:20"
             },
             "result": {
               "status": "passed",
-              "duration": 256227
+              "duration": 284041
             }
           },
           {
             "keyword": "When ",
             "name": "I used the \"POST\" to ctrp_dataclinicaltrials_api MS with Content-Type \"\" Accept \"\" for \"FDAAA_FIELDS\"",
-            "line": 186,
+            "line": 19,
             "match": {
               "location": "features/step_definitions/ctrp_dataclinicaltrials_api.rb:35"
             },
             "result": {
               "status": "passed",
-              "duration": 27723218
+              "duration": 133466203
             }
           },
           {
             "keyword": "Then ",
             "name": "ctrp_dataclinicaltrials_api MS response to \"POST\" should be \"200\"",
-            "line": 187,
+            "line": 20,
             "match": {
               "location": "features/step_definitions/ctrp_dataclinicaltrials_api.rb:67"
             },
             "result": {
               "status": "passed",
-              "duration": 57481
+              "duration": 981949
             }
           },
           {
             "keyword": "And ",
             "name": "response body should return \"Data has been updated successfully\"",
-            "line": 188,
+            "line": 21,
             "match": {
               "location": "features/step_definitions/ctrp_dataclinicaltrials_api.rb:71"
             },
             "result": {
               "status": "passed",
-              "duration": 50008
+              "duration": 1436536
+            }
+          }
+        ]
+      },
+      {
+        "id": "tests-for-clinical-trials-api-service-in-ctrp_dataclinicaltrials_api-system;dct_api02.-new-field-values-can-be-retrieve-successfully-with-study-protocol-id",
+        "keyword": "Scenario",
+        "name": "DCT_API02. new field values can be retrieve successfully with Study Protocol ID",
+        "description": "",
+        "line": 24,
+        "type": "scenario",
+        "tags": [
+          {
+            "name": "@CTRPMICRO-80",
+            "line": 23
+          },
+          {
+            "name": "@REST",
+            "line": 23
+          },
+          {
+            "name": "@Tests",
+            "line": 23
+          },
+          {
+            "name": "@PA_HIGH",
+            "line": 23
+          }
+        ],
+        "steps": [
+          {
+            "keyword": "Given ",
+            "name": "following FDAAA filed values available to the ctrp_dataclinicaltrials_api MS",
+            "line": 25,
+            "rows": [
+              {
+                "cells": [
+                  "study_protocol_id",
+                  "22222222"
+                ]
+              },
+              {
+                "cells": [
+                  "nci_id",
+                  "NCI88888888"
+                ]
+              },
+              {
+                "cells": [
+                  "exported_from_us",
+                  "true"
+                ]
+              },
+              {
+                "cells": [
+                  "gender_description",
+                  "11111 gender_description"
+                ]
+              },
+              {
+                "cells": [
+                  "sequential_assignment",
+                  "11111 sequential_assignment"
+                ]
+              },
+              {
+                "cells": [
+                  "fda_regulated_drug",
+                  "false"
+                ]
+              },
+              {
+                "cells": [
+                  "post_prior_to_approval",
+                  "true"
+                ]
+              },
+              {
+                "cells": [
+                  "ped_postmarket_surv",
+                  "true"
+                ]
+              },
+              {
+                "cells": [
+                  "masking_description",
+                  "11111 masking_description"
+                ]
+              },
+              {
+                "cells": [
+                  "fda_regulated_device",
+                  "true"
+                ]
+              },
+              {
+                "cells": [
+                  "model_description",
+                  "11111 model_description"
+                ]
+              },
+              {
+                "cells": [
+                  "gender_based",
+                  "true"
+                ]
+              }
+            ],
+            "match": {
+              "location": "features/step_definitions/ctrp_dataclinicaltrials_api.rb:84"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 189655
+            }
+          },
+          {
+            "keyword": "When ",
+            "name": "I used the \"POST\" to ctrp_dataclinicaltrials_api MS with Content-Type \"\" Accept \"\" for \"FDAAA_FIELDS\"",
+            "line": 38,
+            "match": {
+              "location": "features/step_definitions/ctrp_dataclinicaltrials_api.rb:35"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 27618834
+            }
+          },
+          {
+            "keyword": "Then ",
+            "name": "ctrp_dataclinicaltrials_api MS response to \"POST\" should be \"200\"",
+            "line": 39,
+            "match": {
+              "location": "features/step_definitions/ctrp_dataclinicaltrials_api.rb:67"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 122941
+            }
+          },
+          {
+            "keyword": "When ",
+            "name": "I used the \"GET\" to ctrp_dataclinicaltrials_api MS with Content-Type \"\" Accept \"\" for \"FDAAA_FIELDS\"",
+            "line": 40,
+            "output": [
+              "Study protocol ID: 22222222"
+            ],
+            "match": {
+              "location": "features/step_definitions/ctrp_dataclinicaltrials_api.rb:35"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 43224281
+            }
+          },
+          {
+            "keyword": "Then ",
+            "name": "ctrp_dataclinicaltrials_api MS response to \"GET\" should be \"200\"",
+            "line": 41,
+            "match": {
+              "location": "features/step_definitions/ctrp_dataclinicaltrials_api.rb:67"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 44317
+            }
+          },
+          {
+            "keyword": "And ",
+            "name": "response body should retrieved FDAAA field values",
+            "line": 42,
+            "output": [
+              "gen desc is: 11111 gender_description"
+            ],
+            "match": {
+              "location": "features/step_definitions/ctrp_dataclinicaltrials_api.rb:99"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 202481
+            }
+          }
+        ]
+      },
+      {
+        "id": "tests-for-clinical-trials-api-service-in-ctrp_dataclinicaltrials_api-system;dct_api05.-update-existing-fdaaa-field-values-should-be-successful-with-study-protocol-id",
+        "keyword": "Scenario",
+        "name": "DCT_API05. update existing FDAAA field values should be successful with Study protocol ID",
+        "description": "",
+        "line": 70,
+        "type": "scenario",
+        "tags": [
+          {
+            "name": "@CTRPMICRO-83",
+            "line": 69
+          },
+          {
+            "name": "@REST",
+            "line": 69
+          },
+          {
+            "name": "@Tests",
+            "line": 69
+          },
+          {
+            "name": "@PA_HIGH",
+            "line": 69
+          }
+        ],
+        "steps": [
+          {
+            "keyword": "Given ",
+            "name": "following FDAAA field values exists in the ctrp_dataclinicaltrials_api MS",
+            "line": 71,
+            "rows": [
+              {
+                "cells": [
+                  "study_protocol_id",
+                  "55555555"
+                ]
+              },
+              {
+                "cells": [
+                  "nci_id",
+                  "NCI55555555"
+                ]
+              },
+              {
+                "cells": [
+                  "exported_from_us",
+                  "true"
+                ]
+              },
+              {
+                "cells": [
+                  "gender_description",
+                  "11111 gender_description"
+                ]
+              },
+              {
+                "cells": [
+                  "sequential_assignment",
+                  "11111 sequential_assignment"
+                ]
+              },
+              {
+                "cells": [
+                  "fda_regulated_drug",
+                  "true"
+                ]
+              },
+              {
+                "cells": [
+                  "post_prior_to_approval",
+                  "true"
+                ]
+              },
+              {
+                "cells": [
+                  "ped_postmarket_surv",
+                  "true"
+                ]
+              },
+              {
+                "cells": [
+                  "masking_description",
+                  "11111 masking_description"
+                ]
+              },
+              {
+                "cells": [
+                  "fda_regulated_device",
+                  "true"
+                ]
+              },
+              {
+                "cells": [
+                  "model_description",
+                  "11111 model_description"
+                ]
+              },
+              {
+                "cells": [
+                  "gender_based",
+                  "false"
+                ]
+              }
+            ],
+            "match": {
+              "location": "features/step_definitions/ctrp_dataclinicaltrials_api.rb:128"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 299455
+            }
+          },
+          {
+            "keyword": "When ",
+            "name": "I used the \"POST\" to ctrp_dataclinicaltrials_api MS with Content-Type \"\" Accept \"\" for \"FDAAA_FIELDS\"",
+            "line": 84,
+            "match": {
+              "location": "features/step_definitions/ctrp_dataclinicaltrials_api.rb:35"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 27399438
+            }
+          },
+          {
+            "keyword": "Then ",
+            "name": "ctrp_dataclinicaltrials_api MS response to \"POST\" should be \"200\"",
+            "line": 85,
+            "match": {
+              "location": "features/step_definitions/ctrp_dataclinicaltrials_api.rb:67"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 95622
+            }
+          },
+          {
+            "keyword": "And ",
+            "name": "I want to update the \"55555555\" trials FDAAA field values with following values",
+            "line": 86,
+            "rows": [
+              {
+                "cells": [
+                  "study_protocol_id",
+                  "55555555"
+                ]
+              },
+              {
+                "cells": [
+                  "nci_id",
+                  "NCI55555555"
+                ]
+              },
+              {
+                "cells": [
+                  "exported_from_us",
+                  "true"
+                ]
+              },
+              {
+                "cells": [
+                  "gender_description",
+                  "55555 gender_description"
+                ]
+              },
+              {
+                "cells": [
+                  "sequential_assignment",
+                  "55555 sequential_assignment"
+                ]
+              },
+              {
+                "cells": [
+                  "fda_regulated_drug",
+                  "true"
+                ]
+              },
+              {
+                "cells": [
+                  "post_prior_to_approval",
+                  "false"
+                ]
+              },
+              {
+                "cells": [
+                  "ped_postmarket_surv",
+                  "true"
+                ]
+              },
+              {
+                "cells": [
+                  "masking_description",
+                  "55555 masking_description"
+                ]
+              },
+              {
+                "cells": [
+                  "fda_regulated_device",
+                  "false"
+                ]
+              },
+              {
+                "cells": [
+                  "model_description",
+                  "55555 model_description"
+                ]
+              },
+              {
+                "cells": [
+                  "gender_based",
+                  "true"
+                ]
+              }
+            ],
+            "match": {
+              "location": "features/step_definitions/ctrp_dataclinicaltrials_api.rb:143"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 303356
+            }
+          },
+          {
+            "keyword": "When ",
+            "name": "I used the \"PUT\" to ctrp_dataclinicaltrials_api MS with Content-Type \"\" Accept \"\" for \"FDAAA_FIELDS\"",
+            "line": 99,
+            "match": {
+              "location": "features/step_definitions/ctrp_dataclinicaltrials_api.rb:35"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 49183672
+            }
+          },
+          {
+            "keyword": "Then ",
+            "name": "ctrp_dataclinicaltrials_api MS response to \"PUT\" should be \"200\"",
+            "line": 100,
+            "match": {
+              "location": "features/step_definitions/ctrp_dataclinicaltrials_api.rb:67"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 47315
+            }
+          },
+          {
+            "keyword": "And ",
+            "name": "response body should include \"Message has been processed successfully\"",
+            "line": 101,
+            "match": {
+              "location": "features/step_definitions/ctrp_dataclinicaltrials_api.rb:75"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 33871
+            }
+          },
+          {
+            "keyword": "When ",
+            "name": "I used the \"GET\" to ctrp_dataclinicaltrials_api MS with Content-Type \"\" Accept \"\" for \"FDAAA_FIELDS\"",
+            "line": 102,
+            "output": [
+              "Study protocol ID: 55555555"
+            ],
+            "match": {
+              "location": "features/step_definitions/ctrp_dataclinicaltrials_api.rb:35"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 19623632
+            }
+          },
+          {
+            "keyword": "Then ",
+            "name": "ctrp_dataclinicaltrials_api MS response to \"GET\" should be \"200\"",
+            "line": 103,
+            "match": {
+              "location": "features/step_definitions/ctrp_dataclinicaltrials_api.rb:67"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 67512
+            }
+          },
+          {
+            "keyword": "And ",
+            "name": "response body should retrieved FDAAA field values",
+            "line": 104,
+            "output": [
+              "gen desc is: 55555 gender_description"
+            ],
+            "match": {
+              "location": "features/step_definitions/ctrp_dataclinicaltrials_api.rb:99"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 185677
             }
           }
         ]
