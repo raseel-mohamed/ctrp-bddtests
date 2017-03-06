@@ -155,3 +155,57 @@ And(/^I want to update the "([^"]*)" trials FDAAA field values with following va
   @gender_based = table.rows_hash['gender_based']
 end
 
+Given(/^I want to add following FDAAA filed values along with null value to the ctrp_dataclinicaltrials_api MS$/) do |table|
+  # table is a Cucumber::Core::Ast::DataTable
+  @study_protocol_id = table.rows_hash['study_protocol_id']
+  @nci_id = table.rows_hash['nci_id']
+  @exported_from_us = table.rows_hash['exported_from_us']
+  @gender_description = table.rows_hash['gender_description']
+  @sequential_assignment = table.rows_hash['sequential_assignment']
+  @fda_regulated_drug = table.rows_hash['fda_regulated_drug']
+  @post_prior_to_approval = table.rows_hash['post_prior_to_approval']
+  @ped_postmarket_surv = table.rows_hash['ped_postmarket_surv']
+  @masking_description = table.rows_hash['masking_description']
+  @fda_regulated_device = table.rows_hash['fda_regulated_device']
+  @model_description = table.rows_hash['model_description']
+  @gender_based = table.rows_hash['gender_based']
+end
+
+Given(/^I want to add following FDAAA filed values along with all the null field values to the ctrp_dataclinicaltrials_api MS$/) do |table|
+  # table is a Cucumber::Core::Ast::DataTable
+  @study_protocol_id = table.rows_hash['study_protocol_id']
+  @nci_id = table.rows_hash['nci_id']
+  @exported_from_us = table.rows_hash['exported_from_us']
+  @gender_description = table.rows_hash['gender_description']
+  @sequential_assignment = table.rows_hash['sequential_assignment']
+  @fda_regulated_drug = table.rows_hash['fda_regulated_drug']
+  @post_prior_to_approval = table.rows_hash['post_prior_to_approval']
+  @ped_postmarket_surv = table.rows_hash['ped_postmarket_surv']
+  @masking_description = table.rows_hash['masking_description']
+  @fda_regulated_device = table.rows_hash['fda_regulated_device']
+  @model_description = table.rows_hash['model_description']
+  @gender_based = table.rows_hash['gender_based']
+end
+
+Given(/^I want to add following FDAAA filed values to the ctrp_dataclinicaltrials_api MS with extra fields$/) do |table|
+  # table is a Cucumber::Core::Ast::DataTable
+  @study_protocol_id = table.rows_hash['study_protocol_id']
+  @nci_id = table.rows_hash['nci_id']
+  @exported_from_us = table.rows_hash['exported_from_us']
+  @gender_description = table.rows_hash['gender_description']
+  @sequential_assignment = table.rows_hash['sequential_assignment']
+  @fda_regulated_drug = table.rows_hash['fda_regulated_drug']
+  @post_prior_to_approval = table.rows_hash['post_prior_to_approval']
+  @ped_postmarket_surv = table.rows_hash['ped_postmarket_surv']
+  @masking_description = table.rows_hash['masking_description']
+  @fda_regulated_device = table.rows_hash['fda_regulated_device']
+  @model_description = table.rows_hash['model_description']
+  @gender_based = table.rows_hash['gender_based']
+end
+
+And(/^response body should include above recorded FDAAA field values except extra fields values and keys$/) do
+  puts  'gen desc is: ' + @gender_description
+  Dataclinicaltrials_api_helper.verify_fdaaa_field_values(@study_protocol_id, @nci_id, @exported_from_us, @gender_description, @sequential_assignment, @fda_regulated_drug, @post_prior_to_approval, @ped_postmarket_surv, @masking_description, @fda_regulated_device, @model_description, @gender_based, @response_body)
+end
+
+
