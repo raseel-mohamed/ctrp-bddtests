@@ -1,5 +1,5 @@
-When(/^I open automationpractice website$/) do
-  @browser.goto "http://automationpractice.com"
+When(/^I open ctrp pa$/) do
+  @browser.goto "http://ctrp-pa.nci.nih.gov"
 end
 
 Then(/^I click sign in$/) do
