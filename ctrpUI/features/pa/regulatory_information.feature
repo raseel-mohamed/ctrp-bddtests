@@ -77,7 +77,7 @@ Scenario: Verify the fields are required in the Regulatory Information(PA) scree
     When "Product Exported from the U.S" is "Yes"
     Then the conditional fields should be
       | Field Name                                   | Condition                                                                                               |
-      | Product Exported from the U.S                | Required only if the field "Product Exported from the U.S" is "Yes"                                                          |
+      | Product Exported from the U.S                | Required only if the field "Product Exported from the U.S" is "Yes"                                     |
 
   @PA_HIGH @FDAAA @PA @CTRPMICRO-75
   Scenario: Verify the description for "Post Prior to U.S. FDA Approval or Clearance" is displayed in the Regulatory Information(PA) screen
