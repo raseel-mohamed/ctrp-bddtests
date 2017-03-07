@@ -93,7 +93,7 @@ Feature: Tests for clinical trials api service in ctrp_dataclinicaltrials_api sy
       |post_prior_to_approval   |false                        |
       |ped_postmarket_surv      |true                         |
       |masking_description      |55555 masking_description    |
-      |fda_regulated_device     |false   |
+      |fda_regulated_device     |false                        |
       |model_description        |55555 model_description      |
       |gender_based             |true                         |
     When I used the "PUT" to ctrp_dataclinicaltrials_api MS with Content-Type "" Accept "" for "FDAAA_FIELDS"
@@ -115,7 +115,7 @@ Feature: Tests for clinical trials api service in ctrp_dataclinicaltrials_api sy
       |post_prior_to_approval   |true                         |
       |ped_postmarket_surv      |true                         |
       |masking_description      |11111 masking_description    |
-      |fda_regulated_device     |11111 fda_regulated_device   |
+      |fda_regulated_device     |false                        |
       |model_description        |11111 model_description      |
       |gender_based             |false                        |
     When I used the "POST" to ctrp_dataclinicaltrials_api MS with Content-Type "" Accept "" for "FDAAA_FIELDS"
@@ -130,7 +130,7 @@ Feature: Tests for clinical trials api service in ctrp_dataclinicaltrials_api sy
       |post_prior_to_approval   |false                        |
       |ped_postmarket_surv      |false                        |
       |masking_description      |11111 masking_description    |
-      |fda_regulated_device     |11111 fda_regulated_device   |
+      |fda_regulated_device     |false                        |
       |model_description        |11111 model_description      |
       |gender_based             |false                        |
     When I used the "PUT" to ctrp_dataclinicaltrials_api MS with Content-Type "" Accept "" for "FDAAA_FIELDS"
@@ -156,7 +156,7 @@ Feature: Tests for clinical trials api service in ctrp_dataclinicaltrials_api sy
       |post_prior_to_approval   |true                         |
       |ped_postmarket_surv      |true                         |
       |masking_description      |10101 masking_description    |
-      |fda_regulated_device     |10101 fda_regulated_device   |
+      |fda_regulated_device     |false                        |
       |model_description        |10101 model_description      |
       |gender_based             |false                        |
     When I used the "POST" to ctrp_dataclinicaltrials_api MS with Content-Type "" Accept "" for "FDAAA_FIELDS"
@@ -218,8 +218,9 @@ Feature: Tests for clinical trials api service in ctrp_dataclinicaltrials_api sy
       |post_prior_to_approval   |true                         |
       |ped_postmarket_surv      |true                         |
       |masking_description      |40404 masking_description    |
-      |fda_regulated_device     |40404 fda_regulated_device   |
+      |fda_regulated_device     |false                        |
       |model_description        |40404 model_description      |
+      |gender_based             |false                        |
       |extra_field              |This is extra field          |
     When I used the "POST" to ctrp_dataclinicaltrials_api MS with Content-Type "" Accept "" for "FDAAA_FIELDS"
     Then ctrp_dataclinicaltrials_api MS response to "POST" should be "200"

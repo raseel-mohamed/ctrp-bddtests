@@ -93,8 +93,8 @@ class Dataclinicaltrials_api_helper
   def self.verify_fdaaa_field_values(study_prtcl_id_dct, nci_id_dct, exported_from_us_dct, gender_desc_dct, seq_assignment_dct, fda_reglted_drug_dct, post_pror_aprval_dct, ped_pstmrkt_srv_dct, masking_desc_dct, fda_rglatd_divce_dct, model_desc_dct, gender_based_dct, response)
     puts 'NCI ID expected: ' + nci_id_dct.to_s
     puts 'NCI ID actual: ' + response['nci_id']
-    puts 'ex ID actual: ' + response['fda_regulated_device'].to_s
-    puts 'ex ID expected: ' + fda_rglatd_divce_dct.to_s
+    puts 'ex ID actual: ' + response['gender_based'].to_s
+    puts 'ex ID expected: ' + gender_based_dct.to_s
     assert_equal(study_prtcl_id_dct, response['study_protocol_id'], 'Study Protocol ID' + @error_string)
     assert_equal(nci_id_dct, response['nci_id'], 'NCI ID' + @error_string)
     assert_equal(exported_from_us_dct, response['exported_from_us'].to_s, 'Exported from us' + @error_string)
