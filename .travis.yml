@@ -88,6 +88,8 @@ script:
   # - mv results/ results_critical/; mkdir results
 after_success:
   # Run Low tag
+  - pwd
+  - ls -ltar
   - cucumber features/ -t @PA_LOW --format json --out ../results/output.json --expand
   #- cucumber features/ -t @po_low --format json --out ../results/output.json --expand
   #Run P3 cucumber tests
