@@ -41,7 +41,7 @@ Feature: Tests for clinical trials api service in ctrp_dataclinicaltrials_api sy
     Then ctrp_dataclinicaltrials_api MS response to "GET" should be "200"
     And response body should retrieved FDAAA field values
 
-  @CTRPMICRO-81 @REST @Tests @PA_MEDIUM
+  @on_hold @CTRPMICRO-81
   Scenario: DCT_API03. field values cannot be posted with invalid Study Protocol ID
     Given I want to add following FDAAA filed values to the ctrp_dataclinicaltrials_api MS with an invalid Study Protocol ID
       |study_protocol_id        |Test                         |
