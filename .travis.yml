@@ -58,15 +58,15 @@ script:
   # - ls -alt results
   # run ctrp-bddtests/ctrpBackend tests by the tag name
   - cd ctrp-bddtests/ctrpBackend/
-  #- cucumber features/ -r features/
-  - cucumber features/ -t @PA_HIGH --format json --out ../results/output.json --expand && cucumber features/ -t @PA_MEDIUM --format json --out ../results/output.json --expand
-  #- if [ "$?" = "0" ]; then cucumber features/ -t @PA_MEDIUM --format json --out ../results/output.json --expand; fi
+  #- cucumber test_features/ -r test_features/
+  - cucumber test_features/ -t @PA_HIGH --format json --out ../results/output.json --expand && cucumber test_features/ -t @PA_MEDIUM --format json --out ../results/output.json --expand
+  #- if [ "$?" = "0" ]; then cucumber test_features/ -t @PA_MEDIUM --format json --out ../results/output.json --expand; fi
   # run by tag(s)
-  #- cucumber features/ -t @CTRPMICRO-34,@CTRPMICRO-35 --format json --out ../results/output.json --expand
-  #- cucumber features/ -t @po_high --format json --out ../results/output.json --expand
-  #- cucumber features/ -t @po_medium --format json --out ../results/output.json --expand
+  #- cucumber test_features/ -t @CTRPMICRO-34,@CTRPMICRO-35 --format json --out ../results/output.json --expand
+  #- cucumber test_features/ -t @po_high --format json --out ../results/output.json --expand
+  #- cucumber test_features/ -t @po_medium --format json --out ../results/output.json --expand
   # - rm results/*
-  # - cd uMATCH/PedMATCH; bundle exec parallel_cucumber features/ -o '-r features/step_definitions/ -r features/support/ -t $CUC_TAG$P1,$CUC_TAG$P2 --format json --out ../../results/output-$CUC_TAG$P1-$TEST_ENV_NUMBER.json --expand' -n 2
+  # - cd uMATCH/PedMATCH; bundle exec parallel_cucumber test_features/ -o '-r test_features/step_definitions/ -r test_features/support/ -t $CUC_TAG$P1,$CUC_TAG$P2 --format json --out ../../results/output-$CUC_TAG$P1-$TEST_ENV_NUMBER.json --expand' -n 2
   # - cd ../..
   # Run Cucumber end to end tests
   # - bundle exec cucumber --tags @EndtoEnd
@@ -90,10 +90,10 @@ after_success:
   # Run Low tag
   - pwd
   - ls -ltar
-  - cucumber features/ -t @PA_LOW --format json --out ../results/output.json --expand
-  #- cucumber features/ -t @po_low --format json --out ../results/output.json --expand
+  - cucumber test_features/ -t @PA_LOW --format json --out ../results/output.json --expand
+  #- cucumber test_features/ -t @po_low --format json --out ../results/output.json --expand
   #Run P3 cucumber tests
-  # - cd uMATCH/PedMATCH; bundle exec parallel_cucumber features/ -o '-r features/step_definitions/ -r features/support/ -t $CUC_TAG$P3 --format json --out ../../results/output-$CUC_TAG$P3-$TEST_ENV_NUMBER.json --expand' -n 2
+  # - cd uMATCH/PedMATCH; bundle exec parallel_cucumber test_features/ -o '-r test_features/step_definitions/ -r test_features/support/ -t $CUC_TAG$P3 --format json --out ../../results/output-$CUC_TAG$P3-$TEST_ENV_NUMBER.json --expand' -n 2
   #Run protractor tests
   # - cd ../../nci-match-ui-bddtests/
   # - if [ "$CUC_TAG" = "@ui" -o "$CUC_TAG" = "@demo" ]; then protractor config.js --cucumberOpts.tags='~@broken' --cucumberOpts.tags=$CUC_TAG$P3 --troubleshoot; fi
@@ -114,7 +114,7 @@ after_success:
 
 after_failure:
     #Run P3 cucumber tests
-    # - cd uMATCH/PedMATCH; bundle exec parallel_cucumber features/ -o '-r features/step_definitions/ -r features/support/ -t $CUC_TAG$P3 --format json --out ../../results/output-$TEST_ENV_NUMBER.json --expand' -n 2
+    # - cd uMATCH/PedMATCH; bundle exec parallel_cucumber test_features/ -o '-r test_features/step_definitions/ -r test_features/support/ -t $CUC_TAG$P3 --format json --out ../../results/output-$TEST_ENV_NUMBER.json --expand' -n 2
     # #Run protractor tests
     # - cd ../../nci-match-ui-bddtests/
     # - protractor config.js --cucumberOpts.tags='~@broken' --cucumberOpts.tags=$CUC_TAG$P3 --troubleshoot
