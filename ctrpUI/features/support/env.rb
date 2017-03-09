@@ -1,5 +1,11 @@
 require 'rubygems'
 require 'selenium-cucumber'
+# require 'rspec'
+# require 'json'
+# require 'rest-client'
+# require 'rspec/expectations'
+# require 'test/unit/assertions'
+# include Test::Unit::Assertions
 
 # Store command line arguments
 $browser_type = ENV['BROWSER'] || 'ff'
@@ -9,62 +15,32 @@ $device_name = ENV['DEVICE_NAME']
 $udid = ENV['UDID']
 $app_path = ENV['APP_PATH']
 
-
-require 'rspec'
-require 'json'
-require 'rest-client'
-require 'rspec/expectations'
-require 'test/unit/assertions'
-include Test::Unit::Assertions
-
-
-base_qa2 = 'https://trials-qa2.nci.nih.gov/'
+#base url
+base_int = 'http://ctrp-pa-inttest-elb-330752222.us-east-1.elb.amazonaws.com:18080/'
 base_local = 'https://localhost/'
-base_aws = 'http://ctrp-po-inttest-elb-1603106388.us-east-1.elb.amazonaws.com:39080/'
-base_dataclinicaltrials_ms = 'http://ctrp-inttest-alb-backend-1739456098.us-east-1.elb.amazonaws.com:3100/api/v1/data_clinical_trials/'
 
-#PO Endpoints
-po_endpoint = 'po-webservices/services/'
+#app
+pa_app = 'pa/'
+registry_app = 'registry/'
+accrual_app = 'accrual/'
 
-org_endpoint = 'organization-rest-service/organization/'
-per_endpoint = 'person-rest-service/person/'
-fam_endpoint = 'family-rest-service/'
+ENV['APP_ENV_SELECT'] = 'aws'
+ENV['PA_USER_ID'] = 'ctrpqatester1'
+ENV['PA_USER_PASS'] = 'pass'
+ENV['REG_USER_ID'] = 'ctrpqatester1'
+ENV['REG_USER_PASS'] = 'pass'
+ENV['ACCRUAL_USER_ID'] = 'ctrpqatester1'
+ENV['ACCRUAL_USER_PASS'] = 'pass'
 
-#PA Endpoints
-
-ENV['choose_ENV'] = 'aws'
-ENV['user1'] = 'ctrpqatester1'
-ENV['user1_password'] = 'pass'
-ENV['dct_usr'] = ''
-ENV['dct_pass'] = ''
-#put ENV["USER1_ID"]
-#put ENV["USER1_PASS"]
-
-# puts 'user name: '+ENV.USER1_ID
-# puts 'user pass: '+ENV.USER1_PASS
-
-case ENV['choose_ENV']
-  when 'qa2'
-    ENV['create_organization'] = base_qa2 + po_endpoint + org_endpoint
-    ENV['update_organization'] = base_qa2 + po_endpoint + org_endpoint
-    ENV['create_person'] = base_qa2 + po_endpoint + per_endpoint
-    ENV['update_person'] = base_qa2 + po_endpoint + per_endpoint
-    ENV['search_family'] = base_qa2 + po_endpoint + fam_endpoint
-    ENV['dataclinicaltrials_ms'] = base_dataclinicaltrials_ms
+case ENV['APP_ENV_SELECT']
   when 'local'
-    ENV['create_organization'] = base_local + po_endpoint + org_endpoint
-    ENV['update_organization'] = base_local + po_endpoint + org_endpoint
-    ENV['create_person'] = base_local + po_endpoint + per_endpoint
-    ENV['update_person'] = base_local + po_endpoint + per_endpoint
-    ENV['search_family'] = base_local + po_endpoint + fam_endpoint
-    ENV['dataclinicaltrials_ms'] = base_dataclinicaltrials_ms
+    ENV['PA_APP'] = base_local + pa_app
+    ENV['REG_APP'] = base_local + registry_app
+    ENV['ACCRUAL_APP'] = base_local + accrual_app
   when 'aws'
-    ENV['create_organization'] = base_aws + po_endpoint + org_endpoint
-    ENV['update_organization'] = base_aws + po_endpoint + org_endpoint
-    ENV['create_person'] = base_aws + po_endpoint + per_endpoint
-    ENV['update_person'] = base_aws + po_endpoint + per_endpoint
-    ENV['search_family'] = base_aws + po_endpoint + fam_endpoint
-    ENV['dataclinicaltrials_ms'] = base_dataclinicaltrials_ms
+    ENV['PA_APP'] = base_int + pa_app
+    ENV['REG_APP'] = base_int + registry_app
+    ENV['ACCRUAL_APP'] = base_int + accrual_app
   else
     puts 'Please choose correct Environment.'
 end
