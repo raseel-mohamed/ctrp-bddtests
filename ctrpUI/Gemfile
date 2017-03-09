@@ -1,5 +1,5 @@
 source 'http://rubygems.org'
 
 gem 'cucumber'
-gem 'selenium-webdriver'
+gem 'selenium-webdriver', '=2.53.4'
 gem 'require_all'
