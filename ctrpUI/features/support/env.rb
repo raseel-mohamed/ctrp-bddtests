@@ -16,13 +16,19 @@ $udid = ENV['UDID']
 $app_path = ENV['APP_PATH']
 
 #base url
-base_int = 'http://ctrp-pa-inttest-elb-330752222.us-east-1.elb.amazonaws.com:18080/'
-base_local = 'https://localhost/'
+base_int_pa = 'http://ctrp-pa-inttest-elb-330752222.us-east-1.elb.amazonaws.com:18080/'
+base_local_pa = 'https://localhost:39480/'
+base_int_po = 'http://ctrp-po-inttest-elb-1603106388.us-east-1.elb.amazonaws.com:39080/'
+base_local_po = 'https://localhost:39080/'
+base_uat_pa = 'http://ctrp-pa-uat-elb-872610571.us-east-1.elb.amazonaws.com:18080/'
+base_uat_po = 'http://ctrp-po-uat-elb-1842717871.us-east-1.elb.amazonaws.com:39080/'
+
 
 #app
 pa_app = 'pa/'
 registry_app = 'registry/'
 accrual_app = 'accrual/'
+po_app = 'po-web/'
 
 ENV['APP_ENV_SELECT'] = 'aws'
 ENV['PA_USER_ID'] = 'ctrpqatester1'
@@ -34,17 +40,23 @@ ENV['ACCRUAL_USER_PASS'] = 'pass'
 
 case ENV['APP_ENV_SELECT']
   when 'local'
-    ENV['PA_APP'] = base_local + pa_app
-    ENV['REG_APP'] = base_local + registry_app
-    ENV['ACCRUAL_APP'] = base_local + accrual_app
+    ENV['PO_APP'] = base_local_po + po_app
+    ENV['PA_APP'] = base_local_pa + pa_app
+    ENV['REG_APP'] = base_local_pa + registry_app
+    ENV['ACCRUAL_APP'] = base_local_pa + accrual_app
   when 'aws'
-    ENV['PA_APP'] = base_int + pa_app
-    ENV['REG_APP'] = base_int + registry_app
-    ENV['ACCRUAL_APP'] = base_int + accrual_app
+    ENV['PO_APP'] = base_int_po + po_app
+    ENV['PA_APP'] = base_int_pa + pa_app
+    ENV['REG_APP'] = base_int_pa + registry_app
+    ENV['ACCRUAL_APP'] = base_int_pa + accrual_app
+  when 'uat'
+    ENV['PO_APP'] = base_uat_po + po_app
+    ENV['PA_APP'] = base_uat_pa + pa_app
+    ENV['REG_APP'] = base_uat_pa + registry_app
+    ENV['ACCRUAL_APP'] = base_uat_pa + accrual_app
   else
     puts 'Please choose correct Environment.'
 end
-
 
 # check for valid parameters
 validate_parameters $platform, $browser_type, $app_path
