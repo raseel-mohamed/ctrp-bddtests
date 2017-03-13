@@ -1,19 +1,23 @@
 [
   {
-    "uri": "features/pa/ctrp_dataclinicaltrials_api.feature",
-    "id": "tests-for-clinical-trials-api-service-in-ctrp_dataclinicaltrials_api-system",
     "keyword": "Feature",
     "name": "Tests for clinical trials api service in ctrp_dataclinicaltrials_api system",
-    "description": "",
     "line": 1,
+    "description": "",
+    "id": "tests-for-clinical-trials-api-service-in-ctrp-dataclinicaltrials-api-system",
+    "uri": "features/pa/ctrp_dataclinicaltrials_api.feature",
     "elements": [
       {
-        "id": "tests-for-clinical-trials-api-service-in-ctrp_dataclinicaltrials_api-system;dct_api01.-new-field-values-can-be-recorded-with-study-protocol-id-successfully",
+        "comments": [
+          {
+            "value": "#@ctrp_dataclinicaltrials_api",
+            "line": 3
+          }
+        ],
         "keyword": "Scenario",
         "name": "DCT_API01. new field values can be recorded with Study Protocol ID successfully",
-        "description": "",
         "line": 5,
-        "type": "scenario",
+        "description": "",
         "tags": [
           {
             "name": "@CTRPMICRO-79",
@@ -32,12 +36,8 @@
             "line": 4
           }
         ],
-        "comments": [
-          {
-            "value": "#@ctrp_dataclinicaltrials_api",
-            "line": 3
-          }
-        ],
+        "id": "tests-for-clinical-trials-api-service-in-ctrp-dataclinicaltrials-api-system;dct-api01.-new-field-values-can-be-recorded-with-study-protocol-id-successfully",
+        "type": "scenario",
         "steps": [
           {
             "keyword": "Given ",
@@ -48,73 +48,85 @@
                 "cells": [
                   "study_protocol_id",
                   "11111111"
-                ]
+                ],
+                "line": 7
               },
               {
                 "cells": [
                   "nci_id",
                   "NCI77777777"
-                ]
+                ],
+                "line": 8
               },
               {
                 "cells": [
                   "exported_from_us",
                   "true"
-                ]
+                ],
+                "line": 9
               },
               {
                 "cells": [
                   "gender_description",
                   "11111 gender_description"
-                ]
+                ],
+                "line": 10
               },
               {
                 "cells": [
                   "sequential_assignment",
                   "11111 sequential_assignment"
-                ]
+                ],
+                "line": 11
               },
               {
                 "cells": [
                   "fda_regulated_drug",
                   "true"
-                ]
+                ],
+                "line": 12
               },
               {
                 "cells": [
                   "post_prior_to_approval",
                   "true"
-                ]
+                ],
+                "line": 13
               },
               {
                 "cells": [
                   "ped_postmarket_surv",
                   "true"
-                ]
+                ],
+                "line": 14
               },
               {
                 "cells": [
                   "masking_description",
                   "11111 masking_description"
-                ]
+                ],
+                "line": 15
               },
               {
                 "cells": [
                   "fda_regulated_device",
                   "11111 fda_regulated_device"
-                ]
+                ],
+                "line": 16
               },
               {
                 "cells": [
                   "model_description",
                   "11111 model_description"
-                ]
+                ],
+                "line": 17
               },
               {
                 "cells": [
                   "gender_based",
                   "false"
-                ]
+                ],
+                "line": 18
               }
             ],
             "match": {
@@ -122,7 +134,7 @@
             },
             "result": {
               "status": "passed",
-              "duration": 318642
+              "duration": 229000
             }
           },
           {
@@ -130,11 +142,30 @@
             "name": "I used the \"POST\" to ctrp_dataclinicaltrials_api MS with Content-Type \"\" Accept \"\" for \"FDAAA_FIELDS\"",
             "line": 19,
             "match": {
+              "arguments": [
+                {
+                  "offset": 12,
+                  "val": "POST"
+                },
+                {
+                  "offset": 71,
+                  "val": ""
+                },
+                {
+                  "offset": 81,
+                  "val": ""
+                },
+                {
+                  "offset": 88,
+                  "val": "FDAAA_FIELDS"
+                }
+              ],
               "location": "features/step_definitions/ctrp_dataclinicaltrials_api.rb:35"
             },
             "result": {
-              "status": "passed",
-              "duration": 65582848
+              "status": "failed",
+              "error_message": "A JSON text must at least contain two octets! (JSON::ParserError)\n./features/support/dataclinicaltrials_api_helper.rb:55:in `trigger_field_values_post'\n./features/step_definitions/ctrp_dataclinicaltrials_api.rb:43:in `/^I used the \"([^\"]*)\" to ctrp_dataclinicaltrials_api MS with Content\\-Type \"([^\"]*)\" Accept \"([^\"]*)\" for \"([^\"]*)\"$/'\nfeatures/pa/ctrp_dataclinicaltrials_api.feature:19:in `When I used the \"POST\" to ctrp_dataclinicaltrials_api MS with Content-Type \"\" Accept \"\" for \"FDAAA_FIELDS\"'",
+              "duration": 60215000
             }
           },
           {
@@ -142,11 +173,20 @@
             "name": "ctrp_dataclinicaltrials_api MS response to \"POST\" should be \"200\"",
             "line": 20,
             "match": {
+              "arguments": [
+                {
+                  "offset": 44,
+                  "val": "POST"
+                },
+                {
+                  "offset": 61,
+                  "val": "200"
+                }
+              ],
               "location": "features/step_definitions/ctrp_dataclinicaltrials_api.rb:67"
             },
             "result": {
-              "status": "passed",
-              "duration": 861032
+              "status": "skipped"
             }
           },
           {
@@ -154,22 +194,25 @@
             "name": "response body should return \"Data has been updated successfully\"",
             "line": 21,
             "match": {
+              "arguments": [
+                {
+                  "offset": 29,
+                  "val": "Data has been updated successfully"
+                }
+              ],
               "location": "features/step_definitions/ctrp_dataclinicaltrials_api.rb:71"
             },
             "result": {
-              "status": "passed",
-              "duration": 1196890
+              "status": "skipped"
             }
           }
         ]
       },
       {
-        "id": "tests-for-clinical-trials-api-service-in-ctrp_dataclinicaltrials_api-system;dct_api02.-new-field-values-can-be-retrieve-successfully-with-study-protocol-id",
         "keyword": "Scenario",
         "name": "DCT_API02. new field values can be retrieve successfully with Study Protocol ID",
-        "description": "",
         "line": 24,
-        "type": "scenario",
+        "description": "",
         "tags": [
           {
             "name": "@CTRPMICRO-80",
@@ -188,6 +231,8 @@
             "line": 23
           }
         ],
+        "id": "tests-for-clinical-trials-api-service-in-ctrp-dataclinicaltrials-api-system;dct-api02.-new-field-values-can-be-retrieve-successfully-with-study-protocol-id",
+        "type": "scenario",
         "steps": [
           {
             "keyword": "Given ",
@@ -198,73 +243,85 @@
                 "cells": [
                   "study_protocol_id",
                   "22222222"
-                ]
+                ],
+                "line": 26
               },
               {
                 "cells": [
                   "nci_id",
                   "NCI88888888"
-                ]
+                ],
+                "line": 27
               },
               {
                 "cells": [
                   "exported_from_us",
                   "true"
-                ]
+                ],
+                "line": 28
               },
               {
                 "cells": [
                   "gender_description",
                   "11111 gender_description"
-                ]
+                ],
+                "line": 29
               },
               {
                 "cells": [
                   "sequential_assignment",
                   "11111 sequential_assignment"
-                ]
+                ],
+                "line": 30
               },
               {
                 "cells": [
                   "fda_regulated_drug",
                   "false"
-                ]
+                ],
+                "line": 31
               },
               {
                 "cells": [
                   "post_prior_to_approval",
                   "true"
-                ]
+                ],
+                "line": 32
               },
               {
                 "cells": [
                   "ped_postmarket_surv",
                   "true"
-                ]
+                ],
+                "line": 33
               },
               {
                 "cells": [
                   "masking_description",
                   "11111 masking_description"
-                ]
+                ],
+                "line": 34
               },
               {
                 "cells": [
                   "fda_regulated_device",
                   "true"
-                ]
+                ],
+                "line": 35
               },
               {
                 "cells": [
                   "model_description",
                   "11111 model_description"
-                ]
+                ],
+                "line": 36
               },
               {
                 "cells": [
                   "gender_based",
                   "true"
-                ]
+                ],
+                "line": 37
               }
             ],
             "match": {
@@ -272,7 +329,7 @@
             },
             "result": {
               "status": "passed",
-              "duration": 179658
+              "duration": 173000
             }
           },
           {
@@ -280,11 +337,30 @@
             "name": "I used the \"POST\" to ctrp_dataclinicaltrials_api MS with Content-Type \"\" Accept \"\" for \"FDAAA_FIELDS\"",
             "line": 38,
             "match": {
+              "arguments": [
+                {
+                  "offset": 12,
+                  "val": "POST"
+                },
+                {
+                  "offset": 71,
+                  "val": ""
+                },
+                {
+                  "offset": 81,
+                  "val": ""
+                },
+                {
+                  "offset": 88,
+                  "val": "FDAAA_FIELDS"
+                }
+              ],
               "location": "features/step_definitions/ctrp_dataclinicaltrials_api.rb:35"
             },
             "result": {
-              "status": "passed",
-              "duration": 50552215
+              "status": "failed",
+              "error_message": "A JSON text must at least contain two octets! (JSON::ParserError)\n./features/support/dataclinicaltrials_api_helper.rb:55:in `trigger_field_values_post'\n./features/step_definitions/ctrp_dataclinicaltrials_api.rb:43:in `/^I used the \"([^\"]*)\" to ctrp_dataclinicaltrials_api MS with Content\\-Type \"([^\"]*)\" Accept \"([^\"]*)\" for \"([^\"]*)\"$/'\nfeatures/pa/ctrp_dataclinicaltrials_api.feature:38:in `When I used the \"POST\" to ctrp_dataclinicaltrials_api MS with Content-Type \"\" Accept \"\" for \"FDAAA_FIELDS\"'",
+              "duration": 22815000
             }
           },
           {
@@ -292,26 +368,49 @@
             "name": "ctrp_dataclinicaltrials_api MS response to \"POST\" should be \"200\"",
             "line": 39,
             "match": {
+              "arguments": [
+                {
+                  "offset": 44,
+                  "val": "POST"
+                },
+                {
+                  "offset": 61,
+                  "val": "200"
+                }
+              ],
               "location": "features/step_definitions/ctrp_dataclinicaltrials_api.rb:67"
             },
             "result": {
-              "status": "passed",
-              "duration": 56852
+              "status": "skipped"
             }
           },
           {
             "keyword": "When ",
             "name": "I used the \"GET\" to ctrp_dataclinicaltrials_api MS with Content-Type \"\" Accept \"\" for \"FDAAA_FIELDS\"",
             "line": 40,
-            "output": [
-              "Study protocol ID: 22222222"
-            ],
             "match": {
+              "arguments": [
+                {
+                  "offset": 12,
+                  "val": "GET"
+                },
+                {
+                  "offset": 70,
+                  "val": ""
+                },
+                {
+                  "offset": 80,
+                  "val": ""
+                },
+                {
+                  "offset": 87,
+                  "val": "FDAAA_FIELDS"
+                }
+              ],
               "location": "features/step_definitions/ctrp_dataclinicaltrials_api.rb:35"
             },
             "result": {
-              "status": "passed",
-              "duration": 20688929
+              "status": "skipped"
             }
           },
           {
@@ -319,37 +418,40 @@
             "name": "ctrp_dataclinicaltrials_api MS response to \"GET\" should be \"200\"",
             "line": 41,
             "match": {
+              "arguments": [
+                {
+                  "offset": 44,
+                  "val": "GET"
+                },
+                {
+                  "offset": 60,
+                  "val": "200"
+                }
+              ],
               "location": "features/step_definitions/ctrp_dataclinicaltrials_api.rb:67"
             },
             "result": {
-              "status": "passed",
-              "duration": 43999
+              "status": "skipped"
             }
           },
           {
             "keyword": "And ",
             "name": "response body should retrieved FDAAA field values",
             "line": 42,
-            "output": [
-              "gen desc is: 11111 gender_description"
-            ],
             "match": {
               "location": "features/step_definitions/ctrp_dataclinicaltrials_api.rb:99"
             },
             "result": {
-              "status": "passed",
-              "duration": 122886
+              "status": "skipped"
             }
           }
         ]
       },
       {
-        "id": "tests-for-clinical-trials-api-service-in-ctrp_dataclinicaltrials_api-system;dct_api05.-update-existing-fdaaa-field-values-should-be-successful-with-study-protocol-id",
         "keyword": "Scenario",
         "name": "DCT_API05. update existing FDAAA field values should be successful with Study protocol ID",
-        "description": "",
         "line": 70,
-        "type": "scenario",
+        "description": "",
         "tags": [
           {
             "name": "@CTRPMICRO-83",
@@ -368,6 +470,8 @@
             "line": 69
           }
         ],
+        "id": "tests-for-clinical-trials-api-service-in-ctrp-dataclinicaltrials-api-system;dct-api05.-update-existing-fdaaa-field-values-should-be-successful-with-study-protocol-id",
+        "type": "scenario",
         "steps": [
           {
             "keyword": "Given ",
@@ -378,73 +482,85 @@
                 "cells": [
                   "study_protocol_id",
                   "55555555"
-                ]
+                ],
+                "line": 72
               },
               {
                 "cells": [
                   "nci_id",
                   "NCI55555555"
-                ]
+                ],
+                "line": 73
               },
               {
                 "cells": [
                   "exported_from_us",
                   "true"
-                ]
+                ],
+                "line": 74
               },
               {
                 "cells": [
                   "gender_description",
                   "11111 gender_description"
-                ]
+                ],
+                "line": 75
               },
               {
                 "cells": [
                   "sequential_assignment",
                   "11111 sequential_assignment"
-                ]
+                ],
+                "line": 76
               },
               {
                 "cells": [
                   "fda_regulated_drug",
                   "true"
-                ]
+                ],
+                "line": 77
               },
               {
                 "cells": [
                   "post_prior_to_approval",
                   "true"
-                ]
+                ],
+                "line": 78
               },
               {
                 "cells": [
                   "ped_postmarket_surv",
                   "true"
-                ]
+                ],
+                "line": 79
               },
               {
                 "cells": [
                   "masking_description",
                   "11111 masking_description"
-                ]
+                ],
+                "line": 80
               },
               {
                 "cells": [
                   "fda_regulated_device",
                   "true"
-                ]
+                ],
+                "line": 81
               },
               {
                 "cells": [
                   "model_description",
                   "11111 model_description"
-                ]
+                ],
+                "line": 82
               },
               {
                 "cells": [
                   "gender_based",
                   "false"
-                ]
+                ],
+                "line": 83
               }
             ],
             "match": {
@@ -452,7 +568,7 @@
             },
             "result": {
               "status": "passed",
-              "duration": 160968
+              "duration": 212000
             }
           },
           {
@@ -460,11 +576,30 @@
             "name": "I used the \"POST\" to ctrp_dataclinicaltrials_api MS with Content-Type \"\" Accept \"\" for \"FDAAA_FIELDS\"",
             "line": 84,
             "match": {
+              "arguments": [
+                {
+                  "offset": 12,
+                  "val": "POST"
+                },
+                {
+                  "offset": 71,
+                  "val": ""
+                },
+                {
+                  "offset": 81,
+                  "val": ""
+                },
+                {
+                  "offset": 88,
+                  "val": "FDAAA_FIELDS"
+                }
+              ],
               "location": "features/step_definitions/ctrp_dataclinicaltrials_api.rb:35"
             },
             "result": {
-              "status": "passed",
-              "duration": 27626416
+              "status": "failed",
+              "error_message": "A JSON text must at least contain two octets! (JSON::ParserError)\n./features/support/dataclinicaltrials_api_helper.rb:55:in `trigger_field_values_post'\n./features/step_definitions/ctrp_dataclinicaltrials_api.rb:43:in `/^I used the \"([^\"]*)\" to ctrp_dataclinicaltrials_api MS with Content\\-Type \"([^\"]*)\" Accept \"([^\"]*)\" for \"([^\"]*)\"$/'\nfeatures/pa/ctrp_dataclinicaltrials_api.feature:84:in `When I used the \"POST\" to ctrp_dataclinicaltrials_api MS with Content-Type \"\" Accept \"\" for \"FDAAA_FIELDS\"'",
+              "duration": 22892000
             }
           },
           {
@@ -472,11 +607,20 @@
             "name": "ctrp_dataclinicaltrials_api MS response to \"POST\" should be \"200\"",
             "line": 85,
             "match": {
+              "arguments": [
+                {
+                  "offset": 44,
+                  "val": "POST"
+                },
+                {
+                  "offset": 61,
+                  "val": "200"
+                }
+              ],
               "location": "features/step_definitions/ctrp_dataclinicaltrials_api.rb:67"
             },
             "result": {
-              "status": "passed",
-              "duration": 53106
+              "status": "skipped"
             }
           },
           {
@@ -488,81 +632,98 @@
                 "cells": [
                   "study_protocol_id",
                   "55555555"
-                ]
+                ],
+                "line": 87
               },
               {
                 "cells": [
                   "nci_id",
                   "NCI55555555"
-                ]
+                ],
+                "line": 88
               },
               {
                 "cells": [
                   "exported_from_us",
                   "true"
-                ]
+                ],
+                "line": 89
               },
               {
                 "cells": [
                   "gender_description",
                   "55555 gender_description"
-                ]
+                ],
+                "line": 90
               },
               {
                 "cells": [
                   "sequential_assignment",
                   "55555 sequential_assignment"
-                ]
+                ],
+                "line": 91
               },
               {
                 "cells": [
                   "fda_regulated_drug",
                   "true"
-                ]
+                ],
+                "line": 92
               },
               {
                 "cells": [
                   "post_prior_to_approval",
                   "false"
-                ]
+                ],
+                "line": 93
               },
               {
                 "cells": [
                   "ped_postmarket_surv",
                   "true"
-                ]
+                ],
+                "line": 94
               },
               {
                 "cells": [
                   "masking_description",
                   "55555 masking_description"
-                ]
+                ],
+                "line": 95
               },
               {
                 "cells": [
                   "fda_regulated_device",
                   "false"
-                ]
+                ],
+                "line": 96
               },
               {
                 "cells": [
                   "model_description",
                   "55555 model_description"
-                ]
+                ],
+                "line": 97
               },
               {
                 "cells": [
                   "gender_based",
                   "true"
-                ]
+                ],
+                "line": 98
               }
             ],
             "match": {
+              "arguments": [
+                {
+                  "offset": 22,
+                  "val": "55555555"
+                }
+              ],
               "location": "features/step_definitions/ctrp_dataclinicaltrials_api.rb:143"
             },
             "result": {
-              "status": "passed",
-              "duration": 154291
+              "status": "skipped"
             }
           },
           {
@@ -570,11 +731,28 @@
             "name": "I used the \"PUT\" to ctrp_dataclinicaltrials_api MS with Content-Type \"\" Accept \"\" for \"FDAAA_FIELDS\"",
             "line": 99,
             "match": {
+              "arguments": [
+                {
+                  "offset": 12,
+                  "val": "PUT"
+                },
+                {
+                  "offset": 70,
+                  "val": ""
+                },
+                {
+                  "offset": 80,
+                  "val": ""
+                },
+                {
+                  "offset": 87,
+                  "val": "FDAAA_FIELDS"
+                }
+              ],
               "location": "features/step_definitions/ctrp_dataclinicaltrials_api.rb:35"
             },
             "result": {
-              "status": "passed",
-              "duration": 27816168
+              "status": "skipped"
             }
           },
           {
@@ -582,11 +760,20 @@
             "name": "ctrp_dataclinicaltrials_api MS response to \"PUT\" should be \"200\"",
             "line": 100,
             "match": {
+              "arguments": [
+                {
+                  "offset": 44,
+                  "val": "PUT"
+                },
+                {
+                  "offset": 60,
+                  "val": "200"
+                }
+              ],
               "location": "features/step_definitions/ctrp_dataclinicaltrials_api.rb:67"
             },
             "result": {
-              "status": "passed",
-              "duration": 59145
+              "status": "skipped"
             }
           },
           {
@@ -594,26 +781,45 @@
             "name": "response body should include \"Message has been processed successfully\"",
             "line": 101,
             "match": {
+              "arguments": [
+                {
+                  "offset": 30,
+                  "val": "Message has been processed successfully"
+                }
+              ],
               "location": "features/step_definitions/ctrp_dataclinicaltrials_api.rb:75"
             },
             "result": {
-              "status": "passed",
-              "duration": 48116
+              "status": "skipped"
             }
           },
           {
             "keyword": "When ",
             "name": "I used the \"GET\" to ctrp_dataclinicaltrials_api MS with Content-Type \"\" Accept \"\" for \"FDAAA_FIELDS\"",
             "line": 102,
-            "output": [
-              "Study protocol ID: 55555555"
-            ],
             "match": {
+              "arguments": [
+                {
+                  "offset": 12,
+                  "val": "GET"
+                },
+                {
+                  "offset": 70,
+                  "val": ""
+                },
+                {
+                  "offset": 80,
+                  "val": ""
+                },
+                {
+                  "offset": 87,
+                  "val": "FDAAA_FIELDS"
+                }
+              ],
               "location": "features/step_definitions/ctrp_dataclinicaltrials_api.rb:35"
             },
             "result": {
-              "status": "passed",
-              "duration": 19224016
+              "status": "skipped"
             }
           },
           {
@@ -621,26 +827,31 @@
             "name": "ctrp_dataclinicaltrials_api MS response to \"GET\" should be \"200\"",
             "line": 103,
             "match": {
+              "arguments": [
+                {
+                  "offset": 44,
+                  "val": "GET"
+                },
+                {
+                  "offset": 60,
+                  "val": "200"
+                }
+              ],
               "location": "features/step_definitions/ctrp_dataclinicaltrials_api.rb:67"
             },
             "result": {
-              "status": "passed",
-              "duration": 43436
+              "status": "skipped"
             }
           },
           {
             "keyword": "And ",
             "name": "response body should retrieved FDAAA field values",
             "line": 104,
-            "output": [
-              "gen desc is: 55555 gender_description"
-            ],
             "match": {
               "location": "features/step_definitions/ctrp_dataclinicaltrials_api.rb:99"
             },
             "result": {
-              "status": "passed",
-              "duration": 134120
+              "status": "skipped"
             }
           }
         ]
