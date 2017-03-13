@@ -61,8 +61,9 @@ script:
   #- cucumber test_features/ -r test_features/
   - cucumber features/ -t @PA_HIGH --format json --out ../results/output.json --expand && cucumber features/ -t @PA_MEDIUM --format json --out ../results/output.json --expand
   # run
-  - cucumber features/ -t @CTRP_MISC --format json --out ../results/output.json --expand
-  - cucumber features/ -t @CTRP_TRIALS --format json --out ../results/output.json --expand
+  #- if [ "$CUC_TAG" = "@CTRP_MISC"]; then cucumber features/ -t @CTRP_MISC --format json --out ../results/output.json --expand; fi
+  #- cucumber features/ -t @CTRP_MISC --format json --out ../results/output.json --expand
+  #- cucumber features/ -t @CTRP_TRIALS --format json --out ../results/output.json --expand
   #- if [ "$?" = "0" ]; then cucumber test_features/ -t @PA_MEDIUM --format json --out ../results/output.json --expand; fi
   # run by tag(s)
   #- cucumber test_features/ -t @CTRPMICRO-34,@CTRPMICRO-35 --format json --out ../results/output.json --expand
