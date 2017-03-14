@@ -60,7 +60,7 @@ script:
   #- export PA_UI="0"
   #- export PA_REST="0"
   #- export DTW_API="@CTRP_TRAILS"
-  #- export DTW_MISC="@CTRP_MISC"
+  - export DTW_MISC="@CTRP_MISC"
   # clear results directory
   - ls -alt results
   - rm results/*
