@@ -54,13 +54,33 @@ script:
   #- export P1="_p1"
   #- export P2="_p2"
   #- export P3="_p3"
-  # Run Cucumber @tag specific tests
-  # - ls -alt results
+  #- export DCT_API="@DCT_API"
+  #- export PO_UI="0"
+  #- export PO_REST="0"
+  #- export PA_UI="0"
+  #- export PA_REST="0"
+  #- export DTW_API="@CTRP_TRAILS"
+  #- export DTW_MISC="@CTRP_MISC"
+  # clear results directory
+  - ls -alt results
+  - rm results/*
+  # run DCT API tests
+  - |
+    if [ "$CUC_TAG" == "$DCT_API" ]; then
+      cd ctrp-bddtests/ctrpBackend/
+      cucumber features/ -t @PA_HIGH --format json --out ../results/output.json --expand && cucumber features/ -t @PA_MEDIUM --format json --out ../results/output.json --expand
+    fi
+  # run CTRP MISC tests
+  - |
+    if [ "$CUC_TAG" == "$DTW_MISC" ]; then
+      cd ctrp-bddtests/ctrpUI/
+      cucumber features/ -t @CTRP_MISC --format json --out ../results/output.json --expand
+    fi
   # run ctrp-bddtests/ctrpBackend tests by the tag name
-  - cd ctrp-bddtests/ctrpBackend/
-  - ls -ltar
+  #- cd ctrp-bddtests/ctrpBackend/
+  #- ls -ltar
   #- cucumber test_features/ -r test_features/
-  - cucumber features/ -t @PA_HIGH --format json --out ../results/output.json --expand && cucumber features/ -t @PA_MEDIUM --format json --out ../results/output.json --expand
+  #- cucumber features/ -t @PA_HIGH --format json --out ../results/output.json --expand && cucumber features/ -t @PA_MEDIUM --format json --out ../results/output.json --expand
   # run
   #- if [ "$CUC_TAG" = "@CTRP_MISC"]; then cucumber features/ -t @CTRP_MISC --format json --out ../results/output.json --expand; fi
   #- cucumber features/ -t @CTRP_MISC --format json --out ../results/output.json --expand
@@ -95,7 +115,7 @@ after_success:
   # Run Low tag
   - pwd
   - ls -ltar
-  - cucumber test_features/ -t @PA_LOW --format json --out ../results/output.json --expand
+  #- cucumber test_features/ -t @PA_LOW --format json --out ../results/output.json --expand
   #- cucumber test_features/ -t @po_low --format json --out ../results/output.json --expand
   #Run P3 cucumber tests
   # - cd uMATCH/PedMATCH; bundle exec parallel_cucumber test_features/ -o '-r test_features/step_definitions/ -r test_features/support/ -t $CUC_TAG$P3 --format json --out ../../results/output-$CUC_TAG$P3-$TEST_ENV_NUMBER.json --expand' -n 2
