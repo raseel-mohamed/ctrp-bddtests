@@ -4,7 +4,7 @@ Feature: Regulatory_Information
 Scenario: Verify the "Trial Oversight Authority Country" is removed in the Regulatory Information(PA) screen
   Given I login into CTRP and search for a trial with NCI ID "NCI-2017-00327"
   And I navigate to Regulatory Information screen
-  Then "Trial Oversight Authority Country" field is not displayed in Regulatory Information(PA) screen
+  Then "Trial Oversight Authority Country :" field is not displayed in Regulatory Information(PA) screen
 
   @PA_HIGH @FDAAA @PA @CTRPMICRO-65
 Scenario: Verify the "Trial Oversight Authority Organization Name" is removed in the Regulatory Information(PA) screen
