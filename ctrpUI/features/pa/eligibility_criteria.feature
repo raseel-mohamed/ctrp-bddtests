@@ -7,7 +7,7 @@ Feature: Eligibility Criteria
     When I go to Eligibility Criteria section in PA app
     Then new fields with options should be there
       | Field Name                     | List Of Value |
-      | Gender                         | Yes\NO        |
+      | Gender Based                        | Yes\NO        |
       | Gender Eligibility Description |               |
 
   @PA_HIGH @FDAAA @UI @CTRPMICRO-92
