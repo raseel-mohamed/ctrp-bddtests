@@ -1,54 +1,54 @@
 [
   {
+    "uri": "features/ctrp_datawarehouse/ctrp_datawarehouse.feature",
+    "id": "tests-datawarehouse",
     "keyword": "Feature",
-    "name": "Tests Trials",
-    "line": 1,
+    "name": "Tests Datawarehouse",
     "description": "",
-    "id": "tests-trials",
-    "uri": "features/ctrp_trials/ctrp_trials.feature",
+    "line": 1,
     "elements": [
       {
+        "id": "tests-datawarehouse;ctrp_dwh_api01.-test-data-warehouse-should-be-successful",
         "keyword": "Scenario",
-        "name": "CTRP_TRAILS_API01. Test Study Protocol ID Search should be successful",
-        "line": 4,
+        "name": "CTRP_DWH_API01. Test Data warehouse should be successful",
         "description": "",
+        "line": 4,
+        "type": "scenario",
         "tags": [
           {
-            "name": "@CTRP_TRIALS",
+            "name": "@CTRP_DWH",
             "line": 3
           }
         ],
-        "id": "tests-trials;ctrp-trails-api01.-test-study-protocol-id-search-should-be-successful",
-        "type": "scenario",
         "steps": [
           {
             "keyword": "Given ",
-            "name": "I know Trials ID to search",
+            "name": "I know Datawarehouse build",
             "line": 5,
             "output": [
               "passed"
             ],
             "match": {
-              "location": "features/step_definitions/ctrp_trials.rb:7"
+              "location": "features/step_definitions/ctrp_datawarehouse.rb:7"
             },
             "result": {
               "status": "passed",
-              "duration": 47000
+              "duration": 55000
             }
           },
           {
             "keyword": "Then ",
-            "name": "Search is successful for Trials",
+            "name": "Build should be successful",
             "line": 6,
             "output": [
               "passed"
             ],
             "match": {
-              "location": "features/step_definitions/ctrp_trials.rb:11"
+              "location": "features/step_definitions/ctrp_datawarehouse.rb:11"
             },
             "result": {
               "status": "passed",
-              "duration": 24000
+              "duration": 39000
             }
           }
         ]

@@ -4,10 +4,10 @@ require_relative '../support/helper.rb'
 require 'json'
 require 'rest-client'
 
-Given(/^I know Trials ID to search$/) do
+Given(/^I know Datawarehouse build$/) do
   puts 'passed'
 end
 
-Then(/^Search is successful for Trials$/) do
+Then(/^Build should be successful$/) do
   puts 'passed'
 end
