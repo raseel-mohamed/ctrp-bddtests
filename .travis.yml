@@ -54,16 +54,17 @@ script:
   #- export P1="_p1"
   #- export P2="_p2"
   #- export P3="_p3"
-  #- export DCT_API="@DCT_API"
-  #- export PO_UI="0"
-  #- export PO_REST="0"
-  #- export PA_UI="0"
-  #- export PA_REST="0"
-  #- export DTW_API="@CTRP_TRAILS"
+  - export DCT_API="@DCT_API"
+  - export PO_UI="0"
+  - export PO_REST="0"
+  - export PA_UI="0"
+  - export PA_REST="0"
+  - export DTW_API="@CTRP_TRAILS"
   - export DTW_MISC="@CTRP_MISC"
   # clear results directory
   - ls -alt results
   - rm results/*
+  - echo $CUC_TAG
   # run DCT API tests
   - |
     if [ "$CUC_TAG" == "$DCT_API" ]; then
