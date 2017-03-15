@@ -18,13 +18,13 @@ class HomePagePA
     @login_id
   end
 
-    def self.accept_disclaimer_id
-      @accept_disclaimer_id
-    end
+  def self.accept_disclaimer_id
+    @accept_disclaimer_id
+  end
 
-    def self.reject_disclaimer_id
-      @reject_disclaimer_id
-    end
+  def self.reject_disclaimer_id
+    @reject_disclaimer_id
+  end
 
 end
 
