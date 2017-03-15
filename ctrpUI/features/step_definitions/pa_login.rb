@@ -1,8 +1,9 @@
 require_relative '../support/home_page_obj'
+require_relative '../support/helper_methods'
 require 'selenium-cucumber'
 
 Given(/^I am in the PA home page/) do
-  step %[I navigate to "#{ENV['PA_APP']}"]
+  navigate_to(ENV['PA_APP'])
 end
 
 Given(/^I am able to login to the system with valid user credentials/) do
