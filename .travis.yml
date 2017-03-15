@@ -62,9 +62,10 @@ script:
   - export DTW_API="@CTRP_TRAILS"
   - export DTW_MISC="@CTRP_MISC"
   # clear results directory
-  - ls -alt results
-  - rm results/*
+  #- ls -alt results
+  #- rm results/*
   - echo $CUC_TAG
+  - echo $DCT_API
   # run DCT API tests
   - |
     if [ "$CUC_TAG" == "$DCT_API" ]; then
