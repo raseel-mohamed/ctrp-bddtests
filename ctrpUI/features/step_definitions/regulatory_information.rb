@@ -76,4 +76,3 @@ When(/^the dropdown "([^"]*)" is "([^"]*)"$/) do |arg1, arg2|
 
 
   end
-end
