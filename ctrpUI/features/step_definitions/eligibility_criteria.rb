@@ -56,8 +56,7 @@ Then(/^I verify Gender Based and Gender Eligibility Description fields$/) do |ta
   end
 end
 
-#@PA_HIGH @FDAAA @UI @CTRPMICRO-92
-#@PA_HIGH @FDAAA @UI @CTRPMICRO-97
+#@PA_HIGH @FDAAA @UI @CTRPMICRO-92 & #@PA_HIGH @FDAAA @UI @CTRPMICRO-97
 
 Then(/^Gender Based field is required$/) do |table|
   step %[I select "Male" option by text from dropdown having id "#{EligiblityCriteria.sex_id}"]
@@ -70,11 +69,7 @@ Then(/^Gender Based field is required$/) do |table|
   step %[element having id "#{EligiblityCriteria.gender_base_id}" should not be present]
 end
 
-
-#@PA_HIGH @FDAAA @UI @CTRPMICRO-93
-#@PA_HIGH @FDAAA @UI @CTRPMICRO-99
-#@PA_HIGH @FDAAA @UI @CTRPMICRO-94
-#@PA_HIGH @FDAAA @UI @CTRPMICRO-98
+#@PA_HIGH @FDAAA @UI @CTRPMICRO-93 ,99 ,94 & 98
 
 When(/^Sex is "([^"]*)"$/) do |sex|
   step %[I select "#{sex}" option by text from dropdown having id "#{EligiblityCriteria.sex_id}"]
@@ -84,8 +79,7 @@ When(/^Gender based study is Yes$/) do
   step %[I select "Yes" option by text from dropdown having id "#{EligiblityCriteria.gender_base_id}"]
 end
 
-#@PA_HIGH @FDAAA @UI @CTRPMICRO-94
-#@PA_HIGH @FDAAA @UI @CTRPMICRO-99
+#@PA_HIGH @FDAAA @UI @CTRPMICRO-94 & #@PA_HIGH @FDAAA @UI @CTRPMICRO-99
 
 When(/^Gender based study is No$/) do
   step %[I select "No" option by text from dropdown having id "#{EligiblityCriteria.gender_base_id}"]
