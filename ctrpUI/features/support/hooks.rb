@@ -1,4 +1,5 @@
 #Cucumber provides a number of hooks which allow us to run blocks at various points in the Cucumber test cycle
+require_relative '../support/helper_methods'
 
 Before do
   # Do something before each scenario.
@@ -15,7 +16,7 @@ After do |scenario|
   # The +scenario+ argument is optional, but
   # if you use it, you can inspect status with
   # the #failed?, #passed? and #exception methods.
-
+  close_driver
   if(scenario.failed?)
     #Do something if scenario fails.
   end
