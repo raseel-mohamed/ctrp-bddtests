@@ -1,5 +1,6 @@
 require_relative '../support/home_page_obj'
 require_relative '../support/left_menu_navigation_obj'
+require_relative '../support/regulatory_information_obj'
 require 'selenium-cucumber'
 
 
@@ -41,3 +42,22 @@ end
 
 # @CTRPMICRO-75
 
+When(/^"([^"]*)" is "([^"]*)"$/) do |arg1, arg2|
+  dropdown_list = $driver.find_element(id: 'approval')
+  options = dropdown_list.find_elements(tag_name: 'option')
+  options.each { |option| option.click if option.text == 'Yes' }
+
+end
+
+Then(/^the description should be "([^"]*)"$/) do |arg1|
+  step %[element having class "info" should be present]
+end
+
+# @CTRPMICRO-76
+
+When(/^the field "([^"]*)" is "([^"]*)"$/) do |arg1, arg2|
+  dropdown_list = $driver.find_element(id: 'drug')
+  options = dropdown_list.find_elements(tag_name: 'option')
+  options.each { |option| option.click if option.text == 'Yes' }
+
+end
