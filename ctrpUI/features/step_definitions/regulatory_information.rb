@@ -73,6 +73,18 @@ When(/^the dropdown "([^"]*)" is "([^"]*)"$/) do |arg1, arg2|
   options = dropdown_list.find_elements(tag_name: 'option')
   options.each { |option| option.click if option.text == 'Yes' }
   step %[I wait for 2 sec]
+end
+
+# @CTRPMICRO-69
+
+Given(/^I select "([^"]*)" for "([^"]*)" field$/) do |arg1, arg2|
+  dropdown_list = $driver.find_element(id: 'device')
+  options = dropdown_list.find_elements(tag_name: 'option')
+  options.each { |option| option.click if option.text == 'Yes' }
+end
 
 
-  end
+Then(/^the existing field "([^"]*)" should be updated to "([^"]*)"$/) do |arg1, arg2|
+  step %[element having id "#{RegulatoryInformation.unapproved_uncleared_device_id}" should be present]
+end
+
