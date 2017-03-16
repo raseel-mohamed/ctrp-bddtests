@@ -61,3 +61,19 @@ When(/^the field "([^"]*)" is "([^"]*)"$/) do |arg1, arg2|
   options.each { |option| option.click if option.text == 'Yes' }
 
 end
+
+# @CTRPMICRO-77
+
+When(/^the dropdown "([^"]*)" is "([^"]*)"$/) do |arg1, arg2|
+  dropdown_list = $driver.find_element(id: 'device')
+  options = dropdown_list.find_elements(tag_name: 'option')
+  options.each { |option| option.click if option.text == 'Yes' }
+  step %[I wait for 5 sec]
+  dropdown_list = $driver.find_element(id: 'surveillance')
+  options = dropdown_list.find_elements(tag_name: 'option')
+  options.each { |option| option.click if option.text == 'Yes' }
+  step %[I wait for 2 sec]
+
+
+  end
+end
