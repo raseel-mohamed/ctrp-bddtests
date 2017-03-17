@@ -47,10 +47,7 @@ Scenario: Verify the fields are required in the Regulatory Information(PA) scree
     Given I login into CTRP and search for a trial with NCI ID "NCI-2017-00327"
     And I navigate to Regulatory Information screen
     When "Unapproved/Uncleared Device" is "Yes"
-    Then the conditional fields should be
-      | Field Name                                   | Condition                                                                                               |
-      | Post Prior to U.S. FDA Approval or Clearance | Optional and only available when "Unapproved/Uncleared Device" is "Yes"                                 |
-
+    Then "Post Prior to U.S. FDA Approval or Clearance" field should be visible
 
   @PA_HIGH @FDAAA @PA @CTRPMICRO-71
   Scenario: Verify the field (Pediatric Post-market Surveillance)condition in the Regulatory Information(PA) screen
