@@ -59,3 +59,11 @@ Feature: Design Details
     Given I login into CTRP and search for a trial with NCI ID "NCI-2017-00327"
     When I go to Design Details section in PA app
     Then the "Interventional Study Model" is a required field
+
+  @REGRESSION
+  Scenario: Verify the Accruals in CTRP Accrual are getting updated in PA Design Details screen
+    Given I login into CTRP Accrual and search for a trial with ID "NCI-2017-00024"
+    And Click on NCI Trial Identifier ID link and "Participating Site Subject Accrual Count" page is displayed
+    And enter "9" into the text of "# of Subjects Enrolled:" and click on Save icon.
+    When I go to Design Details section in PA app
+    Then the "Accruals" in Design Details screen displays "9" as the count

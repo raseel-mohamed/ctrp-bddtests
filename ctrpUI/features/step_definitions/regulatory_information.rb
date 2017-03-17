@@ -1,5 +1,6 @@
 require_relative '../support/home_page_obj'
 require_relative '../support/left_menu_navigation_obj'
+require_relative '../support/regulatory_information_obj'
 require 'selenium-cucumber'
 
 
@@ -40,4 +41,59 @@ Then(/^new fields with options should be there$/) do |table|
 end
 
 # @CTRPMICRO-75
+
+When(/^"([^"]*)" is "([^"]*)"$/) do |arg1, arg2|
+  dropdown_list = $driver.find_element(id: 'approval')
+  options = dropdown_list.find_elements(tag_name: 'option')
+  options.each { |option| option.click if option.text == 'Yes' }
+
+end
+
+Then(/^the description should be "([^"]*)"$/) do |arg1|
+  step %[element having class "info" should be present]
+end
+
+# @CTRPMICRO-76
+
+When(/^the field "([^"]*)" is "([^"]*)"$/) do |arg1, arg2|
+  dropdown_list = $driver.find_element(id: 'drug')
+  options = dropdown_list.find_elements(tag_name: 'option')
+  options.each { |option| option.click if option.text == 'Yes' }
+
+end
+
+# @CTRPMICRO-77
+
+When(/^the dropdown "([^"]*)" is "([^"]*)"$/) do |arg1, arg2|
+  dropdown_list = $driver.find_element(id: 'device')
+  options = dropdown_list.find_elements(tag_name: 'option')
+  options.each { |option| option.click if option.text == 'Yes' }
+  step %[I wait for 5 sec]
+  dropdown_list = $driver.find_element(id: 'surveillance')
+  options = dropdown_list.find_elements(tag_name: 'option')
+  options.each { |option| option.click if option.text == 'Yes' }
+  step %[I wait for 2 sec]
+end
+
+# @CTRPMICRO-69
+
+Given(/^I select "([^"]*)" for "([^"]*)" field$/) do |arg1, arg2|
+  dropdown_list = $driver.find_element(id: 'device')
+  options = dropdown_list.find_elements(tag_name: 'option')
+  options.each { |option| option.click if option.text == 'Yes' }
+end
+
+
+Then(/^the existing field "([^"]*)" should be updated to "([^"]*)"$/) do |arg1, arg2|
+  step %[element having id "#{RegulatoryInformation.unapproved_uncleared_device_id}" should be present]
+end
+
+# @CTRPMICRO-70
+
+Then(/^"([^"]*)" field should be visible$/) do |arg1|
+  dropdown_list = $driver.find_element(id: 'delpostindid')
+  options = dropdown_list.find_elements(tag_name: 'option')
+  options.each { |option| option.click if option.text == 'Yes' }
+  puts "Test passed. " "#{arg1}"  " is visible"
+end
 
