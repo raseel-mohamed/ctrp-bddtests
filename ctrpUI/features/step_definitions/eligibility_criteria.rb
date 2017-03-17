@@ -103,10 +103,23 @@ When(/^Gender based is No$/) do
   step %[I select "No" option by text from dropdown having id "#{EligiblityCriteria.gender_base_id}"]
   step %[I select "Female" option by text from dropdown having id "#{EligiblityCriteria.sex_id}"]
   step %[I select "No" option by text from dropdown having id "#{EligiblityCriteria.gender_base_id}"]
-
-
 end
+
 Then(/^Gender eligibility description is not available$/) do
   step %[element having xpath "#{EligiblityCriteria.gender_desc_xpath}" should not be present]
 end
 
+#@PA_HIGH @FDAAA @UI @CTRPMICRO-100 & @PA_HIGH @FDAAA @UI @CTRPMICRO-95
+
+Then(/^Gender is changed to "([^"]*)"$/) do |arg|
+  expect(get_element_text("xpath","#{EligiblityCriteria.gender_label_xpath}").split("*").first.strip).to eq(arg)
+end
+
+#@PA_HIGH @FDAAA @UI @CTRPMICRO-101 & @PA_HIGH @FDAAA @UI @CTRPMICRO-96
+Then(/^these existing fields value should be updated$/) do |table|
+  table.hashes.each do |arg|
+    if arg.has_key? "New Field Value"
+      expect(get_element_text("xpath", "//select[@id='gender']/option[4]")). to eq(arg["New Field Value"])
+    end
+  end
+end

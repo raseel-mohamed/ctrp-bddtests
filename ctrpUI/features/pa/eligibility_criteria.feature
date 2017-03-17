@@ -48,9 +48,7 @@ Feature: Eligibility Criteria
   Scenario: Verify Gender is changed to Sex in Eligibility Criteria section(PA)
     Given I login into CTRP and search with NCI ID "NCI-2017-00327"
     And I click on "Eligibility Criteria" link
-    Then Gender is changed to Sex
-      | Field Name | New Field Name|
-      | Gender     | Sex           |
+    Then Gender is changed to "Sex"
 
   @PA_HIGH @FDAAA @UI @CTRPMICRO-96
   Scenario: Verify field value is updated to Sex dropdown in Eligibility Criteria section(PA)
@@ -113,9 +111,7 @@ Feature: Eligibility Criteria
     #Note: You will get a Registry id after the registry completion. As i have already created a registry i am passing it as argument in the below step.
     Given I login into CTRP and search with NCI ID "NCI-2017-00331"
     When I click on "Eligibility Criteria" link
-    Then Gender is changed to Sex
-      | Field Name | New Field Name |
-      | Gender     | Sex           |
+    Then Gender is changed to "Sex"
 
   @PA_HIGH @FDAAA @UI @CTRPMICRO-101
   Scenario: Verify field value is updated to Sex dropdown in Eligibility Criteria section(PA) for a new trial created in Registration

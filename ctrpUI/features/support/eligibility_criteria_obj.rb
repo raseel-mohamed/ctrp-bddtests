@@ -3,7 +3,7 @@ class EligiblityCriteria
   @identifier_id = 'identifier'
   @search_class = 'search'
   @search_value_class = 'title'
-  @sex_id = "Sex"
+  @sex_id = 'gender'
   @gender_base_true_xpath = ".//*[@id='genderNew']/option[3]"
   @gender_base_false_xpath = ".//*[@id='genderNew']/option[2]"
   @gender_desc_xpath= "//tr[@id='genderDescriptionRow']"
