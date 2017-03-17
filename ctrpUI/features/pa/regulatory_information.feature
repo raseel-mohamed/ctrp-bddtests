@@ -50,13 +50,12 @@ Scenario: Verify the fields are required in the Regulatory Information(PA) scree
     Then "Post Prior to U.S. FDA Approval or Clearance" field should be visible
 
   @PA_HIGH @FDAAA @PA @CTRPMICRO-71
-  Scenario: Verify the field (Pediatric Post-market Surveillance)condition in the Regulatory Information(PA) screen
+  Scenario: Verify the field Pediatric Post-market Surveillance is visible in the Regulatory Information(PA) screen
     Given I login into CTRP and search for a trial with NCI ID "NCI-2017-00327"
     And I navigate to Regulatory Information screen
     When "Pediatric Post-market Surveillance" is "Yes"
-    Then the conditional fields should be
-      | Field Name                                   | Condition                                                                                               |
-      | Pediatric Post-market Surveillance           | Visible only if "Studies a U.S. FDA-regulated Device Product" is "Yes"                                  |
+    Then "Pediatric Post-market Surveillance :" field should be visible
+
 
   @PA_HIGH @FDAAA @PA @CTRPMICRO-112
   Scenario: Verify the field Pediatric Post-market Surveillance when "Studies a U.S. FDA-regulated Device Product" is "No" in the Regulatory Information(PA) screen
