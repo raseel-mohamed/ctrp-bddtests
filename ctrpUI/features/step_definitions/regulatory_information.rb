@@ -88,3 +88,12 @@ Then(/^the existing field "([^"]*)" should be updated to "([^"]*)"$/) do |arg1, 
   step %[element having id "#{RegulatoryInformation.unapproved_uncleared_device_id}" should be present]
 end
 
+# @CTRPMICRO-70
+
+Then(/^"([^"]*)" field should be visible$/) do |arg1|
+  dropdown_list = $driver.find_element(id: 'delpostindid')
+  options = dropdown_list.find_elements(tag_name: 'option')
+  options.each { |option| option.click if option.text == 'Yes' }
+  puts "Test passed. " "#{arg1}"  " is visible"
+end
+
