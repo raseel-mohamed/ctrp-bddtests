@@ -1,5 +1,5 @@
 require 'net/https'
-require_relative 'required_files'
+require_relative 'required'
 
 #******************
 #

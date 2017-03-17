@@ -1,3 +1,4 @@
+@test
 # Parent Jira Ticket # CTRPMICRO-74
 Feature: Eligibility Criteria
 
