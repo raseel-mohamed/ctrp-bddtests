@@ -61,10 +61,9 @@ Scenario: Verify the fields are required in the Regulatory Information(PA) scree
   Scenario: Verify the field Pediatric Post-market Surveillance when "Studies a U.S. FDA-regulated Device Product" is "No" in the Regulatory Information(PA) screen
     Given I login into CTRP and search for a trial with NCI ID "NCI-2017-00327"
     And I navigate to Regulatory Information screen
-    When "Pediatric Post-market Surveillance" is "No"
-    Then the conditional fields should be
-      | Field Name                                   | Condition                                                                                               |
-      | Pediatric Post-market Surveillance           | Hidden if "Studies a U.S. FDA-regulated Device Product" is "No"                                         |
+    When the dropdown "Studies a U.S. FDA-regulated Device Product :" value is "No"
+    Then "Pediatric Post-market Surveillance :" field should not be visible
+
 
   @PA_HIGH @FDAAA @PA @CTRPMICRO-72
   Scenario: Verify the field (Product Exported from the U.S)condition in the Regulatory Information(PA) screen
