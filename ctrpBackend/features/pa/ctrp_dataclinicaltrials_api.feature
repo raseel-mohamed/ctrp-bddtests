@@ -2,9 +2,9 @@ Feature: Tests for clinical trials api service in ctrp_dataclinicaltrials_api sy
 
   #@ctrp_dataclinicaltrials_api
   @CTRPMICRO-79 @REST @Tests @PA_HIGH
-  Scenario: DCT_API01. new field values can be recorded with Study Protocol ID successfully
-    Given I want to add following new filed values to the ctrp_dataclinicaltrials_api MS
-      |study_protocol_id        |11111111                     |
+  Scenario: DCT_API01. new field values can be recorded with Study Protocol ID and NCI ID successfully
+    Given I want to add following new FDAAA filed values to the CTRP Data Clinical Trials Service with Study Protocol ID and NCI ID
+      |study_protocol_id        |generate                     |
       |nci_id                   |NCI77777777                  |
       |exported_from_us         |true                         |
       |gender_description       |11111 gender_description     |
@@ -13,12 +13,52 @@ Feature: Tests for clinical trials api service in ctrp_dataclinicaltrials_api sy
       |post_prior_to_approval   |true                         |
       |ped_postmarket_surv      |true                         |
       |masking_description      |11111 masking_description    |
-      |fda_regulated_device     |11111 fda_regulated_device   |
+      |fda_regulated_device     |true                         |
       |model_description        |11111 model_description      |
       |gender_based             |false                        |
-    When I used the "POST" to ctrp_dataclinicaltrials_api MS with Content-Type "" Accept "" for "FDAAA_FIELDS"
-    Then ctrp_dataclinicaltrials_api MS response to "POST" should be "200"
-    And response body should return "Data has been updated successfully"
+    When "POST" to CTRP Data Clinical Trials API with Content-Type "application/json" Accept "" by the "STUDY_PROTOCOL_ID_AND_NCI_ID"
+    Then CTRP Data Clinical Trials API response to "POST" should be "201"
+    And response body should return "Data has been created."
+
+  @NEW @updateit
+  Scenario: DCT_API13. new field values can be recorded with Study Protocol ID and Trial ID successfully
+    Given I want to add following new FDAAA filed values to the CTRP Data Clinical Trials Service with Study Protocol ID and Trial ID
+      |study_protocol_id        |generate                     |
+      |trial_ide_ind_id         |NCT88888888                  |
+      |exported_from_us         |false                        |
+      |gender_description       |88888 gender_description     |
+      |sequential_assignment    |88888 sequential_assignment  |
+      |fda_regulated_drug       |true                         |
+      |post_prior_to_approval   |false                        |
+      |ped_postmarket_surv      |true                         |
+      |masking_description      |88888 masking_description    |
+      |fda_regulated_device     |true                         |
+      |model_description        |88888 model_description      |
+      |gender_based             |true                         |
+    When "POST" to CTRP Data Clinical Trials API with Content-Type "application/json" Accept "" by the "STUDY_PROTOCOL_ID_AND_TRIAL_ID"
+    Then CTRP Data Clinical Trials API response to "POST" should be "201"
+    And response body should return "Data has been created."
+
+
+  @NEW @updateit
+  Scenario: DCT_API14. new FDAAA field values can not be recorded with Study Protocol ID, NCI_ID and Trial ID
+    Given I want to add following new FDAAA filed values to the CTRP Data Clinical Trials Service with Study Protocol ID, NCI_ID and Trial ID
+      |study_protocol_id        |generate                     |
+      |nci_id                   |NCI99999999                  |
+      |trial_ide_ind_id         |NCT99999999                  |
+      |exported_from_us         |true                         |
+      |gender_description       |99999 gender_description     |
+      |sequential_assignment    |99999 sequential_assignment  |
+      |fda_regulated_drug       |true                         |
+      |post_prior_to_approval   |true                         |
+      |ped_postmarket_surv      |true                         |
+      |masking_description      |99999 masking_description    |
+      |fda_regulated_device     |true                         |
+      |model_description        |99999 model_description      |
+      |gender_based             |false                        |
+    When "POST" to CTRP Data Clinical Trials API with Content-Type "application/json" Accept "" by the "STUDY_PROTOCOL_NCI_TRIAL_ID"
+    Then CTRP Data Clinical Trials API response to "POST" should be "400"
+    And response body should return "Bad Request... Missing study_protocol_id with nci_id) OR (not AND) (study_protocol_id with trial_ide_ind_id."
 
   @CTRPMICRO-80 @REST @Tests @PA_HIGH
   Scenario: DCT_API02. new field values can be retrieve successfully with Study Protocol ID
@@ -40,6 +80,8 @@ Feature: Tests for clinical trials api service in ctrp_dataclinicaltrials_api sy
     When I used the "GET" to ctrp_dataclinicaltrials_api MS with Content-Type "" Accept "" for "FDAAA_FIELDS"
     Then ctrp_dataclinicaltrials_api MS response to "GET" should be "200"
     And response body should retrieved FDAAA field values
+
+
 
   @on_hold @CTRPMICRO-81
   Scenario: DCT_API03. field values cannot be posted with invalid Study Protocol ID

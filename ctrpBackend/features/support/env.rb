@@ -9,7 +9,7 @@ include Test::Unit::Assertions
 base_qa2 = 'https://trials-qa2.nci.nih.gov/'
 base_local = 'https://localhost/'
 base_aws = 'http://ctrp-po-inttest-elb-1603106388.us-east-1.elb.amazonaws.com:39080/'
-base_dataclinicaltrials_ms = 'http://ctrp-inttest-alb-backend-1739456098.us-east-1.elb.amazonaws.com:3100/api/v1/data_clinical_trials/'
+base_dataclinicaltrials_ms = 'http://ctrp-inttest-alb-backend-1739456098.us-east-1.elb.amazonaws.com:3100/api/v1/data_clinical_trials'
 
 #PO Endpoints
 po_endpoint = 'po-webservices/services/'
