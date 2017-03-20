@@ -4,6 +4,7 @@ require_relative '../support/regulatory_information_obj'
 require 'selenium-cucumber'
 
 
+
 #@CTRPMICRO-16 & @CTRPMICRO-65
 #
 
@@ -97,3 +98,50 @@ Then(/^"([^"]*)" field should be visible$/) do |arg1|
   puts "Test passed. " "#{arg1}"  " is visible"
 end
 
+
+# @CTRPMICRO-112
+
+When(/^the dropdown "([^"]*)" value is "([^"]*)"$/) do |arg1, arg2|
+  dropdown_list = $driver.find_element(id: 'device')
+  options = dropdown_list.find_elements(tag_name: 'option')
+  options.each { |option| option.click if option.text == 'No' }
+  step %[I wait for 20 sec]
+
+end
+
+
+Then(/^"([^"]*)" field should not be visible$/) do |arg1|
+
+
+end
+
+
+#@CTRPMICRO -159
+
+When(/^"([^"]*)"$/) do |arg1|
+  step %[I wait for 2 sec]
+  step %[I select "Yes" option by text from dropdown having id "#{RegulatoryInformation.drug_id}"]
+  step %[I wait for 1 sec]
+  step %[I select "Yes" option by text from dropdown having id "#{RegulatoryInformation.device_id}"]
+  step %[I wait for 1 sec]
+  step %[I select "Yes" option by text from dropdown having id "#{RegulatoryInformation.unapproveduncleared_device_id}"]
+  step %[I wait for 1 sec]
+  step %[I select "Yes" option by text from dropdown having id "#{RegulatoryInformation.post_prior_to_us_fda_approval_id}"]
+  step %[I wait for 1 sec]
+  step %[I select "Yes" option by text from dropdown having id "#{RegulatoryInformation.pediatric_postmarket_surveillance_id}"]
+  step %[I wait for 1 sec]
+  step %[I select "Yes" option by text from dropdown having id "#{RegulatoryInformation.product_exported_fromthe_us_id}"]
+  step %[I wait for 1 sec]
+  step %[I select "Yes" option by text from dropdown having id "#{RegulatoryInformation.fda_regulated_intervention_indicator_id}"]
+  step %[I wait for 1 sec]
+  step %[I select "Yes" option by text from dropdown having id "#{RegulatoryInformation.section_801_indicator_id}"]
+  step %[I wait for 1 sec]
+  step %[I select "Yes" option by text from dropdown having id "#{RegulatoryInformation.data_monitoring_committee_id}"]
+  step %[I wait for 1 sec]
+  step %[I click on element having xpath "#{RegulatoryInformation.regulatory_information_save_id}"]
+end
+
+
+Then(/^all the fields will have "([^"]*)" values$/) do |arg1|
+  pending # Write code here that turns the phrase above into concrete actions
+end

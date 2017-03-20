@@ -95,3 +95,10 @@ Scenario: Verify the fields are required in the Regulatory Information(PA) scree
     And I navigate to Regulatory Information screen
     When the dropdown "Pediatric Post-market Surveillance" is "Yes"
     Then the description should be "Required only if this a pediatric postmarket surveillance of a device product ordered by the U.S. FDA"
+
+  @PA_HIGH @FDAAA @PA @CTRPMICRO-159
+  Scenario: Verify all the fields in the Regulatory Information with "Yes" values can be saved
+    Given I login into CTRP and search for a trial with NCI ID "NCI-2017-00327"
+    And I navigate to Regulatory Information screen
+    When "All the fields are populated with Yes values and saved"
+    Then all the fields will have "Yes" values
