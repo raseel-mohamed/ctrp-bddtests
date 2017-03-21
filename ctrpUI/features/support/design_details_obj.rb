@@ -12,6 +12,41 @@ class DesignDetails
   @careprovider_xpath = "//label[@for='caregiver']"
   @masking_xpath = ".//label[@for='masking']"
   @study_classification_xpath = ".//label[@for='classification']"
+  @trial_phase_id = "webDTO.phaseCode"
+  @no_masking_id = "nomasking"
+  @participant_id = 'subject'
+  @investigator_id = 'investigator'
+  @caregiver_id = 'caregiver'
+  @outcomesassessor_id = 'outcomesassessor'
+  @masking_role_label_xpath = "//tr[@id='blindingRoleCode']/td[@class='label']"
+
+  def self.masking_role_label_xpath
+    @masking_role_label_xpath
+  end
+
+  def self.participant_id
+    @participant_id
+  end
+
+  def self.investigator_id
+    @investigator_id
+  end
+
+  def self.caregiver_id
+    @caregiver_id
+  end
+
+  def self.outcomesassessor_id
+    @outcomesassessor_id
+  end
+
+  def self.no_masking_id
+    @no_masking_id
+  end
+
+  def self.trial_phase_id
+    @trial_phase_id
+  end
 
   def self.study_classification_xpath
     @study_classification_xpath

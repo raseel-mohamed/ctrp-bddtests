@@ -263,6 +263,18 @@ def is_checkbox_checked(access_type, access_name, should_be_checked = true)
   expect(checkbox.selected?).to be should_be_checked
 end
 
+
+# method to assert text exists in the dropdown
+# param 1 : String : Locator type (id, name, class, xpath, css)
+# param 2 : String : Locator value
+# param 3 : String : text to verify in drop down
+# param 4 : Boolean : test case [true or flase]
+def verify_option_exists_in_dropdown(access_type, access_name, text, test_case)
+  ele_exists = $driver.find_element(:"#{access_type}" => "#{access_name}").text.include?(text)
+  expect(ele_exists).to eq test_case
+end
+
+
 # method to assert radio button selected/unselected
 # param 1 : String : Locator type (id, name, class, xpath, css)
 # param 2 : String : Locator value
