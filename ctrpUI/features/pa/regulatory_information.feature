@@ -27,9 +27,10 @@ Scenario: Verify the new fields are added to the Regulatory Information(PA) scre
 
   @PA_HIGH @FDAAA @PA @CTRPMICRO-67
 Scenario: Verify the fields are required in the Regulatory Information(PA) screen
-  Given I login into CTRP and search for a trial with NCI ID "NCI-2017-00327"
+  Given I login into CTRP and search for a trial with NCI ID "NCI-2017-00335"
   And I navigate to Regulatory Information screen
-  Then the required fields should be
+  And I enter no values for the required fields and click on save button
+  Then the required fields message is displayed
     | Field Name                                  |
     | Studies a U.S. FDA-regulated Drug Product   |
     | Studies a U.S. FDA-regulated Device Product |
