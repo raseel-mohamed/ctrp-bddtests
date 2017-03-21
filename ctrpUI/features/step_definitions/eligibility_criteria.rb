@@ -5,16 +5,17 @@ require 'selenium-cucumber'
 
 #@PA_HIGH @FDAAA @CTRPMICRO-17
 
-Given(/^I login into CTRP and search with NCI ID "([^"]*)"$/) do |id|
+Given(/^I login into CTRP and search with NCI ID "([^"]*)"$/) do |arg1|
   step %[I navigate to "#{ENV['PA_APP']}"]
   step %[I enter "#{ENV['PA_USER_ID']}" into input field having id "#{HomePagePA.username_id}"]
   step %[I enter "#{ENV['PA_USER_PASS']}" into input field having id "#{HomePagePA.password_id}"]
   step %[I click on element having id "#{HomePagePA.login_id}"]
   step %[I click on element having id "#{HomePagePA.accept_disclaimer_id}"]
   step %[I click on element having id "#{LeftMenuNavigation.search_trial_menu_id}"]
-  step %[I enter "#{id}" into input field having id "#{EligiblityCriteria.identifier_id}"]
-  step %[I click on element having class "#{EligiblityCriteria.search_class}"]
-  step %[I click on link having text "#{id}"]
+  step %[I enter "#{arg1}" into input field having id "#{SearchTrial.trial_search_text_id}"]
+  step %[I click on element having class "#{SearchTrial.trial_search_button_id}"]
+  step %[I click on link having text "#{arg1}"]
+
   step %[I wait for 2 sec]
 end
 
@@ -123,3 +124,4 @@ Then(/^these existing fields value should be updated$/) do |table|
     end
   end
 end
+
