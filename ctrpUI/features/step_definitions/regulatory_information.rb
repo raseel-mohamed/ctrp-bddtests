@@ -139,9 +139,17 @@ When(/^"([^"]*)"$/) do |arg1|
   step %[I select "Yes" option by text from dropdown having id "#{RegulatoryInformation.data_monitoring_committee_id}"]
   step %[I wait for 1 sec]
   step %[I click on element having xpath "#{RegulatoryInformation.regulatory_information_save_id}"]
+  step %[I wait for 1 sec]
+  step %[I click on element having xpath ".//*[@id='studyOverallStatusLink']"]
+  step %[I wait for 1 sec]
+  step %[I click on element having xpath ".//*[@id='part_sites']/li[1]/a"]
+  step %[I wait for 1 sec]
+
 end
 
 
 Then(/^all the fields will have "([^"]*)" values$/) do |arg1|
-  pending # Write code here that turns the phrase above into concrete actions
+  step %[element having xpath "#{RegulatoryInformation.drug_id_xpath}" should be present]
+  step %[element having xpath "#{RegulatoryInformation.device_id_xpath}" should be present]
+  step %[element having xpath "#{RegulatoryInformation.unapproved_uncleared_device_xpath}" should be present]
 end
