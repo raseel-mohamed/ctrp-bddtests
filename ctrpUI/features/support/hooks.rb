@@ -16,7 +16,7 @@ After do |scenario|
   # The +scenario+ argument is optional, but
   # if you use it, you can inspect status with
   # the #failed?, #passed? and #exception methods.
-  close_driver
+  #close_driver
   if(scenario.failed?)
     #Do something if scenario fails.
   end
@@ -44,5 +44,5 @@ end
 
 # Quit the selenium driver from the example tests.
 at_exit do
-
+  close_driver
 end

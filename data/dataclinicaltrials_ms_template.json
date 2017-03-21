@@ -42,9 +42,10 @@
     "model_description": "99999 model_description",
     "gender_based": "true"
   },
-  "update_values": {
+  "update_values_nci": {
     "study_protocol_id": "22222222",
     "nci_id": "NCI55555555",
+    "id": "55e352d0d3f6058b85cb",
     "exported_from_us": "true",
     "gender_description": "22222 gender_description",
     "sequential_assignment": "22222 sequential_assignment",
@@ -52,8 +53,23 @@
     "post_prior_to_approval": "true",
     "ped_postmarket_surv": "true",
     "masking_description": "22222 masking_description",
-    "fda_regulated_device": "22222 fda_regulated_device",
+    "fda_regulated_device": "true",
     "model_description": "22222 model_description",
+    "gender_based": "true"
+  },
+  "update_values_trial": {
+    "study_protocol_id": "33333333",
+    "trial_ide_ind_id": "NCT33333333",
+    "id": "55e352d0d3f6058b85cb",
+    "exported_from_us": "true",
+    "gender_description": "33333 gender_description",
+    "sequential_assignment": "33333 sequential_assignment",
+    "fda_regulated_drug": "true",
+    "post_prior_to_approval": "true",
+    "ped_postmarket_surv": "true",
+    "masking_description": "33333 masking_description",
+    "fda_regulated_device": "true",
+    "model_description": "33333 model_description",
     "gender_based": "true"
   },
   "extra_fields": {
