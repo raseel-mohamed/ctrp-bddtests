@@ -6,7 +6,7 @@ require 'selenium-cucumber'
 
 
 #@CTRPMICRO-16 & @CTRPMICRO-65
-#
+
 
 Given(/^I login into CTRP and search for a trial with NCI ID "([^"]*)"$/) do |arg1|
   step %[I navigate to "#{ENV['PA_APP']}"]
@@ -25,7 +25,7 @@ end
 
 # Regulatory Information link in the left menu. Xpath was used because the tag does not have an ID assigned.
 Given(/^I navigate to Regulatory Information screen$/) do
-   step %[I click on element having xpath ".//*[@id='part_sites']/li[1]/a"]
+   step %[I click on element having xpath "#{LeftMenuNavigation.regulatory_information_xpath}"]
 end
 
 Then(/^"([^"]*)" field is not displayed in Regulatory Information\(PA\) screen$/) do |arg1|
@@ -102,16 +102,16 @@ end
 # @CTRPMICRO-112
 
 When(/^the dropdown "([^"]*)" value is "([^"]*)"$/) do |arg1, arg2|
-  dropdown_list = $driver.find_element(id: 'device')
-  options = dropdown_list.find_elements(tag_name: 'option')
-  options.each { |option| option.click if option.text == 'No' }
-  step %[I wait for 20 sec]
+  step %[I select "No" option by text from dropdown having id "device"]
+  step %[I wait for 2 sec]
 
 end
 
 
 Then(/^"([^"]*)" field should not be visible$/) do |arg1|
 
+  step %[I accept alert]
+  step %[element having xpath "//label[@for='surveillance']" should not be present]
 
 end
 
@@ -149,7 +149,36 @@ end
 
 
 Then(/^all the fields will have "([^"]*)" values$/) do |arg1|
-  step %[element having xpath "#{RegulatoryInformation.drug_id_xpath}" should be present]
-  step %[element having xpath "#{RegulatoryInformation.device_id_xpath}" should be present]
-  step %[element having xpath "#{RegulatoryInformation.unapproved_uncleared_device_xpath}" should be present]
+
+  step %[option "#{arg1}" by text from dropdown having xpath "#{RegulatoryInformation.drug_id_xpath}" should be selected]
+  step %[option "#{arg1}" by text from dropdown having xpath "#{RegulatoryInformation.device_id_xpath}" should be selected]
+  step %[option "#{arg1}" by text from dropdown having xpath "#{RegulatoryInformation.unapproved_device_xpath}" should be selected]
+  step %[option "#{arg1}" by text from dropdown having xpath "#{RegulatoryInformation.post_prior_to_us_fda_xpath}" should be selected]
+  step %[option "#{arg1}" by text from dropdown having xpath "#{RegulatoryInformation.pediatric_postmarket_xpath}" should be selected]
+  step %[option "#{arg1}" by text from dropdown having xpath "#{RegulatoryInformation.product_exported_xpath}" should be selected]
+  step %[option "#{arg1}" by text from dropdown having xpath "#{RegulatoryInformation.fda_regulated_intervention_xpath}" should be selected]
+  step %[option "#{arg1}" by text from dropdown having xpath "#{RegulatoryInformation.section_801_xpath}" should be selected]
+  step %[option "#{arg1}" by text from dropdown having xpath "#{RegulatoryInformation.data_monitoring_xpath}" should be selected]
+
+
 end
+
+#@CTRPMICRO-66
+
+Then(/^newly added fields with options should be there$/) do |table|
+  table.hashes.each do |row|
+    if(row["List Of Value"].eql?('Yes\NO'))
+       split_value = row["List Of Value"].split("\\")
+       @yes_val = split_value.first.strip
+       @no_val = split_value.last.strip
+       @exp_val_str = ''+@no_val+'\n'+@yes_val+''
+       step %[element having xpath "#{RegulatoryInformation.drug_id_xpath}" should have text as "#{@exp_val_str}"]
+       step %[element having xpath "#{RegulatoryInformation.device_id_xpath}" should have text as "#{@exp_val_str}"]
+       step %[element having xpath "#{RegulatoryInformation.post_prior_to_us_fda_xpath}" should have text as "#{@exp_val_str}"]
+       step %[element having xpath "#{RegulatoryInformation.pediatric_postmarket_xpath}" should have text as "#{@exp_val_str}"]
+       step %[element having xpath "#{RegulatoryInformation.product_exported_xpath}" should have text as "#{@exp_val_str}"]
+
+    end
+  end
+end
+
