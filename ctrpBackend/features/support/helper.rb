@@ -12,6 +12,8 @@ class Helper
                  :put
                when 'GET'
                  :get
+               when 'DELETE'
+                 :delete
              end
     begin
       @response = RestClient::Request.execute(:url => url, :user => username, :password => password, :method => method, :payload => payload, :headers => headers)

@@ -1,3 +1,4 @@
+@DCT_API
 Feature: Tests for clinical trials api service in ctrp_dataclinicaltrials_api system
 
   #@ctrp_dataclinicaltrials_api
@@ -105,8 +106,8 @@ Feature: Tests for clinical trials api service in ctrp_dataclinicaltrials_api sy
   Scenario: DCT_API06. retrieve FDAAA field values with a Study Protocol ID and NCI ID that does not exist will return an error message
     Given I want to search FDAAA fields with a Study Protocol ID that does not exists: "12122017NOTEXIST"
     When "GET" to CTRP Data Clinical Trials API with Content-Type "application/json" Accept "" by the "STUDY_PROTOCOL_ID_AND_NCI_ID"
-    Then CTRP Data Clinical Trials API response to "GET" should be "404"
-    And response body should return "Not Found... "
+    Then CTRP Data Clinical Trials API response to "GET" should be "200"
+    And response body should return an empty json structure "[]"
 
   @CTRPMICRO-83 @REST @Tests @PA_HIGH
   Scenario: DCT_API07. existing FDAAA field values for "STUDY PROTOCOL ID" and "NCI ID" should be updated with system ID
@@ -220,16 +221,48 @@ Feature: Tests for clinical trials api service in ctrp_dataclinicaltrials_api sy
     Then CTRP Data Clinical Trials API response to "POST" should be "404"
     And response body should return "Not Found... "
 
-  Scenario: DCT_API10. delete a record by the Study Protocol ID should be successful
-    Given I know the FDAAA fields with valid Study Protocol ID exists
-    When I used invalid Study Protocol ID to "DELETE" FDAAA field values
-    Then ctrp_dataclinicaltrials_api MS response to "DELETE" should be "200"
+  Scenario: DCT_API10. delete a record with a system ID should be successful
+    Given I want to add following new FDAAA filed values to the CTRP Data Clinical Trials Service with Study Protocol ID and NCI ID
+      |study_protocol_id        |generate                     |
+      |nci_id                   |NCI77777777                  |
+      |exported_from_us         |true                         |
+      |gender_description       |11111 gender_description     |
+      |sequential_assignment    |11111 sequential_assignment  |
+      |fda_regulated_drug       |true                         |
+      |post_prior_to_approval   |true                         |
+      |ped_postmarket_surv      |true                         |
+      |masking_description      |11111 masking_description    |
+      |fda_regulated_device     |true                         |
+      |model_description        |11111 model_description      |
+      |gender_based             |false                        |
+    When "POST" to CTRP Data Clinical Trials API with Content-Type "application/json" Accept "" by the "STUDY_PROTOCOL_ID_AND_NCI_ID"
+    Then CTRP Data Clinical Trials API response to "POST" should be "201"
+    When "DELETE" to CTRP Data Clinical Trials API with Content-Type "application/json" Accept "" by the "ID"
+    Then CTRP Data Clinical Trials API response to "DELETE" should be "200"
+    And response body should return "Data has been deleted."
+    When "GET" to CTRP Data Clinical Trials API with Content-Type "application/json" Accept "" by the "ID"
+    Then CTRP Data Clinical Trials API response to "GET" should be "404"
+    And response body should return "Not Found... "
 
-  Scenario: DCT_API11. deleting a record with an invalid Study Protocol ID should fail
-    Given I know the FDAAA fields with valid Study Protocol ID exists
-    And I have an invalid Study Protocol ID
-    When I used invalid Study Protocol ID to "DELETE" existing FDAAA field values
-    Then ctrp_dataclinicaltrials_api MS response to "DELETE" should be "403"
+  Scenario: DCT_API11. deleting a record with a system ID should fail
+    Given I want to add following new FDAAA filed values to the CTRP Data Clinical Trials Service with Study Protocol ID and NCI ID
+      |study_protocol_id        |generate                     |
+      |nci_id                   |NCI44444444                  |
+      |exported_from_us         |true                         |
+      |gender_description       |44444 gender_description     |
+      |sequential_assignment    |44444 sequential_assignment  |
+      |fda_regulated_drug       |true                         |
+      |post_prior_to_approval   |true                         |
+      |ped_postmarket_surv      |true                         |
+      |masking_description      |44444 masking_description    |
+      |fda_regulated_device     |true                         |
+      |model_description        |44444 model_description      |
+      |gender_based             |false                        |
+    When "POST" to CTRP Data Clinical Trials API with Content-Type "application/json" Accept "" by the "STUDY_PROTOCOL_ID_AND_NCI_ID"
+    Then CTRP Data Clinical Trials API response to "POST" should be "201"
+    When "DELETE" to CTRP Data Clinical Trials API with Content-Type "application/json" Accept "" by the "INVALID_SYSTEM_ID"
+    Then CTRP Data Clinical Trials API response to "DELETE" should be "404"
+    And response body should return "Not Found... "
 
   Scenario: DCT_API12. field values can be posted as null and should be successful
     Given I want to add following new FDAAA filed values to the CTRP Data Clinical Trials Service with null values

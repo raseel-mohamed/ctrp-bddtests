@@ -174,39 +174,55 @@ class Dataclinicaltrials_api_helper
     @response = Helper.request(service, service_url, username, password, nil, headers)
     @response_code = @response.code
     @response_body = JSON.parse(@response.body)
-    case type
-      when 'STUDY_PROTOCOL_ID_AND_NCI_ID'
-        @response_body.each { |key_value|
-          @id = key_value['id']
-          @nci_id = key_value['nci_id']
-          @trial_id='not_applicable'
-          @study_protocol_id = key_value['study_protocol_id']
-        }
-      when 'STUDY_PROTOCOL_ID_AND_TRIAL_ID'
-        @response_body.each { |key_value|
-          @id = key_value['id']
-          @nci_id='not_applicable'
-          @trial_id = key_value['trial_ide_ind_id']
-          @study_protocol_id = key_value['study_protocol_id']
-        }
-      when 'STUDY_PROTOCOL_NCI_TRIAL_ID'
-        @response_body.each { |key_value|
-          @id = key_value['id']
-          @nci_id = key_value['nci_id']
-          @trial_id = key_value['trial_ide_ind_id']
-          @study_protocol_id = key_value['study_protocol_id']
-        }
-      when 'ID'
-        @response_body.each { |key_value|
-          @id = key_value['id']
-          @nci_id = 'not_applicable'
-          @trial_id = 'not_applicable'
-          @study_protocol_id = key_value['study_protocol_id']
-        }
-      else
-        flunk 'Please provide correct type. Provided type <<' + type + '>> does not exist'
+    if @response_code.to_s == '404'
+      @response_message = @response_body['error']
+      puts  'POST Message: ' + @response_message.to_s
+    else
+      unless @response == [nil, 1].any?
+        if @response == '[]'
+          @val = @response.to_s
+          @response = @val
+        else
+          case type
+            when 'STUDY_PROTOCOL_ID_AND_NCI_ID'
+              @response_body.each { |key_value|
+                @id = key_value['id']
+                @nci_id = key_value['nci_id']
+                @trial_id='not_applicable'
+                @study_protocol_id = key_value['study_protocol_id']
+                @response_message = 'not_applicable'
+              }
+            when 'STUDY_PROTOCOL_ID_AND_TRIAL_ID'
+              @response_body.each { |key_value|
+                @id = key_value['id']
+                @nci_id='not_applicable'
+                @trial_id = key_value['trial_ide_ind_id']
+                @study_protocol_id = key_value['study_protocol_id']
+                @response_message = 'not_applicable'
+              }
+            when 'STUDY_PROTOCOL_NCI_TRIAL_ID'
+              @response_body.each { |key_value|
+                @id = key_value['id']
+                @nci_id = key_value['nci_id']
+                @trial_id = key_value['trial_ide_ind_id']
+                @study_protocol_id = key_value['study_protocol_id']
+                @response_message = 'not_applicable'
+              }
+            when 'ID'
+              @response_body.each { |key_value|
+                @id = key_value['id']
+                @nci_id = 'not_applicable'
+                @trial_id = 'not_applicable'
+                @study_protocol_id = key_value['study_protocol_id']
+                @response_message = 'not_applicable'
+              }
+            else
+              flunk 'Please provide correct type. Provided type <<' + type + '>> does not exist'
+          end
+        end
+      end
     end
-    return @response, @response_code, @response_body, @id, @nci_id, @trial_id, @study_protocol_id
+    return @response, @response_code, @response_body, @id, @nci_id, @trial_id, @study_protocol_id, @response_message
   end
 
   def self.trigger_update_study_nci(service, service_url_method, username, password, headers, get_method, type, id_dct, study_prtcl_id_dct, nci_id_dct, exported_from_us_dct, gender_desc_dct, seq_assignment_dct, fda_reglted_drug_dct, post_pror_aprval_dct, ped_pstmrkt_srv_dct, masking_desc_dct, fda_rglatd_divce_dct, model_desc_dct, gender_based_dct)
@@ -256,6 +272,46 @@ class Dataclinicaltrials_api_helper
         flunk 'Please provide correct type. Provided type <<' + arg4 + '>> does not exist'
     end
     return @response, @response_code, @response_body, @id, @trial_id, @study_protocol_id, @response_message
+  end
+
+  def self.trigger_delete(service, service_url_method, username, password, headers, get_method, type)
+    service_url = ENV[service_url_method] + get_method.to_s
+    @response = Helper.request(service, service_url, username, password, nil, headers)
+    @response_code = @response.code
+    @response_body = JSON.parse(@response.body)
+    if @response_code.to_s == '404'
+      @response_message = @response_body['error']
+      puts  'POST Message: ' + @response_message.to_s
+    else
+      unless @response == [nil, 1].any?
+        if @response == '[]'
+          @val = @response.to_s
+          @response = @val
+        else
+          case type
+            when 'STUDY_PROTOCOL_ID_AND_NCI_ID'
+              @response_body.each { |key_value|
+                @response_message = @response_body['success']
+              }
+            when 'STUDY_PROTOCOL_ID_AND_TRIAL_ID'
+              @response_body.each { |key_value|
+                @response_message = @response_body['success']
+              }
+            when 'STUDY_PROTOCOL_NCI_TRIAL_ID'
+              @response_body.each { |key_value|
+                @response_message = @response_body['success']
+              }
+            when 'ID'
+              @response_body.each { |key_value|
+                @response_message = @response_body['success']
+              }
+            else
+              flunk 'Please provide correct type. Provided type <<' + type + '>> does not exist'
+          end
+        end
+      end
+    end
+    return @response, @response_code, @response_body, @response_message
   end
 
   # |study_protocol_id        |generate                     |

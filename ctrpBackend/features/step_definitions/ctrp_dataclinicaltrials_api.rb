@@ -116,21 +116,21 @@ When(/^"([^"]*)" to CTRP Data Clinical Trials API with Content-Type "([^"]*)" Ac
           @conv_nci_id = @nci_id.to_s
           @conv_id = @id.to_s
           @post_endpoint_condition='?study_protocol_id='+@conv_s_p_id+'&nci_id='+@conv_nci_id+''
-          @response, @response_code, @response_body, @id, @nci_id, @trial_id, @study_protocol_id = Dataclinicaltrials_api_helper.trigger_get_field_values(service, 'dataclinicaltrials_ms', ENV['dct_usr'], ENV['dct_pass'], headers, @post_endpoint_condition, type)
+          @response, @response_code, @response_body, @id, @nci_id, @trial_id, @study_protocol_id, @response_message = Dataclinicaltrials_api_helper.trigger_get_field_values(service, 'dataclinicaltrials_ms', ENV['dct_usr'], ENV['dct_pass'], headers, @post_endpoint_condition, type)
         when 'STUDY_PROTOCOL_ID_AND_TRIAL_ID'
           @response_body
           @conv_s_p_id = @study_protocol_id.to_s
           @conv_trial_id = @trial_id.to_s
           @conv_id = @id.to_s
           @post_endpoint_condition='?study_protocol_id='+@conv_s_p_id+'&trial_ide_ind_id='+@conv_trial_id+''
-          @response, @response_code, @response_body, @id, @nci_id, @trial_id, @study_protocol_id = Dataclinicaltrials_api_helper.trigger_get_field_values(service, 'dataclinicaltrials_ms', ENV['dct_usr'], ENV['dct_pass'], headers, @post_endpoint_condition, type)
+          @response, @response_code, @response_body, @id, @nci_id, @trial_id, @study_protocol_id, @response_message = Dataclinicaltrials_api_helper.trigger_get_field_values(service, 'dataclinicaltrials_ms', ENV['dct_usr'], ENV['dct_pass'], headers, @post_endpoint_condition, type)
         when 'ID'
           @response_body
           @conv_s_p_id = @study_protocol_id.to_s
           @conv_trial_id = @trial_id.to_s
           @conv_id = @id.to_s
           @post_endpoint_condition='/'+@conv_id
-          @response, @response_code, @response_body, @id, @nci_id, @trial_id, @study_protocol_id = Dataclinicaltrials_api_helper.trigger_get_field_values(service, 'dataclinicaltrials_ms', ENV['dct_usr'], ENV['dct_pass'], headers, @post_endpoint_condition, type)
+          @response, @response_code, @response_body, @id, @nci_id, @trial_id, @study_protocol_id, @response_message = Dataclinicaltrials_api_helper.trigger_get_field_values(service, 'dataclinicaltrials_ms', ENV['dct_usr'], ENV['dct_pass'], headers, @post_endpoint_condition, type)
         else
           flunk 'Please provide correct type. Provided type <<' + arg4 + '>> does not exist'
       end
@@ -157,6 +157,39 @@ When(/^"([^"]*)" to CTRP Data Clinical Trials API with Content-Type "([^"]*)" Ac
         else
           flunk 'Please provide correct type. Provided type <<' + arg4 + '>> does not exist'
       end
+    when 'DELETE'
+      case type
+        when 'STUDY_PROTOCOL_ID_AND_NCI_ID'
+          @response_body
+          @conv_s_p_id = @study_protocol_id.to_s
+          @conv_nci_id = @nci_id.to_s
+          @conv_id = @id.to_s
+          @post_endpoint_condition='?study_protocol_id='+@conv_s_p_id+'&nci_id='+@conv_nci_id+''
+          @response, @response_code, @response_body, @response_message = Dataclinicaltrials_api_helper.trigger_delete(service, 'dataclinicaltrials_ms', ENV['dct_usr'], ENV['dct_pass'], headers, @post_endpoint_condition, type)
+        when 'STUDY_PROTOCOL_ID_AND_TRIAL_ID'
+          @response_body
+          @conv_s_p_id = @study_protocol_id.to_s
+          @conv_trial_id = @trial_id.to_s
+          @conv_id = @id.to_s
+          @post_endpoint_condition='?study_protocol_id='+@conv_s_p_id+'&trial_ide_ind_id='+@conv_trial_id+''
+          @response, @response_code, @response_body, @response_message = Dataclinicaltrials_api_helper.trigger_delete(service, 'dataclinicaltrials_ms', ENV['dct_usr'], ENV['dct_pass'], headers, @post_endpoint_condition, type)
+        when 'ID'
+          @response_body
+          @conv_s_p_id = @study_protocol_id.to_s
+          @conv_trial_id = @trial_id.to_s
+          @conv_id = @id.to_s
+          @post_endpoint_condition='/'+@conv_id
+          @response, @response_code, @response_body, @response_message = Dataclinicaltrials_api_helper.trigger_delete(service, 'dataclinicaltrials_ms', ENV['dct_usr'], ENV['dct_pass'], headers, @post_endpoint_condition, type)
+        when 'INVALID_SYSTEM_ID'
+          @response_body
+          @conv_s_p_id = @study_protocol_id.to_s
+          @conv_trial_id = @trial_id.to_s
+          @conv_id = @id.to_s
+          @post_endpoint_condition='/INVALID'+@conv_id
+          @response, @response_code, @response_body, @response_message = Dataclinicaltrials_api_helper.trigger_delete(service, 'dataclinicaltrials_ms', ENV['dct_usr'], ENV['dct_pass'], headers, @post_endpoint_condition, type)
+        else
+          flunk 'Please provide correct type. Provided type <<' + arg4 + '>> does not exist'
+      end
     else
       flunk 'Please choose correct service. Provided service <<' + arg1 + '>> does not exist'
   end
@@ -166,6 +199,11 @@ Then(/^CTRP Data Clinical Trials API response to "([^"]*)" should be "([^"]*)"$/
   @msg = @response
   @test_nci_id = @nci_id
   expect(@response_code.to_s).to eq arg2
+end
+
+And(/^response body should return an empty json structure "([^"]*)"$/) do |arg1|
+  @msg = @response.to_s
+  expect(@response.to_s).to include arg1
 end
 
 And(/^response body should return "([^"]*)"$/) do |arg1|
