@@ -109,7 +109,7 @@ Feature: Tests for clinical trials api service in ctrp_dataclinicaltrials_api sy
     Then CTRP Data Clinical Trials API response to "GET" should be "200"
     And response body should return an empty json structure "[]"
 
-  @CTRPMICRO-83 @REST @Tests @PA_HIGH
+  @CTRPMICRO-85 @REST @Tests @PA_HIGH
   Scenario: DCT_API07. existing FDAAA field values for "STUDY PROTOCOL ID" and "NCI ID" should be updated with system ID
     Given I want to add following new FDAAA filed values to the CTRP Data Clinical Trials Service with Study Protocol ID and NCI ID
       |study_protocol_id        |generate                     |
@@ -147,6 +147,7 @@ Feature: Tests for clinical trials api service in ctrp_dataclinicaltrials_api sy
     Then CTRP Data Clinical Trials API response to "POST" should be "200"
     And response body should includes updated FDAAA field values for "STUDY_PROTOCOL_ID_AND_NCI_ID"
 
+  @CTRPMICRO-86 @REST @Tests @PA_HIGH
   Scenario: DCT_API08. existing FDAAA field values for "STUDY PROTOCOL ID" and "TRIAL ID" should be updated with system ID
     Given I want to add following new FDAAA filed values to the CTRP Data Clinical Trials Service with Study Protocol ID and Trial ID
       |study_protocol_id        |generate                     |
@@ -184,6 +185,7 @@ Feature: Tests for clinical trials api service in ctrp_dataclinicaltrials_api sy
     Then CTRP Data Clinical Trials API response to "POST" should be "200"
     And response body should includes updated FDAAA field values for "STUDY_PROTOCOL_ID_AND_TRIAL_ID"
 
+  @CTRPMICRO-87 @REST @Tests @PA_HIGH
   Scenario: DCT_API09. existing FDAAA field values for "STUDY PROTOCOL ID" and "TRIAL ID" should NOT be updated with an Invalid system ID
     Given I want to add following new FDAAA filed values to the CTRP Data Clinical Trials Service with Study Protocol ID and Trial ID
       |study_protocol_id        |generate                     |
@@ -221,6 +223,7 @@ Feature: Tests for clinical trials api service in ctrp_dataclinicaltrials_api sy
     Then CTRP Data Clinical Trials API response to "POST" should be "404"
     And response body should return "Not Found... "
 
+  @CTRPMICRO-88 @REST @Tests @PA_HIGH
   Scenario: DCT_API10. delete a record with a system ID should be successful
     Given I want to add following new FDAAA filed values to the CTRP Data Clinical Trials Service with Study Protocol ID and NCI ID
       |study_protocol_id        |generate                     |
@@ -244,6 +247,7 @@ Feature: Tests for clinical trials api service in ctrp_dataclinicaltrials_api sy
     Then CTRP Data Clinical Trials API response to "GET" should be "404"
     And response body should return "Not Found... "
 
+  @CTRPMICRO-89 @REST @Tests @PA_HIGH
   Scenario: DCT_API11. deleting a record with a system ID should fail
     Given I want to add following new FDAAA filed values to the CTRP Data Clinical Trials Service with Study Protocol ID and NCI ID
       |study_protocol_id        |generate                     |
@@ -264,6 +268,7 @@ Feature: Tests for clinical trials api service in ctrp_dataclinicaltrials_api sy
     Then CTRP Data Clinical Trials API response to "DELETE" should be "404"
     And response body should return "Not Found... "
 
+  @CTRPMICRO-90 @REST @Tests @PA_HIGH
   Scenario: DCT_API12. field values can be posted as null and should be successful
     Given I want to add following new FDAAA filed values to the CTRP Data Clinical Trials Service with null values
       |study_protocol_id        |generate                     |
