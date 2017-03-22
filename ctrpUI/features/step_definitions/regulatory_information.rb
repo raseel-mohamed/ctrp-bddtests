@@ -182,3 +182,26 @@ Then(/^newly added fields with options should be there$/) do |table|
   end
 end
 
+
+#@CTRPMICRO-67
+
+Given(/^I enter no values for the required fields and click on save button$/) do
+  step %[I click on element having xpath "#{RegulatoryInformation.regulatory_information_save_id}"]
+end
+
+Then(/^the required fields message is displayed$/) do |table|
+  table_data = table.hashes
+  if table_data[0]["Field Name"].eql?("Studies a U.S. FDA-regulated Drug Product")
+    step %[element having xpath ".//*[@id='regulatoryInfoupdate']/table/tbody/tr[1]/td[2]/span[2]/ul/li/span" should be present]
+  end
+
+  if table_data[1]["Field Name"].eql?("Studies a U.S. FDA-regulated Device Product")
+    step %[element having xpath ".//*[@id='regulatoryInfoupdate']/table/tbody/tr[2]/td[2]/span[2]/ul/li/span" should be present]
+  end
+
+end
+
+
+
+
+
