@@ -22,6 +22,17 @@ class RegulatoryInformation
   @section_801_xpath = ".//*[@id='sec801id']"
   @data_monitoring_xpath = ".//*[@id='datamonid']"
 
+  #xpath for the new fields in Regulatory Information screen.
+
+  @drug_id_xpath_yes = "//*[@id='drug']/option[3]"
+  @drug_id_xpath_no = "//*[@id='drug']/option[2]"
+  @device_id_xpath_no = "//*[@id='device']/option[2]"
+  @device_id_xpath_yes = "//*[@id='device']/option[3]"
+  @post_prior_xpath_no = "//*[@id='approval']/option[2]"
+  @post_prior_xpath_yes = "//*[@id='approval']/option[3]"
+  @pediatric_xpath_no = "//*[@id='surveillance']/option[2]"
+  @pediatric_xpath_yes = "//*[@id='surveillance']/option[3]"
+
   def self.drug_approval_dropdown_id
     @drug_approval_dropdown_id
   end
@@ -108,6 +119,38 @@ class RegulatoryInformation
 
   def self.data_monitoring_xpath
     @data_monitoring_xpath
+  end
+
+  def self.drug_id_xpath_yes
+    @drug_id_xpath_yes
+  end
+
+  def self.drug_id_xpath_no
+    @drug_id_xpath_no
+  end
+
+  def self.device_id_xpath_no
+    @device_id_xpath_no
+  end
+
+  def self.device_id_xpath_yes
+    @device_id_xpath_yes
+  end
+
+  def self.post_prior_xpath_no
+    @post_prior_xpath_no
+  end
+
+  def self.post_prior_xpath_yes
+    @post_prior_xpath_yes
+  end
+
+  def self.pediatric_xpath_no
+    @pediatric_xpath_no
+  end
+
+  def self.pediatric_xpath_yes
+    @pediatric_xpath_yes
   end
 
 end
