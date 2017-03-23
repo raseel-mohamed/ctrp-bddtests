@@ -5,4 +5,3 @@ Feature: CTEP ECM
   Verify if the PO is updated with the new Org
   Verify if the PO is updated with the new Person
 
-  
