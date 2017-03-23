@@ -19,11 +19,11 @@ Scenario: Verify the new fields are added to the Regulatory Information(PA) scre
   And I navigate to Regulatory Information screen
   Then newly added fields with options should be there
     | Field Name                                   | List Of Value |
-    | Studies a U.S. FDA-regulated Drug Product    | Yes\No        |
-    | Studies a U.S. FDA-regulated Device Product  | Yes\No        |
-    | Post Prior to U.S. FDA Approval or Clearance | Yes\No        |
-    | Pediatric Post-market Surveillance           | Yes\No        |
-    | Product Exported from the U.S                | Yes\No        |
+    | Studies a U.S. FDA-regulated Drug Product    | No or Yes        |
+    | Studies a U.S. FDA-regulated Device Product  | No or Yes        |
+    | Post Prior to U.S. FDA Approval or Clearance | No or Yes        |
+    | Pediatric Post-market Surveillance           | No or Yes        |
+    | Product Exported from the U.S                | No or Yes        |
 
   @PA_HIGH @FDAAA @PA @CTRPMICRO-67
 Scenario: Verify the fields are required in the Regulatory Information(PA) screen

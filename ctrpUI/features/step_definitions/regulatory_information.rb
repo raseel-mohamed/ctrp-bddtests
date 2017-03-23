@@ -167,16 +167,17 @@ end
 
 Then(/^newly added fields with options should be there$/) do |table|
   table.hashes.each do |row|
-    if(row["List Of Value"].eql?('Yes\NO'))
-       split_value = row["List Of Value"].split("\\")
-       @yes_val = split_value.first.strip
-       @no_val = split_value.last.strip
-       @exp_val_str = ''+@no_val+'\n'+@yes_val+''
-       step %[element having xpath "#{RegulatoryInformation.drug_id_xpath}" should have text as "#{@exp_val_str}"]
-       step %[element having xpath "#{RegulatoryInformation.device_id_xpath}" should have text as "#{@exp_val_str}"]
-       step %[element having xpath "#{RegulatoryInformation.post_prior_to_us_fda_xpath}" should have text as "#{@exp_val_str}"]
-       step %[element having xpath "#{RegulatoryInformation.pediatric_postmarket_xpath}" should have text as "#{@exp_val_str}"]
-       step %[element having xpath "#{RegulatoryInformation.product_exported_xpath}" should have text as "#{@exp_val_str}"]
+    if(row["List Of Value"].eql?('No or Yes'))
+       split_value = row["List Of Value"].split("or")
+       @no_val = split_value.first.strip
+       @yes_val = split_value.last.strip
+
+       #step %[element having xpath "#{RegulatoryInformation.drug_id_xpath}" should have text as ""]
+       #step %[element having xpath "#{RegulatoryInformation.device_id_xpath}" should have text as "#{@exp_val_str}"]
+       #step %[element having xpath "#{RegulatoryInformation.post_prior_to_us_fda_xpath}" should have text as "#{@exp_val_str}"]
+       #step %[element having xpath "#{RegulatoryInformation.pediatric_postmarket_xpath}" should have text as "#{@exp_val_str}"]
+       step %[element having xpath "//*[@id='drug']/option[2]" should have text as "#{@no_val}"]
+       step %[element having xpath "//*[@id='drug']/option[3]" should have text as "#{@yes_val}"]
 
     end
   end
