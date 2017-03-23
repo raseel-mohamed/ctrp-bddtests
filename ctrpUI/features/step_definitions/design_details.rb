@@ -63,7 +63,7 @@ Then(/^these existing fields should be updated$/) do |table|
     end
 
     if arg["Existing Field"] == "Masking Roles"
-      step %[element having xpath "#{DesignDetails.masking_role_label_xpath}" should have text as "#{arg["New Field"]}"]
+      expect(get_element_text("xpath","#{DesignDetails.masking_role_label_xpath}").split("*").first).to eq(arg["New Field"])
     end
 
   end
@@ -75,11 +75,11 @@ Then(/^the conditional fields should be$/) do |table|
   table. hashes.each do |arg|
     if arg["Field Name"] == "No Masking"
       step %[I check the checkbox having id "#{DesignDetails.no_masking_id}"]
-
-      step %[element having id "#{DesignDetails.participant_id }" should be disabled]
-      step %[element having id "#{DesignDetails.investigator_id}" should be disabled]
-      step %[element having id "#{DesignDetails.caregiver_id}" should be disabled]
-      step %[element having id "#{DesignDetails.outcomesassessor_id}" should be disabled]
+      step %[I accept alert]
+      step %[checkbox having id "#{DesignDetails.participant_id}" should be unchecked]
+      step %[checkbox having id "#{DesignDetails.investigator_id}" should be unchecked]
+      step %[checkbox having id "#{DesignDetails.caregiver_id}" should be unchecked]
+      step %[checkbox having id "#{DesignDetails.outcomesassessor_id}" should be unchecked]
     end
   end
 end

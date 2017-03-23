@@ -13,7 +13,7 @@ class DesignDetails
   @masking_xpath = ".//label[@for='masking']"
   @study_classification_xpath = ".//label[@for='classification']"
   @trial_phase_id = "webDTO.phaseCode"
-  @no_masking_id = "nomasking"
+  @no_masking_id = "noMasking"
   @participant_id = 'subject'
   @investigator_id = 'investigator'
   @caregiver_id = 'caregiver'
