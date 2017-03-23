@@ -5,6 +5,7 @@ class HomePagePA
     @login_id = 'loginLink'
     @accept_disclaimer_id = 'acceptDisclaimer'
     @reject_disclaimer_id = 'rejectDisclaimer'
+    @login_link_id = 'userarea'
 
   def self.username_id
     @username_id
@@ -24,6 +25,10 @@ class HomePagePA
 
   def self.reject_disclaimer_id
     @reject_disclaimer_id
+  end
+
+  def self.login_link_id
+    @login_link_id
   end
 
 end
