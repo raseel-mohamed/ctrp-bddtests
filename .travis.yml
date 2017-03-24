@@ -120,12 +120,14 @@ after_success:
   - |
     if [ "$CUC_TAG" == "$PO_TAG" ]; then
       cd ctrp-bddtests/ctrpUI/
+      bundle install
       cucumber features/ -t @PO_LOW --format json --out ../results/ctrp_po_low_output.json --expand
     fi
   # run CTRP PA LOW tests
   - |
     if [ "$CUC_TAG" == "$PA_TAG" ]; then
       cd ctrp-bddtests/ctrpUI/
+      bundle install
       cucumber features/ -t @PA_LOW --format json --out ../results/ctrp_pa_low_output.json --expand
     fi
   # Deploy to AWS UAT (comment this to disable UAT push)
