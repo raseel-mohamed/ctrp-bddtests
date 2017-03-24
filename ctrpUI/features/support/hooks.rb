@@ -9,6 +9,42 @@ Before do |scenario|
   # The +scenario+ argument is optional, but if you use it, you can get the title,
   # description, or name (title + description) of the scenario that is about to be
   # executed.
+  if $platform == 'android' or $platform == 'iOS'
+
+    if $browser_type == 'native'
+      $browser_type = "Browser"
+    end
+
+    if $platform == 'android'
+      $device_name, $os_version = get_device_info
+    end
+
+    desired_caps = {
+        caps:       {
+            platformName:  $platform,
+            browserName: $browser_type,
+            versionNumber: $os_version,
+            deviceName: $device_name,
+            udid: $udid,
+            app: ".//#{$app_path}"
+        },
+    }
+
+    begin
+      $driver = Appium::Driver.new(desired_caps).start_driver
+    rescue Exception => e
+      puts e.message
+      Process.exit(0)
+    end
+  else # else create driver instance for desktop browser
+    begin
+      $driver = Selenium::WebDriver.for(:"#{$browser_type}")
+      $driver.manage().window().maximize()
+    rescue Exception => e
+      puts e.message
+      Process.exit(0)
+    end
+  end
 end
 
 After do |scenario|
@@ -16,7 +52,7 @@ After do |scenario|
   # The +scenario+ argument is optional, but
   # if you use it, you can inspect status with
   # the #failed?, #passed? and #exception methods.
-  #close_driver
+  close_driver
   if(scenario.failed?)
     #Do something if scenario fails.
   end
@@ -44,5 +80,5 @@ end
 
 # Quit the selenium driver from the example tests.
 at_exit do
-  close_driver
+  #close_driver
 end

@@ -20,7 +20,6 @@ Given(/^I login into CTRP and search for a trial with NCI ID "([^"]*)"$/) do |ar
   step %[I click on link having text "#{arg1}"]
 
   step %[I wait for 2 sec]
-
 end
 
 # Regulatory Information link in the left menu. Xpath was used because the tag does not have an ID assigned.
@@ -104,7 +103,6 @@ end
 When(/^the dropdown "([^"]*)" value is "([^"]*)"$/) do |arg1, arg2|
   step %[I select "No" option by text from dropdown having id "device"]
   step %[I wait for 2 sec]
-
 end
 
 
@@ -112,7 +110,6 @@ Then(/^"([^"]*)" field should not be visible$/) do |arg1|
 
   step %[I accept alert]
   step %[element having xpath "//label[@for='surveillance']" should not be present]
-
 end
 
 
@@ -144,7 +141,6 @@ When(/^"([^"]*)"$/) do |arg1|
   step %[I wait for 1 sec]
   step %[I click on element having xpath ".//*[@id='part_sites']/li[1]/a"]
   step %[I wait for 1 sec]
-
 end
 
 
@@ -159,25 +155,24 @@ Then(/^all the fields will have "([^"]*)" values$/) do |arg1|
   step %[option "#{arg1}" by text from dropdown having xpath "#{RegulatoryInformation.fda_regulated_intervention_xpath}" should be selected]
   step %[option "#{arg1}" by text from dropdown having xpath "#{RegulatoryInformation.section_801_xpath}" should be selected]
   step %[option "#{arg1}" by text from dropdown having xpath "#{RegulatoryInformation.data_monitoring_xpath}" should be selected]
-
-
 end
 
 #@CTRPMICRO-66
 
 Then(/^newly added fields with options should be there$/) do |table|
   table.hashes.each do |row|
-    if(row["List Of Value"].eql?('Yes\NO'))
-       split_value = row["List Of Value"].split("\\")
-       @yes_val = split_value.first.strip
-       @no_val = split_value.last.strip
-       @exp_val_str = ''+@no_val+'\n'+@yes_val+''
-       step %[element having xpath "#{RegulatoryInformation.drug_id_xpath}" should have text as "#{@exp_val_str}"]
-       step %[element having xpath "#{RegulatoryInformation.device_id_xpath}" should have text as "#{@exp_val_str}"]
-       step %[element having xpath "#{RegulatoryInformation.post_prior_to_us_fda_xpath}" should have text as "#{@exp_val_str}"]
-       step %[element having xpath "#{RegulatoryInformation.pediatric_postmarket_xpath}" should have text as "#{@exp_val_str}"]
-       step %[element having xpath "#{RegulatoryInformation.product_exported_xpath}" should have text as "#{@exp_val_str}"]
-
+    if(row["List Of Value"].eql?('No or Yes'))
+       split_value = row["List Of Value"].split("or")
+       @no_val = split_value.first.strip
+       @yes_val = split_value.last.strip
+       step %[element having xpath "#{RegulatoryInformation.drug_id_xpath_no}" should have text as "#{@no_val}"]
+       step %[element having xpath "#{RegulatoryInformation.drug_id_xpath_yes}" should have text as "#{@yes_val}"]
+       step %[element having xpath "#{RegulatoryInformation.device_id_xpath_no}" should have text as "#{@no_val}"]
+       step %[element having xpath "#{RegulatoryInformation.device_id_xpath_yes}" should have text as "#{@yes_val}"]
+       step %[element having xpath "#{RegulatoryInformation.post_prior_xpath_no}" should have text as "#{@no_val}"]
+       step %[element having xpath "#{RegulatoryInformation.post_prior_xpath_yes}" should have text as "#{@yes_val}"]
+       step %[element having xpath "#{RegulatoryInformation.pediatric_xpath_no}" should have text as "#{@no_val}"]
+       step %[element having xpath "#{RegulatoryInformation.pediatric_xpath_yes}" should have text as "#{@yes_val}"]
     end
   end
 end
