@@ -1,7 +1,7 @@
 require_relative '../support/home_page_obj'
 require_relative '../support/left_menu_navigation_obj'
 require_relative '../support/design_details_obj'
-#require 'selenium-cucumber'
+require 'selenium-cucumber'
 
 When(/^I go to "Design Details" section in PA app$/) do
   step %[I click on element having xpath "//a[text()='Design Details']"]

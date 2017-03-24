@@ -68,7 +68,7 @@ script:
   - echo $DCT_API
   - cd ctrp-bddtests/ctrpUI/
   - bundle install
-  - cucumber features/ -t @PO_HIGH --format json --out ../results/ctrp_po_high_output.json --expand && cucumber features/ -t @PO_MEDIUM --format json --out ../results/ctrp_po_high_output.json --expand
+  - cucumber features/ -t @PA_HIGH --format json --out ../results/ctrp_pa_high_output.json --expand && cucumber features/ -t @PA_MEDIUM --format json --out ../results/ctrp_pa_medium_output.json --expand
   # run DCT API tests
   - |
     if [ "$CUC_TAG" == "$DCT_API_TAG" ]; then

@@ -2,7 +2,7 @@ require_relative '../support/home_page_obj'
 require_relative '../support/helper_methods'
 require_relative '../support/login_methods'
 
-#require 'selenium-cucumber'
+require 'selenium-cucumber'
 
 Given(/^I am in the PA home page/) do
   navigate_to(ENV['PA_APP'])

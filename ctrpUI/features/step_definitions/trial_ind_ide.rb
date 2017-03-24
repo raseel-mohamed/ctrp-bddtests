@@ -1,7 +1,7 @@
 require_relative '../support/home_page_obj'
 require_relative '../support/left_menu_navigation_obj'
 require_relative '../support/trial_ind_ide_obj'
-#require 'selenium-cucumber'
+require 'selenium-cucumber'
 
 And(/^I navigate to IND\/IDE screen$/) do
   step %[I click on element having xpath "//a[text()='Trial IND/IDE']"]

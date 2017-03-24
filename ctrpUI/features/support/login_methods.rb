@@ -2,7 +2,7 @@ require 'net/https'
 require_relative 'required'
 require_relative '../support/home_page_obj'
 require_relative '../support/helper_methods'
-#require 'selenium-cucumber'
+require 'selenium-cucumber'
 
 
 # Given(/^I am in the PA home page/) do
