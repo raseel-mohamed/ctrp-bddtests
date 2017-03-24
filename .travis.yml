@@ -91,13 +91,13 @@ script:
   - |
     if [ "$CUC_TAG" == "$PO_TAG" ]; then
       cd ctrp-bddtests/ctrpUI/
-      cucumber features/ -t @CTRP_MISC --format json --out ../results/output.json --expand
+      cucumber features/ -t @PO_HIGH --format json --out ../results/ctrp_po_high_output.json --expand && cucumber features/ -t @PO_MEDIUM --format json --out ../results/ctrp_po_high_output.json --expand
     fi
-  # run CTRP datawarehouse tests
+  # run CTRP PA UI tests
   - |
     if [ "$CUC_TAG" == "$PA_TAG" ]; then
       cd ctrp-bddtests/ctrpUI/
-      cucumber features/ -t @CTRP_DWH --format json --out ../results/output.json --expand
+      cucumber features/ -t @PA_HIGH --format json --out ../results/ctrp_pa_high_output.json --expand && cucumber features/ -t @PA_MEDIUM --format json --out ../results/ctrp_pa_medium_output.json --expand
     fi
   # run ctrp-bddtests/ctrpBackend tests by the tag name
   # To export the results to the JIRA test execution set
@@ -107,7 +107,7 @@ script:
 after_success:
   # Run Low tag
   - pwd
-  # run DCT API tests
+  # run DCT API LOW tests
   - |
     if [ "$CUC_TAG" == "$DCT_API_TAG" ]; then
       cd ctrp-bddtests/ctrpBackend/
@@ -116,7 +116,18 @@ after_success:
       if [ "$STATUS" == 0 ]; then STATUS=$CURRENT_STATUS; fi
       cd ..
     fi
-  # run CTRP MISC tests
+  # run CTRP PO UI LOW tests
+  - |
+    if [ "$CUC_TAG" == "$PO_TAG" ]; then
+      cd ctrp-bddtests/ctrpUI/
+      cucumber features/ -t @PO_LOW --format json --out ../results/ctrp_po_low_output.json --expand
+    fi
+  # run CTRP PA LOW tests
+  - |
+    if [ "$CUC_TAG" == "$PA_TAG" ]; then
+      cd ctrp-bddtests/ctrpUI/
+      cucumber features/ -t @PA_LOW --format json --out ../results/ctrp_pa_low_output.json --expand
+    fi
   # Deploy to AWS UAT (comment this to disable UAT push)
   - echo "Deploying to AWS UAT"
   - docker run -it --rm -e AWS_ACCESS_KEY_ID=$UAT_AWS_ACCESS_KEY_ID -e AWS_SECRET_ACCESS_KEY=$UAT_AWS_SECRET_ACCESS_KEY -e AWS_DEFAULT_REGION=us-east-1 silintl/ecs-deploy 
