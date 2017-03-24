@@ -4,20 +4,6 @@ require_relative '../support/helper.rb'
 require 'json'
 require 'rest-client'
 
-# |trial_id                 |NCT11111111                  |
-# |study_protocol_id        |11111111                     |
-# |nci_id                   |NCI77777777                  |
-# |exported_from_us         |true                         |
-# |gender_description       |11111 gender_description     |
-# |sequential_assignment    |11111 sequential_assignment  |
-# |fda_regulated_drug       |true                         |
-# |post_prior_to_approval   |true                         |
-# |ped_postmarket_surv      |true                         |
-# |masking_description      |11111 masking_description    |
-# |fda_regulated_device     |true                         |
-# |model_description        |11111 model_description      |
-# |gender_based             |false                        |
-
 Given(/^I want to add following new FDAAA filed values to the CTRP Data Clinical Trials Service with Study Protocol ID and NCI ID$/) do |table|
   time = Time.new
   @build_protocol_id = time.year.to_s+time.day.to_s+time.month.to_s+time.hour.to_s+time.min.to_s+time.sec.to_s+time.usec.to_s
@@ -256,45 +242,10 @@ And(/^response body should retrieved FDAAA field values$/) do
   Dataclinicaltrials_api_helper.verify_fdaaa_field_values(@study_protocol_id, @nci_id, @exported_from_us, @gender_description, @sequential_assignment, @fda_regulated_drug, @post_prior_to_approval, @ped_postmarket_surv, @masking_description, @fda_regulated_device, @model_description, @gender_based, @response_body)
 end
 
-# Given(/^I want to add following FDAAA filed values to the ctrp_dataclinicaltrials_api MS with an invalid Study Protocol ID$/) do |table|
-#   @study_protocol_id = table.rows_hash['study_protocol_id']
-#   @nci_id = table.rows_hash['nci_id']
-#   @exported_from_us = table.rows_hash['exported_from_us']
-#   @gender_description = table.rows_hash['gender_description']
-#   @sequential_assignment = table.rows_hash['sequential_assignment']
-#   @fda_regulated_drug = table.rows_hash['fda_regulated_drug']
-#   @post_prior_to_approval = table.rows_hash['post_prior_to_approval']
-#   @ped_postmarket_surv = table.rows_hash['ped_postmarket_surv']
-#   @masking_description = table.rows_hash['masking_description']
-#   @fda_regulated_device = table.rows_hash['fda_regulated_device']
-#   @model_description = table.rows_hash['model_description']
-#   @gender_based = table.rows_hash['gender_based']
-# end
-
-# Then(/^ctrp_dataclinicaltrials_api MS response to "([^"]*)" should be "([^"]*)" Bad Request$/) do |arg1, arg2|
-#   expect(@response_code.to_s).to eq arg2
-# end
-
-
 Given(/^I want to search FDAAA fields with a Study Protocol ID that does not exists: "([^"]*)"$/) do |arg1|
   @study_protocol_id = arg1.to_s
   @nci_id = 'NCT55555555'
 end
-
-# Given(/^following FDAAA field values exists in the ctrp_dataclinicaltrials_api MS$/) do |table|
-#   @study_protocol_id = table.rows_hash['study_protocol_id']
-#   @nci_id = table.rows_hash['nci_id']
-#   @exported_from_us = table.rows_hash['exported_from_us']
-#   @gender_description = table.rows_hash['gender_description']
-#   @sequential_assignment = table.rows_hash['sequential_assignment']
-#   @fda_regulated_drug = table.rows_hash['fda_regulated_drug']
-#   @post_prior_to_approval = table.rows_hash['post_prior_to_approval']
-#   @ped_postmarket_surv = table.rows_hash['ped_postmarket_surv']
-#   @masking_description = table.rows_hash['masking_description']
-#   @fda_regulated_device = table.rows_hash['fda_regulated_device']
-#   @model_description = table.rows_hash['model_description']
-#   @gender_based = table.rows_hash['gender_based']
-# end
 
 Given(/^I want to update following new FDAAA filed values to the CTRP Data Clinical Trials Service by the ID$/) do |table|
   # table is a Cucumber::Core::Ast::DataTable
@@ -362,76 +313,6 @@ Given(/^I want to update following new FDAAA filed values for "([^"]*)" and "([^
   @model_description = table.rows_hash['model_description']
   @gender_based = table.rows_hash['gender_based']
 end
-
-# Given(/^I want to update following new FDAAA filed values for "([^"]*)" and "([^"]*)" to the CTRP Data Clinical Trials Service by the invalid system ID$/) do |arg1, arg2, table|
-#   # table is a Cucumber::Core::Ast::DataTable
-#   @id = "invalidsystemid"
-#   time = Time.new
-#   @build_id = time.year.to_s+time.day.to_s+time.month.to_s+time.hour.to_s+time.min.to_s+time.sec.to_s+time.usec.to_s
-#   @check_study_protocol_id = table.rows_hash['study_protocol_id']
-#   if @check_study_protocol_id == 'generate'
-#     @study_protocol_id = @build_id
-#   end
-#   #@study_protocol_id = table.rows_hash['study_protocol_id']
-#   @trial_ide_ind_id = table.rows_hash['trial_ide_ind_id']
-#   @exported_from_us = table.rows_hash['exported_from_us']
-#   @gender_description = table.rows_hash['gender_description']
-#   @sequential_assignment = table.rows_hash['sequential_assignment']
-#   @fda_regulated_drug = table.rows_hash['fda_regulated_drug']
-#   @post_prior_to_approval = table.rows_hash['post_prior_to_approval']
-#   @ped_postmarket_surv = table.rows_hash['ped_postmarket_surv']
-#   @masking_description = table.rows_hash['masking_description']
-#   @fda_regulated_device = table.rows_hash['fda_regulated_device']
-#   @model_description = table.rows_hash['model_description']
-#   @gender_based = table.rows_hash['gender_based']
-# end
-
-# And(/^I want to update the "([^"]*)" trials FDAAA field values with following values$/) do |arg1, table|
-#   @study_protocol_id = table.rows_hash['study_protocol_id']
-#   @nci_id = table.rows_hash['nci_id']
-#   @exported_from_us = table.rows_hash['exported_from_us']
-#   @gender_description = table.rows_hash['gender_description']
-#   @sequential_assignment = table.rows_hash['sequential_assignment']
-#   @fda_regulated_drug = table.rows_hash['fda_regulated_drug']
-#   @post_prior_to_approval = table.rows_hash['post_prior_to_approval']
-#   @ped_postmarket_surv = table.rows_hash['ped_postmarket_surv']
-#   @masking_description = table.rows_hash['masking_description']
-#   @fda_regulated_device = table.rows_hash['fda_regulated_device']
-#   @model_description = table.rows_hash['model_description']
-#   @gender_based = table.rows_hash['gender_based']
-# end
-
-# Given(/^I want to add following FDAAA filed values along with null value to the ctrp_dataclinicaltrials_api MS$/) do |table|
-#   # table is a Cucumber::Core::Ast::DataTable
-#   @study_protocol_id = table.rows_hash['study_protocol_id']
-#   @nci_id = table.rows_hash['nci_id']
-#   @exported_from_us = table.rows_hash['exported_from_us']
-#   @gender_description = table.rows_hash['gender_description']
-#   @sequential_assignment = table.rows_hash['sequential_assignment']
-#   @fda_regulated_drug = table.rows_hash['fda_regulated_drug']
-#   @post_prior_to_approval = table.rows_hash['post_prior_to_approval']
-#   @ped_postmarket_surv = table.rows_hash['ped_postmarket_surv']
-#   @masking_description = table.rows_hash['masking_description']
-#   @fda_regulated_device = table.rows_hash['fda_regulated_device']
-#   @model_description = table.rows_hash['model_description']
-#   @gender_based = table.rows_hash['gender_based']
-# end
-
-# Given(/^I want to add following FDAAA filed values along with all the null field values to the ctrp_dataclinicaltrials_api MS$/) do |table|
-#   # table is a Cucumber::Core::Ast::DataTable
-#   @study_protocol_id = table.rows_hash['study_protocol_id']
-#   @nci_id = table.rows_hash['nci_id']
-#   @exported_from_us = table.rows_hash['exported_from_us']
-#   @gender_description = table.rows_hash['gender_description']
-#   @sequential_assignment = table.rows_hash['sequential_assignment']
-#   @fda_regulated_drug = table.rows_hash['fda_regulated_drug']
-#   @post_prior_to_approval = table.rows_hash['post_prior_to_approval']
-#   @ped_postmarket_surv = table.rows_hash['ped_postmarket_surv']
-#   @masking_description = table.rows_hash['masking_description']
-#   @fda_regulated_device = table.rows_hash['fda_regulated_device']
-#   @model_description = table.rows_hash['model_description']
-#   @gender_based = table.rows_hash['gender_based']
-# end
 
 Given(/^I want to add following FDAAA filed values to the ctrp_dataclinicaltrials_api MS with extra fields$/) do |table|
   # table is a Cucumber::Core::Ast::DataTable

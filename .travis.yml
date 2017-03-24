@@ -54,6 +54,8 @@ script:
   #- export P1="_p1"
   #- export P2="_p2"
   #- export P3="_p3"
+  - export STATUS=0
+  - export CURRENT_STATUS=0
   - export DCT_API_TAG="@DCT_API"
   - export PO_TAG="@PO"
   - export PA_TAG="@PA"
@@ -65,12 +67,14 @@ script:
   - echo $CUC_TAG
   - echo $DCT_API
   # run DCT API tests
-  #- cd ctrp-bddtests/ctrpBackend/
-  #- cucumber features/ -t @PA_HIGH --format json --out ../results/output.json --expand && cucumber features/ -t @PA_MEDIUM --format json --out ../results/output.json --expand
   - |
     if [ "$CUC_TAG" == "$DCT_API_TAG" ]; then
       cd ctrp-bddtests/ctrpBackend/
-      cucumber features/ -t @PA_HIGH --format json --out ../results/output.json --expand && cucumber features/ -t @PA_MEDIUM --format json --out ../results/output.json --expand
+      rm results/*_output.json
+      cucumber features/ -t @DCT_HIGH --format json --out ../results/dct_api_high_output.json --expand && cucumber features/ -t @DCT_MEDIUM --format json --out ../results/dct_api_medium_output.json --expand
+      CURRENT_STATUS=$?
+      if [ "$STATUS" == 0 ]; then STATUS=$CURRENT_STATUS; fi
+      cd ..
     fi
   # run CTRP MISC tests
   - |
@@ -97,36 +101,6 @@ script:
       cucumber features/ -t @CTRP_DWH --format json --out ../results/output.json --expand
     fi
   # run ctrp-bddtests/ctrpBackend tests by the tag name
-  #- cd ctrp-bddtests/ctrpBackend/
-  #- ls -ltar
-  #- cucumber test_features/ -r test_features/
-  #- cucumber features/ -t @PA_HIGH --format json --out ../results/output.json --expand && cucumber features/ -t @PA_MEDIUM --format json --out ../results/output.json --expand
-  # run
-  #- if [ "$CUC_TAG" = "@CTRP_MISC"]; then cucumber features/ -t @CTRP_MISC --format json --out ../results/output.json --expand; fi
-  #- cucumber features/ -t @CTRP_MISC --format json --out ../results/output.json --expand
-  #- cucumber features/ -t @CTRP_TRIALS --format json --out ../results/output.json --expand
-  #- if [ "$?" = "0" ]; then cucumber test_features/ -t @PA_MEDIUM --format json --out ../results/output.json --expand; fi
-  # run by tag(s)
-  #- cucumber test_features/ -t @CTRPMICRO-34,@CTRPMICRO-35 --format json --out ../results/output.json --expand
-  #- cucumber test_features/ -t @po_high --format json --out ../results/output.json --expand
-  #- cucumber test_features/ -t @po_medium --format json --out ../results/output.json --expand
-  # - rm results/*
-  # - cd uMATCH/PedMATCH; bundle exec parallel_cucumber test_features/ -o '-r test_features/step_definitions/ -r test_features/support/ -t $CUC_TAG$P1,$CUC_TAG$P2 --format json --out ../../results/output-$CUC_TAG$P1-$TEST_ENV_NUMBER.json --expand' -n 2
-  # - cd ../..
-  # Run Cucumber end to end tests
-  # - bundle exec cucumber --tags @EndtoEnd
-  # Install xvfb
-  #- "export DISPLAY=:99.0"
-  #- "sh -e /etc/init.d/xvfb start"
-  #- sleep 3 # give xvfb some time to start
-  # Run UI tests
-  # - cd nci-match-ui-bddtests/
-  # Run protractor only if the tag is UI or demo
-  # - if [ "$CUC_TAG" = "@ui" -o "$CUC_TAG" = "@demo" ]; then protractor config.js --cucumberOpts.tags='~@broken' --cucumberOpts.tags=$CUC_TAG$P1,$CUC_TAG$P2 --troubleshoot; fi
-  # Generate html report
-  # - for filename in ../results/*.json; do filesize=$(wc -c <"$filename"); if [ $filesize -le 0 ]; then echo $filename is 0 bytes, deleted it; rm $filename; fi; done
-  # - node support/generate_report.js
-  # - cd ..
   # To export the results to the JIRA test execution set
   # - curl -H "Content-Type: application/json" -X POST -u ahmeds6:pass --data @results/output.json  https://tracker.nci.nih.gov/rest/raven/1.0/import/execution/cucumber
   # - ls -alt
@@ -134,29 +108,23 @@ script:
 after_success:
   # Run Low tag
   - pwd
-  - ls -ltar
-  #- cucumber test_features/ -t @PA_LOW --format json --out ../results/output.json --expand
-  #- cucumber test_features/ -t @po_low --format json --out ../results/output.json --expand
-  #Run P3 cucumber tests
-  # - cd uMATCH/PedMATCH; bundle exec parallel_cucumber test_features/ -o '-r test_features/step_definitions/ -r test_features/support/ -t $CUC_TAG$P3 --format json --out ../../results/output-$CUC_TAG$P3-$TEST_ENV_NUMBER.json --expand' -n 2
-  #Run protractor tests
-  # - cd ../../nci-match-ui-bddtests/
-  # - if [ "$CUC_TAG" = "@ui" -o "$CUC_TAG" = "@demo" ]; then protractor config.js --cucumberOpts.tags='~@broken' --cucumberOpts.tags=$CUC_TAG$P3 --troubleshoot; fi
-  # # Generate html report
-  # - for filename in ../results/*.json; do filesize=$(wc -c <"$filename"); if [ $filesize -le 0 ]; then echo $filename is 0 bytes, deleted it; rm $filename; fi; done
-  # - node support/generate_report.js
-  # - cd ..
-  #- ls -alt
-
+  # run DCT API tests
+  - |
+    if [ "$CUC_TAG" == "$DCT_API_TAG" ]; then
+      cd ctrp-bddtests/ctrpBackend/
+      cucumber features/ -t @DCT_LOW --format json --out ../results/dct_api_low_output.json --expand
+      CURRENT_STATUS=$?
+      if [ "$STATUS" == 0 ]; then STATUS=$CURRENT_STATUS; fi
+      cd ..
+    fi
+  # run CTRP MISC tests
   # Deploy to AWS UAT (comment this to disable UAT push)
   - echo "Deploying to AWS UAT"
   - docker run -it --rm -e AWS_ACCESS_KEY_ID=$UAT_AWS_ACCESS_KEY_ID -e AWS_SECRET_ACCESS_KEY=$UAT_AWS_SECRET_ACCESS_KEY -e AWS_DEFAULT_REGION=us-east-1 silintl/ecs-deploy 
     --cluster CTRP-UAT-Backend --service-name CTRP-$TRIGGER_REPO-UAT 
     -i ctrp/$TRIGGER_REPO:$TRIGGER_VER
-
   # Trigger Travis script #3, UAT Tests
   # - curl -s -X POST -H "Content-Type:application/json" -H "Accept:application/json" -H "Travis-API-Version:3" -H "Authorization:token $UAT_TRAVIS_TOKEN" -d "{\"request\":{\"message\":\"Triggered by $TRIGGER_REPO $TRAVIS_COMMIT\", \"branch\":\"master\", \"config\":{\"env\":{\"matrix\":[\"TRIGGER_REPO=$TRIGGER_REPO;CUC_TAG=$CUC_TAG\"]}}}}" https://api.travis-ci.org/repo/CBIIT%2Fnci-uMatch-uattests/requests
-
 after_failure:
     #Run P3 cucumber tests
     # - cd uMATCH/PedMATCH; bundle exec parallel_cucumber test_features/ -o '-r test_features/step_definitions/ -r test_features/support/ -t $CUC_TAG$P3 --format json --out ../../results/output-$TEST_ENV_NUMBER.json --expand' -n 2

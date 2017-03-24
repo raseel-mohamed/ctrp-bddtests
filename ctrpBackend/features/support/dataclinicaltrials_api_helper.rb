@@ -314,19 +314,6 @@ class Dataclinicaltrials_api_helper
     return @response, @response_code, @response_body, @response_message
   end
 
-  # |study_protocol_id        |generate                     |
-  # |nci_id                   |NCI77777777                  |
-  # |exported_from_us         |true                         |
-  # |gender_description       |11111 gender_description     |
-  # |sequential_assignment    |11111 sequential_assignment  |
-  # |fda_regulated_drug       |true                         |
-  # |post_prior_to_approval   |true                         |
-  # |ped_postmarket_surv      |true                         |
-  # |masking_description      |11111 masking_description    |
-  # |fda_regulated_device     |true                         |
-  # |model_description        |11111 model_description      |
-  # |gender_based             |false                        |
-  #
   def self.verify_fdaaa_values(study_prtcl_id_dct, nci_id_dct, trial_ide_ind_id_dct, exported_from_us_dct, gender_desc_dct, seq_assignment_dct, fda_reglted_drug_dct, post_pror_aprval_dct, ped_pstmrkt_srv_dct, masking_desc_dct, fda_rglatd_divce_dct, model_desc_dct, gender_based_dct, response, type)
     @response_body.each { |key_value|
       @id = key_value['id']
