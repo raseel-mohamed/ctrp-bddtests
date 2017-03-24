@@ -75,7 +75,6 @@ Then(/^the conditional fields should be$/) do |table|
   table. hashes.each do |arg|
     if arg["Field Name"] == "No Masking"
       step %[I check the checkbox having id "#{DesignDetails.no_masking_id}"]
-      step %[I accept alert]
       step %[checkbox having id "#{DesignDetails.participant_id}" should be unchecked]
       step %[checkbox having id "#{DesignDetails.investigator_id}" should be unchecked]
       step %[checkbox having id "#{DesignDetails.caregiver_id}" should be unchecked]
