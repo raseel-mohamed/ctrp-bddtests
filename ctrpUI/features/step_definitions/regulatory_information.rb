@@ -1,7 +1,7 @@
 require_relative '../support/home_page_obj'
 require_relative '../support/left_menu_navigation_obj'
 require_relative '../support/regulatory_information_obj'
-require 'selenium-cucumber'
+#require 'selenium-cucumber'
 
 
 

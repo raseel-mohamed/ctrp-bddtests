@@ -1,7 +1,7 @@
 require_relative '../support/home_page_obj'
 require_relative '../support/left_menu_navigation_obj'
 require_relative '../support/eligibility_criteria_obj'
-require 'selenium-cucumber'
+#require 'selenium-cucumber'
 
 #@PA_HIGH @FDAAA @CTRPMICRO-17
 

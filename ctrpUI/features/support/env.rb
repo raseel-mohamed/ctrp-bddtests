@@ -1,5 +1,5 @@
 require 'rubygems'
-require 'selenium-cucumber'
+#require 'selenium-cucumber'
 # require 'rspec'
 # require 'json'
 # require 'rest-client'
@@ -59,7 +59,7 @@ case ENV['APP_ENV_SELECT']
 end
 
 # check for valid parameters
-validate_parameters $platform, $browser_type, $app_path
+#validate_parameters $platform, $browser_type, $app_path
 
 # If platform is android or ios create driver instance for mobile browser
 # if $platform == 'android' or $platform == 'iOS'
