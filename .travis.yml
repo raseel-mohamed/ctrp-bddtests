@@ -69,12 +69,11 @@ script:
   # run DCT API tests
   - |
     if [ "$CUC_TAG" == "$DCT_API_TAG" ]; then
-      cd ctrp-bddtests/ctrpBackend/
       rm results/*_output.json
+      cd ctrp-bddtests/ctrpBackend/
       cucumber features/ -t @DCT_HIGH --format json --out ../results/dct_api_high_output.json --expand && cucumber features/ -t @DCT_MEDIUM --format json --out ../results/dct_api_medium_output.json --expand
       CURRENT_STATUS=$?
       if [ "$STATUS" == 0 ]; then STATUS=$CURRENT_STATUS; fi
-      cd ..
     fi
   # run CTRP MISC tests
   - |
