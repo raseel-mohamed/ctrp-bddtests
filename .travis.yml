@@ -34,7 +34,16 @@ before_script:
   - ruby -v
   - bundle --version
   - gem --version
+
   # Database drop and recreate
+  # PA database
+  - export DBUSER=$DBUSERPA
+  - export PGPASSWORD=$DBPASSWORDPA
+  - export DBSCHEMA=$DBSCHEMAPA
+  - aws s3 ls s3://ctrp-db-dumps/$DBDUMPPA --region us-east-1
+  - aws s3 cp s3://ctrp-db-dumps/$DBDUMPPA . --region us-east-1
+  - if pg_restore -h $DBSERVERHOST -U $DBUSER -p $DBSERVERPORT -d $DBSCHEMA -Fc $DBDUMPPA; then echo $?; fi
+
   # - mvn -Dhttps.protocols=TLSv1.1,TLSv1.2 -Pinit-db,local sql:execute
   # - cd DataSetup
   # Purge queues
