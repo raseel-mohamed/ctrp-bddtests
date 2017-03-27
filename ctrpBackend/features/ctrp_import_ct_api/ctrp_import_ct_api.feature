@@ -283,10 +283,86 @@ Feature: Import ct api
       | clinical Trial phase | CTRP phase |
       | Phase 4              | IV         |
 
-  Scenario: #45 Import Trial with NCT ID: NCT03089892 to verify Phase: N/A
+  Scenario: #46 Import Trial with NCT ID: NCT03089892 to verify Phase: N/A
     Given I want to Import a trial with NCT ID NCT03089892
     Then I want to verify the Phase
       | clinical Trial phase | CTRP phase |
       | N/A                  | NA         |
+
+  Scenario: #47 Import Trial with NCT ID: NCT03089658 to verify Clinical Trial type: Expanded Access
+    Given I want to Import a trial with NCT ID NCT03089658
+    Then I want to verify the Trial Type
+      | clinical Trial type | CTRP Study Type      |
+      | Expanded Access     | Interventional Study |
+    And Expanded Access should be "Yes"
+
+  Scenario: #48 Import Trial with NCT ID: NCT03090555 to verify Clinical Trial type: Interventional Study
+    Given I want to Import a trial with NCT ID NCT03090555
+    Then I want to verify the Trial Type
+      | clinical Trial type | CTRP Study Type      |
+      | Interventional      | Interventional Study |
+    And Expanded Access should be "No"
+
+  Scenario: #49 Import Trial with NCT ID: NCT03090464 to verify Clinical Trial type: Observational Study
+    Given I want to Import a trial with NCT ID NCT03090464
+    Then I want to verify the Trial Type
+      | clinical Trial type | CTRP Study Type          |
+      | Observational       | Non-Interventional Study |
+    And Expanded Access should be "No"
+
+  Scenario: #50 Import Trial with NCT ID: NCT03090308 to verify Clinical Trial type: Observational [Patient Registry] Study
+    Given I want to Import a trial with NCT ID NCT03090308
+    Then I want to verify the Trial Type
+      | clinical Trial type              | CTRP Study Type          |
+      | Observational [Patient Registry] | Non-Interventional Study |
+    And Expanded Access should be "No"
+
+  Scenario: #51 Import Trial with NCT ID: NCT03090217 to verify Clinical Trial Allocation: Randomized
+    Given I want to Import a trial with NCT ID NCT03090217
+    Then I want to verify the Allocation
+      | clinical Trial allocation | CTRP Study Allocation       |
+      | Randomized                | Randomized Controlled Trial |
+
+  Scenario: #52 Import Trial with NCT ID: NCT03090178 to verify Clinical Trial Allocation: Non-Randomized
+    Given I want to Import a trial with NCT ID NCT03090178
+    Then I want to verify the Allocation
+      | clinical Trial allocation | CTRP Study Allocation |
+      | Non-Randomized            | Non-Randomized Trial  |
+
+  Scenario: #53 Import Trial with NCT ID: NCT03090347 to verify Clinical Trial Interventional Model: Single Group Assignment
+    Given I want to Import a trial with NCT ID NCT03090347
+    Then I want to verify the Interventional Model
+      | clinical Trial Interventional Model | CTRP Interventional Model |
+      | Single Group Assignment             | Single Group              |
+
+  Scenario: #54 Import Trial with NCT ID: NCT03090334 to verify Clinical Trial Interventional Model: Parallel Assignment
+    Given I want to Import a trial with NCT ID NCT03090334
+    Then I want to verify the Interventional Model
+      | clinical Trial Interventional Model | CTRP Interventional Model |
+      | Parallel Assignment                 | Parallel                  |
+
+  Scenario: #55 Import Trial with NCT ID: NCT03089723 to verify Clinical Trial Interventional Model: Crossover Assignment
+    Given I want to Import a trial with NCT ID NCT03089723
+    Then I want to verify the Interventional Model
+      | clinical Trial Interventional Model | CTRP Interventional Model |
+      | Crossover Assignment                | Cross-over                |
+
+  Scenario: #56 Import Trial with NCT ID: NCT01178892 to verify Clinical Trial Interventional Model: Factorial Assignment
+    Given I want to Import a trial with NCT ID NCT01178892
+    Then I want to verify the Interventional Model
+      | clinical Trial Interventional Model | CTRP Interventional Model |
+      | Factorial Assignment                | Factorial                 |
+
+  Scenario: #57 Import Trial with NCT ID: NCT03089203 to verify Clinical Trial Interventional Model: Sequential Assignment
+    Given I want to Import a trial with NCT ID NCT03089203
+    Then I want to verify the Interventional Model
+      | clinical Trial Interventional Model | CTRP Interventional Model |
+      | Sequential Assignment               | Sequential                |
+
+  Scenario: #58 Import Trial with NCT ID: NCT03089203 to verify Clinical Trial Masking: Sequential Assignment
+    Given I want to Import a trial with NCT ID NCT03089203
+    Then I want to verify the Masking
+      | clinical Trial Masking | CTRP Masking |
+      | Sequential Assignment  | Sequential   |
 
 
