@@ -56,17 +56,16 @@ script:
   - export STATUS=0
   - export CURRENT_STATUS=0
   - export DCT_API_TAG="@DCT_API"
+  - export CT_API_TAG="@CT_API"
   - export PO_TAG="@PO"
   - export PA_TAG="@PA"
   - export CTRP_DWH_TAG="@CTRP_DWH"
   - export CTRP_MISC_TAG="@CTRP_MISC"
-
   - echo $CUC_TAG
   - echo $DCT_API
-  - cd ctrp-bddtests/ctrpUI/
-  - bundle install
-  - cucumber features/ -t @PA_HIGH --format pretty --format json --out ../results/ctrp_pa_high_output.json --expand && cucumber features/ -t @PA_MEDIUM --format json --out ../results/ctrp_pa_medium_output.json --expand
-
+  #- cd ctrp-bddtests/ctrpUI/
+  #- bundle install
+  #- cucumber features/ -t @PA_HIGH --format pretty --format json --out ../results/ctrp_pa_high_output.json --expand && cucumber features/ -t @PA_MEDIUM --format json --out ../results/ctrp_pa_medium_output.json --expand
   # run DCT API tests
   - |
     if [ "$CUC_TAG" == "$DCT_API_TAG" ]; then
@@ -76,6 +75,15 @@ script:
       CURRENT_STATUS=$?
       if [ "$STATUS" == 0 ]; then STATUS=$CURRENT_STATUS; fi
     fi
+  # run CT API tests
+    - |
+      if [ "$CUC_TAG" == "CT_API_TAG" ]; then
+        rm results/*_output.json
+        cd ctrp-bddtests/ctrpBackend/
+        cucumber features/ -t @CT_HIGH --format json --out ../results/ct_api_high_output.json --expand && cucumber features/ -t @CT_MEDIUM --format json --out ../results/ct_api_medium_output.json --expand
+        CURRENT_STATUS=$?
+        if [ "$STATUS" == 0 ]; then STATUS=$CURRENT_STATUS; fi
+      fi
   # run CTRP MISC tests
   - |
     if [ "$CUC_TAG" == "$CTRP_MISC_TAG" ]; then
