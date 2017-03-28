@@ -1,5 +1,5 @@
 require 'rubygems'
-#require 'selenium-cucumber'
+require 'selenium-cucumber'
 # require 'rspec'
 # require 'json'
 # require 'rest-client'
@@ -13,7 +13,7 @@ $platform = ENV['PLATFORM'] || 'desktop'
 $os_version = ENV['OS_VERSION']
 $device_name = ENV['DEVICE_NAME']
 $udid = ENV['UDID']
-$app_path = ENV['APP_PATH']
+$app_path = ENV['APP_PATH'] || '/Users/ramaniv/Documents/chromedriver2-9'
 
 #base url
 base_int_pa = 'http://ctrp-pa-inttest-elb-330752222.us-east-1.elb.amazonaws.com:18080/'
@@ -59,7 +59,7 @@ case ENV['APP_ENV_SELECT']
 end
 
 # check for valid parameters
-#validate_parameters $platform, $browser_type, $app_path
+validate_parameters $platform, $browser_type, $app_path
 
 # If platform is android or ios create driver instance for mobile browser
 # if $platform == 'android' or $platform == 'iOS'

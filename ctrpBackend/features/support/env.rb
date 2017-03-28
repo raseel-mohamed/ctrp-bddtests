@@ -10,6 +10,8 @@ base_qa2 = 'https://trials-qa2.nci.nih.gov/'
 base_local = 'https://localhost/'
 base_aws = 'http://ctrp-po-inttest-elb-1603106388.us-east-1.elb.amazonaws.com:39080/'
 base_dataclinicaltrials_ms = 'http://ctrp-inttest-alb-backend-1739456098.us-east-1.elb.amazonaws.com:3100/api/v1/data_clinical_trials'
+base_ctepecm_ms = 'www.google.com' # To be populated with correct ECM MS endpoint.
+
 
 #PO Endpoints
 po_endpoint = 'po-webservices/services/'
@@ -46,6 +48,7 @@ case ENV['choose_ENV']
     ENV['update_person'] = base_local + po_endpoint + per_endpoint
     ENV['search_family'] = base_local + po_endpoint + fam_endpoint
     ENV['dataclinicaltrials_ms'] = base_dataclinicaltrials_ms
+    ENV['base_ctepecm_ms'] = base_ctepecm_ms
   when 'aws'
     ENV['create_organization'] = base_aws + po_endpoint + org_endpoint
     ENV['update_organization'] = base_aws + po_endpoint + org_endpoint
@@ -53,6 +56,7 @@ case ENV['choose_ENV']
     ENV['update_person'] = base_aws + po_endpoint + per_endpoint
     ENV['search_family'] = base_aws + po_endpoint + fam_endpoint
     ENV['dataclinicaltrials_ms'] = base_dataclinicaltrials_ms
+    ENV['base_ctepecm_ms'] = base_ctepecm_ms
   else
     puts 'Please choose correct Environment.'
 end

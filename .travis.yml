@@ -3,7 +3,7 @@ services:
   - docker
 language: node_js
 addons:
-  - firefox: "45.0"
+  firefox: "49.0"
 node_js:
   - 6
   
@@ -21,39 +21,36 @@ before_install:
   # Install xvfb
   - "/sbin/start-stop-daemon --start --quiet --pidfile /tmp/custom_xvfb_99.pid --make-pidfile --background --exec /usr/bin/Xvfb -- :99 -ac -screen 0 1280x1024x16"
 before_script:
-  #- npm install -g protractor@3.3.0 grunt-cli
-  #- webdriver-manager update #--versions.chrome 2.24
   # Update Ruby cucumber dependencies
   - gem install bundler
   - bundle install
-  # Update Node UI test dependencies
-  # - cd nci-match-ui-bddtests
-  # - npm install
   - cd ..
   # Version reporting
   - ruby -v
   - bundle --version
   - gem --version
-  # Database drop and recreate
-  # - mvn -Dhttps.protocols=TLSv1.1,TLSv1.2 -Pinit-db,local sql:execute
-  # - cd DataSetup
-  # Purge queues
-  # - ruby -r "./sqs_utilities.rb" -e "SQSUtilities.purge_queue 'ion_reporter_queue'"
-  # - ruby -r "./sqs_utilities.rb" -e "SQSUtilities.purge_queue 'ion_reporter_queue_dlx'"
-  # - ruby -r "./sqs_utilities.rb" -e "SQSUtilities.purge_queue 'patient_queue'"
-  # - ruby -r "./sqs_utilities.rb" -e "SQSUtilities.purge_queue 'patient_queue_deadletter'"
-  # - ruby -r "./sqs_utilities.rb" -e "SQSUtilities.purge_queue 'treatment_arm_queue'"
-  # # Run Delete Script to empty DynamoDB before tests start
-  # - ruby -r "./match_test_data_manager.rb" -e "MatchTestDataManager.clear_all_int_tables"
-  # - ruby -r "./match_test_data_manager.rb" -e "MatchTestDataManager.upload_all_seed_data_to_int"
-  # - cd ..
-  # # Reset ECOG Mock service Data
-  # - curl -X POST "http://pedmatch-int.nci.nih.gov:3000/restart" -d ''
-script:
 
-  #- export P1="_p1"
-  #- export P2="_p2"
-  #- export P3="_p3"
+  # Database drop and recreate
+  # PA database
+  - export DBUSER=$DBUSERPA
+  - export PGPASSWORD=$DBPASSWORDPA
+  - export DBSCHEMA=$DBSCHEMAPA
+  - aws s3 ls s3://ctrp-db-dumps/$DBDUMPPA --region us-east-1
+  - aws s3 cp s3://ctrp-db-dumps/$DBDUMPPA . --region us-east-1
+  - if pg_restore -h $DBSERVERHOST -U $DBUSER -p $DBSERVERPORT -d $DBSCHEMA -Fc $DBDUMPPA; then echo $?; fi
+
+  # PO database
+  - export DBUSER=$DBUSERPO
+  - export PGPASSWORD=$DBPASSWORDPO
+  - export DBSCHEMA=$DBSCHEMAPO
+  - aws s3 ls s3://ctrp-db-dumps/$DBDUMPPO --region us-east-1
+  - aws s3 cp s3://ctrp-db-dumps/$DBDUMPPO . --region us-east-1
+#  - if pg_restore -h $DBSERVERHOST -U $DBUSER -p $DBSERVERPORT -d $DBSCHEMA -Fc $DBDUMPPO; then echo $?; fi
+
+
+
+  # - mvn -Dhttps.protocols=TLSv1.1,TLSv1.2 -Pinit-db,local sql:execute
+script:
   - export STATUS=0
   - export CURRENT_STATUS=0
   - export DCT_API_TAG="@DCT_API"
@@ -61,11 +58,13 @@ script:
   - export PA_TAG="@PA"
   - export CTRP_DWH_TAG="@CTRP_DWH"
   - export CTRP_MISC_TAG="@CTRP_MISC"
-  # clear results directory
-  #- ls -alt results
-  #- rm results/*
+
   - echo $CUC_TAG
   - echo $DCT_API
+#  - cd ctrp-bddtests/ctrpUI/
+#  - bundle install
+#  - cucumber features/ -t @PA_HIGH --format pretty --format json --out ../results/ctrp_pa_high_output.json --expand && cucumber features/ -t @PA_MEDIUM --format json --out ../results/ctrp_pa_medium_output.json --expand
+
   # run DCT API tests
   - |
     if [ "$CUC_TAG" == "$DCT_API_TAG" ]; then
@@ -99,11 +98,11 @@ script:
     if [ "$CUC_TAG" == "$PA_TAG" ]; then
       cd ctrp-bddtests/ctrpUI/
       bundle install
-      cucumber features/ -t @PA_HIGH --format json --out ../results/ctrp_pa_high_output.json --expand && cucumber features/ -t @PA_MEDIUM --format json --out ../results/ctrp_pa_medium_output.json --expand
+      cucumber features/ -t @PA_HIGH --format pretty --format json --out ../results/ctrp_pa_high_output.json --expand && cucumber features/ -t @PA_MEDIUM --format json --out ../results/ctrp_pa_medium_output.json --expand
     fi
   # run ctrp-bddtests/ctrpBackend tests by the tag name
   # To export the results to the JIRA test execution set
-  # - curl -H "Content-Type: application/json" -X POST -u ahmeds6:pass --data @results/output.json  https://tracker.nci.nih.gov/rest/raven/1.0/import/execution/cucumber
+#   - curl -H "Content-Type: application/json" -X POST -u ahmeds6:pass --data @results/output.json  https://tracker.nci.nih.gov/rest/raven/1.0/import/execution/cucumber
   # - ls -alt
   # - mv results/ results_critical/; mkdir results
 after_success:
@@ -139,28 +138,10 @@ after_success:
     -i ctrp/$TRIGGER_REPO:$TRIGGER_VER
   # Trigger Travis script #3, UAT Tests
   # - curl -s -X POST -H "Content-Type:application/json" -H "Accept:application/json" -H "Travis-API-Version:3" -H "Authorization:token $UAT_TRAVIS_TOKEN" -d "{\"request\":{\"message\":\"Triggered by $TRIGGER_REPO $TRAVIS_COMMIT\", \"branch\":\"master\", \"config\":{\"env\":{\"matrix\":[\"TRIGGER_REPO=$TRIGGER_REPO;CUC_TAG=$CUC_TAG\"]}}}}" https://api.travis-ci.org/repo/CBIIT%2Fnci-uMatch-uattests/requests
-after_failure:
-    #Run P3 cucumber tests
-    # - cd uMATCH/PedMATCH; bundle exec parallel_cucumber test_features/ -o '-r test_features/step_definitions/ -r test_features/support/ -t $CUC_TAG$P3 --format json --out ../../results/output-$TEST_ENV_NUMBER.json --expand' -n 2
-    # #Run protractor tests
-    # - cd ../../nci-match-ui-bddtests/
-    # - protractor config.js --cucumberOpts.tags='~@broken' --cucumberOpts.tags=$CUC_TAG$P3 --troubleshoot
-    # # Generate html report
-    # - for filename in ../results/*.json; do filesize=$(wc -c <"$filename"); if [ $filesize -le 0 ]; then echo $filename is 0 bytes, deleted it; rm $filename; fi; done
-    # - node support/generate_report.js
+#after_failure:
+
 after_script:
   - export DATE_TRIM=`TZ=America/New_York date "+%m-%d-%y"`
-  # #Send result json to S3 for review
-  # - aws s3 cp ~/build/CBIIT/nci-uMatch-bddtests/results_critical/cucumber_report.html s3://cucumber-test-reports/$DATE_TRIM/critical$CUC_TAG.html --region us-east-1
-  # - aws s3 cp ~/build/CBIIT/nci-uMatch-bddtests/results_critical/screenshot s3://cucumber-test-reports/$DATE_TRIM/screenshot --region us-east-1 --recursive
-  # - aws s3 cp ~/build/CBIIT/nci-uMatch-bddtests/results/cucumber_report.html s3://cucumber-test-reports/$DATE_TRIM/non-critical$CUC_TAG.html --region us-east-1
-  # - aws s3 cp ~/build/CBIIT/nci-uMatch-bddtests/results/screenshot s3://cucumber-test-reports/$DATE_TRIM/screenshot --region us-east-1 --recursive
-  # #purge queues
-  # - aws sqs purge-queue --queue-url https://sqs.us-east-1.amazonaws.com/127516845550/ion_reporter_queue
-  # - aws sqs purge-queue --queue-url https://sqs.us-east-1.amazonaws.com/127516845550/ion_reporter_queue_dlx
-  # - aws sqs purge-queue --queue-url https://sqs.us-east-1.amazonaws.com/127516845550/patient_queue
-  # - aws sqs purge-queue --queue-url https://sqs.us-east-1.amazonaws.com/127516845550/patient_queue_deadletter
-  # - aws sqs purge-queue --queue-url https://sqs.us-east-1.amazonaws.com/127516845550/treatment_arm_queue
 notifications:
   slack:
     rooms:
