@@ -37,7 +37,8 @@ before_script:
   - export DBSCHEMA=$DBSCHEMAPA
   - aws s3 ls s3://ctrp-db-dumps/$DBDUMPPA --region us-east-1
   - aws s3 cp s3://ctrp-db-dumps/$DBDUMPPA . --region us-east-1
-  - if pg_restore -h $DBSERVERHOST -U $DBUSER -p $DBSERVERPORT -d $DBSCHEMA -Fc $DBDUMPPA; then echo $?; fi
+  - which pg_restore
+#  - if pg_restore -h $DBSERVERHOST -U $DBUSER -p $DBSERVERPORT -d $DBSCHEMA -Fc $DBDUMPPA; then echo $?; fi
 
   # PO database
   - export DBUSER=$DBUSERPO
