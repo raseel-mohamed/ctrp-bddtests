@@ -1,7 +1,14 @@
 Feature: Import ct api
-
+@test
   Scenario: #1 Import Trial with NCT ID: NCT02512757 to verify Lead Org Trial ID
-    Given I want to Import a trial with NCT ID NCT02512757
+    Given I want to Import a trial with NCT ID NCT03093480
+    Then I want to verify the Lead Org Trial ID
+      | clinical Trial field | CTRP fields       |
+      | org_study_id         | Lead Org Trial ID |
+
+  @test
+  Scenario: #1a Import Trial with NCT ID: NCT02512757 to verify Lead Org Trial ID
+    Given I want to Import a trial with NCT ID NCT03093480
     Then I want to verify the Lead Org Trial ID
       | clinical Trial field | CTRP fields       |
       | org_study_id         | Lead Org Trial ID |

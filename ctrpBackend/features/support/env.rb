@@ -3,25 +3,29 @@ require 'json'
 require 'rest-client'
 require 'rspec/expectations'
 require 'test/unit/assertions'
+require 'active_support/core_ext/hash'
 include Test::Unit::Assertions
 
 
 base_qa2 = 'https://trials-qa2.nci.nih.gov/'
-base_local = 'https://localhost/'
+base_local = 'http://localhost:39480/'
 base_aws = 'http://ctrp-po-inttest-elb-1603106388.us-east-1.elb.amazonaws.com:39080/'
+base_aws_pa = 'http://ctrp-pa-inttest-elb-330752222.us-east-1.elb.amazonaws.com:18080/'
 base_dataclinicaltrials_ms = 'http://ctrp-inttest-alb-backend-1739456098.us-east-1.elb.amazonaws.com:3100/api/v1/data_clinical_trials'
 
 #PO Endpoints
 po_endpoint = 'po-webservices/services/'
+reg_endpoint = 'services/trials/'
 
 org_endpoint = 'organization-rest-service/organization/'
 per_endpoint = 'person-rest-service/person/'
 fam_endpoint = 'family-rest-service/'
+import_endpoint = 'abbreviated/'
 
 #PA Endpoints
 
 ENV['choose_ENV'] = 'aws'
-ENV['user1'] = 'ctrpqatester1'
+ENV['user1'] =  'ctrpqatester1' #'ctrpsubstractor'
 ENV['user1_password'] = 'pass'
 ENV['dct_usr'] = ''
 ENV['dct_pass'] = ''
@@ -39,13 +43,20 @@ case ENV['choose_ENV']
     ENV['update_person'] = base_qa2 + po_endpoint + per_endpoint
     ENV['search_family'] = base_qa2 + po_endpoint + fam_endpoint
     ENV['dataclinicaltrials_ms'] = base_dataclinicaltrials_ms
+    ENV['import'] = base_qa2 + reg_endpoint + import_endpoint
   when 'local'
+    ENV['db_hostname'] = 'localhost'
+    ENV['db_port'] = '5432'
+    ENV['db_name'] = 'padb'
+    ENV['db_user'] = 'postgres'
+    ENV['db_pass'] = ''
     ENV['create_organization'] = base_local + po_endpoint + org_endpoint
     ENV['update_organization'] = base_local + po_endpoint + org_endpoint
     ENV['create_person'] = base_local + po_endpoint + per_endpoint
     ENV['update_person'] = base_local + po_endpoint + per_endpoint
     ENV['search_family'] = base_local + po_endpoint + fam_endpoint
     ENV['dataclinicaltrials_ms'] = base_dataclinicaltrials_ms
+    ENV['import'] = base_local + reg_endpoint + import_endpoint
   when 'aws'
     ENV['create_organization'] = base_aws + po_endpoint + org_endpoint
     ENV['update_organization'] = base_aws + po_endpoint + org_endpoint
@@ -53,6 +64,8 @@ case ENV['choose_ENV']
     ENV['update_person'] = base_aws + po_endpoint + per_endpoint
     ENV['search_family'] = base_aws + po_endpoint + fam_endpoint
     ENV['dataclinicaltrials_ms'] = base_dataclinicaltrials_ms
+    ENV['import'] = base_aws_pa + reg_endpoint + import_endpoint
+
   else
     puts 'Please choose correct Environment.'
 end
