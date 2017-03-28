@@ -1,7 +1,6 @@
 sudo: required
 services:
   - docker
-  - postgresql
 language: node_js
 addons:
   - firefox: "49.0"
