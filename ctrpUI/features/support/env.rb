@@ -13,7 +13,7 @@ $platform = ENV['PLATFORM'] || 'desktop'
 $os_version = ENV['OS_VERSION']
 $device_name = ENV['DEVICE_NAME']
 $udid = ENV['UDID']
-$app_path = ENV['APP_PATH']
+$app_path = ENV['APP_PATH'] || '/Users/ramaniv/Documents/chromedriver2-9'
 
 #base url
 base_int_pa = 'http://ctrp-pa-inttest-elb-330752222.us-east-1.elb.amazonaws.com:18080/'

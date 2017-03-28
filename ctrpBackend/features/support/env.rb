@@ -12,14 +12,18 @@ base_local = 'http://localhost:39480/'
 base_aws = 'http://ctrp-po-inttest-elb-1603106388.us-east-1.elb.amazonaws.com:39080/'
 base_aws_pa = 'http://ctrp-pa-inttest-elb-330752222.us-east-1.elb.amazonaws.com:18080/'
 base_dataclinicaltrials_ms = 'http://ctrp-inttest-alb-backend-1739456098.us-east-1.elb.amazonaws.com:3100/api/v1/data_clinical_trials'
+base_ctepecm_ms = 'www.google.com' # To be populated with correct ECM MS endpoint.
+
 
 #PO Endpoints
 po_endpoint = 'po-webservices/services/'
+
 reg_endpoint = 'services/trials/'
 
 org_endpoint = 'organization-rest-service/organization/'
 per_endpoint = 'person-rest-service/person/'
 fam_endpoint = 'family-rest-service/'
+ecm_endpoint = 'something/'
 import_endpoint = 'abbreviated/'
 
 #PA Endpoints
@@ -29,6 +33,8 @@ ENV['user1'] =  'ctrpqatester1' #'ctrpsubstractor'
 ENV['user1_password'] = 'pass'
 ENV['dct_usr'] = ''
 ENV['dct_pass'] = ''
+ENV['ecmms_usr'] = ''
+ENV['ecmms_pass'] = ''
 #put ENV["USER1_ID"]
 #put ENV["USER1_PASS"]
 
@@ -57,6 +63,8 @@ case ENV['choose_ENV']
     ENV['search_family'] = base_local + po_endpoint + fam_endpoint
     ENV['dataclinicaltrials_ms'] = base_dataclinicaltrials_ms
     ENV['import'] = base_local + reg_endpoint + import_endpoint
+    ENV['base_ctepecm_ms'] = base_ctepecm_ms + ecm_endpoint
+
   when 'aws'
     ENV['create_organization'] = base_aws + po_endpoint + org_endpoint
     ENV['update_organization'] = base_aws + po_endpoint + org_endpoint
@@ -65,6 +73,7 @@ case ENV['choose_ENV']
     ENV['search_family'] = base_aws + po_endpoint + fam_endpoint
     ENV['dataclinicaltrials_ms'] = base_dataclinicaltrials_ms
     ENV['import'] = base_aws_pa + reg_endpoint + import_endpoint
+    ENV['base_ctepecm_ms'] = base_ctepecm_ms + ecm_endpoint
 
   else
     puts 'Please choose correct Environment.'
