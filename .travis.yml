@@ -62,9 +62,9 @@ script:
 
   - echo $CUC_TAG
   - echo $DCT_API
-#  - cd ctrp-bddtests/ctrpUI/
-#  - bundle install
-#  - cucumber features/ -t @PA_HIGH --format pretty --format json --out ../results/ctrp_pa_high_output.json --expand && cucumber features/ -t @PA_MEDIUM --format json --out ../results/ctrp_pa_medium_output.json --expand
+  - cd ctrp-bddtests/ctrpUI/
+  - bundle install
+  - cucumber features/ -t @PA_HIGH --format pretty --format json --out ../results/ctrp_pa_high_output.json --expand && cucumber features/ -t @PA_MEDIUM --format json --out ../results/ctrp_pa_medium_output.json --expand
 
   # run DCT API tests
   - |
