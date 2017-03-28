@@ -75,9 +75,10 @@ script:
   #- rm results/*
   - echo $CUC_TAG
   - echo $DCT_API
-  - cd ctrp-bddtests/ctrpUI/
-  - bundle install
-  - cucumber features/ -t @PA_HIGH --format pretty --format json --out ../results/ctrp_pa_high_output.json --expand && cucumber features/ -t @PA_MEDIUM --format json --out ../results/ctrp_pa_medium_output.json --expand
+#  - cd ctrp-bddtests/ctrpUI/
+#  - bundle install
+#  - cucumber features/ -t @PA_HIGH --format pretty --format json --out ../results/ctrp_pa_high_output.json --expand && cucumber features/ -t @PA_MEDIUM --format json --out ../results/ctrp_pa_medium_output.json --expand
+
   # run DCT API tests
   - |
     if [ "$CUC_TAG" == "$DCT_API_TAG" ]; then
@@ -115,7 +116,7 @@ script:
     fi
   # run ctrp-bddtests/ctrpBackend tests by the tag name
   # To export the results to the JIRA test execution set
-  # - curl -H "Content-Type: application/json" -X POST -u ahmeds6:pass --data @results/output.json  https://tracker.nci.nih.gov/rest/raven/1.0/import/execution/cucumber
+   - curl -H "Content-Type: application/json" -X POST -u ahmeds6:pass --data @results/output.json  https://tracker.nci.nih.gov/rest/raven/1.0/import/execution/cucumber
   # - ls -alt
   # - mv results/ results_critical/; mkdir results
 after_success:
