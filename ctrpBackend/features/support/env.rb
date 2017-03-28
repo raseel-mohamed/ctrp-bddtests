@@ -28,9 +28,11 @@ import_endpoint = 'abbreviated/'
 
 #PA Endpoints
 
-ENV['choose_ENV'] = 'aws'
-ENV['user1'] =  'ctrpqatester1' #'ctrpsubstractor'
+ENV['choose_ENV'] = 'local'
+ENV['user1'] =  'ctrpqatester1'
 ENV['user1_password'] = 'pass'
+ENV['user2'] =  'ctrpsubstractor'
+ENV['user2_password'] = 'pass'
 ENV['dct_usr'] = ''
 ENV['dct_pass'] = ''
 ENV['ecmms_usr'] = ''
