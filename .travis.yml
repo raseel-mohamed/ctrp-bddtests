@@ -39,6 +39,16 @@ before_script:
   - aws s3 cp s3://ctrp-db-dumps/$DBDUMPPA . --region us-east-1
   - if pg_restore -h $DBSERVERHOST -U $DBUSER -p $DBSERVERPORT -d $DBSCHEMA -Fc $DBDUMPPA; then echo $?; fi
 
+  # PO database
+  - export DBUSER=$DBUSERPO
+  - export PGPASSWORD=$DBPASSWORDPO
+  - export DBSCHEMA=$DBSCHEMAPO
+  - aws s3 ls s3://ctrp-db-dumps/$DBDUMPPO --region us-east-1
+  - aws s3 cp s3://ctrp-db-dumps/$DBDUMPPO . --region us-east-1
+#  - if pg_restore -h $DBSERVERHOST -U $DBUSER -p $DBSERVERPORT -d $DBSCHEMA -Fc $DBDUMPPO; then echo $?; fi
+
+
+
   # - mvn -Dhttps.protocols=TLSv1.1,TLSv1.2 -Pinit-db,local sql:execute
 script:
   - export STATUS=0
