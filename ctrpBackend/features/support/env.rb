@@ -15,11 +15,10 @@ base_ctepecm_ms = 'www.google.com' # To be populated with correct ECM MS endpoin
 
 #PO Endpoints
 po_endpoint = 'po-webservices/services/'
-
 org_endpoint = 'organization-rest-service/organization/'
 per_endpoint = 'person-rest-service/person/'
 fam_endpoint = 'family-rest-service/'
-
+ecm_endpoint = 'something/'
 #PA Endpoints
 
 ENV['choose_ENV'] = 'aws'
@@ -27,6 +26,8 @@ ENV['user1'] = 'ctrpqatester1'
 ENV['user1_password'] = 'pass'
 ENV['dct_usr'] = ''
 ENV['dct_pass'] = ''
+ENV['ecmms_usr'] = ''
+ENV['ecmms_pass'] = ''
 #put ENV["USER1_ID"]
 #put ENV["USER1_PASS"]
 
@@ -48,7 +49,7 @@ case ENV['choose_ENV']
     ENV['update_person'] = base_local + po_endpoint + per_endpoint
     ENV['search_family'] = base_local + po_endpoint + fam_endpoint
     ENV['dataclinicaltrials_ms'] = base_dataclinicaltrials_ms
-    ENV['base_ctepecm_ms'] = base_ctepecm_ms
+    ENV['base_ctepecm_ms'] = base_ctepecm_ms + ecm_endpoint
   when 'aws'
     ENV['create_organization'] = base_aws + po_endpoint + org_endpoint
     ENV['update_organization'] = base_aws + po_endpoint + org_endpoint
@@ -56,7 +57,7 @@ case ENV['choose_ENV']
     ENV['update_person'] = base_aws + po_endpoint + per_endpoint
     ENV['search_family'] = base_aws + po_endpoint + fam_endpoint
     ENV['dataclinicaltrials_ms'] = base_dataclinicaltrials_ms
-    ENV['base_ctepecm_ms'] = base_ctepecm_ms
+    ENV['base_ctepecm_ms'] = base_ctepecm_ms + ecm_endpoint
   else
     puts 'Please choose correct Environment.'
 end
