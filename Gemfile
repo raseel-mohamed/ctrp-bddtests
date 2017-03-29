@@ -5,7 +5,7 @@ source "https://rubygems.org"
 gem 'cucumber', '2.0.0'
 gem 'capybara', '1.1.2'
 # gem 'selenium-webdriver', '~> 2.35.1'
-gem 'selenium-webdriver'
+gem 'selenium-webdriver', '=2.53.4'
 gem 'celerity'
 gem 'capybara-celerity'
 gem 'rspec'
