@@ -29,6 +29,7 @@ import_endpoint = 'abbreviated/'
 
 #PA Endpoints
 
+
 ENV['choose_ENV'] = 'aws'
 ENV['user1'] =  'ctrpqatester1'
 ENV['user1_password'] = 'pass'
