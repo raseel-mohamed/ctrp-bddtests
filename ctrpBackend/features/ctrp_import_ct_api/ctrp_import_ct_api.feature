@@ -1,6 +1,6 @@
 Feature: Import ct api
 
-
+@test
   Scenario: CT_API01. Import Trial with NCT ID: NCT03093480 to verify Lead Org Trial ID
     Given I want to Import a trial with NCT ID NCT03093480
     Then I want to verify the Lead Org Trial ID
@@ -15,7 +15,7 @@ Feature: Import ct api
       | org_study_id         | Lead Org Trial ID |
 
   Scenario: CT_API02. Import Trial with NCT ID: NCT03087201 to verify Secondary ID
-    Given I want to Import a trial with NCT ID NCT02512757
+    Given I want to Import a trial with NCT ID NCT03087201
     Then I want to verify the Secondary  ID
       | clinical Trial field | CTRP fields |
       | secondary_id         | Other ID    |
@@ -38,14 +38,14 @@ Feature: Import ct api
       | clinical Trial field | CTRP fields    |
       | official_title       | official title |
 
-  Scenario: CT_API06. Import Trial with NCT ID: NCT02512757 to verify official title if official title is empty in clinical trials.gov
-    Given I want to Import a trial with NCT ID NCT02512757
+  Scenario: CT_API06. Import Trial with NCT ID: NCT00000369 to verify official title if official title is empty in clinical trials.gov
+    Given I want to Import a trial with NCT ID NCT00000369
     Then I want to verify the Official title
       | clinical Trial field | CTRP fields    |
       | brief_title          | official title |
 
-  Scenario: CT_API07. Import Trial with NCT ID: NCT02512757 to verify acronym
-    Given I want to Import a trial with NCT ID NCT02512757
+  Scenario: CT_API07. Import Trial with NCT ID: NCT03093636 to verify acronym
+    Given I want to Import a trial with NCT ID NCT03093636
     Then I want to verify the acronym
       | clinical Trial field | CTRP fields |
       | acronym              | acronym     |

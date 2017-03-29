@@ -4,6 +4,7 @@ require 'rest-client'
 require 'rspec/expectations'
 require 'test/unit/assertions'
 require 'active_support/core_ext/hash'
+require 'pg'
 include Test::Unit::Assertions
 
 

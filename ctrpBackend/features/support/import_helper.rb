@@ -10,6 +10,7 @@ class Import_helper
     # @response_body = JSON.parse(@response.body)
     puts @response.code
     puts @response.body
+    assert_equal(@response_code.to_s, '200', 'Response code is :' + @response_code.to_s + ' instead of 200 for NCT ID: ' + nct_id)
     return @response, @response_code, @response_body
   end
 
