@@ -3,7 +3,7 @@ services:
   - docker
 language: node_js
 addons:
-#  firefox: "45.0.2"
+  firefox: "45.0.2"
 node_js:
   - 6
   
@@ -52,6 +52,9 @@ before_script:
 
 
   # - mvn -Dhttps.protocols=TLSv1.1,TLSv1.2 -Pinit-db,local sql:execute
+    # Install xvfb
+  - "export DISPLAY=:99.0"
+  - "sh -e /etc/init.d/xvfb start"
 script:
   - export STATUS=0
   - export CURRENT_STATUS=0
