@@ -3,7 +3,7 @@ services:
   - docker
 language: node_js
 addons:
-  firefox: "45.8.0"
+  firefox: "45.0.2"
 node_js:
   - 6
   
@@ -52,6 +52,9 @@ before_script:
 
 
   # - mvn -Dhttps.protocols=TLSv1.1,TLSv1.2 -Pinit-db,local sql:execute
+    # Install xvfb
+  - "export DISPLAY=:99.0"
+  - "sh -e /etc/init.d/xvfb start"
 script:
   - export STATUS=0
   - export CURRENT_STATUS=0
@@ -63,9 +66,10 @@ script:
   - export CTRP_MISC_TAG="@CTRP_MISC"
   - echo $CUC_TAG
   - echo $DCT_API
-  #- cd ctrp-bddtests/ctrpUI/
-  #- bundle install
-  #- cucumber features/ -t @PA_HIGH --format pretty --format json --out ../results/ctrp_pa_high_output.json --expand && cucumber features/ -t @PA_MEDIUM --format json --out ../results/ctrp_pa_medium_output.json --expand
+  - pwd
+  - cd ctrp-bddtests/ctrpUI/
+  - bundle install
+  - cucumber features/ -t @PA_HIGH --format pretty --format json --out ../results/ctrp_pa_high_output.json --expand && cucumber features/ -t @PA_MEDIUM --format json --out ../results/ctrp_pa_medium_output.json --expand
   # run DCT API tests
   - |
     if [ "$CUC_TAG" == "$DCT_API_TAG" ]; then
@@ -76,7 +80,7 @@ script:
       if [ "$STATUS" == 0 ]; then STATUS=$CURRENT_STATUS; fi
     fi
   # run CT API tests
-    - |
+  - |
       if [ "$CUC_TAG" == "CT_API_TAG" ]; then
         rm results/*_output.json
         cd ctrp-bddtests/ctrpBackend/
