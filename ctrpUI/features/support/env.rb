@@ -31,11 +31,11 @@ accrual_app = 'accrual/'
 po_app = 'po-web/'
 
 ENV['APP_ENV_SELECT'] = 'aws'
-ENV['PA_USER_ID'] = 'ctrpqatester1'
+ENV['PA_USER_ID'] = 'ctrpsubstractor'
 ENV['PA_USER_PASS'] = 'pass'
-ENV['REG_USER_ID'] = 'ctrpqatester1'
+ENV['REG_USER_ID'] = 'ctrpsubstractor'
 ENV['REG_USER_PASS'] = 'pass'
-ENV['ACCRUAL_USER_ID'] = 'ctrpqatester1'
+ENV['ACCRUAL_USER_ID'] = 'ctrpsubstractor'
 ENV['ACCRUAL_USER_PASS'] = 'pass'
 
 case ENV['APP_ENV_SELECT']
