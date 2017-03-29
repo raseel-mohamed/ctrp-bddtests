@@ -3,7 +3,7 @@ services:
   - docker
 language: node_js
 addons:
-  firefox: "45.8.0"
+  firefox: "45.0.2"
 node_js:
   - 6
   
