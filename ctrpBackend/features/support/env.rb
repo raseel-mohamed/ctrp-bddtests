@@ -29,7 +29,7 @@ import_endpoint = 'abbreviated/'
 #PA Endpoints
 
 ENV['choose_ENV'] = 'local'
-ENV['user1'] =  'ctrpqatester1'
+ENV['user1'] =  'ctrpsubstractor'
 ENV['user1_password'] = 'pass'
 ENV['user2'] =  'ctrpsubstractor'
 ENV['user2_password'] = 'pass'
