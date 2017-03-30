@@ -19,14 +19,17 @@ base_ctgov = 'https://clinicaltrials.gov/ct2/show'
 
 #PO Endpoints
 po_endpoint = 'po-webservices/services/'
-
 reg_endpoint = 'services/trials/'
-
 org_endpoint = 'organization-rest-service/organization/'
 per_endpoint = 'person-rest-service/person/'
 fam_endpoint = 'family-rest-service/'
-ecm_endpoint = 'something/'
 import_endpoint = 'abbreviated/'
+
+#ECM Endpoints
+ecm_endpoint_jms = 'jmsMessage/'
+ecm_endpoint_ro = 'ResearchOrganization/'
+ecm_endpoint_org = 'Organization/'
+ecm_endpoint_hcf = 'HealthCareFacility/'
 
 #PA Endpoints
 
@@ -64,7 +67,6 @@ case ENV['choose_ENV']
     ENV['dataclinicaltrials_ms'] = base_dataclinicaltrials_ms
     ENV['import'] = base_local + reg_endpoint + import_endpoint
     ENV['ctgov'] = base_ctgov
-    ENV['base_ctepecm_ms'] = base_ctepecm_ms + ecm_endpoint
   when 'aws'
     ENV['db_hostname'] = 'ctrp.clb9vkosemwm.us-east-1.rds.amazonaws.com'
     ENV['db_port'] = '5432'
@@ -77,7 +79,11 @@ case ENV['choose_ENV']
     ENV['dataclinicaltrials_ms'] = base_dataclinicaltrials_ms
     ENV['import'] = base_aws_pa + reg_endpoint + import_endpoint
     ENV['ctgov'] = base_ctgov
-    ENV['base_ctepecm_ms'] = base_ctepecm_ms + ecm_endpoint
+  when 'ecm'
+    ENV['base_ctepecm_ms'] = base_ctepecm_ms + ecm_endpoint_ro
+    ENV['base_ctepecm_ms'] = base_ctepecm_ms + ecm_endpoint_hcf
+    ENV['base_ctepecm_ms'] = base_ctepecm_ms + ecm_endpoint_org
+    ENV['base_ctepecm_ms'] = base_ctepecm_ms + ecm_endpoint_jms
   else
     puts 'Please choose correct Environment.'
 end
