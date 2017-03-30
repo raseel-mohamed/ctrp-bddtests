@@ -88,6 +88,7 @@ end
 Then(/^these existing fields should be removed$/) do |table|
   step %[element having xpath "#{DesignDetails.masking_xpath}" should not be present]
   step %[element having xpath "#{DesignDetails.study_classification_xpath}" should not be present]
+  step %[element having xpath "#{OutcomeMeasures.safety_issue_xpath}" should not be present]
 end
 
 
