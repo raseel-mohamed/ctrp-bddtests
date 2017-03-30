@@ -34,4 +34,13 @@ Then(/^I want to verify the Lead Org Trial ID$/) do |table|
   end
 end
 
+Then(/^I want to verify the Secondary  ID$/) do |table|
+  # table is a Cucumber::Core::Ast::DataTable
+  table.hashes.each do |row|
+    if(row["CTRP fields"].eql?('Other ID'))
+      Ct_api_helper.verify_json_element_with_db(row["CTRP fields"].to_s, @nct_id, @data_hash_ctgov)
+    end
+  end
+end
+
 
