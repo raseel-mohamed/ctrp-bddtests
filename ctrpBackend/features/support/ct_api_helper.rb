@@ -34,9 +34,25 @@ class Ct_api_helper
         @res = @conn.exec("SELECT lead_org_id FROM study_protocol WHERE nct_id = '" + nct_id + "' AND status_code = 'ACTIVE'")
         assert_equal(@res.getvalue(0, 0), data_hash_ctgov['clinical_study']['id_info']['org_study_id'], 'Validating lead ORG ID')
       when 'Other ID'
-        puts 'Verifying: <<' + data_hash_ctgov['clinical_study']['id_info']['org_study_id'] + '>>.'
-        @res = @conn.exec("SELECT lead_org_id FROM study_protocol WHERE nct_id = '" + nct_id + "' AND status_code = 'ACTIVE'")
-        assert_equal(@res.getvalue(0, 0), data_hash_ctgov['clinical_study']['id_info']['org_study_id'], 'Validating lead ORG ID')
+        puts 'Verifying: <<' + data_hash_ctgov['clinical_study']['id_info']['secondary_id'] + '>>.'
+        @res = @conn.exec("SELECT extension FROM public.study_otheridentifiers where identifier_name = 'Study Protocol Other Identifier' AND study_protocol_id in (SELECT identifier FROM study_protocol WHERE nct_id = '" + nct_id + "' AND status_code = 'ACTIVE')")
+        assert_equal(@res.getvalue(0, 0), data_hash_ctgov['clinical_study']['id_info']['secondary_id'], 'Validating Secondary ID')
+      when 'NCT ID'
+        puts 'Verifying: <<' + data_hash_ctgov['clinical_study']['id_info']['nct_id'] + '>>.'
+        @res = @conn.exec("SELECT nct_id FROM study_protocol WHERE nct_id = '" + nct_id + "' AND status_code = 'ACTIVE'")
+        assert_equal(@res.getvalue(0, 0), data_hash_ctgov['clinical_study']['id_info']['nct_id'], 'Validating NCT ID')
+      when 'brief title'
+        puts 'Verifying: <<' + data_hash_ctgov['clinical_study']['brief_title'] + '>>.'
+        @res = @conn.exec("SELECT public_tittle FROM study_protocol WHERE nct_id = '" + nct_id + "' AND status_code = 'ACTIVE'")
+        assert_equal(@res.getvalue(0, 0), data_hash_ctgov['clinical_study']['brief_title'], 'Validating NCT ID')
+      when 'official title'
+        puts 'Verifying: <<' + data_hash_ctgov['clinical_study']['official_title'] + '>>.'
+        @res = @conn.exec("SELECT official_title FROM study_protocol WHERE nct_id = '" + nct_id + "' AND status_code = 'ACTIVE'")
+        assert_equal(@res.getvalue(0, 0), data_hash_ctgov['clinical_study']['official_title'], 'Validating NCT ID')
+      when 'official title is empty'
+        puts 'Verifying: <<' + data_hash_ctgov['clinical_study']['official_title'] + '>>.'
+        @res = @conn.exec("SELECT public_tittle FROM study_protocol WHERE nct_id = '" + nct_id + "' AND status_code = 'ACTIVE'")
+        assert_equal(@res.getvalue(0, 0), data_hash_ctgov['clinical_study']['brief_title'], 'Validating NCT ID')
       else
         flunk 'Please provide correct db_field. Provided db_filed <<' + db_field + '>> does not exist'
     end

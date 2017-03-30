@@ -43,4 +43,35 @@ Then(/^I want to verify the Secondary  ID$/) do |table|
   end
 end
 
+Then(/^I want to verify the NCT ID$/) do |table|
+  # table is a Cucumber::Core::Ast::DataTable
+  table.hashes.each do |row|
+    if(row["CTRP fields"].eql?('NCT ID'))
+      Ct_api_helper.verify_json_element_with_db(row["CTRP fields"].to_s, @nct_id, @data_hash_ctgov)
+    end
+  end
+end
 
+Then(/^I want to verify the Brief Title$/) do |table|
+  table.hashes.each do |row|
+    if(row["CTRP fields"].eql?('brief title'))
+      Ct_api_helper.verify_json_element_with_db(row["CTRP fields"].to_s, @nct_id, @data_hash_ctgov)
+    end
+  end
+end
+
+Then(/^I want to verify the Official Title$/) do |table|
+  table.hashes.each do |row|
+    if(row["CTRP fields"].eql?('official title'))
+      Ct_api_helper.verify_json_element_with_db(row["CTRP fields"].to_s, @nct_id, @data_hash_ctgov)
+    end
+  end
+end
+
+Then(/^I want to verify the Official title is empty$/) do |table|
+  table.hashes.each do |row|
+    if(row["CTRP fields"].eql?('official title is empty'))
+      Ct_api_helper.verify_json_element_with_db(row["CTRP fields"].to_s, @nct_id, @data_hash_ctgov)
+    end
+  end
+end

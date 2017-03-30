@@ -31,7 +31,7 @@ import_endpoint = 'abbreviated/'
 #PA Endpoints
 
 
-ENV['choose_ENV'] = 'aws'
+ENV['choose_ENV'] = 'local'
 ENV['user1'] =  'ctrpqatester1'
 ENV['user1_password'] = 'pass'
 ENV['user2'] =  'ctrpsubstractor'
@@ -55,6 +55,7 @@ case ENV['choose_ENV']
     ENV['search_family'] = base_qa2 + po_endpoint + fam_endpoint
     ENV['dataclinicaltrials_ms'] = base_dataclinicaltrials_ms
     ENV['import'] = base_qa2 + reg_endpoint + import_endpoint
+    ENV['ctgov'] = base_ctgov
   when 'local'
     ENV['db_hostname'] = 'localhost'
     ENV['db_port'] = '5432'
@@ -68,6 +69,7 @@ case ENV['choose_ENV']
     ENV['search_family'] = base_local + po_endpoint + fam_endpoint
     ENV['dataclinicaltrials_ms'] = base_dataclinicaltrials_ms
     ENV['import'] = base_local + reg_endpoint + import_endpoint
+    ENV['ctgov'] = base_ctgov
     ENV['base_ctepecm_ms'] = base_ctepecm_ms + ecm_endpoint
   when 'aws'
     ENV['db_hostname'] = 'ctrp.clb9vkosemwm.us-east-1.rds.amazonaws.com'

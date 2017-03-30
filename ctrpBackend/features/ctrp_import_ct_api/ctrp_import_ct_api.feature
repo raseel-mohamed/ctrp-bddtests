@@ -1,30 +1,34 @@
 Feature: Import ct api
 
-  @test
+  @IMPORT_CT_API
   Scenario: CT_API01. Import Trial with NCT ID: NCT03093480 to verify Lead Org Trial ID
     Given I want to Import a trial with NCT ID NCT03093480
     Then I want to verify the Lead Org Trial ID
       | clinical Trial field | CTRP fields       |
       | org_study_id         | Lead Org Trial ID |
 
+  @IMPORT_CT_API
   Scenario: CT_API02. Import Trial with NCT ID: NCT03087201 to verify Secondary ID
     Given I want to Import a trial with NCT ID NCT03087201
     Then I want to verify the Secondary  ID
       | clinical Trial field | CTRP fields |
       | secondary_id         | Other ID    |
 
+  @IMPORT_CT_API
   Scenario: CT_API03. Import Trial with NCT ID: NCT03093480 to verify NCT ID
     Given I want to Import a trial with NCT ID NCT03093480
     Then I want to verify the NCT ID
       | clinical Trial field | CTRP fields |
       | nct_id               | NCT ID      |
 
+  @IMPORT_CT_API
   Scenario: CT_API04. Import Trial with NCT ID: NCT03093480 to verify brief title
     Given I want to Import a trial with NCT ID NCT03093480
     Then I want to verify the Brief Title
       | clinical Trial field | CTRP fields |
       | brief_title          | brief title |
 
+  @IMPORT_CT_API
   Scenario: CT_API05. Import Trial with NCT ID: NCT03093480 to verify official Title
     Given I want to Import a trial with NCT ID NCT03093480
     Then I want to verify the Official Title
@@ -33,9 +37,9 @@ Feature: Import ct api
 
   Scenario: CT_API06. Import Trial with NCT ID: NCT00000369 to verify official title if official title is empty in clinical trials.gov
     Given I want to Import a trial with NCT ID NCT00000369
-    Then I want to verify the Official title
+    Then I want to verify the Official title is empty
       | clinical Trial field | CTRP fields    |
-      | brief_title          | official title |
+      | brief_title          | official title is empty |
 
   Scenario: CT_API07. Import Trial with NCT ID: NCT03093636 to verify acronym
     Given I want to Import a trial with NCT ID NCT03093636
