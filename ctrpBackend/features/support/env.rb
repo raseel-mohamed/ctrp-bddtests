@@ -19,14 +19,17 @@ base_ctgov = 'https://clinicaltrials.gov/ct2/show'
 
 #PO Endpoints
 po_endpoint = 'po-webservices/services/'
-
 reg_endpoint = 'services/trials/'
-
 org_endpoint = 'organization-rest-service/organization/'
 per_endpoint = 'person-rest-service/person/'
 fam_endpoint = 'family-rest-service/'
-ecm_endpoint = 'something/'
 import_endpoint = 'abbreviated/'
+
+#ECM Endpoints
+ecm_endpoint_jms = 'jmsMessage/'
+ecm_endpoint_ro = 'ResearchOrganization/'
+ecm_endpoint_org = 'Organization/'
+ecm_endpoint_hcf = 'HealthCareFacility/'
 
 #PA Endpoints
 
