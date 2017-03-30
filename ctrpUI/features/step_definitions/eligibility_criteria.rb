@@ -55,7 +55,6 @@ Then(/^I verify Gender Based and Gender Eligibility Description fields$/) do |ta
       step %[element having xpath "#{EligiblityCriteria.gender_desc_xpath}" should not be present]
     end
   end
-  step %[I click on link having text "Logout"]
 end
 
 #@PA_HIGH @FDAAA @UI @CTRPMICRO-92 & #@PA_HIGH @FDAAA @UI @CTRPMICRO-97
@@ -69,7 +68,6 @@ Then(/^Gender Based field is required$/) do |table|
 
   step %[I select "All" option by text from dropdown having id "#{EligiblityCriteria.sex_id}"]
   step %[element having id "#{EligiblityCriteria.gender_base_id}" should not be present]
-  step %[I click on link having text "Logout"]
 end
 
 #@PA_HIGH @FDAAA @UI @CTRPMICRO-93 ,99 ,94 & 98

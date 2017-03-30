@@ -3,7 +3,7 @@ Feature: Eligibility Criteria
 
   @PA_HIGH @FDAAA @CTRPMICRO-17
   Scenario: Import a Trial from clinical trials.gov and verify fields in Eligibility Criteria section(PA)
-    Given I login into CTRP and search with NCI ID "NCI-2017-00327"
+    Given I login into CTRP and search with NCI ID "NCI-2017-00331"
     When I click on "Eligibility Criteria" link
     Then I verify Gender Based and Gender Eligibility Description fields
       | Field Name                     | List Of Value |
@@ -12,7 +12,7 @@ Feature: Eligibility Criteria
 
   @PA_HIGH @FDAAA @UI @CTRPMICRO-92
   Scenario: Verify Gender Based field is required in Eligibility Criteria section(PA)
-    Given I login into CTRP and search with NCI ID "NCI-2017-00327"
+    Given I login into CTRP and search with NCI ID "NCI-2017-00331"
     When I click on "Eligibility Criteria" link
     Then Gender Based field is required
       | Field Name                        | Condition                                                    |
@@ -20,7 +20,7 @@ Feature: Eligibility Criteria
 
   @PA_HIGH @FDAAA @UI @CTRPMICRO-93
   Scenario: Verify Gender Based eligibility description is available when Gender based study is Yes in Eligibility Criteria section(PA)
-    Given I login into CTRP and search with NCI ID "NCI-2017-00327"
+    Given I login into CTRP and search with NCI ID "NCI-2017-00331"
     And I click on "Eligibility Criteria" link
     When Sex is "Male"
     And Gender based study is Yes
@@ -33,7 +33,7 @@ Feature: Eligibility Criteria
 
   @PA_HIGH @FDAAA @UI @CTRPMICRO-94
   Scenario: Verify Gender Based eligibility description is not available when Gender based study is No in Eligibility Criteria section(PA)
-    Given I login into CTRP and search with NCI ID "NCI-2017-00327"
+    Given I login into CTRP and search with NCI ID "NCI-2017-00331"
     And I click on "Eligibility Criteria" link
     When Sex is "Male"
     And Gender based study is No
@@ -46,13 +46,13 @@ Feature: Eligibility Criteria
 
   @PA_HIGH @FDAAA @UI @CTRPMICRO-95
   Scenario: Verify Gender is changed to Sex in Eligibility Criteria section(PA)
-    Given I login into CTRP and search with NCI ID "NCI-2017-00327"
+    Given I login into CTRP and search with NCI ID "NCI-2017-00331"
     And I click on "Eligibility Criteria" link
     Then Gender is changed to "Sex"
 
   @PA_HIGH @FDAAA @UI @CTRPMICRO-96
   Scenario: Verify field value is updated to Sex dropdown in Eligibility Criteria section(PA)
-    Given I login into CTRP and search with NCI ID "NCI-2017-00327"
+    Given I login into CTRP and search with NCI ID "NCI-2017-00331"
     And I click on "Eligibility Criteria" link
     Then these existing fields value should be updated
       | Field Name            | Existing Field Value | New Field Value |
