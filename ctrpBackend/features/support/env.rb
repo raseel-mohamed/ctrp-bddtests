@@ -73,7 +73,6 @@ case ENV['choose_ENV']
     ENV['dataclinicaltrials_ms'] = base_dataclinicaltrials_ms
     ENV['import'] = base_local + reg_endpoint + import_endpoint
     ENV['ctgov'] = base_ctgov
-    ENV['base_ctepecm_ms'] = base_ctepecm_ms + ecm_endpoint
   when 'aws'
     ENV['db_hostname'] = 'ctrp.clb9vkosemwm.us-east-1.rds.amazonaws.com'
     ENV['db_port'] = '5432'
@@ -88,7 +87,11 @@ case ENV['choose_ENV']
     ENV['dataclinicaltrials_ms'] = base_dataclinicaltrials_ms
     ENV['import'] = base_aws_pa + reg_endpoint + import_endpoint
     ENV['ctgov'] = base_ctgov
-    ENV['base_ctepecm_ms'] = base_ctepecm_ms + ecm_endpoint
+  when 'ecm'
+    ENV['base_ctepecm_ms'] = base_ctepecm_ms + ecm_endpoint_ro
+    ENV['base_ctepecm_ms'] = base_ctepecm_ms + ecm_endpoint_hcf
+    ENV['base_ctepecm_ms'] = base_ctepecm_ms + ecm_endpoint_org
+    ENV['base_ctepecm_ms'] = base_ctepecm_ms + ecm_endpoint_jms
   else
     puts 'Please choose correct Environment.'
 end
