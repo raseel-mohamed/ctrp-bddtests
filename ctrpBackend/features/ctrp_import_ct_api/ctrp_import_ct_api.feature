@@ -1,6 +1,6 @@
 Feature: Import ct api
 
-  @IMPORT_CT_API
+  @IMPORT_CT_API_
   Scenario: CT_API01. Import Trial with NCT ID: NCT03093480 to verify Lead Org Trial ID
     Given I want to Import a trial with NCT ID NCT03093480
     Then I want to verify the Lead Org Trial ID
@@ -35,24 +35,29 @@ Feature: Import ct api
       | clinical Trial field | CTRP fields    |
       | official_title       | official title |
 
+  @IMPORT_CT_API
   Scenario: CT_API06. Import Trial with NCT ID: NCT00000369 to verify official title if official title is empty in clinical trials.gov
     Given I want to Import a trial with NCT ID NCT00000369
     Then I want to verify the Official title is empty
       | clinical Trial field | CTRP fields    |
       | brief_title          | official title is empty |
 
+  @IMPORT_CT_API
   Scenario: CT_API07. Import Trial with NCT ID: NCT03093636 to verify acronym
     Given I want to Import a trial with NCT ID NCT03093636
     Then I want to verify the acronym
       | clinical Trial field | CTRP fields |
       | acronym              | acronym     |
 
+  @IMPORT_CT_API
   Scenario: CT_API08. Import Trial with NCT ID: NCT03093480 to verify Lead Organization
     Given I want to Import a trial with NCT ID NCT03093480
     Then I want to verify the Lead Organization
       | clinical Trial field | CTRP fields       |
       | lead_sponsor.agency  | Lead Organization |
+    #Need to add database verification query
 
+  @IMPORT_CT_API
   Scenario: CT_API09. Import Trial with NCT ID: NCT03093480 to verify sponsor
     Given I want to Import a trial with NCT ID NCT03093480
     Then I want to verify the sponsor
@@ -60,6 +65,7 @@ Feature: Import ct api
       | lead_sponsor.agency  | sponsor     |
     And I want to verify RO role is populated with this sponsor
 
+  @IMPORT_CT_API
   Scenario: CT_API10. Import Trial with NCT ID: NCT03088722 to verify collaborator
     Given I want to Import a trial with NCT ID NCT03088722
     Then I want to verify the collaborator
@@ -67,114 +73,133 @@ Feature: Import ct api
       | collaborator.agency  | collaborator |
     And I want to verify the collaborator Functional Code should be “Laboratory” by default
 
+  @IMPORT_CT_API
   Scenario: CT_API11. Import Trial with NCT ID: NCT03093480 to verify Data Monitoring Committee Appointed Indicator
     Given I want to Import a trial with NCT ID NCT03093480
     Then I want to verify the Data Monitoring Committee Appointed Indicator
       | clinical Trial field   | CTRP fields                                   |
       | oversight_info.has_dmc | Data Monitoring Committee Appointed Indicator |
 
+  @IMPORT_CT_API
   Scenario: CT_API12. Import Trial with NCT ID: NCT03087760 to verify FDA-regulated Drug Product
     Given I want to Import a trial with NCT ID NCT03087760
     Then I want to verify the FDA-regulated Drug Product
       | clinical Trial field                 | CTRP fields                |
       | oversight_info.is_fda_regulated_drug | FDA-regulated Drug Product |
 
+  @IMPORT_CT_API
   Scenario: CT_API13. Import Trial with NCT ID: NCT03087760 to verify FDA-regulated Device Product
     Given I want to Import a trial with NCT ID NCT03087760
     Then I want to verify the FDA-regulated Device Product
       | clinical Trial field                   | CTRP fields                  |
       | oversight_info.is_fda_regulated_device | FDA-regulated Device Product |
 
+  @IMPORT_CT_API
   Scenario: CT_API14. Import Trial with NCT ID: NCT03087760 to verify FDA Approval or Clearance
     Given I want to Import a trial with NCT ID NCT03087760
     Then I want to verify the FDA Approval or Clearance
       | clinical Trial field                | CTRP fields               |
       | oversight_info.is_unapproved_device | FDA Approval or Clearance |
 
+  @IMPORT_CT_API
   Scenario: CT_API15. Import Trial with NCT ID: NCT03087760 to verify Product Exported from the U.S
     Given I want to Import a trial with NCT ID NCT03087760
     Then I want to verify the Product Exported from the U.S
       | clinical Trial field        | CTRP fields                   |
       | oversight_info.is_us_export | Product Exported from the U.S |
 
+  @IMPORT_CT_API
   Scenario: CT_API16. Import Trial with NCT ID: NCT03087760 to verify Brief Summary
     Given I want to Import a trial with NCT ID NCT03087760
     Then I want to verify the brief summary
       | clinical Trial field | CTRP fields   |
       | brief_summary        | brief_summary |
 
+  @IMPORT_CT_API
   Scenario: CT_API17. Import Trial with NCT ID: NCT03095131 to verify Detailed description
     Given I want to Import a trial with NCT ID NCT03095131
     Then I want to verify the Detailed description
       | clinical Trial field | CTRP fields          |
       | detailed_description | Detailed Description |
 
+  @IMPORT_CT_API
   Scenario: CT_API18. Import Trial with NCT ID: NCT03088930 to verify Clinical Trial status: Not yet recruiting
     Given I want to Import a trial with NCT ID NCT03088930
     Then I want to verify the Trial status
       | clinical Trial status | CTRP Trial status |
       | Not yet recruiting    | In Review         |
 
+  @IMPORT_CT_API
   Scenario: CT_API19. Import Trial with NCT ID: NCT02969174 to verify Clinical Trial status: Approved for marketing
     Given I want to Import a trial with NCT ID NCT02969174
     Then I want to verify the Trial status
       | clinical Trial status  | CTRP Trial status |
       | Approved for marketing | Approved          |
 
+  @IMPORT_CT_API
   Scenario: CT_API20. Import Trial with NCT ID: NCT03086395 to verify Clinical Trial status: Withdrawn
     Given I want to Import a trial with NCT ID NCT03086395
     Then I want to verify the Trial status
       | clinical Trial status | CTRP Trial status |
       | Withdrawn             | Withdrawn         |
 
+  @IMPORT_CT_API
   Scenario: CT_API21. Import Trial with NCT ID: NCT03079687 to verify Clinical Trial status: Available
     Given I want to Import a trial with NCT ID NCT03079687
     Then I want to verify the Trial status
       | clinical Trial status | CTRP Trial status |
       | Available             | Active            |
 
+  @IMPORT_CT_API
   Scenario: CT_API22. Import Trial with NCT ID: NCT03088904 to verify Clinical Trial status: Recruiting
     Given I want to Import a trial with NCT ID NCT03088904
     Then I want to verify the Trial status
       | clinical Trial status | CTRP Trial status |
       | Recruiting            | Active            |
 
+  @IMPORT_CT_API
   Scenario: CT_API23. Import Trial with NCT ID: NCT03087812 to verify Clinical Trial status: Enrolling by invitation
     Given I want to Import a trial with NCT ID NCT03087812
     Then I want to verify the Trial status
       | clinical Trial status   | CTRP Trial status       |
       | Enrolling by invitation | Enrolling by invitation |
 
+  @IMPORT_CT_API
   Scenario: CT_API24. Import Trial with NCT ID: NCT03088449 to verify Clinical Trial status: Active, not recruiting
     Given I want to Import a trial with NCT ID NCT03088449
     Then I want to verify the Trial status
       | clinical Trial status  | CTRP Trial status |
       | Active, not recruiting | Closed to Accrual |
 
+  @IMPORT_CT_API
   Scenario: CT_API25. Import Trial with NCT ID: NCT03085186 to verify Clinical Trial status: No longer available
     Given I want to Import a trial with NCT ID NCT03085186
     Then I want to verify the Trial status
       | clinical Trial status | CTRP Trial status                  |
       | No longer available   | Closed to Accrual and Intervention |
 
+  @IMPORT_CT_API
   Scenario: CT_API26. Import Trial with NCT ID: NCT03057418 to verify Clinical Trial status: Suspended
     Given I want to Import a trial with NCT ID NCT03057418
     Then I want to verify the Trial status
       | clinical Trial status | CTRP Trial status                              |
       | Suspended             | Temporarily Closed to Accrual and Intervention |
 
+  @IMPORT_CT_API
   Scenario: CT_API27. Import Trial with NCT ID: NCT03088891 to verify Clinical Trial status: Completed
     Given I want to Import a trial with NCT ID NCT03088891
     Then I want to verify the Trial status
       | clinical Trial status | CTRP Trial status |
-      | Completed             | Complete          |
+      | Completed             | Completed         |
 
+  @IMPORT_CT_API
   Scenario: CT_API28. Import Trial with NCT ID: NCT03072901 to verify Clinical Trial status: Terminated
     Given I want to Import a trial with NCT ID NCT03072901
     Then I want to verify the Trial status
       | clinical Trial status | CTRP Trial status         |
       | Terminated            | Administratively Complete |
 
+  @IMPORT_CT_API
   Scenario: CT_API29. Import Trial with NCT ID: NCT03063710 to verify Clinical Trial status: Temporarily not available
     Given I want to Import a trial with NCT ID NCT03063710
     Then I want to verify the Trial status
