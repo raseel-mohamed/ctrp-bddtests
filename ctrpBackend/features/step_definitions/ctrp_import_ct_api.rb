@@ -219,9 +219,24 @@ Then(/^I want to verify the Trial status$/) do |table|
       Ct_api_helper.verify_json_element_with_db(row["CTRP Trial status"].to_s, @nct_id, @data_hash_ctgov)
     elsif row["clinical Trial status"].eql?('Recruiting') && row["CTRP Trial status"].eql?('Active')
       Ct_api_helper.verify_json_element_with_db(row["clinical Trial status"].to_s, @nct_id, @data_hash_ctgov)
+    elsif row["CTRP Trial status"].eql?('Enrolling by invitation')
+      Ct_api_helper.verify_json_element_with_db(row["CTRP Trial status"].to_s, @nct_id, @data_hash_ctgov)
+    elsif row["CTRP Trial status"].eql?('Closed to Accrual')
+        Ct_api_helper.verify_json_element_with_db(row["CTRP Trial status"].to_s, @nct_id, @data_hash_ctgov)
+    elsif row["CTRP Trial status"].eql?('Closed to Accrual and Intervention')
+      Ct_api_helper.verify_json_element_with_db(row["CTRP Trial status"].to_s, @nct_id, @data_hash_ctgov)
+    elsif row["CTRP Trial status"].eql?('Temporarily Closed to Accrual and Intervention')
+      Ct_api_helper.verify_json_element_with_db(row["CTRP Trial status"].to_s, @nct_id, @data_hash_ctgov)
+    elsif row["CTRP Trial status"].eql?('Completed')
+      Ct_api_helper.verify_json_element_with_db(row["CTRP Trial status"].to_s, @nct_id, @data_hash_ctgov)
+    elsif row["CTRP Trial status"].eql?('Administratively Complete')
+      Ct_api_helper.verify_json_element_with_db(row["CTRP Trial status"].to_s, @nct_id, @data_hash_ctgov)
+    elsif row["CTRP Trial status"].eql?('Temporarily Closed to Accrual and Intervention') && row["clinical Trial status"].eql?('Temporarily not available')
+      Ct_api_helper.verify_json_element_with_db(row["CTRP Trial status"].to_s, @nct_id, @data_hash_ctgov)
+
     else
       flunk 'Please provide correct CTRP fields name. Provided CTRP field name <<' + row["CTRP Trial status"].to_s + '>> does not exist'
     end
-    #Withdrawn
+    #Temporarily Closed to Accrual and Intervention
   end
 end

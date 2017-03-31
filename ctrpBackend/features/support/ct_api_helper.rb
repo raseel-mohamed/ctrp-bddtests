@@ -214,6 +214,90 @@ class Ct_api_helper
           @return_db_value
         end
         assert_equal(@return_db_value, @recruitng, 'Validating ACTIVE/Recruiting trial status')
+      when 'Enrolling by invitation'
+        enrl = data_hash_ctgov['clinical_study']['overall_status']
+        @enrlbyinv = enrl.to_s
+        puts 'Verifying: <<' + @enrlbyinv + '>>.'
+        @res = @conn.exec("SELECT status_code FROM study_recruitment_status WHERE status_code = 'ENROLLING_BY_INVITATION' AND study_protocol_identifier in (SELECT identifier FROM study_protocol WHERE nct_id = '" + nct_id + "' AND status_code = 'ACTIVE')")
+        @return_db_value = @res.getvalue(0, 0).to_s
+        if @return_db_value.eql?('ENROLLING_BY_INVITATION')
+          @return_db_value = 'Enrolling by invitation'
+        else
+          @return_db_value
+        end
+        assert_equal(@return_db_value, @enrlbyinv, 'Validating Enrolling by invitation trial status')
+      when 'Closed to Accrual'
+        clstoe = data_hash_ctgov['clinical_study']['overall_status']
+        @clos_to_acc = clstoe.to_s
+        puts 'Verifying: <<' + @clos_to_acc + '>>.'
+        @res = @conn.exec("SELECT status_code FROM study_recruitment_status WHERE status_code = 'CLOSED_TO_ACCRUAL' AND study_protocol_identifier in (SELECT identifier FROM study_protocol WHERE nct_id = '" + nct_id + "' AND status_code = 'ACTIVE')")
+        @return_db_value = @res.getvalue(0, 0).to_s
+        if @return_db_value.eql?('CLOSED_TO_ACCRUAL')
+          @return_db_value = 'Active, not recruiting'
+        else
+          @return_db_value
+        end
+        assert_equal(@return_db_value, @clos_to_acc, 'Validating Closed to Accrual trial status')
+      when 'Closed to Accrual and Intervention'
+        clstoanintervn = data_hash_ctgov['clinical_study']['overall_status']
+        @clos_to_acc_intrvntn = clstoanintervn.to_s
+        puts 'Verifying: <<' + @clos_to_acc_intrvntn + '>>.'
+        @res = @conn.exec("SELECT status_code FROM study_recruitment_status WHERE status_code = 'CLOSED_TO_ACCRUAL_AND_INTERVENTION' AND study_protocol_identifier in (SELECT identifier FROM study_protocol WHERE nct_id = '" + nct_id + "' AND status_code = 'ACTIVE')")
+        @return_db_value = @res.getvalue(0, 0).to_s
+        if @return_db_value.eql?('CLOSED_TO_ACCRUAL_AND_INTERVENTION')
+          @return_db_value = 'No longer available'
+        else
+          @return_db_value
+        end
+        assert_equal(@return_db_value, @clos_to_acc_intrvntn, 'Validating Closed to Accrual and Intervention trial status')
+      when 'Temporarily Closed to Accrual and Intervention'
+        tmpclstoanintervn = data_hash_ctgov['clinical_study']['overall_status']
+        @tmp_clos_to_acc_intrvntn = tmpclstoanintervn.to_s
+        puts 'Verifying: <<' + @tmp_clos_to_acc_intrvntn + '>>.'
+        @res = @conn.exec("SELECT status_code FROM study_recruitment_status WHERE status_code = 'TEMPORARILY_CLOSED_TO_ACCRUAL_AND_INTERVENTION' AND study_protocol_identifier in (SELECT identifier FROM study_protocol WHERE nct_id = '" + nct_id + "' AND status_code = 'ACTIVE')")
+        @return_db_value = @res.getvalue(0, 0).to_s
+        if @return_db_value.eql?('TEMPORARILY_CLOSED_TO_ACCRUAL_AND_INTERVENTION')
+          @return_db_value = 'Suspended'
+        else
+          @return_db_value
+        end
+        assert_equal(@return_db_value, @tmp_clos_to_acc_intrvntn, 'Validating Temporarily Closed to Accrual and Intervention trial status')
+      when 'Completed'
+        complt = data_hash_ctgov['clinical_study']['overall_status']
+        @complet = complt.to_s
+        puts 'Verifying: <<' + @complet + '>>.'
+        @res = @conn.exec("SELECT status_code FROM study_recruitment_status WHERE status_code = 'COMPLETED' AND study_protocol_identifier in (SELECT identifier FROM study_protocol WHERE nct_id = '" + nct_id + "' AND status_code = 'ACTIVE')")
+        @return_db_value = @res.getvalue(0, 0).to_s
+        if @return_db_value.eql?('COMPLETED')
+          @return_db_value = 'Completed'
+        else
+          @return_db_value
+        end
+        assert_equal(@return_db_value, @complet, 'Validating Completed trial status')
+      when 'Administratively Complete'
+        admincomplt = data_hash_ctgov['clinical_study']['overall_status']
+        @admintrvly_complet = admincomplt.to_s
+        puts 'Verifying: <<' + @admintrvly_complet + '>>.'
+        @res = @conn.exec("SELECT status_code FROM study_recruitment_status WHERE status_code = 'ADMINISTRATIVELY_COMPLETE' AND study_protocol_identifier in (SELECT identifier FROM study_protocol WHERE nct_id = '" + nct_id + "' AND status_code = 'ACTIVE')")
+        @return_db_value = @res.getvalue(0, 0).to_s
+        if @return_db_value.eql?('ADMINISTRATIVELY_COMPLETE')
+          @return_db_value = 'Terminated'
+        else
+          @return_db_value
+        end
+        assert_equal(@return_db_value, @admintrvly_complet, 'Validating Administratively Complete trial status')
+      when 'Temporarily not available'
+        tmpnotavail = data_hash_ctgov['clinical_study']['overall_status']
+        @tmp_not_avail = tmpnotavail.to_s
+        puts 'Verifying: <<' + @tmp_not_avail + '>>.'
+        @res = @conn.exec("SELECT status_code FROM study_recruitment_status WHERE status_code = 'TEMPORARILY_CLOSED_TO_ACCRUAL_AND_INTERVENTION' AND study_protocol_identifier in (SELECT identifier FROM study_protocol WHERE nct_id = '" + nct_id + "' AND status_code = 'ACTIVE')")
+        @return_db_value = @res.getvalue(0, 0).to_s
+        if @return_db_value.eql?('TEMPORARILY_CLOSED_TO_ACCRUAL_AND_INTERVENTION')
+          @return_db_value = 'Temporarily not available'
+        else
+          @return_db_value
+        end
+        assert_equal(@return_db_value, @tmp_not_avail, 'Validating Temporarily Closed to Accrual and Intervention/Temporarily not available trial status')
       else
         flunk 'Please provide correct db_field. Provided db_filed <<' + db_field + '>> does not exist'
     end
