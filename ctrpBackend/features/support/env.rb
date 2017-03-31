@@ -12,6 +12,7 @@ base_qa2 = 'https://trials-qa2.nci.nih.gov/'
 base_local = 'http://localhost:39480/'
 base_aws = 'http://ctrp-po-inttest-elb-1603106388.us-east-1.elb.amazonaws.com:39080/'
 base_aws_pa = 'http://ctrp-pa-inttest-elb-330752222.us-east-1.elb.amazonaws.com:18080/'
+base_aws_import = 'http://ctrp-inttest-alb-backend-1739456098.us-east-1.elb.amazonaws.com:3200/api/v1/ctrp_import_ct_api/importtrial/'
 base_dataclinicaltrials_ms = 'http://ctrp-inttest-alb-backend-1739456098.us-east-1.elb.amazonaws.com:3100/api/v1/data_clinical_trials'
 base_ctepecm_ms = 'www.google.com' # To be populated with correct ECM MS endpoint.
 base_ctgov = 'https://clinicaltrials.gov/ct2/show'
@@ -77,7 +78,7 @@ case ENV['choose_ENV']
     ENV['update_person'] = base_aws + po_endpoint + per_endpoint
     ENV['search_family'] = base_aws + po_endpoint + fam_endpoint
     ENV['dataclinicaltrials_ms'] = base_dataclinicaltrials_ms
-    ENV['import'] = base_aws_pa + reg_endpoint + import_endpoint
+    ENV['import'] = base_aws_import
     ENV['ctgov'] = base_ctgov
   when 'ecm'
     ENV['base_ctepecm_ms'] = base_ctepecm_ms + ecm_endpoint_ro
