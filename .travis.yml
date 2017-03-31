@@ -84,8 +84,6 @@ script:
       rm results/*_output.json
       cd ctrp-bddtests/ctrpBackend/
       cucumber features/ -t @DCT_HIGH --format json --out ../results/dct_api_high_output.json --expand && cucumber features/ -t @DCT_MEDIUM --format json --out ../results/dct_api_medium_output.json --expand
-      CURRENT_STATUS=$?
-      if [ "$STATUS" == 0 ]; then STATUS=$CURRENT_STATUS; fi
     fi
   # run CT API tests
   - |
@@ -93,8 +91,6 @@ script:
       rm results/*_output.json
       cd ctrp-bddtests/ctrpBackend/
       cucumber features/ -t @IMPORT_CT_API_HIGH --format json --out ../results/ct_api_high_output.json --expand && cucumber features/ -t @IMPORT_CT_API_MEDIUM --format json --out ../results/ct_api_medium_output.json --expand
-      CURRENT_STATUS=$?
-      if [ "$STATUS" == 0 ]; then STATUS=$CURRENT_STATUS; fi
     fi
   # run CTRP MISC tests
   - |
@@ -135,8 +131,6 @@ after_success:
     if [ "$CUC_TAG" == "$DCT_API_TAG" ]; then
       cd ctrp-bddtests/ctrpBackend/
       cucumber features/ -t @DCT_LOW --format json --out ../results/dct_api_low_output.json --expand
-      CURRENT_STATUS=$?
-      if [ "$STATUS" == 0 ]; then STATUS=$CURRENT_STATUS; fi
       cd ..
     fi
   # run CT API tests
@@ -144,8 +138,6 @@ after_success:
     if [ "$CUC_TAG" == "$CT_API_TAG" ]; then
       cd ctrp-bddtests/ctrpBackend/
       cucumber features/ -t @IMPORT_CT_API_LOW --format json --out ../results/ct_api_low_output.json --expand
-      CURRENT_STATUS=$?
-      if [ "$STATUS" == 0 ]; then STATUS=$CURRENT_STATUS; fi
     fi
   # run CTRP PO UI LOW tests
   - |
