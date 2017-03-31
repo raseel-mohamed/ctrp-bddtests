@@ -34,11 +34,7 @@ ecm_endpoint_hcf = 'HealthCareFacility/'
 #PA Endpoints
 
 
-ENV['choose_ENV'] = 'local'
-ENV['user1'] =  'ctrpqatester1'
-ENV['user1_password'] = 'pass'
-ENV['user2'] =  'ctrpsubstractor'
-ENV['user2_password'] = 'pass'
+ENV['choose_ENV'] = 'aws'
 ENV['dct_usr'] = ''
 ENV['dct_pass'] = ''
 ENV['ecmms_usr'] = ''
@@ -63,8 +59,6 @@ case ENV['choose_ENV']
     ENV['db_hostname'] = 'localhost'
     ENV['db_port'] = '5432'
     ENV['db_name'] = 'padb'
-    ENV['db_user'] = 'postgres'
-    ENV['db_pass'] = ''
     ENV['create_organization'] = base_local + po_endpoint + org_endpoint
     ENV['update_organization'] = base_local + po_endpoint + org_endpoint
     ENV['create_person'] = base_local + po_endpoint + per_endpoint
@@ -77,8 +71,6 @@ case ENV['choose_ENV']
     ENV['db_hostname'] = 'ctrp.clb9vkosemwm.us-east-1.rds.amazonaws.com'
     ENV['db_port'] = '5432'
     ENV['db_name'] = 'pa_ctrpn'
-    ENV['db_user'] = 'pauser'
-    ENV['db_pass'] = 'pauser'
     ENV['create_organization'] = base_aws + po_endpoint + org_endpoint
     ENV['update_organization'] = base_aws + po_endpoint + org_endpoint
     ENV['create_person'] = base_aws + po_endpoint + per_endpoint
