@@ -47,7 +47,7 @@ before_script:
   - ls
   - ls ..
   - ls ../..
-  - if pg_restore -h $DBSERVERHOST -U $DBUSER -p $DBSERVERPORT -d $DBSCHEMA -Fc $DBDUMPPA 2> /dev/null; then echo $?; fi
+  # - if pg_restore -h $DBSERVERHOST -U $DBUSER -p $DBSERVERPORT -d $DBSCHEMA -Fc $DBDUMPPA 2> /dev/null; then echo $?; fi
 
   # PO database
   - export DBUSER=$DBUSERPO
