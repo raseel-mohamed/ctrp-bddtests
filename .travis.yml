@@ -45,6 +45,8 @@ before_script:
   - echo $DBDUMPPA
   - pwd
   - ls
+  - ls ..
+  - ls ../..
   - if pg_restore -h $DBSERVERHOST -U $DBUSER -p $DBSERVERPORT -d $DBSCHEMA -Fc $DBDUMPPA 2> /dev/null; then echo $?; fi
 
   # PO database
@@ -53,7 +55,7 @@ before_script:
   - export DBSCHEMA=$DBSCHEMAPO
   - aws s3 ls s3://ctrp-db-dumps/$DBDUMPPO --region us-east-1
   - aws s3 cp s3://ctrp-db-dumps/$DBDUMPPO . --region us-east-1
-#  - if pg_restore -h $DBSERVERHOST -U $DBUSER -p $DBSERVERPORT -d $DBSCHEMA -Fc $DBDUMPPO; then echo $?; fi
+  - if pg_restore -h $DBSERVERHOST -U $DBUSER -p $DBSERVERPORT -d $DBSCHEMA -Fc $DBDUMPPO 2> /dev/null; then echo $?; fi
 
 
 
