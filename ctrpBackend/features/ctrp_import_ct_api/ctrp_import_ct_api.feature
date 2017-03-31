@@ -221,8 +221,8 @@ Feature: Import ct api
       | start_date           | Trial Start Date        |
       | start_date type      | Trial Start Date option |
 
-  Scenario: CT_API32. Import Trial with NCT ID: NCT00000136 to verify Trial Start Date and no Trial Start Date option
-    Given I want to Import a trial with NCT ID NCT00000136
+  Scenario: CT_API32. Import Trial with NCT ID: NCT00000309 to verify Trial Start Date and no Trial Start Date option
+    Given I want to Import a trial with NCT ID NCT00000309
     Then I want to verify the Trial Start Date
       | clinical Trial field | CTRP field       |
       | start_date           | Trial Start Date |
@@ -320,8 +320,8 @@ Feature: Import ct api
       | clinical Trial phase | CTRP phase |
       | N/A                  | NA         |
 
-  Scenario: CT_API47. Import Trial with NCT ID: NCT03089658 to verify Clinical Trial type: Expanded Access
-    Given I want to Import a trial with NCT ID NCT03089658
+  Scenario: CT_API47. Import Trial with NCT ID: NCT03001349 to verify Clinical Trial type: Expanded Access
+    Given I want to Import a trial with NCT ID NCT03001349
     Then I want to verify the Trial Type
       | clinical Trial type | CTRP Study Type      |
       | Expanded Access     | Interventional Study |
