@@ -13,7 +13,7 @@ base_local = 'http://localhost:39480/'
 base_aws = 'http://ctrp-po-inttest-elb-1603106388.us-east-1.elb.amazonaws.com:39080/'
 base_aws_pa = 'http://ctrp-pa-inttest-elb-330752222.us-east-1.elb.amazonaws.com:18080/'
 base_dataclinicaltrials_ms = 'http://ctrp-inttest-alb-backend-1739456098.us-east-1.elb.amazonaws.com:3100/api/v1/data_clinical_trials'
-base_ctepecm_ms = 'www.google.com' # To be populated with correct ECM MS endpoint.
+base_ctepecm_ms = 'http://129.43.165.163:3300/api/v1/ecmservice/' # To be populated with correct ECM MS endpoint.
 base_ctgov = 'https://clinicaltrials.gov/ct2/show'
 
 

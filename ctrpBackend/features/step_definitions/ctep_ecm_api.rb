@@ -2,10 +2,13 @@ require_relative '../support/helper.rb'
 require 'json'
 require 'rest-client'
 
+
+
 #@CTRPMICRO-199
 
 Given(/^I send a GET request for "([^"]*)" for ResearchOrganization$/) do |arg1|
-  pending # Write code here that turns the phrase above into concrete actions
+
+
 end
 
 #@CTRPMICRO-204
