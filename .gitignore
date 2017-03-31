@@ -7,3 +7,6 @@ Gemfile.lock
 
 # Ignore results dir
 /results
+
+/ctrp-bddtests/ctrpBackend/features/support/env_local.rb
+/ctrp-bddtests/ctrpUI/features/support/env_local.rb
