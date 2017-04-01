@@ -39,7 +39,7 @@ Feature: Import ct api
   Scenario: CT_API06. Import Trial with NCT ID: NCT00000369 to verify official title if official title is empty in clinical trials.gov
     Given I want to Import a trial with NCT ID NCT00000369
     Then I want to verify the Official title is empty
-      | clinical Trial field | CTRP fields    |
+      | clinical Trial field | CTRP fields             |
       | brief_title          | official title is empty |
 
   @IMPORT_CT_API_MEDIUM
@@ -390,14 +390,149 @@ Feature: Import ct api
       | clinical Trial Interventional Model | CTRP Interventional Model |
       | Sequential Assignment               | Sequential                |
 
-  Scenario: CT_API58. Import Trial with NCT ID: NCT03090178 to verify Clinical Trial Primary Purpose: Other
+  @IMPORT_CT_API_HIGH
+  Scenario: CT_API58. Import Trial with NCT ID: NCT03098550 to verify Clinical Trial Masking: No masking
+    Given I want to Import a trial with NCT ID NCT03098550
+    Then I want to verify the Masking
+      | clinical Trial Masking | CTRP Masking |
+      | No masking             | No masking   |
+
+  @IMPORT_CT_API_HIGH
+  Scenario: CT_API59. Import Trial with NCT ID: NCT03098524 to verify Clinical Trial Masking: Participant
+    Given I want to Import a trial with NCT ID NCT03098524
+    Then I want to verify the Masking
+      | clinical Trial Masking | CTRP Masking |
+      | Participant            | Participant  |
+
+  @IMPORT_CT_API_HIGH
+  Scenario: CT_API60. Import Trial with NCT ID: NCT03098524 to verify Clinical Trial Masking: Investigator
+    Given I want to Import a trial with NCT ID NCT03098550
+    Then I want to verify the Masking
+      | clinical Trial Masking | CTRP Masking |
+      | Investigator           | Investigator |
+
+  @IMPORT_CT_API_HIGH
+  Scenario: CT_API61. Import Trial with NCT ID: NCT03098511 to verify Clinical Trial Masking: Care Provider
+    Given I want to Import a trial with NCT ID NCT03098511
+    Then I want to verify the Masking
+      | clinical Trial Masking | CTRP Masking  |
+      | Care Provider          | Care Provider |
+
+  @IMPORT_CT_API_HIGH
+  Scenario: CT_API62. Import Trial with NCT ID: NCT03098524 to verify Clinical Trial Masking: Outcomes Assessor
+    Given I want to Import a trial with NCT ID NCT03098524
+    Then I want to verify the Masking
+      | clinical Trial Masking | CTRP Masking      |
+      | Outcomes Assessor      | Outcomes Assessor |
+
+  @IMPORT_CT_API_HIGH
+  Scenario: CT_API63. Import Trial with NCT ID: NCT03098017 to verify Clinical Trial Primary Purpose: Basic Science
+    Given I want to Import a trial with NCT ID NCT03098017
+    Then I want to verify the Primary Purpose
+      | clinical Trial Primary Purpose | CTRP Masking  |
+      | Basic Science                  | Basic Science |
+
+  @IMPORT_CT_API_HIGH
+  Scenario: CT_API64. Import Trial with NCT ID: NCT03097887 to verify Clinical Trial Primary Purpose: Diagnostic
+    Given I want to Import a trial with NCT ID NCT03097887
+    Then I want to verify the Primary Purpose
+      | clinical Trial Primary Purpose | CTRP Masking |
+      | Diagnostic                     | Diagnostic   |
+
+  @IMPORT_CT_API_HIGH
+  Scenario: CT_API65. Import Trial with NCT ID: NCT03097640 to verify Clinical Trial Primary Purpose: Health Services Research
+    Given I want to Import a trial with NCT ID NCT03097640
+    Then I want to verify the Primary Purpose
+      | clinical Trial Primary Purpose | CTRP Masking             |
+      | Health Services Research       | Health Services Research |
+
+  @IMPORT_CT_API_HIGH
+  Scenario: CT_API66. Import Trial with NCT ID: NCT03097588 to verify Clinical Trial Primary Purpose: Prevention
+    Given I want to Import a trial with NCT ID NCT03097588
+    Then I want to verify the Primary Purpose
+      | clinical Trial Primary Purpose | CTRP Masking |
+      | Prevention                     | Prevention   |
+
+  @IMPORT_CT_API_HIGH
+  Scenario: CT_API67. Import Trial with NCT ID: NCT03096938 to verify Clinical Trial Primary Purpose: Screening
+    Given I want to Import a trial with NCT ID NCT03096938
+    Then I want to verify the Primary Purpose
+      | clinical Trial Primary Purpose | CTRP Masking |
+      | Screening                      | Screening    |
+
+  @IMPORT_CT_API_HIGH
+  Scenario: CT_API68. Import Trial with NCT ID: NCT03096756 to verify Clinical Trial Primary Purpose: Supportive Care
+    Given I want to Import a trial with NCT ID NCT03096756
+    Then I want to verify the Primary Purpose
+      | clinical Trial Primary Purpose | CTRP Masking    |
+      | Supportive Care                | Supportive Care |
+
+  @IMPORT_CT_API_HIGH
+  Scenario: CT_API69. Import Trial with NCT ID: NCT03096782 to verify Clinical Trial Primary Purpose: Treatment
+    Given I want to Import a trial with NCT ID NCT03096782
+    Then I want to verify the Primary Purpose
+      | clinical Trial Primary Purpose | CTRP Masking |
+      | Treatment                      | Treatment    |
+
+  @IMPORT_CT_API_HIGH
+  Scenario: CT_API70. Import Trial with NCT ID: NCT03098511 to verify Clinical Trial Primary Purpose: Device Feasibility
+    Given I want to Import a trial with NCT ID NCT03098511
+    Then I want to verify the Primary Purpose
+      | clinical Trial Primary Purpose | CTRP Masking       |
+      | Device Feasibility             | Device Feasibility |
+
+  @IMPORT_CT_API_HIGH
+  Scenario: CT_API71. Import Trial with NCT ID: NCT03090178 to verify Clinical Trial Primary Purpose: Other
     Given I want to Import a trial with NCT ID NCT03090178
     Then I want to verify the Primary Purpose
       | clinical Trial Primary Purpose | CTRP Masking |
       | Other                          | Other        |
     And Description should be populated
 
-  Scenario: CT_API59. Import Trial with NCT ID: NCT02512757 to verify Study Model: Case-Control
+  @IMPORT_CT_API_HIGH
+  Scenario: CT_API72. Import Trial with NCT ID: NCT03097640 to verify Clinical Trial Outcome Measures: Primary
+    Given I want to Import a trial with NCT ID NCT03097640
+    Then I want to verify the Outcome Measures
+      | clinical Trial Outcome Measures | CTRP Outcome Measures            |
+      | primary_outcome                 | Outcome Measure Type = “PRIMARY” |
+      | primary_outcome.measure         | Title                            |
+      | primary_outcome.time_frame      | Time Frame                       |
+      | primary_outcome.description     | Description                      |
+
+  @IMPORT_CT_API_HIGH
+  Scenario: CT_API73. Import Trial with NCT ID: NCT03097640 to verify Clinical Trial Outcome Measures: Secondary
+    Given I want to Import a trial with NCT ID NCT03097640
+    Then I want to verify the Outcome Measures
+      | clinical Trial Outcome Measures | CTRP Outcome Measures              |
+      | secondary_outcome               | Outcome Measure Type = “SECONDARY” |
+      | secondary_outcome.measure       | Title                              |
+      | secondary_outcome.time_frame    | Time Frame                         |
+      | secondary_outcome.description   | Description                        |
+
+  @IMPORT_CT_API_HIGH
+  Scenario: CT_API74. Import Trial with NCT ID: NCT03096340 to verify Clinical Trial Outcome Measures: other_outcome
+    Given I want to Import a trial with NCT ID NCT03096340
+    Then I want to verify the Outcome Measures
+      | clinical Trial Outcome Measures | CTRP Outcome Measures                        |
+      | other_outcome                   | Outcome Measure Type = “OTHER_PRE_SPECIFIED” |
+      | other_outcome.measure           | Title                                        |
+      | other_outcome.time_frame        | Time Frame                                   |
+
+  @IMPORT_CT_API_HIGH
+  Scenario: CT_API75. Import Trial with NCT ID: NCT03097640 to verify Number of Arms
+    Given I want to Import a trial with NCT ID NCT03097640
+    Then I want to verify the Number of Arms
+      | clinical Trial Field | CTRP field  |
+      | number_of_arms               | Number of Arms |
+
+  @IMPORT_CT_API_HIGH
+  Scenario: CT_API75. Import Trial with NCT ID: NCT03097640 to verify Enrollment
+    Given I want to Import a trial with NCT ID NCT03097640
+    Then I want to verify the Target Enrollment
+      | clinical Trial Field | CTRP field  |
+      | enrollment               | Target Enrollment |
+
+  Scenario: CT_API76. Import Trial with NCT ID: NCT02512757 to verify Study Model: Case-Control
     Given I want to Import a trial with NCT ID NCT02512757
     Then I want to verify the Study Model
       | clinical Trial Study Model | CTRP fields  |
