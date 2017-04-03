@@ -40,6 +40,9 @@ before_script:
   - export DBSCHEMA=$DBSCHEMAPA
   - pwd
   - ls
+  - cd
+  - pwd
+  - ls
   - aws s3 ls s3://ctrp-db-dumps/$DBDUMPPA --region us-east-1
   - aws s3 cp s3://ctrp-db-dumps/$DBDUMPPA . --region us-east-1
   - pg_restore -V
