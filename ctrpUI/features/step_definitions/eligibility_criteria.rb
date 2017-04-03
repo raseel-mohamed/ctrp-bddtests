@@ -125,3 +125,70 @@ Then(/^these existing fields value should be updated$/) do |table|
   end
 end
 
+#@PA_HIGH @FDAAA @UI @CTRPMICRO-227
+
+And(/^I fill all details and click save in Eligibility Criteria page$/) do
+  step %[I select "No" option by text from dropdown having id "#{EligiblityCriteria.acc_health_vol_id}"]
+  step %[I select "All" option by text from dropdown having id "#{EligiblityCriteria.sex_all_id}"]
+  step %[I clear input field having id "#{EligiblityCriteria.min_age_id}"]
+  step %[I enter "22" into input field having id "#{EligiblityCriteria.min_age_id}"]
+  step %[I clear input field having id "#{EligiblityCriteria.max_age_id}"]
+  step %[I enter "25" into input field having id "#{EligiblityCriteria.max_age_id}"]
+  step %[I select "Months" option by text from dropdown having id "#{EligiblityCriteria.min_age_unit_id}"]
+  step %[I select "Years" option by text from dropdown having id "#{EligiblityCriteria.max_age_unit_id}"]
+  step %[I wait for 5 sec]
+  step %[I click on element having xpath "//span[@class='save']"]
+end
+
+#@PA_HIGH @FDAAA @UI @CTRPMICRO-229
+
+Given(/^I enter all details except mandatory fields in Eligibility Criteria section\(PA\)$/) do
+  step %[I select "" option by text from dropdown having id "#{EligiblityCriteria.acc_health_vol_id}"]
+  step %[I select "" option by text from dropdown having id "#{EligiblityCriteria.sex_id}"]
+  step %[I clear input field having id "#{EligiblityCriteria.min_age_id}"]
+  step %[I enter "" into input field having id "#{EligiblityCriteria.min_age_id}"]
+  step %[I clear input field having id "#{EligiblityCriteria.max_age_id}"]
+  step %[I enter "" into input field having id "#{EligiblityCriteria.max_age_id}"]
+  step %[I select "" option by text from dropdown having id "#{EligiblityCriteria.min_age_unit_id}"]
+  step %[I select "" option by text from dropdown having id "#{EligiblityCriteria.max_age_unit_id}"]
+  step %[I click on element having xpath "//span[@class='save']"]
+end
+
+Then(/^I verify below error messages are displayed in Eligibility Criteria \(PA\) for mandatory fields$/) do |table|
+  table.hashes.each_with_index do |item, index|
+    xpath_ele = "(//ul[@class='errorMessage'])["+(index+1).to_s+"]"
+    expect(get_element_text("xpath",xpath_ele).strip).eql?(item['error_message'])
+  end
+end
+
+#@PA_HIGH @FDAAA @UI @CTRPMICRO-228
+
+Then(/^I verify validations for accepts healthy volunteers  "([^"]*)", sex  "([^"]*)", minimum age  "([^"]*)",  maximum age "([^"]*)", min unit "([^"]*)", max unit "([^"]*)", error message "([^"]*)"$/) do |accepts_healthy_volunteers, sex, minimum_age, maximum_age, min_unit, max_unit, error_message|
+  data = {
+      'accepts_healthy_volunteers'     => accepts_healthy_volunteers,
+      'sex'            => sex,
+      'minimum_age'  => minimum_age,
+      'maximum_age'   => maximum_age,
+      'min_unit' => min_unit,
+      'max_unit' => max_unit,
+  }
+
+  # Replacing empty Strings with single quotes
+  data.each do |key, value|
+    data[key] = '' if data[key] == ''
+  end
+  eligibility_criteria_fill_data(data, error_message)
+  end
+
+def eligibility_criteria_fill_data(data, error_message)
+  step %[I select "#{data['accepts_healthy_volunteers']}" option by text from dropdown having id "#{EligiblityCriteria.acc_health_vol_id}"]
+  step %[I select "#{data['sex']}" option by text from dropdown having id "#{EligiblityCriteria.sex_id}"]
+  step %[I clear input field having id "#{EligiblityCriteria.min_age_id}"]
+  step %[I enter "#{data['minimum_age']}" into input field having id "#{EligiblityCriteria.min_age_id}"]
+  step %[I clear input field having id "#{EligiblityCriteria.max_age_id}"]
+  step %[I enter "#{data['maximum_age']}" into input field having id "#{EligiblityCriteria.max_age_id}"]
+  step %[I select "#{data['min_unit']}" option by text from dropdown having id "#{EligiblityCriteria.min_age_unit_id}"]
+  step %[I select "#{data['max_unit']}" option by text from dropdown having id "#{EligiblityCriteria.max_age_unit_id}"]
+  step %[I click on element having xpath "//span[@class='save']"]
+  check_element_text("xpath", error_message, "//ul[@class='errorMessage']", true)
+end

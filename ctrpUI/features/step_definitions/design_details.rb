@@ -91,4 +91,79 @@ Then(/^these existing fields should be removed$/) do |table|
   step %[element having xpath "#{OutcomeMeasures.safety_issue_xpath}" should not be present]
 end
 
+#@PA_HIGH @FDAAA @CTRPMICRO-224
 
+Then(/^I verify validations for primary purpose "([^"]*)", trial phase "([^"]*)", Interventional Study Model "([^"]*)", Number of Arms "([^"]*)", masking "([^"]*)", allocation "([^"]*)", target enrollment "([^"]*)", error message "([^"]*)"$/) do |primary_purpose, trial_phase, interventional_study_model, number_of_arms, masking, allocation, target_enrollment, error_message|
+  data = {
+          'primary_purpose'     => primary_purpose,
+          'trial_phase'            => trial_phase,
+          'interventional_study_model'  => interventional_study_model,
+          'number_of_arms'   => number_of_arms,
+          'masking' => masking,
+          'allocation' => allocation,
+          'target_enrollment' => target_enrollment
+        }
+
+  # Replacing empty Strings with single quotes
+  data.each do |key, value|
+    data[key] = '' if data[key] == ''
+  end
+
+  design_details_fill_data(data, error_message)
+end
+
+def design_details_fill_data(data, error_message)
+  step %[I select "#{data['primary_purpose']}" option by text from dropdown having id "#{DesignDetails.primary_purpose_id}"]
+  step %[I select "#{data['trial_phase']}" option by text from dropdown having id "#{DesignDetails.trial_phase_id}"]
+  step %[I select "#{data['interventional_study_model']}" option by text from dropdown having id "#{DesignDetails.interventional_study_model_id}"]
+  step %[I clear input field having id "#{DesignDetails.number_of_arms_id}"]
+  step %[I enter "#{data['number_of_arms']}" into input field having id "#{DesignDetails.number_of_arms_id}"]
+  if(data['masking'].eql? 'Participant')
+    step %[I check the checkbox having id "#{DesignDetails.participant_id}"]
+  end
+  step %[I select "#{data['allocation']}" option by text from dropdown having id "#{DesignDetails.allocation_id}"]
+  step %[I clear input field having id "#{DesignDetails.enrollment_id}"]
+  step %[I enter "#{data['target_enrollment']}" into input field having id "#{DesignDetails.enrollment_id}"]
+  step %[I click on element having xpath "//span[@class='save']"]
+  check_element_text("xpath", error_message, "//ul[@class='errorMessage']", true)
+end
+
+#@PA_HIGH @FDAAA @CTRPMICRO-225
+
+Given(/^I fill all details and click save in Design Details page$/) do
+  step %[I select "Treatment" option by text from dropdown having id "#{DesignDetails.primary_purpose_id}"]
+  step %[I select "Early Phase 1" option by text from dropdown having id "#{DesignDetails.trial_phase_id}"] #unless data['trial_phase'].nil?
+  step %[I select "Single Group" option by text from dropdown having id "#{DesignDetails.interventional_study_model_id}"] #unless data['interventional_study_model'].nil?
+  step %[I enter "2" into input field having id "#{DesignDetails.number_of_arms_id}"] #unless data[''].nil?
+  step %[I check the checkbox having id "#{DesignDetails.participant_id}"] #unless data[''].nil?
+  step %[I select "NA" option by text from dropdown having id "#{DesignDetails.allocation_id}"] #unless data['allocation'].nil?
+  step %[I enter "1" into input field having id "#{DesignDetails.enrollment_id}"] #unless data[''].nil?
+  step %[I click on element having xpath "//span[@class='save']"]
+end
+
+#@pa_high @FDAAA @pa @CTRPMICRO-235, 230, 227
+
+Then(/^I verify confirm message "([^"]*)" is displayed$/) do |message|
+  expect(get_element_text("xpath","//div[@class='confirm_msg']").strip).eql?(message)
+end
+
+#@PA_HIGH @FDAAA @CTRPMICRO-226
+
+When(/^I enter all details except mandatory fields in Design Details page$/) do
+  step %[I select "" option by text from dropdown having id "#{DesignDetails.primary_purpose_id}"]
+  step %[I select "" option by text from dropdown having id "#{DesignDetails.trial_phase_id}"]
+  step %[I select "" option by text from dropdown having id "#{DesignDetails.interventional_study_model_id}"]
+  step %[I clear input field having id "#{DesignDetails.number_of_arms_id}"]
+  #step %[I check the checkbox having id "#{DesignDetails.participant_id}"]
+  step %[I select "" option by text from dropdown having id "#{DesignDetails.allocation_id}"]
+  step %[I clear input field having id "#{DesignDetails.enrollment_id}"]
+  step %[I click on element having xpath "//span[@class='save']"]
+end
+
+Then(/^I verify below error messages are displayed in Design Details page for mandatory fields$/) do |table|
+  table.hashes.each_with_index do |item, index|
+    #puts (index+1).to_s
+    xpath_ele = "(//ul[@class='errorMessage'])["+(index+1).to_s+"]"
+    expect(get_element_text("xpath",xpath_ele).strip).eql?(item['error_message'])
+  end
+end

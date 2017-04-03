@@ -18,7 +18,7 @@ Scenario: Verify the new fields are added to the Regulatory Information(PA) scre
   Given I login into CTRP and search for a trial with NCI ID "NCI-2017-00331"
   And I navigate to Regulatory Information screen
   Then newly added fields with options should be there
-    | Field Name                                   | List Of Value |
+    | Field Name                                   | List Of Value    |
     | Studies a U.S. FDA-regulated Drug Product    | No or Yes        |
     | Studies a U.S. FDA-regulated Device Product  | No or Yes        |
     | Post Prior to U.S. FDA Approval or Clearance | No or Yes        |

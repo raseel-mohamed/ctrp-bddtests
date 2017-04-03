@@ -74,3 +74,39 @@ Feature: Design Details
 #    When I go to Design Details section in PA app
 #    Then the "Accruals" in Design Details screen displays "9" as the count
 
+  @PA_HIGH @FDAAA @CTRPMICRO-224
+  Scenario Outline:To verify front end validations in Design Details section(PA)
+    Given I login into CTRP and search for a trial with NCI ID "NCI-2017-00331"
+    When I go to "Design Details" section in PA app
+    Then I verify validations for primary purpose "<primary_purpose>", trial phase "<trial_phase>", Interventional Study Model "<Interventional_Study_Model>", Number of Arms "<Number_of_Arms>", masking "<Masking>", allocation "<Allocation>", target enrollment "<Target_Enrollment>", error message "<error_message>"
+  Examples:
+    | primary_purpose | trial_phase   | Interventional_Study_Model | Number_of_Arms | Masking     | Allocation | Target_Enrollment | error_message                      |
+    |                 | Early Phase 1 | Single Group               | 1              | Participant | NA         | 1                 | Primary Purpose must be Entered    |
+    | Treatment       |               | Single Group               | 1              | Participant | NA         | 1                 | Trial Phase must be Entered        |
+    | Treatment       | Early Phase 1 |                            | 1              | Participant | NA         | 1                 | Intervention Model must be Entered |
+    | Treatment       | Early Phase 1 | Single Group               |                | Participant | NA         | 1                 | Number of Arms must be Entered     |
+    | Treatment       | Early Phase 1 | Single Group               | 1              |             | NA         | 1                 |                                    |
+    | Treatment       | Early Phase 1 | Single Group               | 1              | Participant |            | 1                 | Allocation must be Entered         |
+    | Treatment       | Early Phase 1 | Single Group               | 1              | Participant | NA         |                   | Target Enrollment must be Entered  |
+
+  @PA_HIGH @FDAAA @CTRPMICRO-225
+    Scenario: Verify the details filled  are saved in Design Details section(PA)
+      Given I login into CTRP and search for a trial with NCI ID "NCI-2017-00331"
+      When I go to "Design Details" section in PA app
+      And I fill all details and click save in Design Details page
+      Then I verify confirm message "Message. Record Updated." is displayed
+
+  @PA_HIGH @FDAAA @CTRPMICRO-226
+  Scenario:To verify All required field validations in Design Details section(PA)
+    Given I login into CTRP and search for a trial with NCI ID "NCI-2017-00331"
+    When I go to "Design Details" section in PA app
+    And I enter all details except mandatory fields in Design Details page
+    Then I verify below error messages are displayed in Design Details page for mandatory fields
+    | field_name                 | error_message                      |
+    | primary_purpose            | Primary Purpose must be Entered    |
+    | trial_phase                | Trial Phase must be Entered        |
+    | Interventional_Study_Model | Intervention Model must be Entered |
+    | Number_of_Arms             | Number of Arms must be Entered     |
+    | Masking                    |                                    |
+    | Allocation                 | Allocation must be Entered         |
+    | Target_Enrollment          | Target Enrollment must be Entered  |
