@@ -522,17 +522,80 @@ Feature: Import ct api
   Scenario: CT_API75. Import Trial with NCT ID: NCT03097640 to verify Number of Arms
     Given I want to Import a trial with NCT ID NCT03097640
     Then I want to verify the Number of Arms
-      | clinical Trial Field | CTRP field  |
-      | number_of_arms               | Number of Arms |
+      | clinical Trial Field | CTRP field     |
+      | number_of_arms       | Number of Arms |
 
   @IMPORT_CT_API_HIGH
-  Scenario: CT_API75. Import Trial with NCT ID: NCT03097640 to verify Enrollment
+  Scenario: CT_API76. Import Trial with NCT ID: NCT03097640 to verify Enrollment
     Given I want to Import a trial with NCT ID NCT03097640
     Then I want to verify the Target Enrollment
-      | clinical Trial Field | CTRP field  |
-      | enrollment               | Target Enrollment |
+      | clinical Trial Field | CTRP field        |
+      | enrollment           | Target Enrollment |
 
-  Scenario: CT_API76. Import Trial with NCT ID: NCT02512757 to verify Study Model: Case-Control
+  @IMPORT_CT_API_HIGH
+  Scenario: CT_API77. Import Trial with NCT ID: NCT03097640 to verify Clinical Trial Arm Type: NULL
+    Given I want to Import a trial with NCT ID NCT03097640
+    Then I want to verify the Arm
+      | clinical Trial Arm                   | CTRP Arm    |
+      | arm_group.arm_group_label            | Label       |
+      | arm_group.arm_group_type = Secondary | Type        |
+      | arm_group.description                | Description |
+
+  @IMPORT_CT_API_HIGH
+  Scenario: CT_API78. Import Trial with NCT ID: NCT03096457 to verify Clinical Trial Arm Type: Active Comparator
+    Given I want to Import a trial with NCT ID NCT03096457
+    Then I want to verify the Arm
+      | clinical Trial Arm                           | CTRP Arm                 |
+      | arm_group.arm_group_label                    | Label                    |
+      | arm_group.arm_group_type = Active Comparator | Type = Active Comparator |
+      | arm_group.description                        | Description              |
+
+  @IMPORT_CT_API_HIGH
+  Scenario: CT_API79. Import Trial with NCT ID: NCT03096457 to verify Clinical Trial Arm Type: Experimental
+    Given I want to Import a trial with NCT ID NCT03096457
+    Then I want to verify the Arm
+      | clinical Trial Arm                      | CTRP Arm            |
+      | arm_group.arm_group_label               | Label               |
+      | arm_group.arm_group_type = Experimental | Type = Experimental |
+      | arm_group.description                   | Description         |
+
+  @IMPORT_CT_API_HIGH
+  Scenario: CT_API80. Import Trial with NCT ID: NCT02827994 to verify Clinical Trial Arm Type: No Intervention
+    Given I want to Import a trial with NCT ID NCT02827994
+    Then I want to verify the Arm
+      | clinical Trial Arm                         | CTRP Arm               |
+      | arm_group.arm_group_label                  | Label                  |
+      | arm_group.arm_group_type = No Intervention | Type = No Intervention |
+      | arm_group.description                      | Description            |
+
+  @IMPORT_CT_API_HIGH
+  Scenario: CT_API81. Import Trial with NCT ID: NCT03098537 to verify Clinical Trial Arm Type: Other
+    Given I want to Import a trial with NCT ID NCT03098537
+    Then I want to verify the Arm
+      | clinical Trial Arm               | CTRP Arm     |
+      | arm_group.arm_group_label        | Label        |
+      | arm_group.arm_group_type = Other | Type = Other |
+      | arm_group.description            | Description  |
+
+  @IMPORT_CT_API_HIGH
+  Scenario: CT_API82. Import Trial with NCT ID: NCT03096457 to verify Clinical Trial Arm Type: Placebo Comparator
+    Given I want to Import a trial with NCT ID NCT03096457
+    Then I want to verify the Arm
+      | clinical Trial Arm                            | CTRP Arm                  |
+      | arm_group.arm_group_label                     | Label                     |
+      | arm_group.arm_group_type = Placebo Comparator | Type = Placebo Comparator |
+      | arm_group.description                         | Description               |
+
+  @IMPORT_CT_API_HIGH
+  Scenario: CT_API83. Import Trial with NCT ID: NCT00819182 to verify Clinical Trial Arm Type: Sham Comparator
+    Given I want to Import a trial with NCT ID NCT00819182
+    Then I want to verify the Arm
+      | clinical Trial Arm                         | CTRP Arm               |
+      | arm_group.arm_group_label                  | Label                  |
+      | arm_group.arm_group_type = Sham Comparator | Type = Sham Comparator |
+      | arm_group.description                      | Description            |
+
+  Scenario: CT_API84. Import Trial with NCT ID: NCT02512757 to verify Study Model: Case-Control
     Given I want to Import a trial with NCT ID NCT02512757
     Then I want to verify the Study Model
       | clinical Trial Study Model | CTRP fields  |
