@@ -46,10 +46,15 @@ before_script:
   - echo $DBSERVERPORT
   - echo $DBSCHEMA
   - echo $DBDUMPPA
-  - pwd
-  - ls
-  - ls ..
-  - ls ../..
+
+  - psql -h $DBSERVERHOST -U $DBUSER -d $DBSCHEMA -f Scripts/listorgs.sql
+#  - psql -h $DBSERVERHOST -v v1=$DBUSER -U $DBUSER -p $DBSERVERPORT -d $DBSCHEMA -f Scripts/truncate.sql
+#  - psql -h $DBSERVERHOST -U $DBUSER -d $DBSCHEMA -f Scripts/listorgs.sql
+#  - if pg_restore -h $DBSERVERHOST -U $DBUSER -p $DBSERVERPORT -d $DBSCHEMA -v $DBDUMPPO.data; then echo $?; fi
+#  - psql -h $DBSERVERHOST -U $DBUSER -d $DBSCHEMA -f Scripts/listorgs.sql
+
+
+
   # - if pg_restore -h $DBSERVERHOST -U $DBUSER -p $DBSERVERPORT -d $DBSCHEMA -Fc $DBDUMPPA 2> /dev/null; then echo $?; fi
 
   # PO database
