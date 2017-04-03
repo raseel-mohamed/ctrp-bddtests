@@ -47,7 +47,7 @@ before_script:
   - echo $DBSCHEMA
   - echo $DBDUMPPA
 
-  - psql -h $DBSERVERHOST -U $DBUSER -d $DBSCHEMA -f Scripts/listorgs.sql
+  - psql -h $DBSERVERHOST -U $DBUSER -d $DBSCHEMA -f SQL/listorgs.sql
 #  - psql -h $DBSERVERHOST -v v1=$DBUSER -U $DBUSER -p $DBSERVERPORT -d $DBSCHEMA -f Scripts/truncate.sql
 #  - psql -h $DBSERVERHOST -U $DBUSER -d $DBSCHEMA -f Scripts/listorgs.sql
 #  - if pg_restore -h $DBSERVERHOST -U $DBUSER -p $DBSERVERPORT -d $DBSCHEMA -v $DBDUMPPO.data; then echo $?; fi
