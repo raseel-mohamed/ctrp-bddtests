@@ -7,7 +7,7 @@ Feature: Tests for CTRP ECM Microservice for DTO messages from CTEP
 
   @PA_HIGH @FDAAA @PO @CTRPMICRO-199
   Scenario: CTEPECM_API02. GET ResearchOrganization from from ECM service
-    Given I send a GET request for "http://129.43.165.163:3300/api/v1/ecmservice/ResearchOrganization/CIRB-PA121" for ResearchOrganization
+    Given I send a GET request for "/ResearchOrganization/CIRB-PA121" for ResearchOrganization
     Then the response should be JSON
     Then the response status code should be '200'
     Then the JSON response should be:
@@ -24,7 +24,7 @@ Feature: Tests for CTRP ECM Microservice for DTO messages from CTEP
     """
   @PA_HIGH @FDAAA @PO @CTRPMICRO-204
   Scenario: CTEPECM_API03. GET Organization from from ECM service
-    Given I send a GET request for "http://129.43.165.163:3300/api/v1/ecmservice/Organization/CIRB-NC004" for Organization
+    Given I send a GET request for "/Organization/CIRB-NC004" for Organization
     Then the response should be JSON
     Then the response status code should be '200'
     Then the JSON response should be:
@@ -43,7 +43,7 @@ Feature: Tests for CTRP ECM Microservice for DTO messages from CTEP
 
   @PA_HIGH @FDAAA @PO @CTRPMICRO-208
   Scenario: CTEPECM_API04. GET HealthCareFacility from from ECM service
-    Given I send a GET request for "http://129.43.165.163:3300/api/v1/ecmservice/HealthCareFacility/WA082" for HealthCareFacility
+    Given I send a GET request for "/HealthCareFacility/WA082" for HealthCareFacility
     Then the response should be JSON
     Then the response status code should be '200'
     Then the JSON response should be:
