@@ -40,9 +40,12 @@ before_script:
   - export DBSCHEMA=$DBSCHEMAPA
   - pwd
   - ls
-  - cd
+  - mkdir SQL
+  - aws s3 cp s3://ctrp-db-dumps/Scripts/listorgs.sql ./SQL/
+  - aws s3 cp s3://ctrp-db-dumps/Scripts/truncate.sql ./SQL/
   - pwd
   - ls
+  - ls SQL
   - aws s3 ls s3://ctrp-db-dumps/$DBDUMPPA --region us-east-1
   - aws s3 cp s3://ctrp-db-dumps/$DBDUMPPA . --region us-east-1
   - pg_restore -V
