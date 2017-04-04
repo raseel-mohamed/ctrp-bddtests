@@ -619,9 +619,8 @@ Feature: Import ct api
       | eligibility.gender_based    | Gender      |
 
   @IMPORT_CT_API_HIGH
-#not able to find a trial with gender description
-  Scenario: CT_API87. Import Trial with NCT ID: NCT00819182 to verify Clinical Trial Gender description
-    Given I want to Import a trial with NCT ID NCT00819182
+  Scenario: CT_API87. Import Trial with NCT ID: NCT03098420 to verify Clinical Trial Gender description
+    Given I want to Import a trial with NCT ID NCT03098420
     Then I want to verify the Gender Description
       | clinical Trial Gender Based | CTRP Gender        |
       | Gender description          | Gender description |
