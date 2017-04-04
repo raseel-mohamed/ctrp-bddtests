@@ -43,8 +43,8 @@ before_script:
   - cd ctrp-bddtests
   - ls
   - which aws
-  - aws s3 cp s3://ctrp-db-dumps/Scripts/listorgs.sql ./SQL/
-  - aws s3 cp s3://ctrp-db-dumps/Scripts/truncate.sql ./SQL/
+#  - aws s3 cp s3://ctrp-db-dumps/Scripts/listorgs.sql ./SQL/
+#  - aws s3 cp s3://ctrp-db-dumps/Scripts/truncate.sql ./SQL/
   - pwd
   - ls
   - ls SQL
