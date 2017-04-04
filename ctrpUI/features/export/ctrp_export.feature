@@ -128,9 +128,39 @@ Feature: Export
   @EXPORT_HIGH
   Scenario: EXPORT_26 Validate the new FDAAA field: no_masking = Yes
     Given I click to view xml of "NCI-2017-00333"
-    Then the field "study_design.interventional_design.no_masking" with "Yes" is there
+    Then the field "study_design.interventional_design.no_masking" with "Yes" should be there
 
   @EXPORT_HIGH
   Scenario: EXPORT_27 Validate the new FDAAA field: no_masking = No
     Given I click to view xml of "NCI-2017-00333"
-    Then the field "study_design.interventional_design.no_masking" with "No" is there
+    Then the field "study_design.interventional_design.no_masking" with "No" should be there
+
+  @EXPORT_HIGH
+  Scenario: EXPORT_28 Validate the field: Sex = Male
+    Given I click to view xml of "NCI-2017-00333"
+    Then the field "eligibility.gender" with "Male" should be there
+
+  @EXPORT_HIGH
+  Scenario: EXPORT_29 Validate the field: Sex = Female
+    Given I click to view xml of "NCI-2017-00333"
+    Then the field "eligibility.gender" with "Female" should be there
+
+  @EXPORT_HIGH
+  Scenario: EXPORT_30 Validate the field: Sex = All
+    Given I click to view xml of "NCI-2017-00333"
+    Then the field "eligibility.gender" with "All" should be there
+
+  @EXPORT_HIGH
+  Scenario: EXPORT_31 Validate the field: has_expanded_access = Yes
+    Given I click to view xml of "NCI-2017-00333"
+    Then the field "indinfo.has_expanded_access" with "Yes" should be there
+
+  @EXPORT_HIGH
+  Scenario: EXPORT_32 Validate the field: has_expanded_access = No
+    Given I click to view xml of "NCI-2017-00333"
+    Then the field "indinfo.has_expanded_access" with "No" should be there
+
+  @EXPORT_HIGH
+  Scenario: EXPORT_33 Validate the field: has_expanded_access = Unknown
+    Given I click to view xml of "NCI-2017-00333"
+    Then the field "indinfo.has_expanded_access" with "Unknown" should be there
