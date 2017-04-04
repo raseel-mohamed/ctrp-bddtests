@@ -48,10 +48,10 @@ before_script:
   - echo $DBSCHEMA
   - echo $DBDUMPPA
 
-  - psql -h $DBSERVERHOST -U $DBUSER -d $DBSCHEMA -f SQL/listorgs.sql
-  - psql -h $DBSERVERHOST -v v1=$DBUSER -U $DBUSER -p $DBSERVERPORT -d $DBSCHEMA -f SQL/truncate.sql
-  - psql -h $DBSERVERHOST -U $DBUSER -d $DBSCHEMA -f SQL/listorgs.sql
-  - if pg_restore -h $DBSERVERHOST -U $DBUSER -p $DBSERVERPORT -d $DBSCHEMA -v $DBDUMPPA.data; then echo $?; fi
+#  - psql -h $DBSERVERHOST -U $DBUSER -d $DBSCHEMA -f SQL/listorgs.sql
+#  - psql -h $DBSERVERHOST -v v1=$DBUSER -U $DBUSER -p $DBSERVERPORT -d $DBSCHEMA -f SQL/truncate.sql
+#  - psql -h $DBSERVERHOST -U $DBUSER -d $DBSCHEMA -f SQL/listorgs.sql
+#  - if pg_restore -h $DBSERVERHOST -U $DBUSER -p $DBSERVERPORT -d $DBSCHEMA -v $DBDUMPPA.data; then echo $?; fi
   - psql -h $DBSERVERHOST -U $DBUSER -d $DBSCHEMA -f SQL/listorgs.sql
 
 
@@ -64,10 +64,10 @@ before_script:
   - export DBSCHEMA=$DBSCHEMAPO
   - aws s3 ls s3://ctrp-db-dumps/$DBDUMPPO --region us-east-1
   - aws s3 cp s3://ctrp-db-dumps/$DBDUMPPO.data . --region us-east-1
-  - psql -h $DBSERVERHOST -U $DBUSER -d $DBSCHEMA -f SQL/listorgs.sql
-  - psql -h $DBSERVERHOST -v v1=$DBUSER -U $DBUSER -p $DBSERVERPORT -d $DBSCHEMA -f SQL/truncate.sql
-  - psql -h $DBSERVERHOST -U $DBUSER -d $DBSCHEMA -f SQL/listorgs.sql
-  - if pg_restore -h $DBSERVERHOST -U $DBUSER -p $DBSERVERPORT -d $DBSCHEMA -v $DBDUMPPO.data; then echo $?; fi
+#  - psql -h $DBSERVERHOST -U $DBUSER -d $DBSCHEMA -f SQL/listorgs.sql
+#  - psql -h $DBSERVERHOST -v v1=$DBUSER -U $DBUSER -p $DBSERVERPORT -d $DBSCHEMA -f SQL/truncate.sql
+#  - psql -h $DBSERVERHOST -U $DBUSER -d $DBSCHEMA -f SQL/listorgs.sql
+#  - if pg_restore -h $DBSERVERHOST -U $DBUSER -p $DBSERVERPORT -d $DBSCHEMA -v $DBDUMPPO.data; then echo $?; fi
   - psql -h $DBSERVERHOST -U $DBUSER -d $DBSCHEMA -f Scripts/listorgs.sql
 
 
