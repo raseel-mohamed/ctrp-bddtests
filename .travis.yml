@@ -60,7 +60,7 @@ before_script:
   - psql -h $DBSERVERHOST -U $DBUSER -d $DBSCHEMA -f SQL/listorgs.sql
   - psql -h $DBSERVERHOST -v v1=$DBUSER -U $DBUSER -p $DBSERVERPORT -d $DBSCHEMA -f SQL/truncate.sql
   - psql -h $DBSERVERHOST -U $DBUSER -d $DBSCHEMA -f SQL/listorgs.sql
-  - if pg_restore -h $DBSERVERHOST -U $DBUSER -p $DBSERVERPORT -d $DBSCHEMA -v $DBDUMPPO.data; then echo $?; fi
+  - if pg_restore -h $DBSERVERHOST -U $DBUSER -p $DBSERVERPORT -d $DBSCHEMA -v $DBDUMPPA.data; then echo $?; fi
   - psql -h $DBSERVERHOST -U $DBUSER -d $DBSCHEMA -f SQL/listorgs.sql
 
 
