@@ -19,6 +19,22 @@ class DesignDetails
   @caregiver_id = 'caregiver'
   @outcomesassessor_id = 'outcomesassessor'
   @masking_role_label_xpath = "//tr[@id='blindingRoleCode']/td[@class='label']"
+  @design_details_save_xpath = "//span[@class='save']"
+  @number_of_arms_id = "interventionGroup"
+  @allocation_id = "allocation"
+  @enrollment_id = "enrollment"
+
+  def self.enrollment_id
+    @enrollment_id
+  end
+
+  def self.allocation_id
+    @allocation_id
+  end
+
+  def self.number_of_arms_id
+    @number_of_arms_id
+  end
 
   def self.masking_role_label_xpath
     @masking_role_label_xpath
@@ -96,4 +112,7 @@ class DesignDetails
     @interventional_study_model_id
   end
 
+  def self.design_details_save_xpath
+    @design_details_save_xpath
+  end
 end

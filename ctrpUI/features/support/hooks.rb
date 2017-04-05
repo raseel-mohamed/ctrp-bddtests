@@ -40,6 +40,7 @@ Before do |scenario|
     begin
       $driver = Selenium::WebDriver.for(:"#{$browser_type}")
       $driver.manage().window().maximize()
+      $driver.manage().delete_all_cookies
     rescue Exception => e
       puts e.message
       Process.exit(0)

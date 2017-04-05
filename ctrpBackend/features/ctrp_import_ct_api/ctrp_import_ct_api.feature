@@ -540,17 +540,211 @@ Feature: Import ct api
   Scenario: CT_API75. Import Trial with NCT ID: NCT03097640 to verify Number of Arms
     Given I want to Import a trial with NCT ID NCT03097640
     Then I want to verify the Number of Arms
-      | clinical Trial Field | CTRP field  |
-      | number_of_arms               | Number of Arms |
+      | clinical Trial Field | CTRP field     |
+      | number_of_arms       | Number of Arms |
 
   @IMPORT_CT_API_HIGH
-  Scenario: CT_API75. Import Trial with NCT ID: NCT03097640 to verify Enrollment
+  Scenario: CT_API76. Import Trial with NCT ID: NCT03097640 to verify Enrollment
     Given I want to Import a trial with NCT ID NCT03097640
     Then I want to verify the Target Enrollment
-      | clinical Trial Field | CTRP field  |
-      | enrollment               | Target Enrollment |
+      | clinical Trial Field | CTRP field        |
+      | enrollment           | Target Enrollment |
 
-  Scenario: CT_API76. Import Trial with NCT ID: NCT02512757 to verify Study Model: Case-Control
+  @IMPORT_CT_API_HIGH
+  Scenario: CT_API77. Import Trial with NCT ID: NCT03097640 to verify Clinical Trial Arm Type: NULL
+    Given I want to Import a trial with NCT ID NCT03097640
+    Then I want to verify the Arm
+      | clinical Trial Arm                   | CTRP Arm    |
+      | arm_group.arm_group_label            | Label       |
+      | arm_group.arm_group_type = Secondary | Type        |
+      | arm_group.description                | Description |
+
+  @IMPORT_CT_API_HIGH
+  Scenario: CT_API78. Import Trial with NCT ID: NCT03096457 to verify Clinical Trial Arm Type: Active Comparator
+    Given I want to Import a trial with NCT ID NCT03096457
+    Then I want to verify the Arm
+      | clinical Trial Arm                           | CTRP Arm                 |
+      | arm_group.arm_group_label                    | Label                    |
+      | arm_group.arm_group_type = Active Comparator | Type = Active Comparator |
+      | arm_group.description                        | Description              |
+
+  @IMPORT_CT_API_HIGH
+  Scenario: CT_API79. Import Trial with NCT ID: NCT03096457 to verify Clinical Trial Arm Type: Experimental
+    Given I want to Import a trial with NCT ID NCT03096457
+    Then I want to verify the Arm
+      | clinical Trial Arm                      | CTRP Arm            |
+      | arm_group.arm_group_label               | Label               |
+      | arm_group.arm_group_type = Experimental | Type = Experimental |
+      | arm_group.description                   | Description         |
+
+  @IMPORT_CT_API_HIGH
+  Scenario: CT_API80. Import Trial with NCT ID: NCT02827994 to verify Clinical Trial Arm Type: No Intervention
+    Given I want to Import a trial with NCT ID NCT02827994
+    Then I want to verify the Arm
+      | clinical Trial Arm                         | CTRP Arm               |
+      | arm_group.arm_group_label                  | Label                  |
+      | arm_group.arm_group_type = No Intervention | Type = No Intervention |
+      | arm_group.description                      | Description            |
+
+  @IMPORT_CT_API_HIGH
+  Scenario: CT_API81. Import Trial with NCT ID: NCT03098537 to verify Clinical Trial Arm Type: Other
+    Given I want to Import a trial with NCT ID NCT03098537
+    Then I want to verify the Arm
+      | clinical Trial Arm               | CTRP Arm     |
+      | arm_group.arm_group_label        | Label        |
+      | arm_group.arm_group_type = Other | Type = Other |
+      | arm_group.description            | Description  |
+
+  @IMPORT_CT_API_HIGH
+  Scenario: CT_API82. Import Trial with NCT ID: NCT03096457 to verify Clinical Trial Arm Type: Placebo Comparator
+    Given I want to Import a trial with NCT ID NCT03096457
+    Then I want to verify the Arm
+      | clinical Trial Arm                            | CTRP Arm                  |
+      | arm_group.arm_group_label                     | Label                     |
+      | arm_group.arm_group_type = Placebo Comparator | Type = Placebo Comparator |
+      | arm_group.description                         | Description               |
+
+  @IMPORT_CT_API_HIGH
+  Scenario: CT_API83. Import Trial with NCT ID: NCT00819182 to verify Clinical Trial Arm Type: Sham Comparator
+    Given I want to Import a trial with NCT ID NCT00819182
+    Then I want to verify the Arm
+      | clinical Trial Arm                         | CTRP Arm               |
+      | arm_group.arm_group_label                  | Label                  |
+      | arm_group.arm_group_type = Sham Comparator | Type = Sham Comparator |
+      | arm_group.description                      | Description            |
+
+  @IMPORT_CT_API_HIGH
+  Scenario: CT_API84. Import Trial with NCT ID: NCT03098212 to verify Clinical Trial Eligibility Criterion Type = “INCLUSION”
+    Given I want to Import a trial with NCT ID NCT03098212
+    Then I want to verify the Eligibility Criterion
+      | clinical Trial Eligibility Criterion   | CTRP Eligibility Criterion |
+      | Eligibility Criterion Type = INCLUSION | Type = INCLUSION           |
+      | description                            | Description                |
+
+  @IMPORT_CT_API_HIGH
+  Scenario: CT_API85. Import Trial with NCT ID: NCT03098212 to verify Clinical Trial Eligibility Criterion Type = “EXCLUSION”
+    Given I want to Import a trial with NCT ID NCT03098212
+    Then I want to verify the Eligibility Criterion
+      | clinical Trial Eligibility Criterion   | CTRP Eligibility Criterion |
+      | Eligibility Criterion Type = EXCLUSION | Type = EXCLUSION           |
+      | description                            | Description                |
+
+  @IMPORT_CT_API_HIGH
+  Scenario: CT_API86. Import Trial with NCT ID: NCT03098355 to verify Clinical Trial Gender based
+    Given I want to Import a trial with NCT ID NCT03098355
+    Then I want to verify the Gender Based
+      | clinical Trial Gender Based | CTRP Gender |
+      | eligibility.gender_based    | Gender      |
+
+
+    #not able to find a trial with gender description
+  @IMPORT_CT_API_HIGH
+  Scenario: CT_API87. Import Trial with NCT ID: NCT00819182 to verify Clinical Trial Gender description
+    Given I want to Import a trial with NCT ID NCT00819182
+    Then I want to verify the Gender Description
+      | clinical Trial Gender Based | CTRP Gender        |
+      | Gender description          | Gender description |
+
+  @IMPORT_CT_API_HIGH
+  Scenario: CT_API88. Import Trial with NCT ID: NCT00947284 to verify Clinical Trial Gender: Male
+    Given I want to Import a trial with NCT ID NCT00947284
+    Then I want to verify the Sex
+      | clinical Trial Gender     | CTRP Sex |
+      | eligibility.gender = Male | Male     |
+
+  @IMPORT_CT_API_HIGH
+  Scenario: CT_API89. Import Trial with NCT ID: NCT02181595 to verify Clinical Trial Gender: Female
+    Given I want to Import a trial with NCT ID NCT02181595
+    Then I want to verify the Sex
+      | clinical Trial Gender       | CTRP Sex |
+      | eligibility.gender = Female | Female   |
+
+  @IMPORT_CT_API_HIGH
+  Scenario: CT_API90. Import Trial with NCT ID: NCT01827657 to verify Clinical Trial Gender: All
+    Given I want to Import a trial with NCT ID NCT01827657
+    Then I want to verify the Sex
+      | clinical Trial Gender    | CTRP Sex |
+      | eligibility.gender = All | All      |
+
+  @IMPORT_CT_API_HIGH
+  Scenario: CT_API91. Import Trial with NCT ID: NCT03098355 to verify minimum age
+    Given I want to Import a trial with NCT ID NCT03098355
+    Then I want to verify the minimum age
+      | clinical Trial          | CTRP Age    |
+      | eligibility.minimum_age | minimum age |
+
+  @IMPORT_CT_API_MEDIUM
+  Scenario: CT_API92. Import Trial with NCT ID: NCT03098355 to verify minimum age = N/A
+    Given I want to Import a trial with NCT ID NCT03098355
+    Then I want to verify the minimum age
+      | clinical Trial                | CTRP Age |
+      | eligibility.minimum_age = N/A | 0        |
+    And Units of Measurement should be Years
+
+  @IMPORT_CT_API_MEDIUM
+  Scenario: CT_API93. Import Trial with NCT ID: NCT03098355 to verify minimum & maximum age, Units of Measurement = Years
+    Given I want to Import a trial with NCT ID NCT03098355
+    Then I want to verify the minimum & maximum age, Units of Measurement
+      | clinical Trial Units of Measurement                    | CTRP Units of Measurement |
+      | eligibility.minimum_age (Units of Measurement = Years) | Years                     |
+      | eligibility.maximum_age (Units of Measurement = Years) | Years                     |
+
+  @IMPORT_CT_API_LOW
+  Scenario: CT_API94. Import Trial with NCT ID: NCT03094247 to verify minimum & maximum age, Units of Measurement = Months
+    Given I want to Import a trial with NCT ID NCT03094247
+    Then I want to verify the minimum & maximum age, Units of Measurement
+      | clinical Trial Units of Measurement                     | CTRP Units of Measurement |
+      | eligibility.minimum_age (Units of Measurement = Months) | Months                    |
+      | eligibility.maximum_age (Units of Measurement = Months) | Months                    |
+
+  @IMPORT_CT_API_LOW
+  Scenario: CT_API95. Import Trial with NCT ID: NCT03093337 to verify minimum & maximum age, Units of Measurement = Weeks
+    Given I want to Import a trial with NCT ID NCT03093337
+    Then I want to verify the minimum & maximum age, Units of Measurement
+      | clinical Trial Units of Measurement                    | CTRP Units of Measurement |
+      | eligibility.minimum_age (Units of Measurement = Weeks) | Weeks                     |
+      | eligibility.maximum_age (Units of Measurement = Weeks) | Weeks                     |
+
+  @IMPORT_CT_API_LOW
+  Scenario: CT_API96. Import Trial with NCT ID: NCT03081936 to verify minimum & maximum age, Units of Measurement = Days
+    Given I want to Import a trial with NCT ID NCT03081936
+    Then I want to verify the minimum & maximum age, Units of Measurement
+      | clinical Trial Units of Measurement                   | CTRP Units of Measurement |
+      | eligibility.minimum_age (Units of Measurement = Days) | Days                      |
+      | eligibility.maximum_age (Units of Measurement = Days) | Days                      |
+
+  @IMPORT_CT_API_LOW
+  Scenario: CT_API97. Import Trial with NCT ID: NCT03098069 to verify minimum & maximum age, Units of Measurement = Minutes
+    Given I want to Import a trial with NCT ID NCT03098069
+    Then I want to verify the minimum & maximum age, Units of Measurement
+      | clinical Trial Units of Measurement                      | CTRP Units of Measurement |
+      | eligibility.minimum_age (Units of Measurement = Minutes) | Minutes                   |
+      | eligibility.maximum_age (Units of Measurement = Minutes) | Minutes                   |
+
+  @IMPORT_CT_API_LOW
+  Scenario: CT_API98. Import Trial with NCT ID: NCT03079167 to verify minimum & maximum age, Units of Measurement = Hours
+    Given I want to Import a trial with NCT ID NCT03079167
+    Then I want to verify the minimum & maximum age, Units of Measurement
+      | clinical Trial Units of Measurement                    | CTRP Units of Measurement |
+      | eligibility.minimum_age (Units of Measurement = Hours) | Hours                     |
+      | eligibility.maximum_age (Units of Measurement = Hours) | Hours                     |
+
+  @IMPORT_CT_API_HIGH
+  Scenario: CT_API99. Import Trial with NCT ID: NCT03085680 to verify maximum age
+    Given I want to Import a trial with NCT ID NCT03085680
+    Then I want to verify the maximum age
+      | clinical Trial          | CTRP Age    |
+      | eligibility.maximum_age | maximum age |
+
+  @IMPORT_CT_API_MEDIUM
+  Scenario: CT_API100. Import Trial with NCT ID: NCT03095716 to verify maximum age = N/A
+    Given I want to Import a trial with NCT ID NCT03095716
+    Then I want to verify the maximum age
+      | clinical Trial                | CTRP Age |
+      | eligibility.maximum_age = N/A | 999      |
+    And Units of Measurement should be Years
+
+  Scenario: CT_API101. Import Trial with NCT ID: NCT02512757 to verify Study Model: Case-Control
     Given I want to Import a trial with NCT ID NCT02512757
     Then I want to verify the Study Model
       | clinical Trial Study Model | CTRP fields  |

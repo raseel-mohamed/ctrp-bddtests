@@ -121,3 +121,46 @@ Feature: Eligibility Criteria
     Then these existing fields value should be updated
       | Field Name            | Existing Field Value | New Field Value |
       | Sex(old name: Gender) | Both                 | All             |
+
+ @PA_HIGH @FDAAA @UI @CTRPMICRO-227
+  Scenario: Verify the details filled are saved in Eligibility Criteria section(PA)
+    Given I login into CTRP and search for a trial with NCI ID "NCI-2017-00331"
+    When I click on "Eligibility Criteria" link
+    And I fill all details and click save in Eligibility Criteria page
+    Then I verify confirm message "Message. Record Updated." is displayed
+
+  @PA_HIGH @FDAAA @UI @CTRPMICRO-228
+  Scenario Outline:To verify front end validations in Eligibility Criteria section(PA)
+    Given I login into CTRP and search for a trial with NCI ID "NCI-2017-00331"
+    When I click on "Eligibility Criteria" link
+    Then I verify validations for accepts healthy volunteers  "<accepts_healthy_volunteers>", sex  "<sex>", minimum age  "<minimum_age>",  maximum age "<maximum_age>", min unit "<min_unit>", max unit "<max_unit>", error message "<error_message>"
+    Examples:
+      | accepts_healthy_volunteers | sex | minimum_age | maximum_age | min_unit | max_unit | error_message                                             |
+      |                            | All | 10          | 40          | Years    | Years    | AHVIndicator must be Entered                              |
+      | No                         |     | 10          | 40          | Years    | Years    | GenderCode must be Entered                                |
+      | No                         | All |             | 40          | Years    | Years    | Minimum Age must be Entered\nPlease Enter a numeric value |
+      | No                         | All | 10          |             | Years    | Years    | Maximum Age must be Entered\nPlease Enter a numeric value |
+      | No                         | All | 10          | 40          |          | Years    | Unit must be Entered                                      |
+      | No                         | All | 10          | 40          | Years    |          | Unit must be Entered                                      |
+
+  @PA_HIGH @FDAAA @UI @CTRPMICRO-229
+  Scenario:To verify All required field validations in Eligibility Criteria section(PA)
+    Given I login into CTRP and search for a trial with NCI ID "NCI-2017-00331"
+    When I click on "Eligibility Criteria" link
+    And I enter all details except mandatory fields in Eligibility Criteria section(PA)
+    Then I verify below error messages are displayed in Eligibility Criteria (PA) for mandatory fields
+      | field_name                 | error_message                                            |
+      | accepts_healthy_volunteers | AHVIndicator must be Entered                             |
+      | sex                        | GenderCode must be Entered                               |
+      | minimum_age                | Minimum Age must be Entered Please Enter a numeric value |
+      | maximum_age                | Maximum Age must be Entered Please Enter a numeric value |
+      | unit                       | Unit must be Entered                                     |
+      | unit                       | Unit must be Entered                                     |
+
+
+  @PA_HIGH @FDAAA @UI @CTRPMICRO-246
+  Scenario: Verify the details filled are saved in Eligibility Criteria section(PA) for an Imported trial
+    Given I login into CTRP and search for an Imported trial with NCI ID "NCI-2017-00293"
+    When I click on "Eligibility Criteria" link
+    And I fill all details and click save in Eligibility Criteria page
+    Then I verify confirm message "Message. Record Updated." is displayed

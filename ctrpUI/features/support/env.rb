@@ -5,6 +5,7 @@ require 'selenium-cucumber'
 # require 'rest-client'
 # require 'rspec/expectations'
 # require 'test/unit/assertions'
+require 'pg'
 # include Test::Unit::Assertions
 
 # Store command line arguments
@@ -43,6 +44,9 @@ case ENV['APP_ENV_SELECT']
     ENV['PA_APP'] = base_int_pa + pa_app
     ENV['REG_APP'] = base_int_pa + registry_app
     ENV['ACCRUAL_APP'] = base_int_pa + accrual_app
+    ENV['db_hostname'] = 'ctrp.clb9vkosemwm.us-east-1.rds.amazonaws.com'
+    ENV['db_port'] = '5432'
+    ENV['db_name'] = 'pa_ctrpn'
   when 'uat'
     ENV['PO_APP'] = base_uat_po + po_app
     ENV['PA_APP'] = base_uat_pa + pa_app
