@@ -156,3 +156,11 @@ Feature: Eligibility Criteria
       | maximum_age                | Maximum Age must be Entered Please Enter a numeric value |
       | unit                       | Unit must be Entered                                     |
       | unit                       | Unit must be Entered                                     |
+
+
+  @PA_HIGH @FDAAA @UI @CTRPMICRO-246
+  Scenario: Verify the details filled are saved in Eligibility Criteria section(PA) for an Imported trial
+    Given I login into CTRP and search for an Imported trial with NCI ID "NCI-2017-00293"
+    When I click on "Eligibility Criteria" link
+    And I fill all details and click save in Eligibility Criteria page
+    Then I verify confirm message "Message. Record Updated." is displayed

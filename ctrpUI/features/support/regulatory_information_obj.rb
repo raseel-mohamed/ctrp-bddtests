@@ -21,6 +21,7 @@ class RegulatoryInformation
   @fda_regulated_intervention_xpath = ".//*[@id='fdaindid']"
   @section_801_xpath = ".//*[@id='sec801id']"
   @data_monitoring_xpath = ".//*[@id='datamonid']"
+  @pediatric_postmarket_sur_xpath = "//label[@for='surveillance']"
 
   #xpath for the new fields in Regulatory Information screen.
 
@@ -33,6 +34,9 @@ class RegulatoryInformation
   @pediatric_xpath_no = "//*[@id='surveillance']/option[2]"
   @pediatric_xpath_yes = "//*[@id='surveillance']/option[3]"
 
+  def self.pediatric_postmarket_sur_xpath
+    @pediatric_postmarket_sur_xpath
+  end
   def self.drug_approval_dropdown_id
     @drug_approval_dropdown_id
   end

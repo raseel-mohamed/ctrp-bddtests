@@ -144,7 +144,8 @@ end
 #@pa_high @FDAAA @pa @CTRPMICRO-235, 230, 227
 
 Then(/^I verify confirm message "([^"]*)" is displayed$/) do |message|
-  expect(get_element_text("xpath","//div[@class='confirm_msg']").strip).eql?(message)
+  ele_text = get_element_text("xpath","//div[@class='confirm_msg']")
+  expect(ele_text.strip).to eq message
 end
 
 #@PA_HIGH @FDAAA @CTRPMICRO-226

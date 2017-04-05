@@ -66,3 +66,11 @@ Feature: IND/IDE
       | grantor                         | Grantor must be Entered                   |
       | holder_type                     | Holder Type must be Entered               |
       | Availability_of_Expanded_Access | Expanded Access Indicator must be Entered |
+
+  @pa_high @FDAAA @pa @CTRPMICRO-244
+  Scenario: Verify all the fields in the IND/IDE(PA) screen filled are saved for an imported trail
+    Given I login into CTRP and search for an Imported trial with NCI ID "NCI-2017-00293"
+    And I navigate to IND/IDE screen
+    When I click on Add button
+    And I fill all details and click save in IND/IDE(PA) screen
+    Then I verify confirm message "Message. Record Updated." is displayed

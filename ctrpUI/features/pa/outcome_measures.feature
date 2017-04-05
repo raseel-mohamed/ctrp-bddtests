@@ -55,3 +55,10 @@ Feature: Outcome Measures
       | Outcome_Measure_Type | Outcome Measure Type must be Entered |
       | Title                | Title must be Entered                |
       | Time_Frame           | Time Frame must be Entered           |
+
+  @PA_HIGH  @FDAAA  @PA @CTRPMICRO-247
+  Scenario: Verify the details filled are saved in Outcome Measures section(PA) for an Imported trial
+    Given I login into CTRP and search for an Imported trial with NCI ID "NCI-2017-00293"
+    When I go to Outcome Measures section in PA app
+    And I fill all details and click save in Outcome Measures section(PA)
+    Then I verify confirm message "Message. Record Updated." is displayed
