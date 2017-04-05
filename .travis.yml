@@ -100,20 +100,20 @@ script:
   - |
     if [ "$CUC_TAG" == "$DCT_API_TAG" ]; then
       rm results/*_output.json
-      cd ctrp-bddtests/ctrpBackend/
+      cd ctrpBackend/
       cucumber features/ -t @DCT_HIGH --format json --out ../results/dct_api_high_output.json --expand && cucumber features/ -t @DCT_MEDIUM --format json --out ../results/dct_api_medium_output.json --expand
     fi
   # run CT API tests
   - |
     if [ "$CUC_TAG" == "$CT_API_TAG" ]; then
       rm results/*_output.json
-      cd ctrp-bddtests/ctrpBackend/
+      cd ctrpBackend/
       cucumber features/ -t @IMPORT_CT_API_HIGH --format json --out ../results/ct_api_high_output.json --expand && cucumber features/ -t @IMPORT_CT_API_MEDIUM --format json --out ../results/ct_api_medium_output.json --expand
     fi
   # run CTRP MISC tests
   - |
     if [ "$CUC_TAG" == "$CTRP_MISC_TAG" ]; then
-      cd ctrp-bddtests/ctrpBackend/
+      cd ctrpBackend/
       cucumber features/ -t @CTRP_MISC --format json --out ../results/output.json --expand
     fi
   # run CTRP datawarehouse tests
@@ -125,7 +125,7 @@ script:
   # run CTRP PO UI tests
   - |
     if [ "$CUC_TAG" == "$PO_TAG" ]; then
-      cd ctrp-bddtests/ctrpUI/
+      cd ctrpUI/
       bundle install
       cucumber features/ -t @PO_HIGH --format json --out ../results/ctrp_po_high_output.json --expand && cucumber features/ -t @PO_MEDIUM --format json --out ../results/ctrp_po_high_output.json --expand
     fi
@@ -147,27 +147,26 @@ after_success:
   # run DCT API LOW tests
   - |
     if [ "$CUC_TAG" == "$DCT_API_TAG" ]; then
-      cd ctrp-bddtests/ctrpBackend/
+      cd ../ctrpBackend/
       cucumber features/ -t @DCT_LOW --format json --out ../results/dct_api_low_output.json --expand
-      cd ..
     fi
   # run CT API tests
   - |
     if [ "$CUC_TAG" == "$CT_API_TAG" ]; then
-      cd ctrp-bddtests/ctrpBackend/
+      cd ../ctrpBackend/
       cucumber features/ -t @IMPORT_CT_API_LOW --format json --out ../results/ct_api_low_output.json --expand
     fi
   # run CTRP PO UI LOW tests
   - |
     if [ "$CUC_TAG" == "$PO_TAG" ]; then
-      cd ctrp-bddtests/ctrpUI/
+      cd ../ctrpUI/
       bundle install
       cucumber features/ -t @PO_LOW --format json --out ../results/ctrp_po_low_output.json --expand
     fi
   # run CTRP PA LOW tests
   - |
     if [ "$CUC_TAG" == "$PA_TAG" ]; then
-      cd ctrpUI/
+      cd ../ctrpUI/
       bundle install
       cucumber features/ -t @PA_LOW --format json --out ../results/ctrp_pa_low_output.json --expand
     fi
