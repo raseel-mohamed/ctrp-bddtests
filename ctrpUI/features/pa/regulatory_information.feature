@@ -1,4 +1,4 @@
-giFeature: Regulatory_Information
+Feature: Regulatory_Information
 
   @PA_HIGH @FDAAA @PA @CTRPMICRO-16
 Scenario: Verify the "Trial Oversight Authority Country" is removed in the Regulatory Information(PA) screen

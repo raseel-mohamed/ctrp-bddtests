@@ -1,6 +1,6 @@
 Feature: CTEP ECM Updates in PO
 
-  @PA_HIGH  @PO @ECMUI @CTRPMICRO-ABC
+  @PA_HIGH  @PO @ECMUI @CTRPMICRO-1233
   Scenario: CTEPECM_UI101. Verify if the Org is updated with Change Request
     Given I Login into CTRP PO and Navigate to Org search screen
     When I run the MOCK service for the JMS Notification
