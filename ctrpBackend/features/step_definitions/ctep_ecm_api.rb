@@ -45,3 +45,14 @@ Then(/^click on Curate button in the search result and check for "([^"]*)" is di
   pending # Write code here that turns the phrase above into concrete actions
 end
 
+Given(/^I send a GET request for "([^"]*)" for Person$/) do |arg1|
+  pending # Write code here that turns the phrase above into concrete actions
+end
+
+Given(/^I send a GET request for "([^"]*)" for HealthCareProvider$/) do |arg1|
+  pending # Write code here that turns the phrase above into concrete actions
+end
+
+Given(/^I send a GET request for "([^"]*)" for ClinicalResearchStaff$/) do |arg1|
+  pending # Write code here that turns the phrase above into concrete actions
+end
