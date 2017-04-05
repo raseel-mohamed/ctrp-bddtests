@@ -1,3 +1,6 @@
+require 'nokogiri'
+require 'time'
+require 'active_support'
 
 class Ct_api_helper
 
@@ -8,6 +11,7 @@ class Ct_api_helper
     url_ctgov = ''+ ct_env +'/NCT'+ nct_id +'/xml'
     @nct_id = 'NCT'+ nct_id
     @response_ctgov = Helper.request('get', url_ctgov, '', '', nil, {})
+    @data_xml_ctgov = Nokogiri::XML(@response_ctgov)
     @response_json_ctgov = Hash.from_xml(@response_ctgov).to_json
     @data_hash_ctgov = JSON.parse(@response_json_ctgov)
     begin
@@ -298,6 +302,164 @@ class Ct_api_helper
           @return_db_value
         end
         assert_equal(@return_db_value, @tmp_not_avail, 'Validating Temporarily Closed to Accrual and Intervention/Temporarily not available trial status')
+      else
+        flunk 'Please provide correct db_field. Provided db_filed <<' + db_field + '>> does not exist'
+    end
+    @conn.close if @conn
+  end
+
+  def self.verify_xml_json_element_with_db(db_field, nct_id, data_hash_ctgov)
+    begin
+      @conn = PGconn.connect(:host => ENV['db_hostname'], :port => ENV['db_port'], :dbname => ENV['db_name'], :user => ENV['db_user'], :password => ENV['db_pass'])
+    rescue PGconn::Error => e
+      @conn = e.message
+    end
+    case db_field
+      when 'Trial Start Date', 'Trial Start Date (DD should be 01)'
+        trailstartdate = data_hash_ctgov['clinical_study']['start_date']
+        @trial_start_date = trailstartdate.to_s
+        puts 'Verifying: <<' + @trial_start_date + '>>.'
+        @res = @conn.exec("SELECT start_date FROM study_protocol WHERE nct_id = '" + nct_id + "' AND status_code = 'ACTIVE'")
+        @return_db_rslt = @res.getvalue(0, 0)
+        if db_field.eql?('Trial Start Date (DD should be 01)')
+          assert_equal(@trial_start_date.include?(','), false, 'Validating Date format as trial status')
+        end
+        if @trial_start_date.include?(',')
+          t = Time.parse(@return_db_rslt)
+          @tm = t.strftime("%B %e, %Y")
+          @rm_ext_spce = @tm.split.join(" ")
+          @return_db_value = @rm_ext_spce.to_s
+        else
+          t = Time.parse(@return_db_rslt)
+          @tm = t.strftime("%B %Y")
+          @return_db_value = @tm.to_s
+        end
+        assert_equal(@return_db_value, @trial_start_date, 'Validating Start Date trial status')
+      when 'Trial Start Date option'
+        @data_sml = @data_xml_ctgov
+        @data_sml.search('clinical_study').each do |start_date_tag|
+          #start_date_tag_xml = start_date_tag.at('start_date').text
+          start_date_type_xml = start_date_tag.at('start_date').get_attribute "type"
+          if start_date_type_xml.nil?
+            @start_date_type_val = 'ACTUAL'
+          else
+            @start_date_type_val = start_date_type_xml.upcase
+          end
+        end
+        trailstartdateoption = @start_date_type_val
+        @trial_start_date_option = trailstartdateoption.to_s
+        puts 'Verifying: <<' + @trial_start_date_option + '>>.'
+        @res = @conn.exec("SELECT start_date_type_code FROM study_protocol WHERE nct_id = '" + nct_id + "' AND status_code = 'ACTIVE'")
+        @return_db_value = @res.getvalue(0, 0).to_s
+        assert_equal(@return_db_value, @trial_start_date_option, 'Validating Start Date Option trial status')
+      when 'Completion Date', 'Completion Date (DD should be 01)'
+        trailcompletiondate = data_hash_ctgov['clinical_study']['completion_date']
+        @trial_comp_date = trailcompletiondate.to_s
+        puts 'Verifying: <<' + @trial_comp_date + '>>.'
+        @res = @conn.exec("SELECT completion_date FROM study_protocol WHERE nct_id = '" + nct_id + "' AND status_code = 'ACTIVE'")
+        @return_db_rslt = @res.getvalue(0, 0)
+        if @trial_comp_date.include?(',')
+          t = Time.parse(@return_db_rslt)
+          @tm = t.strftime("%B %e, %Y")
+          @rm_ext_spce = @tm.split.join(" ")
+          @return_db_value = @rm_ext_spce.to_s
+        else
+          t = Time.parse(@return_db_rslt)
+          @tm = t.strftime("%B %Y")
+          @return_db_value = @tm.to_s
+        end
+        assert_equal(@return_db_value, @trial_comp_date, 'Validating Completion Date trial status')
+      when 'Completion Date option'
+        @data_sml = @data_xml_ctgov
+        @data_sml.search('clinical_study').each do |comp_date_tag|
+          comp_date_type_xml = comp_date_tag.at('completion_date').get_attribute "type"
+          if comp_date_type_xml.nil?
+            @comp_date_type_val = 'ACTUAL'
+          else
+            @comp_date_type_val = comp_date_type_xml.upcase
+          end
+        end
+        compstartdateoption = @comp_date_type_val
+        @trial_comp_date_option = compstartdateoption.to_s
+        puts 'Verifying: <<' + @trial_comp_date_option + '>>.'
+        @res = @conn.exec("SELECT completion_date_type_code FROM study_protocol WHERE nct_id = '" + nct_id + "' AND status_code = 'ACTIVE'")
+        @return_db_value = @res.getvalue(0, 0).to_s
+        assert_equal(@return_db_value, @trial_comp_date_option, 'Validating Completion Date Option trial status')
+      when 'Primary Completion Date', 'Primary Completion Date (DD should be 01)'
+        trailprimarycompletiondate = data_hash_ctgov['clinical_study']['primary_completion_date']
+        @trial_primary_comp_date = trailprimarycompletiondate.to_s
+        puts 'Verifying: <<' + @trial_primary_comp_date + '>>.'
+        @res = @conn.exec("SELECT pri_compl_date FROM study_protocol WHERE nct_id = '" + nct_id + "' AND status_code = 'ACTIVE'")
+        @return_db_rslt = @res.getvalue(0, 0)
+        if @trial_primary_comp_date.include?(',')
+          t = Time.parse(@return_db_rslt)
+          @tm = t.strftime("%B %e, %Y")
+          @rm_ext_spce = @tm.split.join(" ")
+          @return_db_value = @rm_ext_spce.to_s
+        else
+          t = Time.parse(@return_db_rslt)
+          @tm = t.strftime("%B %Y")
+          @return_db_value = @tm.to_s
+        end
+        assert_equal(@return_db_value, @trial_primary_comp_date, 'Validating Primary Completion Date trial status')
+      when 'Primary Completion Date option'
+        @data_sml = @data_xml_ctgov
+        @data_sml.search('clinical_study').each do |prmy_comp_date_tag|
+          prmy_comp_date_type_xml = prmy_comp_date_tag.at('primary_completion_date').get_attribute "type"
+          if prmy_comp_date_type_xml.nil?
+            @prmry_comp_date_type_val = 'ACTUAL'
+          else
+            @prmry_comp_date_type_val = prmy_comp_date_type_xml.upcase
+          end
+        end
+        prmrycompdateoption = @prmry_comp_date_type_val
+        @trial_primary_comp_date_option = prmrycompdateoption.to_s
+        puts 'Verifying: <<' + @trial_primary_comp_date_option + '>>.'
+        @res = @conn.exec("SELECT pri_compl_date_type_code FROM study_protocol WHERE nct_id = '" + nct_id + "' AND status_code = 'ACTIVE'")
+        @return_db_value = @res.getvalue(0, 0).to_s
+        assert_equal(@return_db_value, @trial_primary_comp_date_option, 'Validating Primary Completion Date Option trial status')
+      else
+        flunk 'Please provide correct db_field. Provided db_filed <<' + db_field + '>> does not exist'
+    end
+    @conn.close if @conn
+  end
+
+  def self.verify_phase(db_field, nct_id, data_hash_ctgov)
+    begin
+      @conn = PGconn.connect(:host => ENV['db_hostname'], :port => ENV['db_port'], :dbname => ENV['db_name'], :user => ENV['db_user'], :password => ENV['db_pass'])
+    rescue PGconn::Error => e
+      @conn = e.message
+    end
+    case db_field
+      when 'Early Phase 1', 'I', 'I/II', 'II', 'II/III', 'III', 'IV', 'NA'
+        @data_sml = @data_xml_ctgov
+        @data_sml.search('clinical_study').each do |phase_tag|
+          @phase_val_xml = phase_tag.at('phase').text
+        end
+        @phase_option = @phase_val_xml.to_s
+        assert_equal(@phase_option.nil?, false, 'Validating phase is not empty')
+        if @phase_val_xml.eql?('Phase 1')
+          @phase_option = 'I'
+        elsif @phase_val_xml.eql?('Phase 1/Phase 2')
+          @phase_option = 'I_II'
+        elsif @phase_val_xml.eql?('Phase 2')
+          @phase_option = 'II'
+        elsif @phase_val_xml.eql?('Phase 2/Phase 3')
+          @phase_option = 'II_III'
+        elsif @phase_val_xml.eql?('Phase 3')
+          @phase_option = 'III'
+        elsif @phase_val_xml.eql?('Phase 4')
+          @phase_option = 'IV'
+        elsif @phase_val_xml.eql?('N/A')
+          @phase_option = 'NA'
+        else
+          @phase_option = @phase_val_xml
+        end
+        @trial_phase_option = @phase_option.to_s
+        puts 'Verifying: <<' + @trial_phase_option + '>>.'
+        @res = @conn.exec("SELECT phase_code FROM study_protocol WHERE nct_id = '" + nct_id + "' AND status_code = 'ACTIVE'")
+        @return_db_value = @res.getvalue(0, 0).to_s
+        assert_equal(@return_db_value, @trial_phase_option, 'Validating Trial Phase option')
       else
         flunk 'Please provide correct db_field. Provided db_filed <<' + db_field + '>> does not exist'
     end

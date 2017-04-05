@@ -3,8 +3,8 @@ Feature: Import Trial from PA
   @IMPORT_CT_UI_HIGH
   Scenario: IMPORT_CT_UI_01 Import Trial from PA
     Given I am logged in to PA
-    And I want to Import the trial with NCT ID NCT03093480
-    Then the import should be successful
+    And I want to Import the trial with NCT ID "NCT03093480"
+    Then the import should be "Message. Trial NCT03093480 has been imported and registered in CTRP system successfully."
 
 
   @IMPORT_CT_UI_HIGH

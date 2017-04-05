@@ -110,3 +110,10 @@ Feature: Design Details
     | Masking                    |                                    |
     | Allocation                 | Allocation must be Entered         |
     | Target_Enrollment          | Target Enrollment must be Entered  |
+
+  @PA_HIGH @FDAAA @CTRPMICRO-245
+  Scenario: Verify the details filled  are saved in Design Details section(PA) for an imported trial
+    Given I login into CTRP and search for an Imported trial with NCI ID "NCI-2017-00293"
+    When I go to "Design Details" section in PA app
+    And I fill all details and click save in Design Details page
+    Then I verify confirm message "Message. Record Updated." is displayed
