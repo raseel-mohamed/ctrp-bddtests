@@ -119,7 +119,7 @@ script:
   # run CTRP datawarehouse tests
   - |
     if [ "$CUC_TAG" == "$CTRP_DTW_TAG" ]; then
-      cd ctrp-bddtests/ctrpBackend/
+      cd ctrpBackend/
       cucumber features/ -t @CTRP_DWH --format json --out ../results/output.json --expand
     fi
   # run CTRP PO UI tests
