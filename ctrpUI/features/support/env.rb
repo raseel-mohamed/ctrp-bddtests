@@ -17,9 +17,9 @@ $app_path = ENV['APP_PATH'] || '/Users/ramaniv/Documents/chromedriver2-9'
 
 #base url
 base_int_pa = 'http://ctrp-pa-inttest-elb-330752222.us-east-1.elb.amazonaws.com:18080/'
-base_local_pa = 'https://localhost:39480/'
+base_local_pa = 'http://localhost:39480/'
 base_int_po = 'http://ctrp-po-inttest-elb-1603106388.us-east-1.elb.amazonaws.com:39080/'
-base_local_po = 'https://localhost:39080/'
+base_local_po = 'http://localhost:39080/'
 base_uat_pa = 'http://ctrp-pa-uat-elb-872610571.us-east-1.elb.amazonaws.com:18080/'
 base_uat_po = 'http://ctrp-po-uat-elb-1842717871.us-east-1.elb.amazonaws.com:39080/'
 

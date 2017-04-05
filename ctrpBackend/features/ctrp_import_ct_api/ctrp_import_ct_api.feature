@@ -214,6 +214,7 @@ Feature: Import ct api
       | start_date           | Trial Start Date        |
       | start_date type      | Trial Start Date option |
 
+  @IMPORT_CT_API_MEDIUM
   Scenario: CT_API31. Import Trial with NCT ID: NCT03088722 to verify Trial Start Date and Trial Start Date option: Actual
     Given I want to Import a trial with NCT ID NCT03088722
     Then I want to verify the Trial Start Date
@@ -221,13 +222,15 @@ Feature: Import ct api
       | start_date           | Trial Start Date        |
       | start_date type      | Trial Start Date option |
 
+  @IMPORT_CT_API_MEDIUM
   Scenario: CT_API32. Import Trial with NCT ID: NCT00000309 to verify Trial Start Date and no Trial Start Date option
     Given I want to Import a trial with NCT ID NCT00000309
     Then I want to verify the Trial Start Date
-      | clinical Trial field | CTRP field       |
-      | start_date           | Trial Start Date |
+      | clinical Trial field | CTRP field               |
+      | start_date           | Trial Start Date option  |
     And For the Trial Start Date in Past the Trial Start Date option should be populated as "Actual"
 
+  @IMPORT_CT_API_MEDIUM
   Scenario: CT_API33. Import Trial with NCT ID: NCT03083132 to verify Completion Date and Completion Date option: Anticipated
     Given I want to Import a trial with NCT ID NCT03083132
     Then I want to verify the Completion Date
@@ -235,6 +238,7 @@ Feature: Import ct api
       | completion_date      | Completion Date        |
       | completion_date type | Completion Date option |
 
+  @IMPORT_CT_API_MEDIUM
   Scenario: CT_API34. Import Trial with NCT ID: NCT03088722 to verify Completion Date and Completion Date option: Actual
     Given I want to Import a trial with NCT ID NCT03088722
     Then I want to verify the Completion Date
@@ -242,6 +246,7 @@ Feature: Import ct api
       | completion_date      | Completion Date        |
       | completion_date type | Completion Date option |
 
+  @IMPORT_CT_API_MEDIUM
   Scenario: CT_API35. Import Trial with NCT ID: NCT03083132 to verify Primary Completion Date and Primary Completion Date option: Anticipated
     Given I want to Import a trial with NCT ID NCT03083132
     Then I want to verify the Primary Completion Date
@@ -249,6 +254,7 @@ Feature: Import ct api
       | primary_completion_date      | Primary Completion Date        |
       | primary_completion_date type | Primary Completion Date option |
 
+  @IMPORT_CT_API_MEDIUM
   Scenario: CT_API36. Import Trial with NCT ID: NCT03088722 to verify Primary Completion Date and Primary Completion Date option: Actual
     Given I want to Import a trial with NCT ID NCT03088722
     Then I want to verify the Primary Completion Date
@@ -256,6 +262,7 @@ Feature: Import ct api
       | primary_completion_date      | Primary Completion Date        |
       | primary_completion_date type | Primary Completion Date option |
 
+  @IMPORT_CT_API_MEDIUM
   Scenario: CT_API37. Import Trial with NCT ID: NCT03045770 to verify Start Date, Completion Date and Primary Completion Date with Month, Date and Year in it
     Given I want to Import a trial with NCT ID NCT03045770
     Then I want to verify the Date field
@@ -264,6 +271,7 @@ Feature: Import ct api
       | completion_date         | Completion Date         |
       | primary_completion_date | Primary Completion Date |
 
+  @IMPORT_CT_API_MEDIUM
   Scenario: CT_API38. Import Trial with NCT ID: NCT00000142 to verify Start Date, Completion Date and Primary Completion Date with just Month and Year in it
     Given I want to Import a trial with NCT ID NCT00000142
     Then I want to verify the Date field
@@ -272,60 +280,70 @@ Feature: Import ct api
       | completion_date         | Completion Date (DD should be 01)         |
       | primary_completion_date | Primary Completion Date (DD should be 01) |
 
+  @IMPORT_CT_API_HIGH
   Scenario: CT_API39. Import Trial with NCT ID: NCT03090048 to verify Phase: Early Phase
     Given I want to Import a trial with NCT ID NCT03090048
     Then I want to verify the Phase
       | clinical Trial phase | CTRP phase    |
       | Early Phase 1        | Early Phase 1 |
 
+  @IMPORT_CT_API_HIGH
   Scenario: CT_API40. Import Trial with NCT ID: NCT03089918 to verify Phase 1
     Given I want to Import a trial with NCT ID NCT03089918
     Then I want to verify the Phase
       | clinical Trial phase | CTRP phase |
       | Phase 1              | I          |
 
+  @IMPORT_CT_API_HIGH
   Scenario: CT_API41. Import Trial with NCT ID: NCT03090165 to verify Phase 1/Phase 2
     Given I want to Import a trial with NCT ID NCT03090165
     Then I want to verify the Phase
       | clinical Trial phase | CTRP phase |
       | Phase 1/Phase 2      | I/II       |
 
+  @IMPORT_CT_API_HIGH
   Scenario: CT_API42. Import Trial with NCT ID: NCT03090412 to verify Phase 2
     Given I want to Import a trial with NCT ID NCT03090412
     Then I want to verify the Phase
       | clinical Trial phase | CTRP phase |
       | Phase 2              | II         |
 
+  @IMPORT_CT_API_HIGH
   Scenario: CT_API43. Import Trial with NCT ID: NCT03090516 to verify Phase 2/Phase 3
     Given I want to Import a trial with NCT ID NCT03090516
     Then I want to verify the Phase
       | clinical Trial phase | CTRP phase |
       | Phase 2/Phase 3      | II/III     |
 
+  @IMPORT_CT_API_HIGH
   Scenario: CT_API44. Import Trial with NCT ID: NCT03090191 to verify Phase 3
     Given I want to Import a trial with NCT ID NCT03090191
     Then I want to verify the Phase
       | clinical Trial phase | CTRP phase |
       | Phase 3              | III        |
 
+  @IMPORT_CT_API_HIGH
   Scenario: CT_API45. Import Trial with NCT ID: NCT03090503 to verify Phase 4
     Given I want to Import a trial with NCT ID NCT03090503
     Then I want to verify the Phase
       | clinical Trial phase | CTRP phase |
       | Phase 4              | IV         |
 
+  @IMPORT_CT_API_HIGH
   Scenario: CT_API46. Import Trial with NCT ID: NCT03089892 to verify Phase: N/A
     Given I want to Import a trial with NCT ID NCT03089892
     Then I want to verify the Phase
       | clinical Trial phase | CTRP phase |
       | N/A                  | NA         |
 
+  @IMPORT_CT_API_HIGH
   Scenario: CT_API47. Import Trial with NCT ID: NCT03001349 to verify Clinical Trial type: Expanded Access
     Given I want to Import a trial with NCT ID NCT03001349
     Then I want to verify the Trial Type
       | clinical Trial type | CTRP Study Type      |
       | Expanded Access     | Interventional Study |
     And Expanded Access should be "Yes"
+
 
   Scenario: CT_API48. Import Trial with NCT ID: NCT03095144 to verify Clinical Trial type: Interventional Study
     Given I want to Import a trial with NCT ID NCT03095144
