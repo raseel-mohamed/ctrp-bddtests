@@ -349,3 +349,35 @@ Then(/^I want to verify the Phase$/) do |table|
     end
   end
 end
+
+Then(/^I want to verify the Trial Type$/) do |table|
+  table.hashes.each do |row|
+    if row["CTRP Study Type"].eql?('Interventional Study')
+      Ct_api_helper.verify_trial_type(row["CTRP Study Type"].to_s, @nct_id, @data_hash_ctgov)
+    elsif row["CTRP Study Type"].eql?('Non-Interventional Study')
+        Ct_api_helper.verify_trial_type(row["CTRP Study Type"].to_s, @nct_id, @data_hash_ctgov)
+    else
+      flunk 'Please provide correct CTRP phase name. Provided CTRP phase name <<' + row["CTRP Study Type"].to_s + '>> does not exist'
+    end
+  end
+end
+
+And(/^Expanded Access should be "([^"]*)"$/) do |arg1|
+  Ct_api_helper.verify_expanded_access(arg1)
+end
+
+Then(/^I want to verify the Allocation$/) do |table|
+  table.hashes.each do |row|
+    if row["CTRP Study Allocation"].eql?('Randomized Controlled Trial')
+      Ct_api_helper.verify_allocation(row["CTRP Study Allocation"].to_s, @nct_id, @data_hash_ctgov)
+    elsif row["CTRP Study Allocation"].eql?('Non-Randomized Trial')
+      Ct_api_helper.verify_allocation(row["CTRP Study Allocation"].to_s, @nct_id, @data_hash_ctgov)
+    else
+      flunk 'Please provide correct CTRP phase name. Provided CTRP phase name <<' + row["CTRP Study Allocation"].to_s + '>> does not exist'
+    end
+  end
+end
+
+
+
+

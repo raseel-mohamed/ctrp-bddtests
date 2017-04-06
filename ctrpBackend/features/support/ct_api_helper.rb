@@ -466,6 +466,108 @@ class Ct_api_helper
     @conn.close if @conn
   end
 
+  def self.verify_trial_type(db_field, nct_id, data_hash_ctgov)
+    begin
+      @conn = PGconn.connect(:host => ENV['db_hostname'], :port => ENV['db_port'], :dbname => ENV['db_name'], :user => ENV['db_user'], :password => ENV['db_pass'])
+    rescue PGconn::Error => e
+      @conn = e.message
+    end
+    @pass_nct_id = nct_id
+    case db_field
+      when 'Interventional Study', 'Non-Interventional Study'
+        @expanded_access = @data_xml_ctgov
+        @expanded_access.search('clinical_study').each do |expanded_access_tag|
+          @expnded_access_val_xml = expanded_access_tag.at('study_type').text
+        end
+        @expndd_accss_option = @expnded_access_val_xml.to_s
+        assert_equal(@expndd_accss_option.nil?, false, 'Validating CTRP Study Type is not empty')
+        if @expnded_access_val_xml.eql?('Expanded Access')
+          @expndd_accss_option = 'InterventionalStudyProtocol'
+        elsif @expnded_access_val_xml.eql?('Interventional')
+          @expndd_accss_option = 'InterventionalStudyProtocol'
+        elsif @expnded_access_val_xml.eql?('Observational')
+          @expndd_accss_option = 'NonInterventionalStudyProtocol'
+        elsif @expnded_access_val_xml.eql?('Observational [Patient Registry]')
+          @expndd_accss_option = 'NonInterventionalStudyProtocol'
+        else
+          @expndd_accss_option = @expnded_access_val_xml
+        end
+        @trial_type_option = @expndd_accss_option.to_s
+        puts 'Verifying: <<' + @trial_type_option + '>>.'
+        @res = @conn.exec("SELECT study_protocol_type FROM study_protocol WHERE nct_id = '" + nct_id + "' AND status_code = 'ACTIVE'")
+        @return_db_value = @res.getvalue(0, 0).to_s
+        assert_equal(@return_db_value, @trial_type_option, 'Validating Trial Type option')
+      else
+        flunk 'Please provide correct db_field. Provided db_filed <<' + db_field + '>> does not exist'
+    end
+    @conn.close if @conn
+  end
+
+  def self.verify_expanded_access(arg1)
+    begin
+      @conn = PGconn.connect(:host => ENV['db_hostname'], :port => ENV['db_port'], :dbname => ENV['db_name'], :user => ENV['db_user'], :password => ENV['db_pass'])
+    rescue PGconn::Error => e
+      @conn = e.message
+    end
+    puts 'Verifying Expanded Access Value: <<' + arg1 + '>>.'
+    @res = @conn.exec("SELECT expd_access_indidicator FROM study_protocol WHERE nct_id = '" + @pass_nct_id + "' AND status_code = 'ACTIVE'")
+    @return_db_value = @res.getvalue(0, 0).to_s
+    @conn.close if @conn
+    if @return_db_value.eql?('t')
+      @return_db_value = 'True'
+    elsif @return_db_value.eql?('f')
+      @return_db_value = 'False'
+    end
+    if arg1.nil?
+      flunk 'Please provide expanded access value as Yes or No'
+    else
+      if arg1.eql?('Yes')
+        @expndd_accss_indi = 'True'
+      elsif arg1.eql?('No')
+        @expndd_accss_indi = 'False'
+      else
+        flunk 'Please provide correct expanded access indicator value. Provided expanded access indicator value <<' + arg1 + '>> does not exist'
+      end
+    end
+    @expn_accss_indicator = @expndd_accss_indi.to_s
+    assert_equal(@return_db_value, @expn_accss_indicator, 'Validating Expanded Access Indicator option')
+    @conn.close if @conn
+  end
+
+  def self.verify_allocation(db_field, nct_id, data_hash_ctgov)
+    begin
+      @conn = PGconn.connect(:host => ENV['db_hostname'], :port => ENV['db_port'], :dbname => ENV['db_name'], :user => ENV['db_user'], :password => ENV['db_pass'])
+    rescue PGconn::Error => e
+      @conn = e.message
+    end
+    case db_field
+      when 'Randomized Controlled Trial', 'Non-Randomized Trial'
+        trail_allocation = data_hash_ctgov['clinical_study']['study_design_info']['allocation']
+        @trial_study_allocation = trail_allocation.to_s
+        @randomized_trial = @data_xml_ctgov
+        @randomized_trial.search('//study_design_info').each do |allocation_tag|
+          @randomized_trial_val_xml = allocation_tag.at('allocation').text
+        end
+        @allocation_option = @randomized_trial_val_xml.to_s
+        assert_equal(@allocation_option.nil?, false, 'Validating CTRP Study Allocation is not empty')
+        if @randomized_trial_val_xml.eql?('Randomized')
+          @allocation_option = 'RANDOMIZED_CONTROLLED_TRIAL'
+        elsif @randomized_trial_val_xml.eql?('Non-Randomized')
+          @allocation_option = 'NON_RANDOMIZED_TRIAL'
+        else
+          @allocation_option = @randomized_trial_val_xml
+        end
+        @trial_allocation_option = @allocation_option.to_s
+        puts 'Verifying: <<' + @trial_allocation_option + '>>.'
+        @res = @conn.exec("SELECT allocation_code FROM study_protocol WHERE nct_id = '" + nct_id + "' AND status_code = 'ACTIVE'")
+        @return_db_value = @res.getvalue(0, 0).to_s
+        assert_equal(@return_db_value, @trial_allocation_option, 'Validating Trial Study Allocation option')
+      else
+        flunk 'Please provide correct db_field. Provided db_filed <<' + db_field + '>> does not exist'
+    end
+    @conn.close if @conn
+  end
+
 end
 
 

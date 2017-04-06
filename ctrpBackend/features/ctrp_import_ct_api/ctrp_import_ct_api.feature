@@ -344,14 +344,15 @@ Feature: Import ct api
       | Expanded Access     | Interventional Study |
     And Expanded Access should be "Yes"
 
-
-  Scenario: CT_API48. Import Trial with NCT ID: NCT03095144 to verify Clinical Trial type: Interventional Study
-    Given I want to Import a trial with NCT ID NCT03095144
+  @IMPORT_CT_API_HIGH
+  Scenario: CT_API48. Import Trial with NCT ID: NCT03102580 to verify Clinical Trial type: Interventional Study
+    Given I want to Import a trial with NCT ID NCT03102580
     Then I want to verify the Trial Type
       | clinical Trial type | CTRP Study Type      |
       | Interventional      | Interventional Study |
     And Expanded Access should be "No"
 
+  @IMPORT_CT_API_HIGH
   Scenario: CT_API49. Import Trial with NCT ID: NCT03090464 to verify Clinical Trial type: Observational Study
     Given I want to Import a trial with NCT ID NCT03090464
     Then I want to verify the Trial Type
@@ -359,6 +360,7 @@ Feature: Import ct api
       | Observational       | Non-Interventional Study |
     And Expanded Access should be "No"
 
+  @IMPORT_CT_API_HIGH
   Scenario: CT_API50. Import Trial with NCT ID: NCT03090308 to verify Clinical Trial type: Observational [Patient Registry] Study
     Given I want to Import a trial with NCT ID NCT03090308
     Then I want to verify the Trial Type
@@ -366,12 +368,14 @@ Feature: Import ct api
       | Observational [Patient Registry] | Non-Interventional Study |
     And Expanded Access should be "No"
 
+  @IMPORT_CT_API_MEDIUM
   Scenario: CT_API51. Import Trial with NCT ID: NCT03090217 to verify Clinical Trial Allocation: Randomized
     Given I want to Import a trial with NCT ID NCT03090217
     Then I want to verify the Allocation
       | clinical Trial allocation | CTRP Study Allocation       |
       | Randomized                | Randomized Controlled Trial |
 
+  @IMPORT_CT_API_MEDIUM
   Scenario: CT_API52. Import Trial with NCT ID: NCT03095248 to verify Clinical Trial Allocation: Non-Randomized
     Given I want to Import a trial with NCT ID NCT03095248
     Then I want to verify the Allocation
