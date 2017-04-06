@@ -7,11 +7,9 @@ Feature: Tests for CTRP ECM Microservice for DTO messages from CTEP
 
   @PA_HIGH @FDAAA @PO @CTRPMICRO-199
   Scenario: CTEPECM_API02. GET ResearchOrganization from from ECM service
-    Given I send a GET request for "/ResearchOrganization/CIRB-PA121" for ResearchOrganization
-    Then the response should be JSON
+    Given I send a GET request "http://129.43.165.163:3300/api/v1/ecmservice/ResearchOrganization/CIRB-PA121" for ResearchOrganization
     Then the response status code should be '200'
-    Then the JSON response should be:
-
+    Then the JSON response should be as below for ResearchOrganization:
     """
     {"identifier":{"item":[{"nullFlavor":null,"displayable":true,"extension":"CIRB-PA121","identifierName":"Cancer Therapy Evaluation Program Organization Identifier","reliability":"ISS","root":"2.16.840.1.113883.3.26.6.2","scope":"OBJ"}]},
     "telecomAddress":{"item":[]},"duplicateOf":null,"status":{"nullFlavor":null,"code":"active","codeSystem":null,"codeSystemName":null,"codeSystemVersion":null,"displayName":null,"originalText":null},
@@ -24,10 +22,9 @@ Feature: Tests for CTRP ECM Microservice for DTO messages from CTEP
     """
   @PA_HIGH @FDAAA @PO @CTRPMICRO-204
   Scenario: CTEPECM_API03. GET Organization from from ECM service
-    Given I send a GET request for "/Organization/CIRB-NC004" for Organization
-    Then the response should be JSON
+    Given I send a GET request for "http://129.43.165.163:3300/api/v1/ecmservice/Organization/CIRB-NC004" for Organization
     Then the response status code should be '200'
-    Then the JSON response should be:
+    Then the JSON response should be as below for Organization:
 
     """
   {"telecomAddress":{"item":[]},"statusDate":null,"familyOrganizationRelationships":null,"identifier":{"nullFlavor":null,
@@ -43,10 +40,9 @@ Feature: Tests for CTRP ECM Microservice for DTO messages from CTEP
 
   @PA_HIGH @FDAAA @PO @CTRPMICRO-208
   Scenario: CTEPECM_API04. GET HealthCareFacility from from ECM service
-    Given I send a GET request for "/HealthCareFacility/WA082" for HealthCareFacility
-    Then the response should be JSON
+    Given I send a GET request for "http://129.43.165.163:3300/api/v1/ecmservice/HealthCareFacility/WA082" for HealthCareFacility
     Then the response status code should be '200'
-    Then the JSON response should be:
+    Then the JSON response should be as below for HealthCareFacility:
 
     """
     {"identifier":{"item":[{"nullFlavor":null,"displayable":true,"extension":"246058",
@@ -62,12 +58,11 @@ Feature: Tests for CTRP ECM Microservice for DTO messages from CTEP
 
     """
 
-  @PA_HIGH @FDAAA @PO @CTRPMICRO-ABC
+  @PA_HIGH @FDAAA @PO @CTRPMICRO-ABC1
   Scenario: CTEPECM_API04. GET Person from from ECM service
-    Given I send a GET request for "Person/513057" for Person
-    Then the response should be JSON
+    Given I send a GET request for "http://129.43.165.163:3300/api/v1/ecmservice/Person/513057" for Person
     Then the response status code should be '200'
-    Then the JSON response should be:
+    Then the JSON response should be as below for Person:
 
     """
     {"name":{"nullFlavor":null,"part":[{"code":null,"codeSystem":null,"codeSystemVersion":null,"qualifier":null,"type":"FAM","value":"Ageton"},
@@ -83,31 +78,28 @@ Feature: Tests for CTRP ECM Microservice for DTO messages from CTEP
 
     """
 
-  @PA_HIGH @FDAAA @PO @CTRPMICRO-ABC
+  @PA_HIGH @FDAAA @PO @CTRPMICRO-ABC2
   Scenario: CTEPECM_API04. GET HealthCareProvider from from ECM service
-    Given I send a GET request for "HealthCareProvider/42402" for HealthCareProvider
-    Then the response should be JSON
+    Given I send a GET request for "http://129.43.165.163:3300/api/v1/ecmservice/HealthCareProvider/42402" for HealthCareProvider
     Then the response status code should be '200'
-    Then the JSON response should be:
+    Then the JSON response should be as below for HealthCareProvider:
 
     """
     {"identifier":{"item":[{"nullFlavor":null,"displayable":true,"extension":"1654973","identifierName":"CTEP Health Care Provider Identifier","reliability":"ISS","root":"2.16.840.1.113883.3.26.6.1.1","scope":"OBJ"}]},
-    "telecomAddress":{"item":[{"nullFlavor":null,"value":"mailto:mryan@CTIS1gboncology.com"},{"nullFlavor":null,"value":"x-text-fax:920-433-0288"},
-    {"nullFlavor":null,"value":"tel:800-432-6049"}]},"duplicateOf":null,"status":{"nullFlavor":null,"code":"active","codeSystem":null,"codeSystemName":null,"codeSystemVersion":null,"displayName":null,"originalText":null},
-    "certificateLicenseText":null,"playerIdentifier":{"nullFlavor":null,"displayable":true,"extension":"42402","identifierName":"Cancer Therapy Evaluation Program Person Identifier","reliability":"ISS","root":"2.16.840.1.113883.3.26.6.1","scope":"OBJ"},
-    "scoperIdenticd fier":{"nullFlavor":null,"displayable":true,"extension":"WI116","identifierName":"Cancer Therapy Evaluation Program Organization Identifier","reliability":"ISS","root":"2.16.840.1.113883.3.26.6.2","scope":"OBJ"},
-    "postalAddress":{"item":[{"nullFlavor":null,"part":[{"code":null,"codeSystem":null,"value":"835 South Van Buren Street","type":"AL"},{"code":null,"codeSystem":null,"value":"Green Bay","type":"CTY"},
-    {"code":null,"codeSystem":null,"value":"54301-3526","type":"ZIP"},{"code":"WI ","codeSystem":null,"value":"Wisconsin","type":"STA"},
-    {"code":"US ","codeSystem":"ISO 3166-1 alpha-2","value":"USA","type":"CNT"}]}]}}
+    "telecomAddress":{"item":[{"nullFlavor":null,"value":"mailto:mryan@CTIS1gboncology.com"},{"nullFlavor":null,"value":"x-text-fax:920-433-0288"},{"nullFlavor":null,"value":"tel:800-432-6049"}]},"duplicateOf":null,
+    "status":{"nullFlavor":null,"code":"active","codeSystem":null,"codeSystemName":null,"codeSystemVersion":null,"displayName":null,"originalText":null},"certificateLicenseText":null,"playerIdentifier":{"nullFlavor":null,"displayable":true,
+    "extension":"42402","identifierName":"Cancer Therapy Evaluation Program Person Identifier","reliability":"ISS","root":"2.16.840.1.113883.3.26.6.1","scope":"OBJ"},"scoperIdentifier":{"nullFlavor":null,"displayable":true,"extension":"WI116",
+    "identifierName":"Cancer Therapy Evaluation Program Organization Identifier","reliability":"ISS","root":"2.16.840.1.113883.3.26.6.2","scope":"OBJ"},"postalAddress":{"item":[{"nullFlavor":null,"part":[{"code":null,"codeSystem":null,
+    "value":"835 South Van Buren Street","type":"AL"},{"code":null,"codeSystem":null,"value":"Green Bay","type":"CTY"},{"code":null,"codeSystem":null,"value":"54301-3526","type":"ZIP"},{"code":"WI ","codeSystem":null,
+    "value":"Wisconsin","type":"STA"},{"code":"US ","codeSystem":"ISO 3166-1 alpha-2","value":"USA","type":"CNT"}]}]}}
 
     """
 
-  @PA_HIGH @FDAAA @PO @CTRPMICRO-ABC
+  @PA_HIGH @FDAAA @PO @CTRPMICRO-ABC3
   Scenario: CTEPECM_API04. GET ClinicalResearchStaff from from ECM service
-    Given I send a GET request for "ClinicalResearchStaff/527696" for ClinicalResearchStaff
-    Then the response should be JSON
+    Given I send a GET request for "http://129.43.165.163:3300/api/v1/ecmservice/ClinicalResearchStaff/527696" for ClinicalResearchStaff
     Then the response status code should be '200'
-    Then the JSON response should be:
+    Then the JSON response should be as below for ClinicalResearchStaff:
 
     """
     {"identifier":{"item":[{"nullFlavor":null,"displayable":true,"extension":"2098151","identifierName":"CTEP Clinical Research Staff Person Identifier","reliability":"ISS","root":"2.16.840.1.113883.3.26.6.1.2","scope":"OBJ"}]},
