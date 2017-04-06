@@ -118,8 +118,8 @@ def design_details_fill_data(data, error_message)
   step %[I select "#{data['interventional_study_model']}" option by text from dropdown having id "#{DesignDetails.interventional_study_model_id}"]
   step %[I clear input field having id "#{DesignDetails.number_of_arms_id}"]
   step %[I enter "#{data['number_of_arms']}" into input field having id "#{DesignDetails.number_of_arms_id}"]
-  if(data['masking'].eql? 'Participant')
-    step %[I check the checkbox having id "#{DesignDetails.participant_id}"]
+  if(data['masking'].eql? 'noMasking')
+    step %[I check the checkbox having id "#{DesignDetails.no_masking_id}"]
   end
   step %[I select "#{data['allocation']}" option by text from dropdown having id "#{DesignDetails.allocation_id}"]
   step %[I clear input field having id "#{DesignDetails.enrollment_id}"]
@@ -132,12 +132,12 @@ end
 
 Given(/^I fill all details and click save in Design Details page$/) do
   step %[I select "Treatment" option by text from dropdown having id "#{DesignDetails.primary_purpose_id}"]
-  step %[I select "Early Phase 1" option by text from dropdown having id "#{DesignDetails.trial_phase_id}"] #unless data['trial_phase'].nil?
-  step %[I select "Single Group" option by text from dropdown having id "#{DesignDetails.interventional_study_model_id}"] #unless data['interventional_study_model'].nil?
-  step %[I enter "2" into input field having id "#{DesignDetails.number_of_arms_id}"] #unless data[''].nil?
-  step %[I check the checkbox having id "#{DesignDetails.participant_id}"] #unless data[''].nil?
-  step %[I select "NA" option by text from dropdown having id "#{DesignDetails.allocation_id}"] #unless data['allocation'].nil?
-  step %[I enter "1" into input field having id "#{DesignDetails.enrollment_id}"] #unless data[''].nil?
+  step %[I select "Early Phase I" option by text from dropdown having id "#{DesignDetails.trial_phase_id}"]
+  step %[I select "Single Group" option by text from dropdown having id "#{DesignDetails.interventional_study_model_id}"]
+  step %[I enter "2" into input field having id "#{DesignDetails.number_of_arms_id}"]
+  step %[I check the checkbox having id "#{DesignDetails.no_masking_id}"]
+  step %[I select "NA" option by text from dropdown having id "#{DesignDetails.allocation_id}"]
+  step %[I enter "1" into input field having id "#{DesignDetails.enrollment_id}"]
   step %[I click on element having xpath "//span[@class='save']"]
 end
 
@@ -146,6 +146,7 @@ end
 Then(/^I verify confirm message "([^"]*)" is displayed$/) do |message|
   ele_text = get_element_text("xpath","//div[@class='confirm_msg']")
   expect(ele_text.strip).to eq message
+  step %[I wait for 2 sec]
 end
 
 #@PA_HIGH @FDAAA @CTRPMICRO-226
@@ -155,7 +156,7 @@ When(/^I enter all details except mandatory fields in Design Details page$/) do
   step %[I select "" option by text from dropdown having id "#{DesignDetails.trial_phase_id}"]
   step %[I select "" option by text from dropdown having id "#{DesignDetails.interventional_study_model_id}"]
   step %[I clear input field having id "#{DesignDetails.number_of_arms_id}"]
-  #step %[I check the checkbox having id "#{DesignDetails.participant_id}"]
+  step %[I check the checkbox having id "#{DesignDetails.participant_id}"]
   step %[I select "" option by text from dropdown having id "#{DesignDetails.allocation_id}"]
   step %[I clear input field having id "#{DesignDetails.enrollment_id}"]
   step %[I click on element having xpath "//span[@class='save']"]

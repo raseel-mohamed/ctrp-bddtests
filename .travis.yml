@@ -134,7 +134,7 @@ script:
     if [ "$CUC_TAG" == "$PA_TAG" ]; then
       cd ctrpUI/
       bundle install
-      cucumber features/ -t @PA_HIGH --format pretty --format json --out ../results/ctrp_pa_high_output.json --expand && cucumber features/ -t @PA_MEDIUM --format json --out ../results/ctrp_pa_medium_output.json --expand
+      cucumber features/ -t @PA_HIGH,@EXPORT_HIGH --format pretty --format json --out ../results/ctrp_pa_high_output.json --expand && cucumber features/ -t @PA_MEDIUM,@EXPORT_MEDIUM --format json --out ../results/ctrp_pa_medium_output.json --expand
     fi
   # run ctrp-bddtests/ctrpBackend tests by the tag name
   # To export the results to the JIRA test execution set

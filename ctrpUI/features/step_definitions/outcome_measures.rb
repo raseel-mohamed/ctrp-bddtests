@@ -24,7 +24,6 @@ And(/^I fill all details and click save in Outcome Measures section\(PA\)$/) do
   step %[I enter "xyz" into input field having id "#{OutcomeMeasures.title_id}"]
   step %[I clear input field having id "#{OutcomeMeasures.time_frame_id}"]
   step %[I enter "abc" into input field having id "#{OutcomeMeasures.time_frame_id}"]
-  step %[I select "Yes" option by text from dropdown having id "safety"]
   step %[I click on element having xpath "//span[@class='save']"]
 end
 
@@ -34,7 +33,7 @@ And(/^I click on the Add button$/) do
   step %[I click on element having xpath "//span[@class = 'add']"]
 end
 
-Then(/^I verify validations for outcome measure type "([^"]*)",title "([^"]*)",time frame "([^"]*)"(.*)"$/) do |outcome_measure_type, title, time_frame, error_message|
+Then(/^I verify validations for outcome measure type "([^"]*)",title "([^"]*)",time frame "([^"]*)",error message "([^"]*)"$/) do |outcome_measure_type, title, time_frame, error_message|
   data = {
       'outcome_measure_type'     => outcome_measure_type,
       'title'            => title,
@@ -53,7 +52,7 @@ def outcome_measures_fill_data(data, error_message)
   step %[I clear input field having id "#{OutcomeMeasures.time_frame_id}"]
   step %[I enter "#{data['time_frame']}" into input field having id "#{OutcomeMeasures.time_frame_id}"]
   step %[I click on element having xpath "//span[@class='save']"]
-  #expect(get_element_text("xpath","//ul[@class='errorMessage']").strip).eql?(data['error_message'])
+  step %[I wait for 2 sec]
   check_element_text("xpath", error_message, "//ul[@class='errorMessage']", true)
 end
 

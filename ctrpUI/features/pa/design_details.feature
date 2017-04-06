@@ -50,7 +50,7 @@ Feature: Design Details
       | Existing Field | New Field     |
       | Subject        | Participant   |
       | Caregiver      | Care Provider |
-      | Trial Phase 0  | Early Phase 1 |
+      | Trial Phase 0  | Early Phase I |
 
   @PA_HIGH @FDAAA @CTRPMICRO-109
   Scenario: Verify condition on No Masking field in Design Details section(PA)
@@ -81,13 +81,13 @@ Feature: Design Details
     Then I verify validations for primary purpose "<primary_purpose>", trial phase "<trial_phase>", Interventional Study Model "<Interventional_Study_Model>", Number of Arms "<Number_of_Arms>", masking "<Masking>", allocation "<Allocation>", target enrollment "<Target_Enrollment>", error message "<error_message>"
   Examples:
     | primary_purpose | trial_phase   | Interventional_Study_Model | Number_of_Arms | Masking     | Allocation | Target_Enrollment | error_message                      |
-    |                 | Early Phase 1 | Single Group               | 1              | Participant | NA         | 1                 | Primary Purpose must be Entered    |
-    | Treatment       |               | Single Group               | 1              | Participant | NA         | 1                 | Trial Phase must be Entered        |
-    | Treatment       | Early Phase 1 |                            | 1              | Participant | NA         | 1                 | Intervention Model must be Entered |
-    | Treatment       | Early Phase 1 | Single Group               |                | Participant | NA         | 1                 | Number of Arms must be Entered     |
-    | Treatment       | Early Phase 1 | Single Group               | 1              |             | NA         | 1                 |                                    |
-    | Treatment       | Early Phase 1 | Single Group               | 1              | Participant |            | 1                 | Allocation must be Entered         |
-    | Treatment       | Early Phase 1 | Single Group               | 1              | Participant | NA         |                   | Target Enrollment must be Entered  |
+    |                 | Early Phase I | Single Group               | 1              | noMasking | NA         | 1                 | Primary Purpose must be Entered    |
+    | Treatment       |               | Single Group               | 1              | noMasking | NA         | 1                 | Trial Phase must be Entered        |
+    | Treatment       | Early Phase I |                            | 1              | noMasking | NA         | 1                 | Intervention Model must be Entered |
+    | Treatment       | Early Phase I | Single Group               |                | noMasking | NA         | 1                 | Number of Arms must be Entered     |
+    | Treatment       | Early Phase I | Single Group               | 1              |           | NA         | 1                 | Masking must be Entered                                  |
+    | Treatment       | Early Phase I | Single Group               | 1              | noMasking |            | 1                 | Allocation must be Entered         |
+    | Treatment       | Early Phase I | Single Group               | 1              | noMasking | NA         |                   | Target Enrollment must be Entered  |
 
   @PA_HIGH @FDAAA @CTRPMICRO-225
     Scenario: Verify the details filled  are saved in Design Details section(PA)
@@ -107,7 +107,7 @@ Feature: Design Details
     | trial_phase                | Trial Phase must be Entered        |
     | Interventional_Study_Model | Intervention Model must be Entered |
     | Number_of_Arms             | Number of Arms must be Entered     |
-    | Masking                    |                                    |
+    | Masking                    | Masking must be Entered            |
     | Allocation                 | Allocation must be Entered         |
     | Target_Enrollment          | Target Enrollment must be Entered  |
 
