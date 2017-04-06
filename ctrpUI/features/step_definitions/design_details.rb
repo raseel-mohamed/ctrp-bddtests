@@ -156,7 +156,7 @@ When(/^I enter all details except mandatory fields in Design Details page$/) do
   step %[I select "" option by text from dropdown having id "#{DesignDetails.trial_phase_id}"]
   step %[I select "" option by text from dropdown having id "#{DesignDetails.interventional_study_model_id}"]
   step %[I clear input field having id "#{DesignDetails.number_of_arms_id}"]
-  #step %[I check the checkbox having id "#{DesignDetails.participant_id}"]
+  step %[I check the checkbox having id "#{DesignDetails.participant_id}"]
   step %[I select "" option by text from dropdown having id "#{DesignDetails.allocation_id}"]
   step %[I clear input field having id "#{DesignDetails.enrollment_id}"]
   step %[I click on element having xpath "//span[@class='save']"]

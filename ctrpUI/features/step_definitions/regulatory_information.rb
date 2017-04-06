@@ -196,7 +196,7 @@ When(/^FDA Regulated Intervention Indicator is (Yes|No)$/) do |condition|
   end
 end
 
-Then(/^Section (\d+) Indicator field should|should not be visible$/) do |condition|
+Then(/^Section 801 Indicator field should|should not be visible$/) do |condition|
   if condition == 'should'
     step %[element having id "sec801id" should be present]
   end

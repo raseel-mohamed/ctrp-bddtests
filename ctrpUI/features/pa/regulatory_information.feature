@@ -128,5 +128,5 @@ Scenario: Verify the new fields are added to the Regulatory Information(PA) scre
   And I navigate to Regulatory Information screen
   And I enter all details except mandatory fields in Regulatory Information page  and save
   Then I verify error message "FDA Regulated Intervention Indicator is required field" is displayed
-    #Then I verify error message "FDA Regulated Intervention Indicator is required field" id displayed for FDA Regulated Intervention Indicator field
+
 
