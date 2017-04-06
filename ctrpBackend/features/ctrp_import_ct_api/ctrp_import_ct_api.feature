@@ -389,24 +389,28 @@ Feature: Import ct api
       | clinical Trial Interventional Model | CTRP Interventional Model |
       | Single Group Assignment             | Single Group              |
 
+  @IMPORT_CT_API_MEDIUM
   Scenario: CT_API54. Import Trial with NCT ID: NCT03095651 to verify Clinical Trial Interventional Model: Parallel Assignment
     Given I want to Import a trial with NCT ID NCT03095651
     Then I want to verify the Interventional Model
       | clinical Trial Interventional Model | CTRP Interventional Model |
       | Parallel Assignment                 | Parallel                  |
 
+  @IMPORT_CT_API_MEDIUM
   Scenario: CT_API55. Import Trial with NCT ID: NCT03089723 to verify Clinical Trial Interventional Model: Crossover Assignment
     Given I want to Import a trial with NCT ID NCT03089723
     Then I want to verify the Interventional Model
       | clinical Trial Interventional Model | CTRP Interventional Model |
       | Crossover Assignment                | Cross-over                |
 
+  @IMPORT_CT_API_MEDIUM
   Scenario: CT_API56. Import Trial with NCT ID: NCT01178892 to verify Clinical Trial Interventional Model: Factorial Assignment
     Given I want to Import a trial with NCT ID NCT01178892
     Then I want to verify the Interventional Model
       | clinical Trial Interventional Model | CTRP Interventional Model |
       | Factorial Assignment                | Factorial                 |
 
+  @IMPORT_CT_API_MEDIUM
   Scenario: CT_API57. Import Trial with NCT ID: NCT03089203 to verify Clinical Trial Interventional Model: Sequential Assignment
     Given I want to Import a trial with NCT ID NCT03089203
     Then I want to verify the Interventional Model

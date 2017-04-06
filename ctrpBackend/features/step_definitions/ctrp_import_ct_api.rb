@@ -396,6 +396,42 @@ Then(/^I want to verify the Interventional Model$/) do |table|
   end
 end
 
+Then(/^I want to verify the Masking$/) do |table|
+  table.hashes.each do |row|
+    if row["CTRP Masking"].eql?('No masking')
+      Ct_api_helper.verify_masking(row["CTRP Masking"].to_s, @nct_id, @data_hash_ctgov)
+    elsif row["CTRP Masking"].eql?('Participant')
+      Ct_api_helper.verify_masking(row["CTRP Masking"].to_s, @nct_id, @data_hash_ctgov)
+    elsif row["CTRP Masking"].eql?('Investigator')
+      Ct_api_helper.verify_masking(row["CTRP Masking"].to_s, @nct_id, @data_hash_ctgov)
+    elsif row["CTRP Masking"].eql?('Care Provider')
+      Ct_api_helper.verify_masking(row["CTRP Masking"].to_s, @nct_id, @data_hash_ctgov)
+    elsif row["CTRP Masking"].eql?('Outcomes Assessor')
+      Ct_api_helper.verify_masking(row["CTRP Masking"].to_s, @nct_id, @data_hash_ctgov)
+    elsif row["CTRP Masking"].eql?('Basic Science')
+      Ct_api_helper.verify_masking(row["CTRP Masking"].to_s, @nct_id, @data_hash_ctgov)
+    elsif row["CTRP Masking"].eql?('Diagnostic')
+      Ct_api_helper.verify_masking(row["CTRP Masking"].to_s, @nct_id, @data_hash_ctgov)
+    elsif row["CTRP Masking"].eql?('Health Services Research')
+      Ct_api_helper.verify_masking(row["CTRP Masking"].to_s, @nct_id, @data_hash_ctgov)
+    elsif row["CTRP Masking"].eql?('Prevention')
+      Ct_api_helper.verify_masking(row["CTRP Masking"].to_s, @nct_id, @data_hash_ctgov)
+    elsif row["CTRP Masking"].eql?('Screening')
+      Ct_api_helper.verify_masking(row["CTRP Masking"].to_s, @nct_id, @data_hash_ctgov)
+    elsif row["CTRP Masking"].eql?('Supportive Care')
+      Ct_api_helper.verify_masking(row["CTRP Masking"].to_s, @nct_id, @data_hash_ctgov)
+    elsif row["CTRP Masking"].eql?('Treatment')
+      Ct_api_helper.verify_masking(row["CTRP Masking"].to_s, @nct_id, @data_hash_ctgov)
+    elsif row["CTRP Masking"].eql?('Device Feasibility')
+      Ct_api_helper.verify_masking(row["CTRP Masking"].to_s, @nct_id, @data_hash_ctgov)
+    elsif row["CTRP Masking"].eql?('Other')
+      Ct_api_helper.verify_masking(row["CTRP Masking"].to_s, @nct_id, @data_hash_ctgov)
+    else
+      flunk 'Please provide correct CTRP Masking name. Provided CTRP Masking name <<' + row["CTRP Masking"].to_s + '>> does not exist'
+    end
+  end
+end
+
 
 
 

@@ -576,32 +576,72 @@ class Ct_api_helper
     end
     case db_field
       when 'Single Group', 'Parallel', 'Cross-over', 'Factorial', 'Sequential'
-        trail_interventional = data_hash_ctgov['clinical_study']['study_design_info']['allocation']
+        trail_interventional = data_hash_ctgov['clinical_study']['study_design_info']['intervention_model']
         @trial_intrvntn_mdl = trail_interventional.to_s
         @interventional_mdl_trial = @data_xml_ctgov
         @interventional_mdl_trial.search('//study_design_info').each do |interventional_tag|
-          @intvnal_mdl_trial_val_xml = interventional_tag.at('allocation').text
+          @intvnal_mdl_trial_val_xml = interventional_tag.at('intervention_model').text
         end
         @interventional_mdl_option = @intvnal_mdl_trial_val_xml.to_s
         assert_equal(@interventional_mdl_option.nil?, false, 'Validating CTRP Study Interventional Model is not empty')
         if @intvnal_mdl_trial_val_xml.eql?('Single Group Assignment')
-          @interventional_mdl_option = 'Single Group'
+          @interventional_mdl_option = 'SINGLE_GROUP'
         elsif @intvnal_mdl_trial_val_xml.eql?('Parallel Assignment')
-          @interventional_mdl_option = 'Parallel'
+          @interventional_mdl_option = 'PARALLEL'
         elsif @intvnal_mdl_trial_val_xml.eql?('Crossover Assignment')
-          @interventional_mdl_option = 'Cross-over'
+          @interventional_mdl_option = 'CROSSOVER'
         elsif @intvnal_mdl_trial_val_xml.eql?('Factorial Assignment')
-          @interventional_mdl_option = 'Factorial'
+          @interventional_mdl_option = 'FACTORIAL'
         elsif @intvnal_mdl_trial_val_xml.eql?('Sequential Assignment')
-          @interventional_mdl_option = 'Sequential'
+          @interventional_mdl_option = 'SEQUENTIAL_ASSIGNMENT'
         else
           @interventional_mdl_option = @intvnal_mdl_trial_val_xml
         end
         @trial_allocation_option = @interventional_mdl_option.to_s
         puts 'Verifying: <<' + @trial_allocation_option + '>>.'
-        @res = @conn.exec("SELECT allocation_code FROM study_protocol WHERE nct_id = '" + nct_id + "' AND status_code = 'ACTIVE'")
+        @res = @conn.exec("SELECT design_configuration_code FROM study_protocol WHERE nct_id = '" + nct_id + "' AND status_code = 'ACTIVE'")
         @return_db_value = @res.getvalue(0, 0).to_s
         assert_equal(@return_db_value, @trial_allocation_option, 'Validating Trial Interventional Model option')
+      else
+        flunk 'Please provide correct db_field. Provided db_filed <<' + db_field + '>> does not exist'
+    end
+    @conn.close if @conn
+  end
+
+  def self.verify_masking(db_field, nct_id, data_hash_ctgov)
+    begin
+      @conn = PGconn.connect(:host => ENV['db_hostname'], :port => ENV['db_port'], :dbname => ENV['db_name'], :user => ENV['db_user'], :password => ENV['db_pass'])
+    rescue PGconn::Error => e
+      @conn = e.message
+    end
+    case db_field
+      when 'No masking', 'Participant', 'Investigator', 'Care Provider', 'Outcomes Assessor', 'Basic Science', 'Diagnostic', 'Health Services Research', 'Prevention', 'Screening', 'Supportive Care', 'Treatment', 'Device Feasibility', 'Other'
+        mskng_trl = data_hash_ctgov['clinical_study']['study_design_info']['masking']
+        @mskng_trial_jsn = mskng_trl.to_s
+        @mskng_trl_xml = @data_xml_ctgov
+        @mskng_trl_xml.search('//study_design_info').each do |interventional_tag|
+          @mskng_trial_val_xml = interventional_tag.at('masking').text
+        end
+        @masking_option = @mskng_trial_val_xml.to_s
+        assert_equal(@masking_option.nil?, false, 'Validating CTRP Masking is not empty')
+        if @mskng_trial_val_xml.eql?('No masking')
+          @masking_option = 'No masking'
+        elsif @mskng_trial_val_xml.eql?('Parallel Assignment')
+          @masking_option = 'Parallel'
+        elsif @mskng_trial_val_xml.eql?('Crossover Assignment')
+          @masking_option = 'Cross-over'
+        elsif @mskng_trial_val_xml.eql?('Factorial Assignment')
+          @masking_option = 'Factorial'
+        elsif @mskng_trial_val_xml.eql?('Sequential Assignment')
+          @masking_option = 'Sequential'
+        else
+          @masking_option = @mskng_trial_val_xml
+        end
+        @trial_msking_exp = @masking_option.to_s
+        puts 'Verifying: <<' + @trial_msking_exp + '>>.'
+        @res = @conn.exec("SELECT allocation_code FROM study_protocol WHERE nct_id = '" + nct_id + "' AND status_code = 'ACTIVE'")
+        @return_db_value = @res.getvalue(0, 0).to_s
+        assert_equal(@return_db_value, @trial_msking_exp, 'Validating CTRP Masking option')
       else
         flunk 'Please provide correct db_field. Provided db_filed <<' + db_field + '>> does not exist'
     end
