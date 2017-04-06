@@ -568,6 +568,46 @@ class Ct_api_helper
     @conn.close if @conn
   end
 
+  def self.verify_interventional_mdl(db_field, nct_id, data_hash_ctgov)
+    begin
+      @conn = PGconn.connect(:host => ENV['db_hostname'], :port => ENV['db_port'], :dbname => ENV['db_name'], :user => ENV['db_user'], :password => ENV['db_pass'])
+    rescue PGconn::Error => e
+      @conn = e.message
+    end
+    case db_field
+      when 'Single Group', 'Parallel', 'Cross-over', 'Factorial', 'Sequential'
+        trail_interventional = data_hash_ctgov['clinical_study']['study_design_info']['allocation']
+        @trial_intrvntn_mdl = trail_interventional.to_s
+        @interventional_mdl_trial = @data_xml_ctgov
+        @interventional_mdl_trial.search('//study_design_info').each do |interventional_tag|
+          @intvnal_mdl_trial_val_xml = interventional_tag.at('allocation').text
+        end
+        @interventional_mdl_option = @intvnal_mdl_trial_val_xml.to_s
+        assert_equal(@interventional_mdl_option.nil?, false, 'Validating CTRP Study Interventional Model is not empty')
+        if @intvnal_mdl_trial_val_xml.eql?('Single Group Assignment')
+          @interventional_mdl_option = 'Single Group'
+        elsif @intvnal_mdl_trial_val_xml.eql?('Parallel Assignment')
+          @interventional_mdl_option = 'Parallel'
+        elsif @intvnal_mdl_trial_val_xml.eql?('Crossover Assignment')
+          @interventional_mdl_option = 'Cross-over'
+        elsif @intvnal_mdl_trial_val_xml.eql?('Factorial Assignment')
+          @interventional_mdl_option = 'Factorial'
+        elsif @intvnal_mdl_trial_val_xml.eql?('Sequential Assignment')
+          @interventional_mdl_option = 'Sequential'
+        else
+          @interventional_mdl_option = @intvnal_mdl_trial_val_xml
+        end
+        @trial_allocation_option = @interventional_mdl_option.to_s
+        puts 'Verifying: <<' + @trial_allocation_option + '>>.'
+        @res = @conn.exec("SELECT allocation_code FROM study_protocol WHERE nct_id = '" + nct_id + "' AND status_code = 'ACTIVE'")
+        @return_db_value = @res.getvalue(0, 0).to_s
+        assert_equal(@return_db_value, @trial_allocation_option, 'Validating Trial Interventional Model option')
+      else
+        flunk 'Please provide correct db_field. Provided db_filed <<' + db_field + '>> does not exist'
+    end
+    @conn.close if @conn
+  end
+
 end
 
 

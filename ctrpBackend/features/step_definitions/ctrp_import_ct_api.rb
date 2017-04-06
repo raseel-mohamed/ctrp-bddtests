@@ -378,6 +378,25 @@ Then(/^I want to verify the Allocation$/) do |table|
   end
 end
 
+Then(/^I want to verify the Interventional Model$/) do |table|
+  table.hashes.each do |row|
+    if row["CTRP Interventional Model"].eql?('Single Group')
+      Ct_api_helper.verify_interventional_mdl(row["CTRP Interventional Model"].to_s, @nct_id, @data_hash_ctgov)
+    elsif row["CTRP Interventional Model"].eql?('Parallel')
+      Ct_api_helper.verify_interventional_mdl(row["CTRP Interventional Model"].to_s, @nct_id, @data_hash_ctgov)
+    elsif row["CTRP Interventional Model"].eql?('Cross-over')
+      Ct_api_helper.verify_interventional_mdl(row["CTRP Interventional Model"].to_s, @nct_id, @data_hash_ctgov)
+    elsif row["CTRP Interventional Model"].eql?('Factorial')
+      Ct_api_helper.verify_interventional_mdl(row["CTRP Interventional Model"].to_s, @nct_id, @data_hash_ctgov)
+    elsif row["CTRP Interventional Model"].eql?('Sequential')
+      Ct_api_helper.verify_interventional_mdl(row["CTRP Interventional Model"].to_s, @nct_id, @data_hash_ctgov)
+    else
+      flunk 'Please provide correct CTRP Interventional Model name. Provided CTRP Interventional Model name <<' + row["CTRP Interventional Model"].to_s + '>> does not exist'
+    end
+  end
+end
+
+
 
 
 

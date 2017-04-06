@@ -382,6 +382,7 @@ Feature: Import ct api
       | clinical Trial allocation | CTRP Study Allocation |
       | Non-Randomized            | Non-Randomized Trial  |
 
+  @IMPORT_CT_API_MEDIUM
   Scenario: CT_API53. Import Trial with NCT ID: NCT03090347 to verify Clinical Trial Interventional Model: Single Group Assignment
     Given I want to Import a trial with NCT ID NCT03090347
     Then I want to verify the Interventional Model
