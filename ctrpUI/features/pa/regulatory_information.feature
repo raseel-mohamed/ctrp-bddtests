@@ -112,3 +112,21 @@ Scenario: Verify the new fields are added to the Regulatory Information(PA) scre
     When I navigate to Regulatory Information screen
     And I fill all details and click save in Regulatory Information page
     Then I verify confirm message "Message. Record Updated." is displayed
+
+  @PA_HIGH @FDAAA @PA @CTRPMICRO-241
+  Scenario: Verify the validation message is not displayed in Abstraction validation failed section
+    Given I login into CTRP and search for a trial with NCI ID "NCI-2017-00331"
+    And I navigate to Regulatory Information screen
+    When FDA Regulated Intervention Indicator is Yes
+    When I select Yes for Section 801 Indicator field and saved
+    And Abstraction Validation link is clicked
+    Then I message "Delay posting indicator can only be set to 'yes' if study includes at least one intervention with type 'device'." is not displayed in the page
+
+  @PA_HIGH @FDAAA @PA @CTRPMICRO-248
+  Scenario:To verify FDA Regulated Intervention Indicator required field validations in Regulatory Information(PA)
+  Given I login into CTRP and search for a trial with NCI ID "NCI-2017-00331"
+  And I navigate to Regulatory Information screen
+  And I enter all details except mandatory fields in Regulatory Information page  and save
+  Then I verify error message "FDA Regulated Intervention Indicator is required field" is displayed
+    #Then I verify error message "FDA Regulated Intervention Indicator is required field" id displayed for FDA Regulated Intervention Indicator field
+

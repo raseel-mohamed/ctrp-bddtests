@@ -59,6 +59,7 @@ When(/^the field "([^"]*)" is "([^"]*)"$/) do |arg1, arg2|
 end
 
 # @CTRPMICRO-77
+=begin
 
 When(/^the dropdown "([^"]*)" is "([^"]*)"$/) do |arg1, arg2|
   dropdown_list = $driver.find_element(id: 'device')
@@ -70,6 +71,7 @@ When(/^the dropdown "([^"]*)" is "([^"]*)"$/) do |arg1, arg2|
   options.each { |option| option.click if option.text == 'Yes' }
   step %[I wait for 2 sec]
 end
+=end
 
 # @CTRPMICRO-69 & 238
 
@@ -175,7 +177,7 @@ Given(/^I select (Yes|No) for Unapproved\/Uncleared Device field$/) do |conditio
   end
 end
 
-Then(/^Post Prior to U\.S\. FDA Approval or Clearance field (should|should not) be visible$/) do |condition|
+Then(/^Post Prior to U.S. FDA Approval or Clearance field (should|should not) be visible$/) do |condition|
   if condition == 'should'
     step %[element having id "approval" should be present]
   end
@@ -245,3 +247,37 @@ And(/^I fill all details and click save in Regulatory Information page$/) do
   step %[I select "Yes" option by text from dropdown having id "#{RegulatoryInformation.data_monitoring_committee_id}"]
   step %[I click on element having xpath "//span[@class='save']"]
 end
+
+When(/^I select (Yes|No) for Section 801 Indicator field and saved$/) do |condition|
+  select_option_from_dropdown('id', 'text', condition, 'sec801id')
+  step %[I click on element having xpath "//span[@class='save']"]
+end
+
+When(/^Abstraction Validation link is clicked$/) do
+  step %[I click on element having xpath "//a[text()='Abstraction Validation']"]
+end
+
+Then(/^I message "([^"]*)" is not displayed in the page$/) do |text|
+  text_found = $driver.page_source.include? text
+  expect(text_found).to eq true
+end
+
+
+And(/^I enter all details except mandatory fields in Regulatory Information page  and save$/) do
+  step %[I select "Yes" option by text from dropdown having id "#{RegulatoryInformation.drug_id}"]
+  step %[I select "Yes" option by text from dropdown having id "#{RegulatoryInformation.device_id}"]
+  step %[I select "Yes" option by text from dropdown having id "#{RegulatoryInformation.unapproveduncleared_device_id}"]
+  step %[I select "Yes" option by text from dropdown having id "#{RegulatoryInformation.post_prior_to_us_fda_approval_id}"]
+  step %[I select "Yes" option by text from dropdown having id "#{RegulatoryInformation.pediatric_postmarket_surveillance_id}"]
+  step %[I select "Yes" option by text from dropdown having id "#{RegulatoryInformation.product_exported_fromthe_us_id}"]
+  step %[I select "" option by text from dropdown having xpath "//select[@id='fdaindid']"]
+  step %[I accept alert]
+  step %[I select "Yes" option by text from dropdown having id "#{RegulatoryInformation.data_monitoring_committee_id}"]
+  step %[I click on element having xpath "//span[@class='save']"]
+end
+
+Then(/^I verify error message "([^"]*)" is displayed$/) do |message|
+  ele_text = get_element_text("xpath","//span[contains(.,'FDA Regulated Intervention Indicator is required field')]")
+  expect(ele_text.strip).to eq message
+end
+
