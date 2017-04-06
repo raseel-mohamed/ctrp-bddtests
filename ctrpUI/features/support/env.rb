@@ -1,13 +1,13 @@
 require 'rubygems'
 require 'selenium-cucumber'
 require 'selenium-webdriver'
-# require 'rspec'
+require 'rspec'
 # require 'json'
 # require 'rest-client'
-# require 'rspec/expectations'
-# require 'test/unit/assertions'
+require 'rspec/expectations'
+require 'test/unit/assertions'
 require 'pg'
-# include Test::Unit::Assertions
+include Test::Unit::Assertions
 
 # Store command line arguments
 $browser_type = ENV['BROWSER'] || 'ff'
