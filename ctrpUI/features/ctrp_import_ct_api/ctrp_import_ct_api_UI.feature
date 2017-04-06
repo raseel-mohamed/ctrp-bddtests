@@ -32,7 +32,7 @@ Feature: Import Trial from PA
     Then the import should be "Message. Trial NCT03093480 has been imported and registered in CTRP system successfully." in PA
     And I should be able to search with the NCT ID "NCT03093480"
     And I should be able to select the Trial
-    And below field headers should match
+    #And below field headers should match
       | CTRP field                  | value                               |
       | Lead Organization Trial ID  | ct.gov.id_info.org_study_id         |
       | Lead Organization           | ct.gov.sponsors.lead_sponsor.agency |
@@ -69,7 +69,7 @@ Feature: Import Trial from PA
     Then the import should be "Message. Trial NCT03093480 has been imported and registered in CTRP system successfully." in PA
     And I should be able to search with the NCT ID "NCT03093480"
     And I should be able to select the Trial
-    #And In the Trial Identification below fields should match
+    And In the Trial Identification below fields should match
       | CTRP field                                     | value                               |
       | Identifier Type: Lead Organization Trial ID    | ct.gov.id_info.org_study_id         |
       | Identifier Type: ClinicalTrials.gov Identifier | ct.gov.id_info.nct_id               |
