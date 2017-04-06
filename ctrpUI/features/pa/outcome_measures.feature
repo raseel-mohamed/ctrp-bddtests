@@ -31,14 +31,14 @@ Feature: Outcome Measures
     Given I login into CTRP and search for a trial with NCI ID "NCI-2017-00331"
     When I go to Outcome Measures section in PA app
     And I fill all details and click save in Outcome Measures section(PA)
-    Then I verify confirm message "Message. Record Updated." is displayed
+    Then I verify confirm message "Message. Record Created." is displayed
 
   @PA_HIGH  @FDAAA  @PA @CTRPMICRO-232
   Scenario Outline:To verify front end validations in Outcome Measures section(PA)
     Given I login into CTRP and search for a trial with NCI ID "NCI-2017-00331"
     When I go to Outcome Measures section in PA app
     And I click on the Add button
-    Then I verify validations for outcome measure type "<outcome_measure_type>",title "<title>",time frame "<time_frame>,error message "<error_message>"
+    Then I verify validations for outcome measure type "<outcome_measure_type>",title "<title>",time frame "<time_frame>",error message "<error_message>"
     Examples:
       | outcome_measure_type | title | time_frame | error_message                        |
       | --Select--           | abc   | xyz        | Outcome Measure Type must be Entered |
@@ -61,4 +61,4 @@ Feature: Outcome Measures
     Given I login into CTRP and search for an Imported trial with NCI ID "NCI-2017-00293"
     When I go to Outcome Measures section in PA app
     And I fill all details and click save in Outcome Measures section(PA)
-    Then I verify confirm message "Message. Record Updated." is displayed
+    Then I verify confirm message "Message. Record Created." is displayed
