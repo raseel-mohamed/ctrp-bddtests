@@ -89,3 +89,32 @@ Then(/^I should be able to View the log of Imported Trial$/) do
   step %[I enter "#{@NCT_ID}" into input field having id "nctIdentifier"]
   step %[I click on element having xpath "//span[@class='search']"]
 end
+
+And(/^I should be able to search with the NCT ID "([^"]*)"$/) do |arg1|
+  step %[I click on element having id "#{LeftMenuNavigation.search_trial_menu_id}"]
+  step %[I enter "#{arg1}" into input field having id "#{SearchTrial.trial_search_text_id}"]
+  step %[I click on element having class "#{SearchTrial.trial_search_button_id}"]
+end
+
+
+And(/^I should be able to select the Trial$/) do
+  begin
+    @conn = PGconn.connect(:host => ENV['db_hostname'], :port => ENV['db_port'], :dbname => ENV['db_name'], :user => ENV['db_user'], :password => ENV['db_pass'])
+  rescue PGconn::Error => e
+    @conn = e.message
+  end
+  @res = @conn.exec("select nci_id from study_protocol where nct_id = '"+"NCT03093480"+"' and status_code = '"+"ACTIVE"+"'")
+  @return_db_value = @res.getvalue(0, 0).to_s
+  @conn.close if @conn
+  p @return_db_value
+  step %[I click on link having text "#{@return_db_value}"]
+  step %[I select "CI, ctrpsubstractor" option by text from dropdown having id "#{CTRPIMPORTUI.assigned_to_id}"]
+  tep %[I click on element having id "#{CTRPIMPORTUI.save_id}"]
+  step %[I wait for 2 sec]
+end
+
+
+And(/^below field headers should match$/) do |table|
+  # table is a table.hashes.keys # => [:CTRP field, :value]
+  pending
+end
