@@ -2,7 +2,7 @@ Feature: Export
 
   @EXPORT_HIGH
   Scenario: EXPORT_01 Validate the new FDAAA field: fda_regulated_drug
-    Given I click to view xml of "NCI-2017-00333"
+    Given I click to view xml of "NCI-2017-00128"
     Then the field "oversight_info.fda_regulated_drug" should be there
 
   @EXPORT_HIGH

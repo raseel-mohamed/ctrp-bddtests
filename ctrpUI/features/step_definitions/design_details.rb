@@ -132,7 +132,7 @@ end
 
 Given(/^I fill all details and click save in Design Details page$/) do
   step %[I select "Treatment" option by text from dropdown having id "#{DesignDetails.primary_purpose_id}"]
-  step %[I select "Early Phase 1" option by text from dropdown having id "#{DesignDetails.trial_phase_id}"] #unless data['trial_phase'].nil?
+  step %[I select "Early Phase I" option by text from dropdown having id "#{DesignDetails.trial_phase_id}"] #unless data['trial_phase'].nil?
   step %[I select "Single Group" option by text from dropdown having id "#{DesignDetails.interventional_study_model_id}"] #unless data['interventional_study_model'].nil?
   step %[I enter "2" into input field having id "#{DesignDetails.number_of_arms_id}"] #unless data[''].nil?
   step %[I check the checkbox having id "#{DesignDetails.participant_id}"] #unless data[''].nil?

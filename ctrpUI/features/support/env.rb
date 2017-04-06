@@ -1,5 +1,6 @@
 require 'rubygems'
 require 'selenium-cucumber'
+require 'selenium-webdriver'
 # require 'rspec'
 # require 'json'
 # require 'rest-client'
