@@ -1,29 +1,29 @@
 Feature: Export
 
   @EXPORT_HIGH
-  Scenario: EXPORT_01 Validate the new FDAAA field: fda_regulated_drug
-    Given I click to view xml of "NCI-2017-00128"
-    Then the field "oversight_info.fda_regulated_drug" should be there
+  Scenario: EXPORT_01 Validate the new FDAAA field: fda_regulated_drug = YES
+    Given I click to view xml of "NCI-2017-00384"
+    Then the field "oversight_info.fda_regulated_drug = Yes" should be there
 
   @EXPORT_HIGH
-  Scenario: EXPORT_02 Validate the new FDAAA field: fda_regulated_device
-    Given I click to view xml of "NCI-2017-00333"
-    Then the field "oversight_info.fda_regulated_device" should be there
+  Scenario: EXPORT_02 Validate the new FDAAA field: fda_regulated_device = Yes
+    Given I click to view xml of "NCI-2017-00384"
+    Then the field "oversight_info.fda_regulated_device = Yes" should be there
 
   @EXPORT_HIGH
-  Scenario: EXPORT_03 Validate the new FDAAA field: post_prior_to_approval
-    Given I click to view xml of "NCI-2017-00333"
-    Then the field "oversight_info.post_prior_to_approval" should be there
+  Scenario: EXPORT_03 Validate the new FDAAA field: post_prior_to_approval = Yes
+    Given I click to view xml of "NCI-2017-00384"
+    Then the field "oversight_info.post_prior_to_approval = Yes" should be there
 
   @EXPORT_HIGH
-  Scenario: EXPORT_04 Validate the new FDAAA field: ped_postmarket_surv
-    Given I click to view xml of "NCI-2017-00333"
-    Then the field "oversight_info.ped_postmarket_surv" should be there
+  Scenario: EXPORT_04 Validate the new FDAAA field: ped_postmarket_surv = Yes
+    Given I click to view xml of "NCI-2017-00384"
+    Then the field "oversight_info.ped_postmarket_surv = Yes" should be there
 
   @EXPORT_HIGH
-  Scenario: EXPORT_05 Validate the new FDAAA field: exported_from_us
-    Given I click to view xml of "NCI-2017-00333"
-    Then the field "oversight_info.exported_from_us" should be there
+  Scenario: EXPORT_05 Validate the new FDAAA field: exported_from_us = Yes
+    Given I click to view xml of "NCI-2017-00384"
+    Then the field "oversight_info.exported_from_us = Yes" should be there
 
   @EXPORT_HIGH
   Scenario: EXPORT_06 Validate the new FDAAA field: model_description
