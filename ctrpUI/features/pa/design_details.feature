@@ -85,7 +85,7 @@ Feature: Design Details
     | Treatment       |               | Single Group               | 1              | noMasking | NA         | 1                 | Trial Phase must be Entered        |
     | Treatment       | Early Phase I |                            | 1              | noMasking | NA         | 1                 | Intervention Model must be Entered |
     | Treatment       | Early Phase I | Single Group               |                | noMasking | NA         | 1                 | Number of Arms must be Entered     |
-    | Treatment       | Early Phase I | Single Group               | 1              |           | NA         | 1                 | Masking must be Entered                                  |
+    | Treatment       | Early Phase I | Single Group               | 1              |           | NA         | 1                 | Masking must be Entered            |
     | Treatment       | Early Phase I | Single Group               | 1              | noMasking |            | 1                 | Allocation must be Entered         |
     | Treatment       | Early Phase I | Single Group               | 1              | noMasking | NA         |                   | Target Enrollment must be Entered  |
 

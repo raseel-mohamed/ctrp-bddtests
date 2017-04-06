@@ -1,28 +1,28 @@
 Feature: Import Trial from PA
 
-  @IMPORT_CT_UI_HIGH
+  @IMPORT_CT_UI_HIGH @test
   Scenario: IMPORT_CT_UI_01 Import Trial from PA
     Given I am logged in to PA
-    And I want to Import the trial with NCT ID "NCT03093480"
-    Then the import should be "Message. Trial NCT03093480 has been imported and registered in CTRP system successfully."
+    And I want to Import the trial with NCT ID "NCT03093480" in PA
+    Then the import should be "Message. Trial NCT03093480 has been imported and registered in CTRP system successfully." in PA
 
 
-  @IMPORT_CT_UI_HIGH
+  @IMPORT_CT_UI_HIGH @test
   Scenario: IMPORT_CT_UI_02 Import Trial from Registry
     Given I am logged in to Registry
-    And I want to Import the trial with NCT ID NCT03093480
-    Then the import should be successful
+    And I want to Import the trial with NCT ID "NCT03093480" in Registry
+    Then the import should be "Message: Trial NCT03093480 has been imported and registered in CTRP system successfully." in Registry
 
   @IMPORT_CT_UI_HIGH
   Scenario: IMPORT_CT_UI_03 Import Trial from PA - Update
     Given I am logged in to PA
-    And I want to make an update to the Imported trial with NCT ID NCT03093480
-    Then the update of an import should be successful
+    And I want to make an update to the Imported trial with NCT ID "NCT03093480"
+    Then the update of an import should be "Message. An update to trial(s) with identifiers NCT03093480 and NCI-2017-00361 has been made successfully."
 
-  @IMPORT_CT_UI_HIGH
+  @IMPORT_CT_UI_HIGH @xy
   Scenario: IMPORT_CT_UI_04 View log for Imported trials
     Given I am logged in to PA
-    And I want to Import the trial with NCT ID NCT03093480
+    And I want to Import the trial with NCT ID "NCT03093480" in PA
     Then I should be able to View the log of Imported Trial
 
   @IMPORT_CT_UI_HIGH
