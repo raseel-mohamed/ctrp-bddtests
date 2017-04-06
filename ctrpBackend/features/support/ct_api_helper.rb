@@ -5,7 +5,7 @@ require 'active_support'
 class Ct_api_helper
 
   def self.import_trial_frm_ct(arg1)
-    headers = {:content_type => 'application/xml', :accept => 'application/xml'}
+    headers = {:content_type => 'application/json', :accept => 'application/json'}
     ct_env = ENV['ctgov'].to_s
     nct_id = arg1.to_s
     url_ctgov = ''+ ct_env +'/NCT'+ nct_id +'/xml'

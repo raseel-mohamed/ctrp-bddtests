@@ -419,7 +419,7 @@ Feature: Import ct api
 
   @IMPORT_CT_API_HIGH
   Scenario: CT_API58. Import Trial with NCT ID: NCT03098550 to verify Clinical Trial Masking: No masking
-    Given I want to Import a trial with NCT ID NCT03098550
+    Given I want to Import a trial with NCT
     Then I want to verify the Masking
       | clinical Trial Masking | CTRP Masking |
       | No masking             | No masking   |
