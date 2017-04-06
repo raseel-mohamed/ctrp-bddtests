@@ -196,7 +196,7 @@ When(/^FDA Regulated Intervention Indicator is (Yes|No)$/) do |condition|
   end
 end
 
-Then(/^Section 801 Indicator field should|should not be visible$/) do |condition|
+Then(/^Section 801 Indicator field (should|should not) be visible$/) do |condition|
   if condition == 'should'
     step %[element having id "sec801id" should be present]
   end
@@ -259,7 +259,7 @@ end
 
 Then(/^I message "([^"]*)" is not displayed in the page$/) do |text|
   text_found = $driver.page_source.include? text
-  expect(text_found).to eq true
+  expect(text_found).to eq false
 end
 
 
@@ -277,7 +277,7 @@ And(/^I enter all details except mandatory fields in Regulatory Information page
 end
 
 Then(/^I verify error message "([^"]*)" is displayed$/) do |message|
-  ele_text = get_element_text("xpath","//span[contains(.,'FDA Regulated Intervention Indicator is required field')]")
+  ele_text = get_element_text("xpath","//span[text()='FDA Regulated Intervention Indicator is required field']")
   expect(ele_text.strip).to eq message
 end
 
