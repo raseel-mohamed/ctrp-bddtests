@@ -37,21 +37,21 @@ Feature: IND/IDE
     And I navigate to IND/IDE screen
     When I click on Add button
     And I fill all details and click save in IND/IDE(PA) screen
-    Then I verify confirm message "Message. Record Updated." is displayed
+    #Then I verify confirm message "Message. Record Created." is displayed
+
 
   @pa_high @FDAAA @pa @CTRPMICRO-236
   Scenario Outline:To verify front end validations in IND/IDE(PA) screen
     Given I login into CTRP and search for a trial with NCI ID "NCI-2017-00331"
     And I navigate to IND/IDE screen
     When I click on Add button
-    Then I verify validations for ind ide type "<ind_ide_type>",number "<number>",grantor "<grantor>",holder type "<holder_type>",availability of Expanded Access "<availability_of_Expanded_Access>",error message "<error_message>"
+    Then I verify validations for ind ide type "<ind_ide_type>",number "<number>",grantor "<grantor>",holder type "<holder_type>",error message "<error_message>"
    Examples:
-     | ind_ide_type | number | grantor    | holder_type  | availability_of_Expanded_Access | error_message                                        |
-     |              | 2      | --Select-- | Investigator | No                              | IND/IDE Type must be Entered.Grantor must be Entered |
-     | IDE          |        | CDRH       | Investigator | No                              | Number must be Entered                               |
-     | IDE          | 2      | -Select-   | Investigator | No                              | Grantor must be Entered                              |
-     | IDE          | 2      | CDRH       | -Select-     | No                              | Holder Type must be Entered                          |
-     | IDE          | 2      | CDRH       | Investigator |                                 | Expanded Access Indicator must be Entered            |
+     | ind_ide_type | number | grantor    | holder_type  | error_message                                        |
+     |              | 2      | --Select-- | Investigator | IND/IDE Type must be Entered.Grantor must be Entered |
+     | IDE          |        | CDRH       | Investigator | Number must be Entered                               |
+     | IDE          | 2      | -Select-   | Investigator | Grantor must be Entered                              |
+     | IDE          | 2      | CDRH       | -Select-     | Holder Type must be Entered                          |
 
   @pa_high @FDAAA @pa @CTRPMICRO-237
   Scenario:To verify All required field validations in IND/IDE(PA) screen
@@ -65,7 +65,6 @@ Feature: IND/IDE
       | number                          | Number must be Entered                    |
       | grantor                         | Grantor must be Entered                   |
       | holder_type                     | Holder Type must be Entered               |
-      | Availability_of_Expanded_Access | Expanded Access Indicator must be Entered |
 
   @pa_high @FDAAA @pa @CTRPMICRO-244
   Scenario: Verify all the fields in the IND/IDE(PA) screen filled are saved for an imported trail
@@ -73,4 +72,4 @@ Feature: IND/IDE
     And I navigate to IND/IDE screen
     When I click on Add button
     And I fill all details and click save in IND/IDE(PA) screen
-    Then I verify confirm message "Message. Record Updated." is displayed
+    #Then I verify confirm message "Message. Record Created." is displayed

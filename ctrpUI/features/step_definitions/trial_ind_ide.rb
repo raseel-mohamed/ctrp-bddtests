@@ -51,7 +51,7 @@ end
 When(/^I fill all details and click save in IND\/IDE\(PA\) screen$/) do
   step %[I select radio button having id "#{TrialINDIDE.ind_ide_type_id}"]
   step %[I clear input field having id "#{TrialINDIDE.number_id}"]
-  step %[I enter "12" into input field having id "#{TrialINDIDE.number_id}"]
+  step %[I enter "3" into input field having id "#{TrialINDIDE.number_id}"]
   step %[I select "CDRH" option by text from dropdown having id "#{TrialINDIDE.grantor_id}"]
   step %[I select "Investigator" option by text from dropdown having id "#{TrialINDIDE.holder_type_id}"]
   step %[I select "No" option by text from dropdown having id "#{TrialINDIDE.ava_of_ex_acc_id}"]
@@ -65,7 +65,6 @@ When(/^I enter all details except mandatory fields in IND\/IDE\(PA\) screen$/) d
   step %[I enter "" into input field having id "#{TrialINDIDE.number_id}"]
   step %[I select "--Select--" option by text from dropdown having id "#{TrialINDIDE.grantor_id}"]
   step %[I select "-Select-" option by text from dropdown having id "#{TrialINDIDE.holder_type_id}"]
-  step %[I select "" option by text from dropdown having id "#{TrialINDIDE.ava_of_ex_acc_id}"]
   step %[I click on element having xpath "//span[@class='save']"]
 end
 
@@ -78,13 +77,12 @@ end
 
 #@pa_high @FDAAA @pa @CTRPMICRO-236
 
-Then(/^I verify validations for ind ide type "([^"]*)",number "([^"]*)",grantor "([^"]*)",holder type "([^"]*)",availability of Expanded Access "([^"]*)",error message "([^"]*)"$/) do |ind_ide_type, number, grantor, holder_type, availability_of_Expanded_Access, error_message|
+Then(/^I verify validations for ind ide type "([^"]*)",number "([^"]*)",grantor "([^"]*)",holder type "([^"]*)",error message "([^"]*)"$/) do |ind_ide_type, number, grantor, holder_type, error_message|
   data = {
       'ind_ide_type' => ind_ide_type,
       'number' => number,
       'grantor' => grantor,
       'holder_type' => holder_type,
-      'availability_of_Expanded_Access' => availability_of_Expanded_Access,
   }
 
   data.each do |key, value|
@@ -108,7 +106,6 @@ def trial_ind_ide_fill_data(data, error_message)
   step %[I enter "#{data['number']}" into input field having id "#{TrialINDIDE.number_id}"]
   step %[I select "#{data['grantor']}" option by text from dropdown having id "#{TrialINDIDE.grantor_id}"]
   step %[I select "#{data['holder_type']}" option by text from dropdown having id "#{TrialINDIDE.holder_type_id}"]
-  step %[I select "#{data['availability_of_Expanded_Access']}" option by text from dropdown having id "#{TrialINDIDE.ava_of_ex_acc_id}"]
   step %[I click on element having xpath "//span[@class='save']"]
 
   if data['ind_ide_type'].eql?('')
