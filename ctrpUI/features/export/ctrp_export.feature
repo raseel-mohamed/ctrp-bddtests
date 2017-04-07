@@ -62,7 +62,7 @@ Feature: Export
 
   @EXPORT_HIGH
   Scenario: EXPORT_08 Validate the new FDAAA field: gender_based = Yes
-    Given I click to view xml of "NCI-2017-00387"
+    Given I click to view xml of "NCI-2017-00384"
     Then the field "Eligibility.gender_based = Yes" should be there
 
   @EXPORT_HIGH
@@ -72,12 +72,12 @@ Feature: Export
 
   @EXPORT_HIGH
   Scenario: EXPORT_08b Validate the new FDAAA field: gender_based EMPTY
-    Given I click to view xml of "NCI-2017-00387"
+    Given I click to view xml of "NCI-2017-00391"
     Then the field "Eligibility.gender_based" should not be there
 
   @EXPORT_HIGH
   Scenario: EXPORT_09 Validate the new FDAAA field: gender_description
-    Given I click to view xml of "NCI-2017-00387"
+    Given I click to view xml of "NCI-2017-00384"
     Then the field "Eligibility.gender_description" should be there
 
   @EXPORT_HIGH
@@ -87,7 +87,7 @@ Feature: Export
 
   @EXPORT_HIGH
   Scenario: EXPORT_10 Validate the new FDAAA field: expanded_access_nct_id
-    Given I click to view xml of "NCI-2017-00387"
+    Given I click to view xml of "NCI-2017-00391"
     Then the field "ind_info.expanded_access_nct_id" should be there
 
   @EXPORT_HIGH
@@ -102,12 +102,12 @@ Feature: Export
 
   @EXPORT_HIGH
   Scenario: EXPORT_13 Validate the field: primary_outcome.outcome_safety_issue has been removed
-    Given I click to view xml of "NCI-2017-00387"
+    Given I click to view xml of "NCI-2017-00391"
     Then the field "primary_outcome.outcome_safety_issue" should not be there
 
   @EXPORT_HIGH
   Scenario: EXPORT_14 Validate the field: secondary_outcome.outcome_safety_issue has been removed
-    Given I click to view xml of "NCI-2017-00387"
+    Given I click to view xml of "NCI-2017-00391"
     Then the field "secondary_outcome.outcome_safety_issue" should not be there
 
   @EXPORT_HIGH
@@ -125,7 +125,7 @@ Feature: Export
     Given I click to view xml of "NCI-2017-00387"
     Then the new value as "Sequential Assignment" should be there in "study_design.interventional_design.assignment"
 
-  @EXPORT_HIGH @test
+  @EXPORT_HIGH
   Scenario: EXPORT_18 Validate the field: start_date_type
     Given I click to view xml of "NCI-2017-00387"
     Then the field "start_date_type" should be populated
@@ -157,7 +157,7 @@ Feature: Export
 
   @EXPORT_HIGH
   Scenario: EXPORT_24 Validate the field: delayed_posting
-    Given I click to view xml of "NCI-2017-00387"
+    Given I click to view xml of "NCI-2017-00384"
     Then the field "delayed_posting" should be populated
 
   @EXPORT_HIGH
@@ -172,7 +172,7 @@ Feature: Export
 
   @EXPORT_HIGH
   Scenario: EXPORT_27 Validate the new FDAAA field: no_masking = No
-    Given I click to view xml of "NCI-2017-00387"
+    Given I click to view xml of "NCI-2017-00384"
     Then the field "study_design.interventional_design.no_masking" with "No" should be there
 
   @EXPORT_HIGH
@@ -182,12 +182,12 @@ Feature: Export
 
   @EXPORT_HIGH
   Scenario: EXPORT_29 Validate the field: Sex = Female
-    Given I click to view xml of "NCI-2017-00387"
+    Given I click to view xml of "NCI-2017-00384"
     Then the field "eligibility.gender" with "Female" should be there
 
   @EXPORT_HIGH
   Scenario: EXPORT_30 Validate the field: Sex = All
-    Given I click to view xml of "NCI-2017-00387"
+    Given I click to view xml of "NCI-2017-00391"
     Then the field "eligibility.gender" with "All" should be there
 
   @EXPORT_HIGH
@@ -197,10 +197,10 @@ Feature: Export
 
   @EXPORT_HIGH
   Scenario: EXPORT_32 Validate the field: has_expanded_access = No
-    Given I click to view xml of "NCI-2017-00387"
+    Given I click to view xml of "NCI-2017-00384"
     Then the field "indinfo.has_expanded_access" with "No" should be there
 
   @EXPORT_HIGH
   Scenario: EXPORT_33 Validate the field: has_expanded_access = Unknown
-    Given I click to view xml of "NCI-2017-00387"
+    Given I click to view xml of "NCI-2017-00391"
     Then the field "indinfo.has_expanded_access" with "Unknown" should be there

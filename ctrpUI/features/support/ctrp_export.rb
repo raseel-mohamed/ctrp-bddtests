@@ -28,7 +28,7 @@ Given(/^I click to view xml of "([^"]*)"$/) do |arg1|
     @valid_xml = valid_xml.at('study_type').text
   end
   if @valid_xml.nil?
-    flunk "Not found "
+    flunk "***** Not able to generate XML. ***** "
   end
 end
 
@@ -110,7 +110,7 @@ Then(/^the field "([^"]*)" should be there$/) do |arg1|
       if @model_description_xml.empty?
         flunk "Element model_description Not found"
       else
-        assert_equal(@model_description_xml.text, 'Yes', 'Validating model_description')
+        assert_equal(@model_description_xml.text, 'Model Description has been added', 'Validating model_description')
       end
 
     when 'study_design.interventional_design.masking_description'
@@ -118,7 +118,7 @@ Then(/^the field "([^"]*)" should be there$/) do |arg1|
       if @masking_description_xml.empty?
         flunk "Element masking_description Not found"
       else
-        assert_equal(@masking_description_xml.text, 'Yes', 'Validating masking_description')
+        assert_equal(@masking_description_xml.text, 'Masking Description has been added', 'Validating masking_description')
       end
 
     when 'Eligibility.gender_based = Yes'
@@ -137,12 +137,12 @@ Then(/^the field "([^"]*)" should be there$/) do |arg1|
         assert_equal(@gender_based_xml.text, 'No', 'Validating @gender_based')
       end
 
-    when 'Eligibility.gender_description = No'
+    when 'Eligibility.gender_description'
       @gender_description_xml = @data_xml_export.xpath("//clinical_study//eligibility//gender_description")
       if @gender_description_xml.empty?
         flunk "Element @gender_description Not found"
       else
-        assert_equal(@gender_description_xml.text, 'No', 'Validating @gender_description')
+        assert_equal(@gender_description_xml.text, 'Gender Eligibility Description has been added', 'Validating @gender_description')
       end
 
     when 'ind_info.expanded_access_nct_id'
@@ -163,73 +163,73 @@ Then(/^the field "([^"]*)" should not be there$/) do |arg1|
     when 'study_design.interventional_design.model_description'
       @model_description_xml = @data_xml_export.xpath("//clinical_study//study_design//interventional_design//model_description")
       if @model_description_xml.empty?
-        puts "Model description element not there"
+        puts "Model description element not there as Expected"
       else
-        flunk "Element model_description should not be there"
+        flunk "Element model_description should have been removed"
       end
 
     when 'study_design.interventional_design.masking_description'
       @masking_description_xml = @data_xml_export.xpath("//clinical_study//study_design//interventional_design//masking_description")
       if @masking_description_xml.empty?
-        puts "Masking description element not there"
+        puts "Masking description element not there as Expected"
       else
-        flunk "Element masking_description should not be there"
+        flunk "Element masking_description should have been removed"
       end
 
     when 'Eligibility.gender_based'
       @gender_based_xml = @data_xml_export.xpath("//clinical_study//eligibility//gender_based")
       if @gender_based_xml.empty?
-        puts "@gender_based element not there"
+        puts "@gender_based element not there as Expected"
       else
-        flunk "Element @gender_based should not be there"
+        flunk "Element @gender_based should have been removed"
       end
 
     when 'Eligibility.gender_description'
       @gender_description_xml = @data_xml_export.xpath("//clinical_study//eligibility//gender_description")
       if @gender_description_xml.empty?
-        puts "@gender_description element not there"
+        puts "@gender_description element not there as Expected"
       else
-        flunk "Element @gender_description_xml should not be there"
+        flunk "Element @gender_description_xml should have been removed"
       end
 
     when 'oversight_info.regulatory_authority'
       @regulatory_authority_xml = @data_xml_export.xpath("//clinical_study//oversight_info//regulatory_authority")
       if @regulatory_authority_xml.empty?
-        puts "@regulatory_authority element not there"
+        puts "@regulatory_authority element not there as Expected"
       else
-        flunk "Element @regulatory_authority should not be there"
+        flunk "Element @regulatory_authority should have been removed"
       end
 
     when 'study_design.endpoint'
       @endpoint_xml = @data_xml_export.xpath("//clinical_study//study_design//interventional_design//endpoint")
       if @endpoint_xml.empty?
-        puts "@endpoint element not there"
+        puts "@endpoint element not there as Expected"
       else
-        flunk "Element @endpoint should not be there"
+        flunk "Element @endpoint should have been removed"
       end
 
     when 'primary_outcome.outcome_safety_issue'
       @outcome_safety_issue_xml = @data_xml_export.xpath("//clinical_study//primary_outcome//outcome_safety_issue")
       if @outcome_safety_issue_xml.empty?
-        puts "primary_outcome @outcome_safety_issue element not there"
+        puts "primary_outcome @outcome_safety_issue element not there as Expected"
       else
-        flunk "Element primary_outcome @outcome_safety_issue should not be there"
+        flunk "Element primary_outcome @outcome_safety_issue should have been removed"
       end
 
     when 'secondary_outcome.outcome_safety_issue'
       @outcome_safety_issue_xml = @data_xml_export.xpath("//clinical_study//secondary_outcome//outcome_safety_issue")
       if @outcome_safety_issue_xml.empty?
-        puts "secondary_outcome @outcome_safety_issue element not there"
+        puts "secondary_outcome @outcome_safety_issue element not there as Expected"
       else
-        flunk "Element secondary_outcome @outcome_safety_issue should not be there"
+        flunk "Element secondary_outcome @outcome_safety_issue should have been removed"
       end
 
     when 'study_design.interventional_design.masking'
       @masking_xml = @data_xml_export.xpath("//clinical_study//study_design//interventional_design//masking")
       if @masking_xml.empty?
-        puts "Masking element not there"
+        puts "Masking element not there as Expected"
       else
-        flunk "Element masking should not be there"
+        flunk "Element masking should have been removed"
       end
 
     else
@@ -283,35 +283,42 @@ Then(/^the field "([^"]*)" should be populated$/) do |arg1|
       if @start_date_xml.empty?
         flunk "Element start_date Not found"
       else
-        assert_equal(@start_date_xml.text, '2017-04', 'Validating start_date')
+        assert_equal(@start_date_xml.text, '2014-07-15', 'Validating start_date')
       end
     when 'primary_compl_date_type'
       @primary_compl_date_type_xml = @data_xml_export.xpath("//clinical_study//primary_compl_date_type")
       if @primary_compl_date_type_xml.empty?
         flunk "Element primary_compl_date_type Not found"
       else
-        assert_equal(@primary_compl_date_xml.text, 'Actual', 'Validating primary_compl_date_type')
+        assert_equal(@primary_compl_date_type_xml.text, 'Actual', 'Validating primary_compl_date_type')
       end
     when 'primary_compl_date'
       @primary_compl_date_xml = @data_xml_export.xpath("//clinical_study//primary_compl_date")
       if @primary_compl_date_xml.empty?
         flunk "Element primary_compl_date Not found"
       else
-        assert_equal(@primary_compl_date_xml.text, '2017-04', 'Validating primary_compl_date')
+        assert_equal(@primary_compl_date_xml.text, '2015-07-16', 'Validating primary_compl_date')
       end
     when 'completion_date_type'
-      @completion_date_type_xml = @data_xml_export.xpath("//clinical_study//completion_date_type")
+      @completion_date_type_xml = @data_xml_export.xpath("//clinical_study//last_follow_up_date_type")
       if @completion_date_type_xml.empty?
         flunk "Element completion_date_type Not found"
       else
         assert_equal(@completion_date_type_xml.text, 'Actual', 'Validating completion_date_type')
       end
     when 'completion_date'
-      @completion_date_xml = @data_xml_export.xpath("//clinical_study//completion_date")
+      @completion_date_xml = @data_xml_export.xpath("//clinical_study//last_follow_up_date")
       if @completion_date_xml.empty?
         flunk "Element completion_date Not found"
       else
-        assert_equal(@completion_date_xml.text, '2017-04', 'Validating completion_date')
+        assert_equal(@completion_date_xml.text, '2015-07-17', 'Validating completion_date')
+      end
+    when 'delayed_posting'
+      @delayed_posting_xml = @data_xml_export.xpath("//clinical_study//delayed_posting")
+      if @delayed_posting_xml.empty?
+        flunk "Element delayed_posting Not found"
+      else
+        assert_equal(@delayed_posting_xml.text, 'Yes', 'Validating delayed_posting')
       end
 
     else

@@ -15,7 +15,7 @@ Given(/^I login into CTRP and search for a trial with NCI ID "([^"]*)"$/) do |ar
   step %[I enter "#{arg1}" into input field having id "#{SearchTrial.trial_search_text_id}"]
   step %[I click on element having class "#{SearchTrial.trial_search_button_id}"]
   step %[I click on link having text "#{arg1}"]
-  step %[I wait for 2 sec]
+  step %[I wait for 3 sec]
 end
 
 When(/^I navigate to Regulatory Information screen$/) do
@@ -25,14 +25,6 @@ end
 Then(/^"([^"]*)" field is not displayed in Regulatory Information\(PA\) screen$/) do |arg1|
   step %[element having xpath ".//*[@id='countries']" should not be present]
   puts "#{arg1}"  "is not present in Regulatory Information screen."
-end
-
-# @CTRPMICRO-66
-
-Then(/^new fields with options should be there$/) do |table|
-  # table is a Cucumber::MultilineArgument::DataTable
-  step %[element having id "drug" should be present]
-  puts "drug is present in the RI"
 end
 
 # @CTRPMICRO-75
@@ -56,21 +48,6 @@ When(/^the field "([^"]*)" is "([^"]*)"$/) do |arg1, arg2|
   options.each { |option| option.click if option.text == 'Yes' }
 
 end
-
-# @CTRPMICRO-77
-=begin
-
-When(/^the dropdown "([^"]*)" is "([^"]*)"$/) do |arg1, arg2|
-  dropdown_list = $driver.find_element(id: 'device')
-  options = dropdown_list.find_elements(tag_name: 'option')
-  options.each { |option| option.click if option.text == 'Yes' }
-  step %[I wait for 5 sec]
-  dropdown_list = $driver.find_element(id: 'surveillance')
-  options = dropdown_list.find_elements(tag_name: 'option')
-  options.each { |option| option.click if option.text == 'Yes' }
-  step %[I wait for 2 sec]
-end
-=end
 
 # @CTRPMICRO-69 & 238
 
@@ -280,3 +257,22 @@ Then(/^I verify error message "([^"]*)" is displayed$/) do |message|
   expect(ele_text.strip).to eq message
 end
 
+
+And(/^I enter all details except mandatory fields and click save$/) do
+  step %[I select "Yes" option by text from dropdown having id "#{RegulatoryInformation.drug_id}"]
+  step %[I select "Yes" option by text from dropdown having id "#{RegulatoryInformation.device_id}"]
+  step %[I select "Yes" option by text from dropdown having id "#{RegulatoryInformation.unapproveduncleared_device_id}"]
+  step %[I select "Yes" option by text from dropdown having id "#{RegulatoryInformation.post_prior_to_us_fda_approval_id}"]
+  step %[I select "Yes" option by text from dropdown having id "#{RegulatoryInformation.pediatric_postmarket_surveillance_id}"]
+  step %[I select "Yes" option by text from dropdown having id "#{RegulatoryInformation.product_exported_fromthe_us_id}"]
+  step %[I select "Yes" option by text from dropdown having xpath "//select[@id='fdaindid']"]
+  step %[I select "" option by text from dropdown having id "sec801id"]
+  step %[I select "Yes" option by text from dropdown having id "#{RegulatoryInformation.data_monitoring_committee_id}"]
+  step %[I click on element having xpath "//span[@class='save']"]
+
+
+end
+
+Then(/^I verify validation error message "([^"]*)" is displayed$/) do |message|
+  step %[I should see alert text as "#{message}"]
+end
