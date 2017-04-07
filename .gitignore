@@ -11,3 +11,6 @@ Gemfile.lock
 ctrpBackend/features/support/env_local.rb
 ctrpUI/features/support/env_local.rb
 
+#ignore test.rb
+ctrpUI/features/step_definations/test.rb
+
