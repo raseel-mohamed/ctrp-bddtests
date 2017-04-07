@@ -419,7 +419,7 @@ Feature: Import ct api
 
   @IMPORT_CT_API_HIGH
   Scenario: CT_API58. Import Trial with NCT ID: NCT03098550 to verify Clinical Trial Masking: No masking
-    Given I want to Import a trial with NCT
+    Given I want to Import a trial with NCT ID NCT03098550
     Then I want to verify the Masking
       | clinical Trial Masking | CTRP Masking |
       | No masking             | No masking   |
@@ -507,14 +507,16 @@ Feature: Import ct api
     Then I want to verify the Primary Purpose
       | clinical Trial Primary Purpose | CTRP Masking       |
       | Device Feasibility             | Device Feasibility |
+    #need to update NCT trial for device feasibility feature scenario
 
-  @IMPORT_CT_API_HIGH
+  @IMPORT_CT_API_LOW
   Scenario: CT_API71. Import Trial with NCT ID: NCT03090178 to verify Clinical Trial Primary Purpose: Other
     Given I want to Import a trial with NCT ID NCT03090178
     Then I want to verify the Primary Purpose
       | clinical Trial Primary Purpose | CTRP Masking |
       | Other                          | Other        |
     And Description should be populated
+    #need to update NCT trial for device feasibility feature scenario
 
   @IMPORT_CT_API_HIGH
   Scenario: CT_API72. Import Trial with NCT ID: NCT03097640 to verify Clinical Trial Outcome Measures: Primary

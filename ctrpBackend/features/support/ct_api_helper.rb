@@ -1,3 +1,9 @@
+require_relative '../support/dataclinicaltrials_api_helper.rb'
+require_relative '../support/organization_helper.rb'
+require_relative '../support/helper.rb'
+require 'json'
+require 'rest-client'
+
 require 'nokogiri'
 require 'time'
 require 'active_support'
@@ -615,7 +621,7 @@ class Ct_api_helper
       @conn = e.message
     end
     case db_field
-      when 'No masking', 'Participant', 'Investigator', 'Care Provider', 'Outcomes Assessor', 'Basic Science', 'Diagnostic', 'Health Services Research', 'Prevention', 'Screening', 'Supportive Care', 'Treatment', 'Device Feasibility', 'Other'
+      when 'No masking', 'Participant', 'Investigator', 'Care Provider', 'Outcomes Assessor'
         mskng_trl = data_hash_ctgov['clinical_study']['study_design_info']['masking']
         @mskng_trial_jsn = mskng_trl.to_s
         @mskng_trl_xml = @data_xml_ctgov
@@ -623,30 +629,96 @@ class Ct_api_helper
           @mskng_trial_val_xml = interventional_tag.at('masking').text
         end
         @masking_option = @mskng_trial_val_xml.to_s
-        assert_equal(@masking_option.nil?, false, 'Validating CTRP Masking is not empty')
         if @mskng_trial_val_xml.eql?('No masking')
-          @masking_option = 'No masking'
-        elsif @mskng_trial_val_xml.eql?('Parallel Assignment')
-          @masking_option = 'Parallel'
-        elsif @mskng_trial_val_xml.eql?('Crossover Assignment')
-          @masking_option = 'Cross-over'
-        elsif @mskng_trial_val_xml.eql?('Factorial Assignment')
-          @masking_option = 'Factorial'
-        elsif @mskng_trial_val_xml.eql?('Sequential Assignment')
-          @masking_option = 'Sequential'
+          @masking_option = 'true'
+          assert_equal(@masking_option.nil?, false, 'Validating CTRP Masking is not empty')
+          headers = {:content_type => 'application/json', :accept => ''}
+          @res = @conn.exec("SELECT identifier FROM study_protocol WHERE nct_id = '" + nct_id + "' AND status_code = 'ACTIVE'")
+          return_db_study_id = @res.getvalue(0, 0).to_s
+          @res = @conn.exec("SELECT nci_id FROM study_protocol WHERE nct_id = '" + nct_id + "' AND status_code = 'ACTIVE'")
+          return_db_nci_id = @res.getvalue(0, 0).to_s
+          @post_endpoint_condition='?study_protocol_id='+return_db_study_id+'&nci_id='+return_db_nci_id+''
+          @type = 'STUDY_PROTOCOL_ID_AND_NCI_ID'
+          @response, @response_code, @response_body, @id, @nci_id, @trial_id, @study_protocol_id, @response_message = Dataclinicaltrials_api_helper.trigger_get_field_values('GET', 'dataclinicaltrials_ms', ENV['dct_usr'], ENV['dct_pass'], headers, @post_endpoint_condition, @type)
+          @response_body.each { |key_value|
+            @no_masking = key_value['no_masking'].to_s
+          }
+        elsif @mskng_trial_val_xml.eql?('Participant, Investigator, Outcomes Assessor')
+          @masking_option = 'Participant'
+        elsif @mskng_trial_val_xml.eql?('Investigator')
+          @masking_option = 'Investigator'
+        elsif @mskng_trial_val_xml.eql?('Care Provider')
+          @masking_option = 'Care Provider'
+        elsif @mskng_trial_val_xml.eql?('Outcomes Assessor')
+          @masking_option = 'Outcomes Assessor'
         else
           @masking_option = @mskng_trial_val_xml
         end
         @trial_msking_exp = @masking_option.to_s
-        puts 'Verifying: <<' + @trial_msking_exp + '>>.'
-        @res = @conn.exec("SELECT allocation_code FROM study_protocol WHERE nct_id = '" + nct_id + "' AND status_code = 'ACTIVE'")
-        @return_db_value = @res.getvalue(0, 0).to_s
+        puts 'Verifying CTRP Masking: <<' + @trial_msking_exp + '>>.'
+        if @no_masking.nil?
+          @res = @conn.exec("SELECT allocation_code FROM study_protocol WHERE nct_id = '" + nct_id + "' AND status_code = 'ACTIVE'")
+          @return_db_value = @res.getvalue(0, 0).to_s
+        elsif @no_masking.eql?('true')
+          @return_db_value = @no_masking
+        elsif @no_masking.eql?('false')
+          @return_db_value = @no_masking
+        end
         assert_equal(@return_db_value, @trial_msking_exp, 'Validating CTRP Masking option')
       else
         flunk 'Please provide correct db_field. Provided db_filed <<' + db_field + '>> does not exist'
     end
     @conn.close if @conn
   end
+
+  def self.verify_primary_purpose(db_field, nct_id, data_hash_ctgov)
+    begin
+      @conn = PGconn.connect(:host => ENV['db_hostname'], :port => ENV['db_port'], :dbname => ENV['db_name'], :user => ENV['db_user'], :password => ENV['db_pass'])
+    rescue PGconn::Error => e
+      @conn = e.message
+    end
+    case db_field
+      when 'Basic Science', 'Diagnostic', 'Health Services Research', 'Prevention', 'Screening', 'Supportive Care', 'Treatment', 'Device Feasibility', 'Other'
+        prmry_purps_trl = data_hash_ctgov['clinical_study']['study_design_info']['primary_purpose']
+        @pr_ps_trial_jsn = prmry_purps_trl.to_s
+        @pr_ps_trl_xml = @data_xml_ctgov
+        @pr_ps_trl_xml.search('//study_design_info').each do |interventional_tag|
+          @pr_ps_tral_val_xml = interventional_tag.at('primary_purpose').text
+        end
+        @prmry_pps_option = @pr_ps_tral_val_xml.to_s
+        if @pr_ps_tral_val_xml.eql?('Basic Science') && db_field.eql?('Basic Science')
+          @prmry_pps_option = 'BASIC_SCIENCE'
+        elsif @pr_ps_tral_val_xml.eql?('Diagnostic') && db_field.eql?('Diagnostic')
+          @prmry_pps_option = 'DIAGNOSTIC'
+        elsif @pr_ps_tral_val_xml.eql?('Health Services Research') && db_field.eql?('Health Services Research')
+          @prmry_pps_option = 'HEALTH_SERVICES_RESEARCH'
+        elsif @pr_ps_tral_val_xml.eql?('Prevention') && db_field.eql?('Prevention')
+          @prmry_pps_option = 'PREVENTION'
+        elsif @pr_ps_tral_val_xml.eql?('Screening') && db_field.eql?('Screening')
+          @prmry_pps_option = 'SCREENING'
+        elsif @pr_ps_tral_val_xml.eql?('Supportive Care') && db_field.eql?('Supportive Care')
+          @prmry_pps_option = 'SUPPORTIVE_CARE'
+        elsif @pr_ps_tral_val_xml.eql?('Treatment') && db_field.eql?('Treatment')
+          @prmry_pps_option = 'TREATMENT'
+        elsif @pr_ps_tral_val_xml.eql?('Device Feasibility') && db_field.eql?('Device Feasibility')
+          @prmry_pps_option = 'DEVICE_FEASIBILITY'
+        elsif @pr_ps_tral_val_xml.eql?('Other') && db_field.eql?('Other')
+          @prmry_pps_option = 'OTHER'
+        else
+          @prmry_pps_option = @pr_ps_tral_val_xml
+        end
+        @trial_msking_exp = @prmry_pps_option.to_s
+        puts 'Verifying CTRP Primary Purpose: <<' + @trial_msking_exp + '>>.'
+        @res = @conn.exec("SELECT primary_purpose_code FROM study_protocol WHERE nct_id = '" + nct_id + "' AND status_code = 'ACTIVE'")
+        @return_db_value = @res.getvalue(0, 0).to_s
+        assert_equal(@return_db_value, @trial_msking_exp, 'Validating CTRP Primary Purpose option')
+      else
+        flunk 'Please provide correct db_field. Provided db_filed <<' + db_field + '>> does not exist'
+    end
+    @conn.close if @conn
+  end
+
+
 
 end
 

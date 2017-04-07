@@ -40,11 +40,6 @@ ENV['dct_usr'] = ''
 ENV['dct_pass'] = ''
 ENV['ecmms_usr'] = ''
 ENV['ecmms_pass'] = ''
-#put ENV["USER1_ID"]
-#put ENV["USER1_PASS"]
-
-# puts 'user name: '+ENV.USER1_ID
-# puts 'user pass: '+ENV.USER1_PASS
 
 case ENV['choose_ENV']
   when 'qa2'
