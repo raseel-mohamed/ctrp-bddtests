@@ -1,6 +1,7 @@
 require_relative '../support/home_page_obj'
 require_relative '../support/left_menu_navigation_obj'
 require_relative '../support/design_details_obj'
+require_relative '../support/ctrp_import_ct_api_UI_obj'
 require 'selenium-cucumber'
 
 
@@ -67,9 +68,18 @@ And(/^I want to make an update to the Imported trial with NCT ID "([^"]*)"$/) do
   step %[I click on element having xpath "(//span[@class='search'])[2]"]
 end
 
-Then(/^the update of an import should be "([^"]*)"$/) do |message|
+Then(/^I verify the update of an import message$/) do
+  begin
+    @conn = PGconn.connect(:host => ENV['db_hostname'], :port => ENV['db_port'], :dbname => ENV['db_name'], :user => ENV['db_user'], :password => ENV['db_pass'])
+  rescue PGconn::Error => e
+    @conn = e.message
+  end
+  @res = @conn.exec("select nci_id from study_protocol where nct_id = '"+"NCT03093480"+"' and status_code = '"+"ACTIVE"+"'")
+  @return_db_value = @res.getvalue(0, 0).to_s
+  @conn.close if @conn
+  expected_message = "Message. An update to trial(s) with identifiers NCT03093480 and #{@return_db_value} has been made successfully."
   ele_text = get_element_text("xpath","//div[@class='confirm_msg']")
-  expect(ele_text.strip).to eq message
+  expect(ele_text.strip).to eq expected_message
 end
 
 Then(/^the import should be "([^"]*)" in PA$/) do |message|
@@ -105,16 +115,79 @@ And(/^I should be able to select the Trial$/) do
   end
   @res = @conn.exec("select nci_id from study_protocol where nct_id = '"+"NCT03093480"+"' and status_code = '"+"ACTIVE"+"'")
   @return_db_value = @res.getvalue(0, 0).to_s
-  @conn.close if @conn
   p @return_db_value
+  @conn.close if @conn
+  step %[I scroll to end of page]
   step %[I click on link having text "#{@return_db_value}"]
+  step %[I scroll to element having id "#{CTRPIMPORTUI.assigned_to_id}"]
   step %[I select "CI, ctrpsubstractor" option by text from dropdown having id "#{CTRPIMPORTUI.assigned_to_id}"]
-  tep %[I click on element having id "#{CTRPIMPORTUI.save_id}"]
-  step %[I wait for 2 sec]
+  step %[I click on element having class "#{CTRPIMPORTUI.save_class}"]
+  sleep(2)
+  step %[I scroll to end of page]
+  step %[I click on element having xpath "//a[text()='Trial Validation']"]
+  step %[I scroll to end of page]
+  step %[I click on element having class "confirm"]
+  sleep(2)
+  step %[I click on element having id "ctGovImportLogMenuOption"]
+  step %[I clear input field having id "nciIdentifier"]
+  step %[I enter "#{@return_db_value}" into input field having id "nciIdentifier"]
+  step %[I click on element having class "search"]
+  step %[I wait for 5 sec]
+  #step %[I scroll to element having xpath '//a[@onclick="displayTrialHistory(#{@return_db_value});"]']
+  #step %[I click on element having text "#{@return_db_value}"]
+  $driver.find_element(:xpath => "//a[contains(text(),'#{@return_db_value}')]").click
+
+  step %[I wait for 5 sec]
 end
 
 
 And(/^below field headers should match$/) do |table|
   # table is a table.hashes.keys # => [:CTRP field, :value]
-  pending
+  step %[I switch to new window]
+  table_data = table.rows_hash
+  p table_data['Lead Organization Trial ID']
+
+  actual_trial_category = table_data['Trial Category']
+  actual_submission_source = table_data['Submission Source']
+  actual_last_submitter = table_data['Last Submitter']
+  actual_last_submitter_organization = table_data['Last Submitter Organization']
+  actual_current_trial_status = table_data['Current Trial Status']
+  #actual_current_trial_status_date = table_data['Current Trial Status Date']
+  actual_current_trial_status_date = get_element_text("xpath","//span[text()='Current Trial Status Date:']/following-sibling::span").strip
+  actual_processing_status = get_element_text("xpath","//span[text()='Processing Status:']/following-sibling::span").strip
+  #actual_processing_status = table_data['Processing Status']
+  #actual_lead_organization_trial_id = get_element_text("xpath","//span[text()=' Lead Organization Trial ID:']/following-sibling::span").strip
+  actual_lead_organization_trial_id = get_element_text("xpath",".//*[@id='content']/div[1]/div[2]/div[1]/span[2]").strip
+  actual_lead_organization = get_element_text("xpath", "//span[text()='Lead Organization:']/following-sibling::span").strip
+
+  expected_trial_category = get_element_text("xpath", "//span[text()='Trial Category:']/following-sibling::span").strip
+  expected_submission_source = get_element_text("xpath", "//span[text()='Submission Source:']/following-sibling::span").strip
+  expected_last_submitter = get_element_text("xpath", "//span[text()='Last Submitter:']/following-sibling::span").strip
+  expected_last_submitter_organization = get_element_text("xpath", "//span[text()='Last Submitter Organization:']/following-sibling::span").strip
+  expected_current_trial_status = get_element_text("xpath", "//span[text()=' Current Trial Status:']/following-sibling::span").strip
+  expected_current_trial_status_date = get_element_text("xpath", "//span[text()='Current Trial Status Date:']/following-sibling::span").strip
+  expected_processing_status = get_element_text("xpath", "//span[text()='Processing Status:']/following-sibling::span").strip
+
+  sleep(5)
+  step %[I navigate to "https://clinicaltrials.gov/"]
+  step %[I enter "#{@NCT_ID}" into input field having id "home-search-query"]
+  step %[I click on element having xpath "//input[@value='Search']"]
+  step %[I click on element having xpath "//a[contains(@title,'#{@NCT_ID}')]"]
+  step %[I scroll to end of page]
+
+  expected_lead_organization_trial_id = get_element_text("xpath", "//td[text()='Other Study ID Numbers:']/following-sibling::td").split("\n").first
+  expected_lead_organization = get_element_text("xpath", "//td[text()='Responsible Party:']/following-sibling::td").strip
+
+  expect(expected_lead_organization_trial_id).to eq actual_lead_organization_trial_id
+  expect(expected_lead_organization).to eq actual_lead_organization
+  expect(expected_trial_category).to eq actual_trial_category
+  expect(expected_submission_source).to eq actual_submission_source
+  expect(expected_last_submitter).to eq actual_last_submitter
+  expect(expected_last_submitter_organization).to eq actual_last_submitter_organization
+  expect(expected_current_trial_status).to eq actual_current_trial_status
+  expect(expected_current_trial_status_date).to eq actual_current_trial_status_date
+  expect(expected_processing_status).to eq actual_processing_status
+
 end
+
+

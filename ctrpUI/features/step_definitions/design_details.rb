@@ -118,13 +118,9 @@ def design_details_fill_data(data, error_message)
   step %[I select "#{data['interventional_study_model']}" option by text from dropdown having id "#{DesignDetails.interventional_study_model_id}"]
   step %[I clear input field having id "#{DesignDetails.number_of_arms_id}"]
   step %[I enter "#{data['number_of_arms']}" into input field having id "#{DesignDetails.number_of_arms_id}"]
-  if(data['masking'].eql? 'noMasking')
-  step %[I check the checkbox having id "#{DesignDetails.no_masking_id}"]
-  else
-    step %[I check the checkbox having id "#{DesignDetails.participant_id}"]
+  if(data['masking'].eql? '')
+    step %[I uncheck the checkbox having id "#{DesignDetails.participant_id}"]
   end
-
-
   step %[I select "#{data['allocation']}" option by text from dropdown having id "#{DesignDetails.allocation_id}"]
   step %[I clear input field having id "#{DesignDetails.enrollment_id}"]
   step %[I enter "#{data['target_enrollment']}" into input field having id "#{DesignDetails.enrollment_id}"]
@@ -160,7 +156,11 @@ When(/^I enter all details except mandatory fields in Design Details page$/) do
   step %[I select "" option by text from dropdown having id "#{DesignDetails.trial_phase_id}"]
   step %[I select "" option by text from dropdown having id "#{DesignDetails.interventional_study_model_id}"]
   step %[I clear input field having id "#{DesignDetails.number_of_arms_id}"]
-  step %[I check the checkbox having id "#{DesignDetails.participant_id}"]
+  step %[I uncheck the checkbox having id "noMasking"]
+  step %[I uncheck the checkbox having id "subject"]
+  step %[I uncheck the checkbox having id "investigator"]
+  step %[I uncheck the checkbox having id "caregiver"]
+  step %[I uncheck the checkbox having id "outcomesassessor"]
   step %[I select "" option by text from dropdown having id "#{DesignDetails.allocation_id}"]
   step %[I clear input field having id "#{DesignDetails.enrollment_id}"]
   step %[I click on element having xpath "//span[@class='save']"]
@@ -168,8 +168,8 @@ end
 
 Then(/^I verify below error messages are displayed in Design Details page for mandatory fields$/) do |table|
   table.hashes.each_with_index do |item, index|
-    #puts (index+1).to_s
-    xpath_ele = "(//ul[@class='errorMessage'])["+(index+1).to_s+"]"
-    expect(get_element_text("xpath",xpath_ele).strip).eql?(item['error_message'])
+    index = index+1 if index >= 0
+    xpath_ele = "(//ul[@class='errorMessage'])["+(index).to_s+"]"
+    expect(get_element_text("xpath",xpath_ele).strip).to eq (item['error_message'])
   end
 end

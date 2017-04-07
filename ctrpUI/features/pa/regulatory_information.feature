@@ -129,4 +129,10 @@ Scenario: Verify the new fields are added to the Regulatory Information(PA) scre
   And I enter all details except mandatory fields in Regulatory Information page  and save
   Then I verify error message "FDA Regulated Intervention Indicator is required field" is displayed
 
+  @PA_HIGH @FDAAA @PA @CTRPMICRO-249
+  Scenario:To verify Section 801 Indicator required field validations in Regulatory Information(PA)
+    Given I login into CTRP and search for a trial with NCI ID "NCI-2017-00331"
+    And I navigate to Regulatory Information screen
+    And I enter all details except mandatory fields and click save
+    Then I verify validation error message "The Section801 Indicator cannot be empty" is displayed
 
