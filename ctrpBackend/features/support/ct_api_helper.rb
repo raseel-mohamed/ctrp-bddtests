@@ -718,6 +718,48 @@ class Ct_api_helper
     @conn.close if @conn
   end
 
+  def self.verify_outcome_measures(db_field, nct_id, data_hash_ctgov)
+    begin
+      @conn = PGconn.connect(:host => ENV['db_hostname'], :port => ENV['db_port'], :dbname => ENV['db_name'], :user => ENV['db_user'], :password => ENV['db_pass'])
+    rescue PGconn::Error => e
+      @conn = e.message
+    end
+    case db_field
+      when 'Outcome Measure Type = “PRIMARY”'
+        puts 'Verifying Outcome Measures: <<' + db_field + '>>.'
+        @indicator_booln = 'true'
+        primary_measure = data_hash_ctgov['clinical_study']['primary_outcome']['measure']
+        time_frame_measure = data_hash_ctgov['clinical_study']['primary_outcome']['time_frame']
+        description_measure = data_hash_ctgov['clinical_study']['primary_outcome']['description']
+        res = @conn.exec("SELECT name FROM study_outcome_measure WHERE primary_indicator = '" + @indicator_booln + "' AND study_protocol_identifier in (SELECT identifier FROM study_protocol WHERE nct_id = '" + nct_id + "' AND status_code = 'ACTIVE')")
+        primary_mesrs_return_db_value = res.getvalue(0, 0).to_s
+        res = @conn.exec("SELECT timeframe FROM study_outcome_measure WHERE primary_indicator = '" + @indicator_booln + "' AND study_protocol_identifier in (SELECT identifier FROM study_protocol WHERE nct_id = '" + nct_id + "' AND status_code = 'ACTIVE')")
+        time_frame_return_db_value = res.getvalue(0, 0).to_s
+        res = @conn.exec("SELECT description FROM study_outcome_measure WHERE primary_indicator = '" + @indicator_booln + "' AND study_protocol_identifier in (SELECT identifier FROM study_protocol WHERE nct_id = '" + nct_id + "' AND status_code = 'ACTIVE')")
+        desc_return_db_value = res.getvalue(0, 0).to_s
+        assert_equal(primary_mesrs_return_db_value, primary_measure, 'Validating CTRP Primary Outcome Measures name')
+        assert_equal(time_frame_return_db_value, time_frame_measure, 'Validating CTRP Primary Outcome Measures time frame')
+        assert_equal(desc_return_db_value, description_measure, 'Validating CTRP Primary Outcome Measures description')
+      when 'Outcome Measure Type = “SECONDARY”'
+        puts 'Verifying Outcome Measures: <<' + db_field + '>>.'
+        @indicator_booln = 'true'
+        primary_measure = data_hash_ctgov['clinical_study']['secondary_outcome'][0]['measure']
+        time_frame_measure = data_hash_ctgov['clinical_study']['secondary_outcome'][0]['time_frame']
+        description_measure = data_hash_ctgov['clinical_study']['secondary_outcome'][0]['description']
+        res = @conn.exec("SELECT name FROM study_outcome_measure WHERE primary_indicator = '" + @indicator_booln + "' AND study_protocol_identifier in (SELECT identifier FROM study_protocol WHERE nct_id = '" + nct_id + "' AND status_code = 'ACTIVE')")
+        primary_mesrs_return_db_value = res.getvalue(0, 0).to_s
+        res = @conn.exec("SELECT timeframe FROM study_outcome_measure WHERE primary_indicator = '" + @indicator_booln + "' AND study_protocol_identifier in (SELECT identifier FROM study_protocol WHERE nct_id = '" + nct_id + "' AND status_code = 'ACTIVE')")
+        time_frame_return_db_value = res.getvalue(0, 0).to_s
+        res = @conn.exec("SELECT description FROM study_outcome_measure WHERE primary_indicator = '" + @indicator_booln + "' AND study_protocol_identifier in (SELECT identifier FROM study_protocol WHERE nct_id = '" + nct_id + "' AND status_code = 'ACTIVE')")
+        desc_return_db_value = res.getvalue(0, 0).to_s
+        assert_equal(primary_mesrs_return_db_value, primary_measure, 'Validating CTRP Primary Outcome Measures name')
+        assert_equal(time_frame_return_db_value, time_frame_measure, 'Validating CTRP Primary Outcome Measures time frame')
+        assert_equal(desc_return_db_value, description_measure, 'Validating CTRP Primary Outcome Measures description')
+      else
+        flunk 'Please provide correct db_field. Provided db_filed <<' + db_field + '>> does not exist'
+    end
+    @conn.close if @conn
+  end
 
 
 end

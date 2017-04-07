@@ -503,7 +503,7 @@ Feature: Import ct api
 
   @IMPORT_CT_API_HIGH
   Scenario: CT_API70. Import Trial with NCT ID: NCT03098511 to verify Clinical Trial Primary Purpose: Device Feasibility
-    Given I want to Import a trial with NCT ID NCT03098511
+    Given I want to Import a trial with NCT ID NCT03052894
     Then I want to verify the Primary Purpose
       | clinical Trial Primary Purpose | CTRP Masking       |
       | Device Feasibility             | Device Feasibility |
@@ -511,7 +511,7 @@ Feature: Import ct api
 
   @IMPORT_CT_API_LOW
   Scenario: CT_API71. Import Trial with NCT ID: NCT03090178 to verify Clinical Trial Primary Purpose: Other
-    Given I want to Import a trial with NCT ID NCT03090178
+    Given I want to Import a trial with NCT ID NCT03045458
     Then I want to verify the Primary Purpose
       | clinical Trial Primary Purpose | CTRP Masking |
       | Other                          | Other        |
@@ -524,7 +524,7 @@ Feature: Import ct api
     Then I want to verify the Outcome Measures
       | clinical Trial Outcome Measures | CTRP Outcome Measures            |
       | primary_outcome                 | Outcome Measure Type = “PRIMARY” |
-      | primary_outcome.measure         | Title                            |
+      | primary_outcome.measure         | measure                            |
       | primary_outcome.time_frame      | Time Frame                       |
       | primary_outcome.description     | Description                      |
 
@@ -534,7 +534,7 @@ Feature: Import ct api
     Then I want to verify the Outcome Measures
       | clinical Trial Outcome Measures | CTRP Outcome Measures              |
       | secondary_outcome               | Outcome Measure Type = “SECONDARY” |
-      | secondary_outcome.measure       | Title                              |
+      | secondary_outcome.measure       | measure                              |
       | secondary_outcome.time_frame    | Time Frame                         |
       | secondary_outcome.description   | Description                        |
 
@@ -544,7 +544,7 @@ Feature: Import ct api
     Then I want to verify the Outcome Measures
       | clinical Trial Outcome Measures | CTRP Outcome Measures                        |
       | other_outcome                   | Outcome Measure Type = “OTHER_PRE_SPECIFIED” |
-      | other_outcome.measure           | Title                                        |
+      | other_outcome.measure           | measure                                        |
       | other_outcome.time_frame        | Time Frame                                   |
 
   @IMPORT_CT_API_HIGH

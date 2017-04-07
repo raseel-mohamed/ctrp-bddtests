@@ -463,7 +463,7 @@ Then(/^I want to verify the Primary Purpose$/) do |table|
     elsif row["CTRP Masking"].eql?('Other')
       Ct_api_helper.verify_primary_purpose(row["CTRP Masking"].to_s, @nct_id, @data_hash_ctgov)
     else
-      flunk 'Please provide correct CTRP Masking name. Provided CTRP Masking name <<' + row["CTRP Masking"].to_s + '>> does not exist'
+      flunk 'Please provide correct CTRP Primary Purpose. Provided CTRP Primary Purpose name <<' + row["CTRP Masking"].to_s + '>> does not exist'
     end
   end
 end
@@ -473,8 +473,15 @@ And(/^Description should be populated$/) do
 end
 
 Then(/^I want to verify the Outcome Measures$/) do |table|
-  # table is a Cucumber::Core::Ast::DataTable
-  pending # Write code here that turns the phrase above into concrete actions
+  table.hashes.each do |row|
+    if row["CTRP Outcome Measures"].eql?('Outcome Measure Type = “PRIMARY”')
+      Ct_api_helper.verify_outcome_measures(row["CTRP Outcome Measures"].to_s, @nct_id, @data_hash_ctgov)
+    elsif row["CTRP Outcome Measures"].eql?('Outcome Measure Type = “SECONDARY”')
+      Ct_api_helper.verify_outcome_measures(row["CTRP Outcome Measures"].to_s, @nct_id, @data_hash_ctgov)
+    elsif row["CTRP Outcome Measures"].eql?('Outcome Measure Type = “OTHER_PRE_SPECIFIED”')
+      Ct_api_helper.verify_outcome_measures(row["CTRP Outcome Measures"].to_s, @nct_id, @data_hash_ctgov)
+    end
+  end
 end
 
 
