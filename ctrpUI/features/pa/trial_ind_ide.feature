@@ -68,7 +68,7 @@ Feature: IND/IDE
 
   @pa_high @FDAAA @pa @CTRPMICRO-244
   Scenario: Verify all the fields in the IND/IDE(PA) screen filled are saved for an imported trail
-    Given I login into CTRP and search for an Imported trial with NCI ID "NCI-2017-00293"
+    Given I login into CTRP and search for an Imported trial with NCI ID "NCI-2017-00968"
     And I navigate to IND/IDE screen
     When I click on Add button
     And I fill all details and click save in IND/IDE(PA) screen

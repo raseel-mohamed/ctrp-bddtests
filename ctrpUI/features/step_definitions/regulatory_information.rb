@@ -27,14 +27,6 @@ Then(/^"([^"]*)" field is not displayed in Regulatory Information\(PA\) screen$/
   puts "#{arg1}"  "is not present in Regulatory Information screen."
 end
 
-# @CTRPMICRO-66
-
-Then(/^new fields with options should be there$/) do |table|
-  # table is a Cucumber::MultilineArgument::DataTable
-  step %[element having id "drug" should be present]
-  puts "drug is present in the RI"
-end
-
 # @CTRPMICRO-75
 
 When(/^"([^"]*)" is "([^"]*)"$/) do |arg1, arg2|
@@ -56,21 +48,6 @@ When(/^the field "([^"]*)" is "([^"]*)"$/) do |arg1, arg2|
   options.each { |option| option.click if option.text == 'Yes' }
 
 end
-
-# @CTRPMICRO-77
-=begin
-
-When(/^the dropdown "([^"]*)" is "([^"]*)"$/) do |arg1, arg2|
-  dropdown_list = $driver.find_element(id: 'device')
-  options = dropdown_list.find_elements(tag_name: 'option')
-  options.each { |option| option.click if option.text == 'Yes' }
-  step %[I wait for 5 sec]
-  dropdown_list = $driver.find_element(id: 'surveillance')
-  options = dropdown_list.find_elements(tag_name: 'option')
-  options.each { |option| option.click if option.text == 'Yes' }
-  step %[I wait for 2 sec]
-end
-=end
 
 # @CTRPMICRO-69 & 238
 

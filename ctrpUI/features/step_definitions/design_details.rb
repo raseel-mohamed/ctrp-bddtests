@@ -119,7 +119,11 @@ def design_details_fill_data(data, error_message)
   step %[I clear input field having id "#{DesignDetails.number_of_arms_id}"]
   step %[I enter "#{data['number_of_arms']}" into input field having id "#{DesignDetails.number_of_arms_id}"]
   if(data['masking'].eql? '')
-    step %[I uncheck the checkbox having id "#{DesignDetails.participant_id}"]
+    step %[I uncheck the checkbox having id "noMasking"]
+    step %[I uncheck the checkbox having id "subject"]
+    step %[I uncheck the checkbox having id "investigator"]
+    step %[I uncheck the checkbox having id "caregiver"]
+    step %[I uncheck the checkbox having id "outcomesassessor"]
   end
   step %[I select "#{data['allocation']}" option by text from dropdown having id "#{DesignDetails.allocation_id}"]
   step %[I clear input field having id "#{DesignDetails.enrollment_id}"]

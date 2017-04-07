@@ -108,7 +108,7 @@ Scenario: Verify the new fields are added to the Regulatory Information(PA) scre
 
   @PA_HIGH @FDAAA @PA @CTRPMICRO-243
   Scenario: Verify all the fields in the Regulatory Information filled are saved for an imported trail
-    Given I login into CTRP and search for an Imported trial with NCI ID "NCI-2017-00293"
+    Given I login into CTRP and search for an Imported trial with NCI ID "NCI-2017-00968"
     When I navigate to Regulatory Information screen
     And I fill all details and click save in Regulatory Information page
     Then I verify confirm message "Message. Record Updated." is displayed
