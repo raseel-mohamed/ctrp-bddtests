@@ -24,7 +24,7 @@ base_int_po = 'http://ctrp-po-inttest-elb-1603106388.us-east-1.elb.amazonaws.com
 base_local_po = 'http://localhost:39080/'
 base_uat_pa = 'http://ctrp-pa-uat-elb-872610571.us-east-1.elb.amazonaws.com:18080/'
 base_uat_po = 'http://ctrp-po-uat-elb-1842717871.us-east-1.elb.amazonaws.com:39080/'
-
+base_ctgov = 'https://clinicaltrials.gov/ct2/show'
 
 #app
 pa_app = 'pa/'
@@ -40,6 +40,7 @@ case ENV['APP_ENV_SELECT']
     ENV['PA_APP'] = base_local_pa + pa_app
     ENV['REG_APP'] = base_local_pa + registry_app
     ENV['ACCRUAL_APP'] = base_local_pa + accrual_app
+    ENV['ctgov'] = base_ctgov
   when 'aws'
     ENV['PO_APP'] = base_int_po + po_app
     ENV['PA_APP'] = base_int_pa + pa_app
@@ -48,11 +49,13 @@ case ENV['APP_ENV_SELECT']
     ENV['db_hostname'] = 'ctrp.clb9vkosemwm.us-east-1.rds.amazonaws.com'
     ENV['db_port'] = '5432'
     ENV['db_name'] = 'pa_ctrpn'
+    ENV['ctgov'] = base_ctgov
   when 'uat'
     ENV['PO_APP'] = base_uat_po + po_app
     ENV['PA_APP'] = base_uat_pa + pa_app
     ENV['REG_APP'] = base_uat_pa + registry_app
     ENV['ACCRUAL_APP'] = base_uat_pa + accrual_app
+    ENV['ctgov'] = base_ctgov
   else
     puts 'Please choose correct Environment.'
 end

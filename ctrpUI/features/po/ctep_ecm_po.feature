@@ -8,10 +8,10 @@ Feature: CTEP ECM Updates in PO
     And  Search for the Org "181802" and Change Requestion section should be displayed
 
 
-  @PA_HIGH  @PO @ECMUI @CTRPMICRO-ABC
+  @PA_HIGH  @PO @ECMUI @CTRPMICRO-1244
   Scenario: CTEPECM_UI102. Verify if the ResearchOrganization is updated in PO
     Given I Login into CTRP PO and Navigate to Org search screen
-    And Search for Org "181802" and navigate to the ResearchOrganization section
+    And Navigate to the ResearchOrganization section
     When I run the MOCK service for the JMS Notification
     Then The ResearchOrganization is updated
 

@@ -192,7 +192,7 @@ Feature: Export
 
   @EXPORT_HIGH
   Scenario: EXPORT_31 Validate the field: has_expanded_access = Yes
-    Given I click to view xml of "NCI-2017-00387"
+    Given I click to view xml of "NCI-2017-00391"
     Then the field "indinfo.has_expanded_access" with "Yes" should be there
 
   @EXPORT_HIGH
@@ -202,5 +202,5 @@ Feature: Export
 
   @EXPORT_HIGH
   Scenario: EXPORT_33 Validate the field: has_expanded_access = Unknown
-    Given I click to view xml of "NCI-2017-00391"
+    Given I click to view xml of "NCI-2017-00387"
     Then the field "indinfo.has_expanded_access" with "Unknown" should be there
