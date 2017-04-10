@@ -35,7 +35,7 @@ ecm_endpoint_hcf = 'HealthCareFacility/'
 #PA Endpoints
 
 
-ENV['choose_ENV'] = 'aws'
+ENV['choose_ENV'] = 'local'
 ENV['dct_usr'] = ''
 ENV['dct_pass'] = ''
 ENV['ecmms_usr'] = ''

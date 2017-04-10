@@ -456,65 +456,64 @@ Feature: Import ct api
   Scenario: CT_API63. Import Trial with NCT ID: NCT03098017 to verify Clinical Trial Primary Purpose: Basic Science
     Given I want to Import a trial with NCT ID NCT03098017
     Then I want to verify the Primary Purpose
-      | clinical Trial Primary Purpose | CTRP Masking  |
-      | Basic Science                  | Basic Science |
+      | clinical Trial Primary Purpose | Primary Purpose  |
+      | Basic Science                  | Basic Science    |
 
   @IMPORT_CT_API_HIGH
   Scenario: CT_API64. Import Trial with NCT ID: NCT03097887 to verify Clinical Trial Primary Purpose: Diagnostic
     Given I want to Import a trial with NCT ID NCT03097887
     Then I want to verify the Primary Purpose
-      | clinical Trial Primary Purpose | CTRP Masking |
-      | Diagnostic                     | Diagnostic   |
+      | clinical Trial Primary Purpose | Primary Purpose |
+      | Diagnostic                     | Diagnostic      |
 
   @IMPORT_CT_API_HIGH
   Scenario: CT_API65. Import Trial with NCT ID: NCT03097640 to verify Clinical Trial Primary Purpose: Health Services Research
     Given I want to Import a trial with NCT ID NCT03097640
     Then I want to verify the Primary Purpose
-      | clinical Trial Primary Purpose | CTRP Masking             |
-      | Health Services Research       | Health Services Research |
+      | clinical Trial Primary Purpose | Primary Purpose             |
+      | Health Services Research       | Health Services Research    |
 
   @IMPORT_CT_API_HIGH
   Scenario: CT_API66. Import Trial with NCT ID: NCT03097588 to verify Clinical Trial Primary Purpose: Prevention
     Given I want to Import a trial with NCT ID NCT03097588
     Then I want to verify the Primary Purpose
-      | clinical Trial Primary Purpose | CTRP Masking |
-      | Prevention                     | Prevention   |
+      | clinical Trial Primary Purpose | Primary Purpose |
+      | Prevention                     | Prevention      |
 
   @IMPORT_CT_API_HIGH
   Scenario: CT_API67. Import Trial with NCT ID: NCT03096938 to verify Clinical Trial Primary Purpose: Screening
     Given I want to Import a trial with NCT ID NCT03096938
     Then I want to verify the Primary Purpose
-      | clinical Trial Primary Purpose | CTRP Masking |
-      | Screening                      | Screening    |
+      | clinical Trial Primary Purpose | Primary Purpose |
+      | Screening                      | Screening       |
 
   @IMPORT_CT_API_HIGH
   Scenario: CT_API68. Import Trial with NCT ID: NCT03096756 to verify Clinical Trial Primary Purpose: Supportive Care
     Given I want to Import a trial with NCT ID NCT03096756
     Then I want to verify the Primary Purpose
-      | clinical Trial Primary Purpose | CTRP Masking    |
-      | Supportive Care                | Supportive Care |
+      | clinical Trial Primary Purpose | Primary Purpose    |
+      | Supportive Care                | Supportive Care    |
 
   @IMPORT_CT_API_HIGH
   Scenario: CT_API69. Import Trial with NCT ID: NCT03096782 to verify Clinical Trial Primary Purpose: Treatment
     Given I want to Import a trial with NCT ID NCT03096782
     Then I want to verify the Primary Purpose
-      | clinical Trial Primary Purpose | CTRP Masking |
-      | Treatment                      | Treatment    |
+      | clinical Trial Primary Purpose | Primary Purpose |
+      | Treatment                      | Treatment       |
 
   @IMPORT_CT_API_HIGH
   Scenario: CT_API70. Import Trial with NCT ID: NCT03098511 to verify Clinical Trial Primary Purpose: Device Feasibility
     Given I want to Import a trial with NCT ID NCT03052894
     Then I want to verify the Primary Purpose
-      | clinical Trial Primary Purpose | CTRP Masking       |
-      | Device Feasibility             | Device Feasibility |
-    #need to update NCT trial for device feasibility feature scenario
+      | clinical Trial Primary Purpose | Primary Purpose       |
+      | Device Feasibility             | Device Feasibility    |
 
   @IMPORT_CT_API_LOW
   Scenario: CT_API71. Import Trial with NCT ID: NCT03090178 to verify Clinical Trial Primary Purpose: Other
     Given I want to Import a trial with NCT ID NCT03045458
     Then I want to verify the Primary Purpose
-      | clinical Trial Primary Purpose | CTRP Masking |
-      | Other                          | Other        |
+      | clinical Trial Primary Purpose | Primary Purpose |
+      | Other                          | Other           |
     And Description should be populated
     #need to update NCT trial for device feasibility feature scenario
 

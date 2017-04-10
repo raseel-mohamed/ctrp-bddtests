@@ -11,7 +11,7 @@ require 'active_support'
 class Ct_api_helper
 
   def self.import_trial_frm_ct(arg1)
-    headers = {:content_type => 'application/json', :accept => 'application/json'}
+    headers = {:content_type => 'application/xml', :accept => 'application/xml'}
     ct_env = ENV['ctgov'].to_s
     nct_id = arg1.to_s
     url_ctgov = ''+ ct_env +'/NCT'+ nct_id +'/xml'
@@ -39,25 +39,55 @@ class Ct_api_helper
     end
     case db_field
       when 'Lead Org Trial ID'
-        puts 'Verifying: <<' + data_hash_ctgov['clinical_study']['id_info']['org_study_id'] + '>>.'
+        if data_hash_ctgov['clinical_study']['id_info']['org_study_id'].nil?
+          flunk 'Please provide correct NCT_ID: <<' + nct_id + '>> Unable to find <<' + db_field + '>> value in the xml'
+        else
+          puts 'Verifying: <<' + data_hash_ctgov['clinical_study']['id_info']['org_study_id'] + '>>.'
+          @exp_lead_org = data_hash_ctgov['clinical_study']['id_info']['org_study_id']
+        end
         @res = @conn.exec("SELECT lead_org_id FROM study_protocol WHERE nct_id = '" + nct_id + "' AND status_code = 'ACTIVE'")
-        assert_equal(@res.getvalue(0, 0), data_hash_ctgov['clinical_study']['id_info']['org_study_id'], 'Validating lead ORG ID')
+        @act_lead_org = @res.getvalue(0, 0)
+        assert_equal(@act_lead_org.to_s, @exp_lead_org.to_s, 'Validating lead ORG ID')
       when 'Other ID'
-        puts 'Verifying: <<' + data_hash_ctgov['clinical_study']['id_info']['secondary_id'] + '>>.'
+        if data_hash_ctgov['clinical_study']['id_info']['secondary_id'].nil?
+          flunk 'Please provide correct NCT_ID: <<' + nct_id + '>> Unable to find <<' + db_field + '>> value in the xml'
+        else
+          puts 'Verifying: <<' + data_hash_ctgov['clinical_study']['id_info']['secondary_id'] + '>>.'
+          @exp_other_id = data_hash_ctgov['clinical_study']['id_info']['secondary_id']
+        end
         @res = @conn.exec("SELECT extension FROM public.study_otheridentifiers where identifier_name = 'Study Protocol Other Identifier' AND study_protocol_id in (SELECT identifier FROM study_protocol WHERE nct_id = '" + nct_id + "' AND status_code = 'ACTIVE')")
-        assert_equal(@res.getvalue(0, 0), data_hash_ctgov['clinical_study']['id_info']['secondary_id'], 'Validating Secondary ID or Other ID')
+        @act_other_id = @res.getvalue(0, 0)
+        assert_equal(@act_other_id.to_s, @exp_other_id.to_s, 'Validating Secondary ID or Other ID')
       when 'NCT ID'
-        puts 'Verifying: <<' + data_hash_ctgov['clinical_study']['id_info']['nct_id'] + '>>.'
+        if data_hash_ctgov['clinical_study']['id_info']['nct_id'].nil?
+          flunk 'Please provide correct NCT_ID: <<' + nct_id + '>> Unable to find <<' + db_field + '>> value in the xml'
+        else
+          puts 'Verifying: <<' + data_hash_ctgov['clinical_study']['id_info']['nct_id'] + '>>.'
+          @exp_nct_id = data_hash_ctgov['clinical_study']['id_info']['nct_id']
+        end
         @res = @conn.exec("SELECT nct_id FROM study_protocol WHERE nct_id = '" + nct_id + "' AND status_code = 'ACTIVE'")
-        assert_equal(@res.getvalue(0, 0), data_hash_ctgov['clinical_study']['id_info']['nct_id'], 'Validating NCT ID')
+        @act_nct_id = @res.getvalue(0, 0)
+        assert_equal(@act_nct_id.to_s, @exp_nct_id.to_s, 'Validating NCT ID')
       when 'brief title'
-        puts 'Verifying: <<' + data_hash_ctgov['clinical_study']['brief_title'] + '>>.'
+        if data_hash_ctgov['clinical_study']['brief_title'].nil?
+          flunk 'Please provide correct NCT_ID: <<' + nct_id + '>> Unable to find <<' + db_field + '>> value in the xml'
+        else
+          puts 'Verifying: <<' + data_hash_ctgov['clinical_study']['brief_title'] + '>>.'
+          @act_brf_ttle = data_hash_ctgov['clinical_study']['brief_title']
+        end
         @res = @conn.exec("SELECT public_tittle FROM study_protocol WHERE nct_id = '" + nct_id + "' AND status_code = 'ACTIVE'")
-        assert_equal(@res.getvalue(0, 0), data_hash_ctgov['clinical_study']['brief_title'], 'Validating Brief Title')
+        @exp_brf_ttle = @res.getvalue(0, 0)
+        assert_equal(@exp_brf_ttle, @act_brf_ttle, 'Validating Brief Title')
       when 'official title'
-        puts 'Verifying: <<' + data_hash_ctgov['clinical_study']['official_title'] + '>>.'
+        if data_hash_ctgov['clinical_study']['official_title'].nil?
+          flunk 'Please provide correct NCT_ID: <<' + nct_id + '>> Unable to find <<' + db_field + '>> value in the xml'
+        else
+          puts 'Verifying: <<' + data_hash_ctgov['clinical_study']['official_title'] + '>>.'
+          @act_offcl_ttle = data_hash_ctgov['clinical_study']['official_title']
+        end
         @res = @conn.exec("SELECT official_title FROM study_protocol WHERE nct_id = '" + nct_id + "' AND status_code = 'ACTIVE'")
-        assert_equal(@res.getvalue(0, 0), data_hash_ctgov['clinical_study']['official_title'], 'Validating Official Title')
+        @exp_offc_ttle = @res.getvalue(0, 0)
+        assert_equal(@exp_offc_ttle, @act_offcl_ttle, 'Validating Official Title')
       when 'official title is empty'
         puts 'Verifying: <<' + db_field + '>>.'
         if data_hash_ctgov.has_key?('clinical_study')
@@ -764,7 +794,7 @@ class Ct_api_helper
         elsif @pr_ps_tral_val_xml.eql?('Treatment') && db_field.eql?('Treatment')
           @prmry_pps_option = 'TREATMENT'
         elsif @pr_ps_tral_val_xml.eql?('Device Feasibility') && db_field.eql?('Device Feasibility')
-          @prmry_pps_option = 'DEVICE_FEASIBILITY'
+          @prmry_pps_option = 'DEVICE'
         elsif @pr_ps_tral_val_xml.eql?('Other') && db_field.eql?('Other')
           @prmry_pps_option = 'OTHER'
         else
