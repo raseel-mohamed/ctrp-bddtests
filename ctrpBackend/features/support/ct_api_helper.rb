@@ -91,61 +91,124 @@ class Ct_api_helper
         @res = @conn.exec("SELECT lead_org_id FROM study_protocol WHERE nct_id = '" + nct_id + "' AND status_code = 'ACTIVE'")
         assert_equal(@res.getvalue(0, 0), data_hash_ctgov['clinical_study']['sponsors']['collaborator'][0]['agency'], 'Validating Collaborator')
       when 'Functional Code'
-        puts 'Verifying: <<' + data_hash_ctgov['clinical_study']['sponsors']['collaborator'][0]['agency'] + '>>.'
-        puts 'Verifying: <<' + data_hash_ctgov['clinical_study']['sponsors']['collaborator'][1]['agency'] + '>>.'
-        puts 'Verifying: <<' + data_hash_ctgov['clinical_study']['sponsors']['collaborator'][2]['agency'] + '>>.'
+        if data_hash_ctgov['clinical_study']['sponsors']['collaborator'][0]['agency'].nil?
+          flunk 'Please provide correct NCT_ID: <<' + nct_id + '>> Unable to find <<' + db_field + '>> value in the xml'
+        else
+          puts 'Verifying: <<' + data_hash_ctgov['clinical_study']['sponsors']['collaborator'][0]['agency'] + '>>.'
+          @ct_functional_code = data_hash_ctgov['clinical_study']['sponsors']['collaborator'][0]['agency']
+        end
         @res = @conn.exec("SELECT lead_org_id FROM study_protocol WHERE nct_id = '" + nct_id + "' AND status_code = 'ACTIVE'")
         assert_equal(@res.getvalue(0, 0), data_hash_ctgov['clinical_study']['sponsors']['collaborator'][0]['agency'], 'Validating Functional Code')
       when 'Data Monitoring Committee Appointed Indicator'
-        puts 'Verifying: <<' + data_hash_ctgov['clinical_study']['oversight_info']['has_dmc'] + '>>.'
-        @has_dmc_value = data_hash_ctgov['clinical_study']['oversight_info']['has_dmc']
-        if @has_dmc_value.eql?('No')
-          @has_dmc_value = 'f'
-        elsif @has_dmc_value.eql?('Yes')
-          @has_dmc_value = 't'
+        if data_hash_ctgov['clinical_study']['oversight_info']['has_dmc'].nil?
+          flunk 'Please provide correct NCT_ID: <<' + nct_id + '>> Unable to find <<' + db_field + '>> value in the xml'
+        else
+          puts 'Verifying: <<' + data_hash_ctgov['clinical_study']['oversight_info']['has_dmc'] + '>>.'
+          @has_dmc_value = data_hash_ctgov['clinical_study']['oversight_info']['has_dmc']
+          if @has_dmc_value.eql?('No')
+            @has_dmc_value = 'f'
+          elsif @has_dmc_value.eql?('Yes')
+            @has_dmc_value = 't'
+          end
         end
         @res = @conn.exec("SELECT data_monty_comty_apptn_indicator FROM study_protocol WHERE nct_id = '" + nct_id + "' AND status_code = 'ACTIVE'")
         assert_equal(@res.getvalue(0, 0).to_s, @has_dmc_value.to_s, 'Validating Data Monitoring Committee Appointed Indicator')
       when 'FDA-regulated Drug Product'
-        puts 'Verifying: <<' + data_hash_ctgov['clinical_study']['oversight_info']['is_fda_regulated_drug'] + '>>.'
-        @has_fda_drug_value = data_hash_ctgov['clinical_study']['oversight_info']['is_fda_regulated_drug']
-        if @has_fda_drug_value.eql?('No')
-          @has_fda_drug_value = 'f'
-        elsif @has_fda_drug_value.eql?('Yes')
-          @has_fda_drug_value = 't'
+        if data_hash_ctgov['clinical_study']['oversight_info']['is_fda_regulated_drug'].nil?
+
+        else
+          puts 'Verifying: <<' + data_hash_ctgov['clinical_study']['oversight_info']['is_fda_regulated_drug'] + '>>.'
+          @has_fda_drug_value = data_hash_ctgov['clinical_study']['oversight_info']['is_fda_regulated_drug']
+          if @has_fda_drug_value.eql?('No')
+            @has_fda_drug_value = 'false'
+          elsif @has_fda_drug_value.eql?('Yes')
+            @has_fda_drug_value = 'true'
+          end
         end
-        @res = @conn.exec("SELECT data_monty_comty_apptn_indicator FROM study_protocol WHERE nct_id = '" + nct_id + "' AND status_code = 'ACTIVE'")
-        assert_equal(@res.getvalue(0, 0).to_s, @has_fda_drug_value.to_s, 'Validating FDA-regulated Drug Product')
+        headers = {:content_type => 'application/json', :accept => ''}
+        @res = @conn.exec("SELECT identifier FROM study_protocol WHERE nct_id = '" + nct_id + "' AND status_code = 'ACTIVE'")
+        return_db_study_id = @res.getvalue(0, 0).to_s
+        @res = @conn.exec("SELECT nci_id FROM study_protocol WHERE nct_id = '" + nct_id + "' AND status_code = 'ACTIVE'")
+        return_db_nci_id = @res.getvalue(0, 0).to_s
+        @post_endpoint_condition='?study_protocol_id='+return_db_study_id+'&nci_id='+return_db_nci_id+''
+        @type = 'STUDY_PROTOCOL_ID_AND_NCI_ID'
+        @response, @response_code, @response_body, @id, @nci_id, @trial_id, @study_protocol_id, @response_message = Dataclinicaltrials_api_helper.trigger_get_field_values('GET', 'dataclinicaltrials_ms', ENV['dct_usr'], ENV['dct_pass'], headers, @post_endpoint_condition, @type)
+        @response_body.each { |key_value|
+          @fda_regulated_drug = key_value['fda_regulated_drug'].to_s
+        }
+        assert_equal(@fda_regulated_drug.to_s, @has_fda_drug_value.to_s, 'Validating FDA-regulated Drug Product')
       when 'FDA-regulated Device Product'
-        puts 'Verifying: <<' + data_hash_ctgov['clinical_study']['oversight_info']['is_fda_regulated_device'] + '>>.'
-        @has_fda_dvic_value = data_hash_ctgov['clinical_study']['oversight_info']['is_fda_regulated_device']
-        if @has_fda_dvic_value.eql?('No')
-          @has_fda_dvic_value = 'f'
-        elsif @has_fda_dvic_value.eql?('Yes')
-          @has_fda_dvic_value = 't'
+        if data_hash_ctgov['clinical_study']['oversight_info']['is_fda_regulated_device'].nil?
+          flunk 'Please provide correct NCT_ID: <<' + nct_id + '>> Unable to find <<' + db_field + '>> value in the xml'
+        else
+          puts 'Verifying: <<' + data_hash_ctgov['clinical_study']['oversight_info']['is_fda_regulated_device'] + '>>.'
+          @has_fda_dvic_value = data_hash_ctgov['clinical_study']['oversight_info']['is_fda_regulated_device']
+          if @has_fda_dvic_value.eql?('No')
+            @has_fda_dvic_value = 'false'
+          elsif @has_fda_dvic_value.eql?('Yes')
+            @has_fda_dvic_value = 'true'
+          end
         end
-        @res = @conn.exec("SELECT data_monty_comty_apptn_indicator FROM study_protocol WHERE nct_id = '" + nct_id + "' AND status_code = 'ACTIVE'")
-        assert_equal(@res.getvalue(0, 0).to_s, @has_fda_dvic_value.to_s, 'Validating FDA-regulated Device Product')
+        headers = {:content_type => 'application/json', :accept => ''}
+        @res = @conn.exec("SELECT identifier FROM study_protocol WHERE nct_id = '" + nct_id + "' AND status_code = 'ACTIVE'")
+        return_db_study_id = @res.getvalue(0, 0).to_s
+        @res = @conn.exec("SELECT nci_id FROM study_protocol WHERE nct_id = '" + nct_id + "' AND status_code = 'ACTIVE'")
+        return_db_nci_id = @res.getvalue(0, 0).to_s
+        @post_endpoint_condition='?study_protocol_id='+return_db_study_id+'&nci_id='+return_db_nci_id+''
+        @type = 'STUDY_PROTOCOL_ID_AND_NCI_ID'
+        @response, @response_code, @response_body, @id, @nci_id, @trial_id, @study_protocol_id, @response_message = Dataclinicaltrials_api_helper.trigger_get_field_values('GET', 'dataclinicaltrials_ms', ENV['dct_usr'], ENV['dct_pass'], headers, @post_endpoint_condition, @type)
+        @response_body.each { |key_value|
+          @fda_regulated_device = key_value['fda_regulated_device'].to_s
+        }
+        assert_equal(@fda_regulated_device.to_s, @has_fda_dvic_value.to_s, 'Validating FDA-regulated Device Product')
       when 'FDA Approval or Clearance'
-        puts 'Verifying: <<' + data_hash_ctgov['clinical_study']['oversight_info']['is_unapproved_device'] + '>>.'
-        @has_fda_apprv_value = data_hash_ctgov['clinical_study']['oversight_info']['is_unapproved_device']
-        if @has_fda_apprv_value.eql?('No')
-          @has_fda_apprv_value = 'f'
-        elsif @has_fda_apprv_value.eql?('Yes')
-          @has_fda_apprv_value = 't'
+        if data_hash_ctgov['clinical_study']['oversight_info']['is_unapproved_device'].nil?
+          flunk 'Please provide correct NCT_ID: <<' + nct_id + '>> Unable to find <<' + db_field + '>> value in the xml'
+        else
+          puts 'Verifying: <<' + data_hash_ctgov['clinical_study']['oversight_info']['is_unapproved_device'] + '>>.'
+          @has_fda_apprv_value = data_hash_ctgov['clinical_study']['oversight_info']['is_unapproved_device']
+          if @has_fda_apprv_value.eql?('No')
+            @has_fda_apprv_value = 'false'
+          elsif @has_fda_apprv_value.eql?('Yes')
+            @has_fda_apprv_value = 'true'
+          end
         end
-        @res = @conn.exec("SELECT data_monty_comty_apptn_indicator FROM study_protocol WHERE nct_id = '" + nct_id + "' AND status_code = 'ACTIVE'")
-        assert_equal(@res.getvalue(0, 0).to_s, @has_fda_apprv_value.to_s, 'Validating FDA Approval or Clearance')
+        headers = {:content_type => 'application/json', :accept => ''}
+        @res = @conn.exec("SELECT identifier FROM study_protocol WHERE nct_id = '" + nct_id + "' AND status_code = 'ACTIVE'")
+        return_db_study_id = @res.getvalue(0, 0).to_s
+        @res = @conn.exec("SELECT nci_id FROM study_protocol WHERE nct_id = '" + nct_id + "' AND status_code = 'ACTIVE'")
+        return_db_nci_id = @res.getvalue(0, 0).to_s
+        @post_endpoint_condition='?study_protocol_id='+return_db_study_id+'&nci_id='+return_db_nci_id+''
+        @type = 'STUDY_PROTOCOL_ID_AND_NCI_ID'
+        @response, @response_code, @response_body, @id, @nci_id, @trial_id, @study_protocol_id, @response_message = Dataclinicaltrials_api_helper.trigger_get_field_values('GET', 'dataclinicaltrials_ms', ENV['dct_usr'], ENV['dct_pass'], headers, @post_endpoint_condition, @type)
+        @response_body.each { |key_value|
+          @fda_approval_clearance = key_value['post_prior_to_approval'].to_s
+        }
+        assert_equal(@fda_approval_clearance.to_s, @has_fda_apprv_value.to_s, 'Validating FDA Approval or Clearance')
       when 'Product Exported from the U.S'
-        puts 'Verifying: <<' + data_hash_ctgov['clinical_study']['oversight_info']['is_us_export'] + '>>.'
-        @eported_frm_us = data_hash_ctgov['clinical_study']['oversight_info']['is_us_export']
-        if @eported_frm_us.eql?('No')
-          @eported_frm_us = 'f'
-        elsif @eported_frm_us.eql?('Yes')
-          @eported_frm_us = 't'
+        if data_hash_ctgov['clinical_study']['oversight_info']['is_us_export'].nil?
+          flunk 'Please provide correct NCT_ID: <<' + nct_id + '>> Unable to find <<' + db_field + '>> value in the xml'
+        else
+          puts 'Verifying: <<' + data_hash_ctgov['clinical_study']['oversight_info']['is_us_export'] + '>>.'
+          @eported_frm_us = data_hash_ctgov['clinical_study']['oversight_info']['is_us_export']
+          if @eported_frm_us.eql?('No')
+            @eported_frm_us = 'false'
+          elsif @eported_frm_us.eql?('Yes')
+            @eported_frm_us = 'true'
+          end
         end
-        @res = @conn.exec("SELECT data_monty_comty_apptn_indicator FROM study_protocol WHERE nct_id = '" + nct_id + "' AND status_code = 'ACTIVE'")
-        assert_equal(@res.getvalue(0, 0).to_s, @eported_frm_us.to_s, 'Validating Product Exported from the U.S')
+        headers = {:content_type => 'application/json', :accept => ''}
+        @res = @conn.exec("SELECT identifier FROM study_protocol WHERE nct_id = '" + nct_id + "' AND status_code = 'ACTIVE'")
+        return_db_study_id = @res.getvalue(0, 0).to_s
+        @res = @conn.exec("SELECT nci_id FROM study_protocol WHERE nct_id = '" + nct_id + "' AND status_code = 'ACTIVE'")
+        return_db_nci_id = @res.getvalue(0, 0).to_s
+        @post_endpoint_condition='?study_protocol_id='+return_db_study_id+'&nci_id='+return_db_nci_id+''
+        @type = 'STUDY_PROTOCOL_ID_AND_NCI_ID'
+        @response, @response_code, @response_body, @id, @nci_id, @trial_id, @study_protocol_id, @response_message = Dataclinicaltrials_api_helper.trigger_get_field_values('GET', 'dataclinicaltrials_ms', ENV['dct_usr'], ENV['dct_pass'], headers, @post_endpoint_condition, @type)
+        @response_body.each { |key_value|
+          @fda_exported_frm_us = key_value['exported_from_us'].to_s
+        }
+        assert_equal(@fda_exported_frm_us, @eported_frm_us.to_s, 'Validating Product Exported from the U.S')
       when 'brief_summary'
         #need to compare text block
         brief_s = data_hash_ctgov['clinical_study']['brief_summary']['textblock'].gsub("\n", '')

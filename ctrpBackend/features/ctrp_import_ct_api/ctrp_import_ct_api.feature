@@ -96,14 +96,14 @@ Feature: Import ct api
 
   @IMPORT_CT_API_HIGH
   Scenario: CT_API14. Import Trial with NCT ID: NCT03087760 to verify FDA Approval or Clearance
-    Given I want to Import a trial with NCT ID NCT03087760
+    Given I want to Import a trial with NCT ID NCT03105245
     Then I want to verify the FDA Approval or Clearance
       | clinical Trial field                | CTRP fields               |
       | oversight_info.is_unapproved_device | FDA Approval or Clearance |
 
   @IMPORT_CT_API_HIGH
   Scenario: CT_API15. Import Trial with NCT ID: NCT03087760 to verify Product Exported from the U.S
-    Given I want to Import a trial with NCT ID NCT03087760
+    Given I want to Import a trial with NCT ID NCT03105245
     Then I want to verify the Product Exported from the U.S
       | clinical Trial field        | CTRP fields                   |
       | oversight_info.is_us_export | Product Exported from the U.S |
