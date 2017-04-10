@@ -12,6 +12,7 @@ Given(/^I login into CTRP and search for a trial with NCI ID "([^"]*)"$/) do |ar
   step %[I click on element having id "#{HomePagePA.login_id}"]
   step %[I click on element having id "#{HomePagePA.accept_disclaimer_id}"]
   step %[I click on element having id "#{LeftMenuNavigation.search_trial_menu_id}"]
+  step %[I wait for 2 sec]
   step %[I enter "#{arg1}" into input field having id "#{SearchTrial.trial_search_text_id}"]
   step %[I click on element having class "#{SearchTrial.trial_search_button_id}"]
   step %[I click on link having text "#{arg1}"]
@@ -86,14 +87,6 @@ When(/^the dropdown "([^"]*)" value is "([^"]*)"$/) do
   step %[I select "No" option by text from dropdown having id "device"]
   step %[I wait for 2 sec]
 end
-
-
-#Then(/^"([^"]*)" field should not be visible$/) do
-
-#  step %[I accept alert]
-#  step %[element having xpath "//label[@for='surveillance']" should not be present]
-#end
-
 
 #@CTRPMICRO -159
 

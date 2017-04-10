@@ -2,6 +2,9 @@ require_relative '../support/home_page_obj'
 require_relative '../support/left_menu_navigation_obj'
 require_relative '../support/design_details_obj'
 require_relative '../support/ctrp_import_ct_api_UI_obj'
+require 'time'
+require 'active_support/all'
+require 'nokogiri'
 require 'selenium-cucumber'
 
 
@@ -88,9 +91,7 @@ Then(/^the import should be "([^"]*)" in PA$/) do |message|
 end
 
 Then(/^I should be able to View the log of Imported Trial$/) do
-  #from_UI = "Message. An update to trial(s) with identifiers NCT03093480 and NCI-2017-00380 has been made successfully."
   ele_text = get_element_text("xpath", "//div[@class='confirm_msg']")
-  #@NCI_ID = ele_text.split("#{@NCT_ID}").last.split('has been made successfully.').first.gsub!("and","").gsub!(" ","")
   @NCI_ID = ele_text.split('A unique NCI identifier').last.split('has been assigned to').first.strip
 
   step %[I click on element having xpath "//a[text()='View Log']"]
@@ -102,20 +103,19 @@ end
 
 And(/^I should be able to search with the NCT ID "([^"]*)"$/) do |arg1|
   step %[I click on element having id "#{LeftMenuNavigation.search_trial_menu_id}"]
-  step %[I enter "#{arg1}" into input field having id "#{SearchTrial.trial_search_text_id}"]
+  step %[I enter "#{arg1}" into input field having name "#{SearchTrial.trial_search_text_name}"]
   step %[I click on element having class "#{SearchTrial.trial_search_button_id}"]
 end
 
 
-And(/^I should be able to select the Trial$/) do
+And(/^I should be able to select the Trial using NCT ID "([^"]*)"$/) do |nct_id|
   begin
     @conn = PGconn.connect(:host => ENV['db_hostname'], :port => ENV['db_port'], :dbname => ENV['db_name'], :user => ENV['db_user'], :password => ENV['db_pass'])
   rescue PGconn::Error => e
     @conn = e.message
   end
-  @res = @conn.exec("select nci_id from study_protocol where nct_id = '"+"NCT03093480"+"' and status_code = '"+"ACTIVE"+"'")
+  @res = @conn.exec("select nci_id from study_protocol where nct_id = '"+"#{nct_id}"+"' and status_code = '"+"ACTIVE"+"'")
   @return_db_value = @res.getvalue(0, 0).to_s
-  p @return_db_value
   @conn.close if @conn
   step %[I scroll to end of page]
   step %[I click on link having text "#{@return_db_value}"]
@@ -133,31 +133,51 @@ And(/^I should be able to select the Trial$/) do
   step %[I enter "#{@return_db_value}" into input field having id "nciIdentifier"]
   step %[I click on element having class "search"]
   step %[I wait for 5 sec]
-  #step %[I scroll to element having xpath '//a[@onclick="displayTrialHistory(#{@return_db_value});"]']
-  #step %[I click on element having text "#{@return_db_value}"]
   $driver.find_element(:xpath => "//a[contains(text(),'#{@return_db_value}')]").click
+  step %[I switch to new window]
+end
 
-  step %[I wait for 5 sec]
+And(/^I navigate to Trial Validation page using NCT ID "([^"]*)"$/) do |nct_id|
+  begin
+    @conn = PGconn.connect(:host => ENV['db_hostname'], :port => ENV['db_port'], :dbname => ENV['db_name'], :user => ENV['db_user'], :password => ENV['db_pass'])
+  rescue PGconn::Error => e
+    @conn = e.message
+  end
+  @res = @conn.exec("select nci_id from study_protocol where nct_id = '"+"#{nct_id}"+"' and status_code = '"+"ACTIVE"+"'")
+  @return_db_value = @res.getvalue(0, 0).to_s
+  @conn.close if @conn
+  step %[I scroll to end of page]
+  step %[I click on link having text "#{@return_db_value}"]
+  step %[I scroll to element having id "#{CTRPIMPORTUI.assigned_to_id}"]
+  step %[I select "CI, ctrpsubstractor" option by text from dropdown having id "#{CTRPIMPORTUI.assigned_to_id}"]
+  step %[I click on element having class "#{CTRPIMPORTUI.save_class}"]
+  sleep(2)
+  step %[I scroll to end of page]
+  step %[I click on element having xpath "//a[text()='Trial Validation']"]
 end
 
 
 And(/^below field headers should match$/) do |table|
-  # table is a table.hashes.keys # => [:CTRP field, :value]
-  step %[I switch to new window]
+  ct_env = ENV['ctgov'].to_s
+  url_ctgov = ''+ ct_env + '/'+"#{@NCT_ID}" +'/xml'
+  @response_ctgov = Helper.request('get', url_ctgov, '', '', nil, {})
+  @data_xml_ctgov = Nokogiri::XML(@response_ctgov)
+  @response_json_ctgov = Hash.from_xml(@response_ctgov).to_json
+  @data_hash_ctgov = JSON.parse(@response_json_ctgov)
+
+  expected_lead_organization_trial_id = @data_hash_ctgov['clinical_study']['id_info']['org_study_id']
+  expected_lead_organization = @data_hash_ctgov['clinical_study']['sponsors']['lead_sponsor']['agency']
+
   table_data = table.rows_hash
-  p table_data['Lead Organization Trial ID']
 
   actual_trial_category = table_data['Trial Category']
   actual_submission_source = table_data['Submission Source']
   actual_last_submitter = table_data['Last Submitter']
   actual_last_submitter_organization = table_data['Last Submitter Organization']
   actual_current_trial_status = table_data['Current Trial Status']
-  #actual_current_trial_status_date = table_data['Current Trial Status Date']
   actual_current_trial_status_date = get_element_text("xpath","//span[text()='Current Trial Status Date:']/following-sibling::span").strip
   actual_processing_status = get_element_text("xpath","//span[text()='Processing Status:']/following-sibling::span").strip
-  #actual_processing_status = table_data['Processing Status']
-  #actual_lead_organization_trial_id = get_element_text("xpath","//span[text()=' Lead Organization Trial ID:']/following-sibling::span").strip
-  actual_lead_organization_trial_id = get_element_text("xpath",".//*[@id='content']/div[1]/div[2]/div[1]/span[2]").strip
+  actual_lead_organization_trial_id = get_element_text("xpath","//span[text()=' Lead Organization Trial ID:']/following-sibling::span").strip
   actual_lead_organization = get_element_text("xpath", "//span[text()='Lead Organization:']/following-sibling::span").strip
 
   expected_trial_category = get_element_text("xpath", "//span[text()='Trial Category:']/following-sibling::span").strip
@@ -167,16 +187,6 @@ And(/^below field headers should match$/) do |table|
   expected_current_trial_status = get_element_text("xpath", "//span[text()=' Current Trial Status:']/following-sibling::span").strip
   expected_current_trial_status_date = get_element_text("xpath", "//span[text()='Current Trial Status Date:']/following-sibling::span").strip
   expected_processing_status = get_element_text("xpath", "//span[text()='Processing Status:']/following-sibling::span").strip
-
-  sleep(5)
-  step %[I navigate to "https://clinicaltrials.gov/"]
-  step %[I enter "#{@NCT_ID}" into input field having id "home-search-query"]
-  step %[I click on element having xpath "//input[@value='Search']"]
-  step %[I click on element having xpath "//a[contains(@title,'#{@NCT_ID}')]"]
-  step %[I scroll to end of page]
-
-  expected_lead_organization_trial_id = get_element_text("xpath", "//td[text()='Other Study ID Numbers:']/following-sibling::td").split("\n").first
-  expected_lead_organization = get_element_text("xpath", "//td[text()='Responsible Party:']/following-sibling::td").strip
 
   expect(expected_lead_organization_trial_id).to eq actual_lead_organization_trial_id
   expect(expected_lead_organization).to eq actual_lead_organization
@@ -191,3 +201,79 @@ And(/^below field headers should match$/) do |table|
 end
 
 
+And(/^In the Trial Identification below fields should match$/) do |table|
+  sleep(2)
+  step %[I click on element having xpath "//a[contains(text(),'Trial Identification')]"]
+
+  ct_env = ENV['ctgov'].to_s
+  url_ctgov = ''+ ct_env + '/'+"#{@NCT_ID}" +'/xml'
+  @response_ctgov = Helper.request('get', url_ctgov, '', '', nil, {})
+  @data_xml_ctgov = Nokogiri::XML(@response_ctgov)
+  @response_json_ctgov = Hash.from_xml(@response_ctgov).to_json
+  @data_hash_ctgov = JSON.parse(@response_json_ctgov)
+
+  table_data = table.rows_hash
+
+  actual_abbreviated_trial = table_data['Abbreviated Trial?']
+  actual_submission_source = table_data['Submission Source']
+  actual_trial_type = get_element_text("xpath","//td[contains(text(),'Trial Type')]//following-sibling::td").strip
+  actual_lead_organization_trial_id = get_element_text("xpath","//td[contains(text(),'Lead Organization Trial ID')]/following-sibling::td").strip
+  actual_clinical_trials_gov_identifier = get_element_text("xpath","//td[contains(text(),'ClinicalTrials.gov Identifier')]/following-sibling::td").strip
+  actual_official_title = get_element_text("xpath", "//td[contains(text(),'Official Title')]/following-sibling::td").strip
+
+  expected_abbreviated_trial = get_element_text("xpath","//td[contains(text(),'Abbreviated Trial?')]/following-sibling::td").strip
+  expected_submission_source = get_element_text("xpath","//td[contains(text(),'Submission Source')]/following-sibling::td").strip
+  expected_trial_type = @data_hash_ctgov['clinical_study']['study_type']
+  expected_lead_organzational_trial_id = @data_hash_ctgov['clinical_study']['id_info']['org_study_id']
+  expected_clinical_trials_gov_identifier = @data_hash_ctgov['clinical_study']['id_info']['nct_id']
+  expected_official_title = @data_hash_ctgov['clinical_study']['official_title']
+
+  expect(expected_abbreviated_trial).to eq actual_abbreviated_trial
+  expect(expected_submission_source).to eq actual_submission_source
+  expect(expected_trial_type).to eq actual_trial_type
+  expect(expected_lead_organzational_trial_id).to eq actual_lead_organization_trial_id
+  expect(expected_clinical_trials_gov_identifier).to eq actual_clinical_trials_gov_identifier
+  expect(expected_official_title).to eq actual_official_title
+
+end
+
+And(/^In the Trial Validation below fields should match$/) do |table|
+  ct_env = ENV['ctgov'].to_s
+  url_ctgov = ''+ ct_env + '/'+"#{@NCT_ID}" +'/xml'
+  #url_ctgov = "https://clinicaltrials.gov/ct2/show/NCT03093337/xml"
+  @response_ctgov = Helper.request('get', url_ctgov, '', '', nil, {})
+  @data_xml_ctgov = Nokogiri::XML(@response_ctgov)
+  @response_json_ctgov = Hash.from_xml(@response_ctgov).to_json
+  @data_hash_ctgov = JSON.parse(@response_json_ctgov)
+
+  table_data = table.rows_hash
+
+  actual_lead_organization_trial_id = get_element_text("xpath","//div[@id='identifierDiv_1']").strip
+  actual_clinical_trials_gov_identifier = get_element_text("xpath","//div[@id='identifierDiv_2']").strip
+  actual_abbreviated_trial = table_data['Abbreviated Trial?']
+  actual_official_title = get_element_text("xpath", "//textarea[@id='officialTitle']").strip
+  actual_trial_phase = get_element_text("xpath", "//select[@id='gtdDTO.phaseCode']//option[@selected]").strip
+  actual_primary_purpose = get_element_text("xpath","//select[@id='gtdDTO.primaryPurposeCode']//option[@selected]").strip
+  actual_lead_organization = get_element_attribute("xpath","//input[@id='nciIdentifier']","value")
+  actual_sponsor = get_element_attribute("xpath","//input[@id='gtdDTO.sponsorName']","value")
+
+  expected_lead_organzational_trial_id = @data_hash_ctgov['clinical_study']['id_info']['org_study_id']
+  expected_clinical_trials_gov_identifier = @data_hash_ctgov['clinical_study']['id_info']['nct_id']
+  expected_abbreviated_trial = get_element_text("xpath","//span[contains(text(),'Abbreviated Trial?')]/parent::td/following-sibling::td").strip
+  expected_official_title = @data_hash_ctgov['clinical_study']['official_title']
+  expected_trial_phase = @data_hash_ctgov['clinical_study']['phase'].gsub!('/','')
+  expected_primary_purpose = @data_hash_ctgov['clinical_study']['study_design_info']['primary_purpose']
+  expected_lead_organization = @data_hash_ctgov['clinical_study']['sponsors']['lead_sponsor']['agency']
+  expected_sponsor = @data_hash_ctgov['clinical_study']['sponsors']['lead_sponsor']['agency']
+
+  expect(expected_lead_organzational_trial_id).to eq actual_lead_organization_trial_id
+  expect(expected_clinical_trials_gov_identifier).to eq actual_clinical_trials_gov_identifier
+  expect(expected_abbreviated_trial).to eq actual_abbreviated_trial
+  expect(expected_official_title).to eq actual_official_title
+  expect(expected_trial_phase).to eq actual_trial_phase
+  expect(expected_primary_purpose).to eq actual_primary_purpose
+  expect(expected_lead_organization).to eq actual_lead_organization
+  expect(expected_sponsor).to eq actual_sponsor
+
+
+end
