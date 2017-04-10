@@ -1,11 +1,28 @@
 require_relative '../support/home_page_obj'
-require_relative '../support/left_menu_navigation_obj'
-require_relative '../support/design_details_obj'
+require_relative '../support/po_left_menu_navigation_obj.rb'
+require_relative '../support/ctep_ecm_po_obj'
 require 'selenium-cucumber'
 
 ##################################
+
 Given(/^I Login into CTRP PO and Navigate to Org search screen$/) do
-  pending # Write code here that turns the phrase above into concrete actions
+  step %[I navigate to "#{ENV['PO_APP']}"]
+  step %[I enter "#{ENV['PO_USER_ID']}" into input field having id "#{HomePagePA.username_id}"]
+  step %[I enter "#{ENV['PO_USER_PASS']}" into input field having id "#{HomePagePA.password_id}"]
+  step %[I click on element having id "#{HomePagePA.pologin_id}"]
+  step %[I wait for 2 sec]
+  step %[I click on element having id "#{HomePagePA.poaccept_disclaimer_id}"]
+  step %[I wait for 2 sec]
+  step %[I click on element having xpath "#{PoLeftMenuNavigation.search_org_menu_id}"]
+  step %[I wait for 2 sec]
+  step %[I enter "FOX" into input field having id "#{CTEPEcmPo.ctep_txt_id}"]
+  step %[I wait for 2 sec]
+  step %[I click on element having id "#{CTEPEcmPo.po_org_search_btn}"]
+  step %[I wait for 2 sec]
+  step %[I click on element having id "#{CTEPEcmPo.po_org_curate_btn}"]
+  step %[I wait for 2 sec]
+  step %[element having id "wwctrl_organization.name" should have text as "FoxHollow Technologies Inc"]
+  step %[I wait for 2 sec]
 end
 
 When(/^I run the MOCK service for the JMS Notification$/) do
@@ -22,9 +39,10 @@ end
 ###################################
 
 
-Given(/^Search for Org "([^"]*)" and navigate to the ResearchOrganization section$/) do |arg1|
+Given(/^Navigate to the ResearchOrganization section$/) do
   pending # Write code here that turns the phrase above into concrete actions
 end
+
 
 Then(/^The ResearchOrganization is updated$/) do
   pending # Write code here that turns the phrase above into concrete actions
