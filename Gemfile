@@ -4,6 +4,7 @@ source "https://rubygems.org"
 gem 'pg'
 # gem "rails"
 gem 'cucumber', '2.0.0'
+gem 'selenium-cucumber'
 gem 'capybara', '1.1.2'
 # gem 'selenium-webdriver', '~> 2.35.1'
 gem 'selenium-webdriver', '=2.53.4'
