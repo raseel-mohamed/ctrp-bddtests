@@ -123,7 +123,7 @@ Then(/^the field "([^"]*)" should be there$/) do |arg1|
       end
 
     when 'study_design.interventional_design.model_description'
-      @model_description_xml = @data_xml_export.xpath("//clinical_study//study_design//interventional_design//model_description")
+      @model_description_xml = @data_xml_export.xpath("//clinical_study//study_design//interventional_design//model_description//textblock")
       if @model_description_xml.empty?
         flunk "Element model_description Not found"
       else
@@ -131,7 +131,7 @@ Then(/^the field "([^"]*)" should be there$/) do |arg1|
       end
 
     when 'study_design.interventional_design.masking_description'
-      @masking_description_xml = @data_xml_export.xpath("//clinical_study//study_design//interventional_design//masking_description")
+      @masking_description_xml = @data_xml_export.xpath("//clinical_study//study_design//interventional_design//masking_description//textblock")
       if @masking_description_xml.empty?
         flunk "Element masking_description Not found"
       else
@@ -155,7 +155,7 @@ Then(/^the field "([^"]*)" should be there$/) do |arg1|
       end
 
     when 'Eligibility.gender_description'
-      @gender_description_xml = @data_xml_export.xpath("//clinical_study//eligibility//gender_description")
+      @gender_description_xml = @data_xml_export.xpath("//clinical_study//eligibility//gender_description//textblock")
       if @gender_description_xml.empty?
         flunk "Element @gender_description Not found"
       else
@@ -259,7 +259,7 @@ Then(/^the field "([^"]*)" should not be there$/) do |arg1|
       end
 
     when 'study_design.interventional_design.model_description'
-      @model_description_xml = @data_xml_export.xpath("//clinical_study//study_design//interventional_design//model_description")
+      @model_description_xml = @data_xml_export.xpath("//clinical_study//study_design//interventional_design//model_description//textblock")
       if @model_description_xml.empty?
         puts "Model description element not there as Expected"
       else
@@ -267,7 +267,7 @@ Then(/^the field "([^"]*)" should not be there$/) do |arg1|
       end
 
     when 'study_design.interventional_design.masking_description'
-      @masking_description_xml = @data_xml_export.xpath("//clinical_study//study_design//interventional_design//masking_description")
+      @masking_description_xml = @data_xml_export.xpath("//clinical_study//study_design//interventional_design//masking_description//textblock")
       if @masking_description_xml.empty?
         puts "Masking description element not there as Expected"
       else
@@ -283,7 +283,7 @@ Then(/^the field "([^"]*)" should not be there$/) do |arg1|
       end
 
     when 'Eligibility.gender_description'
-      @gender_description_xml = @data_xml_export.xpath("//clinical_study//eligibility//gender_description")
+      @gender_description_xml = @data_xml_export.xpath("//clinical_study//eligibility//gender_description//textblock")
       if @gender_description_xml.empty?
         puts "@gender_description element not there as Expected"
       else
