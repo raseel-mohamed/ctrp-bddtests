@@ -11,7 +11,7 @@ require 'active_support'
 class Ct_api_helper
 
   def self.import_trial_frm_ct(arg1)
-    headers = {:content_type => 'application/xml', :accept => 'application/xml'}
+    headers = {:content_type => 'application/json', :accept => 'application/json'}
     ct_env = ENV['ctgov'].to_s
     nct_id = arg1.to_s
     url_ctgov = ''+ ct_env +'/NCT'+ nct_id +'/xml'
@@ -854,6 +854,28 @@ class Ct_api_helper
     @conn.close if @conn
   end
 
+  def self.verify_maximum_age(nct_id, expected_input, expected_output)
+    begin
+      @conn = PGconn.connect(:host => ENV['db_hostname'], :port => ENV['db_port'], :dbname => ENV['db_name'], :user => ENV['db_user'], :password => ENV['db_pass'])
+    rescue PGconn::Error => e
+      @conn = e.message
+    end
+    unless expected_input.nil?
+      ctrp_query = "SELECT max_value, max_unit from planned_eligibility_criterion where identifier in " +
+          "(SELECT identifier from planned_activity where study_protocol_identifier in " +
+          "(SELECT identifier FROM study_protocol WHERE nct_id = '" + nct_id + "' AND status_code = 'ACTIVE')) " +
+          "and planned_eligibility_criterion.criterion_name = 'AGE'"
+      ctrp_max_age      = @conn.exec(ctrp_query).getvalue(0,0)
+      ctrp_max_age_unit = @conn.exec(ctrp_query).getvalue(0,1)
+      if expected_input == "N/A"
+        assert_equal("999 Years", expected_output)
+      else
+        assert_equal(expected_input, expected_output)
+      end
+      assert_equal("#{ctrp_max_age} #{ctrp_max_age_unit}", expected_output)
+    end
+    @conn.close if @conn
+  end
 
 end
 

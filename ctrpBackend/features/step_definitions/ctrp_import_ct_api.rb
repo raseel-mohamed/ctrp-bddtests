@@ -456,7 +456,25 @@ Then(/^I want to verify the Outcome Measures$/) do |table|
   end
 end
 
+Then(/^I want to verify the maximum age$/) do |table|
+  table.hashes.each do |row|
+    if row["CTRP Age"]
+      Ct_api_helper.verify_maximum_age(@nct_id,@data_hash_ctgov["clinical_study"]["eligibility"]["maximum_age"],row["CTRP Age"])
+    else
+      flunk 'Please provide correct CTRP fields name. Provided CTRP field name <<' + row["CTRP Age"].to_s + '>> does not exist'
+    end
+  end
+end
 
+Then(/^I want to verify the Study Model$/) do |table|
+  table.hashes.each do |row|
+    if row["CTRP fields"].eql?('Case-Control')
+      Ct_api_helper.verify_json_element_with_db(row["CTRP fields"].to_s, @nct_id, @data_hash_ctgov)
+    else
+      flunk 'Please provide correct CTRP fields name. Provided CTRP field name <<' + row["CTRP fields"].to_s + '>> does not exist'
+    end
+  end
+end
 
 
 

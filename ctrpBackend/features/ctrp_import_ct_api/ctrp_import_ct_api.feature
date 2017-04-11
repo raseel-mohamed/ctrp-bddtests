@@ -742,15 +742,14 @@ Feature: Import ct api
     Given I want to Import a trial with NCT ID NCT03085680
     Then I want to verify the maximum age
       | clinical Trial          | CTRP Age    |
-      | eligibility.maximum_age | maximum age |
+      | eligibility.maximum_age | 99 Years |
 
   @IMPORT_CT_API_MEDIUM
   Scenario: CT_API100. Import Trial with NCT ID: NCT03095716 to verify maximum age = N/A
     Given I want to Import a trial with NCT ID NCT03095716
     Then I want to verify the maximum age
       | clinical Trial                | CTRP Age |
-      | eligibility.maximum_age = N/A | 999      |
-    And Units of Measurement should be Years
+      | eligibility.maximum_age = N/A | 999 Years |
 
   Scenario: CT_API101. Import Trial with NCT ID: NCT02512757 to verify Study Model: Case-Control
     Given I want to Import a trial with NCT ID NCT02512757
