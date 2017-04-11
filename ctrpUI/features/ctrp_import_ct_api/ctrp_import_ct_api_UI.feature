@@ -32,7 +32,7 @@ Feature: Import Trial from PA
     And I want to Import the trial with NCT ID "NCT03093480" in PA
     Then the import should be "Message. Trial NCT03093480 has been imported and registered in CTRP system successfully." in PA
     And I should be able to search with the NCT ID "NCT03093480"
-    And I should be able to select the Trial
+    And I should be able to select the Trial using NCT ID "NCT03093480"
     And below field headers should match
       | CTRP field                  | value                               |
       | Lead Organization Trial ID  | ct.gov.id_info.org_study_id         |
@@ -48,10 +48,10 @@ Feature: Import Trial from PA
   @IMPORT_CT_UI_HIGH
   Scenario: IMPORT_CT_UI_06 Import Trial from PA and validate screen: Trial Identification
     Given I am logged in to PA
-    And I want to Import the trial with NCT ID "NCT03093480" in PA
-    Then the import should be "Message. Trial NCT03093480 has been imported and registered in CTRP system successfully." in PA
-    And I should be able to search with the NCT ID "NCT03093480"
-    And I should be able to select the Trial
+    And I want to Import the trial with NCT ID "NCT03103750" in PA
+    Then the import should be "Message. Trial NCT03103750 has been imported and registered in CTRP system successfully." in PA
+    And I should be able to search with the NCT ID "NCT03103750"
+    And I should be able to select the Trial using NCT ID "NCT03103750"
     And In the Trial Identification below fields should match
       | CTRP field                    | value                       |
       | Trial Type                    | ct.gov.study_type           |
@@ -66,26 +66,21 @@ Feature: Import Trial from PA
   @IMPORT_CT_UI_HIGH
   Scenario: IMPORT_CT_UI_07 Import Trial from PA and validate screen: Trial Validation
     Given I am logged in to PA
-    And I want to Import the trial with NCT ID "NCT03093480" in PA
-    Then the import should be "Message. Trial NCT03093480 has been imported and registered in CTRP system successfully." in PA
-    And I should be able to search with the NCT ID "NCT03093480"
-    And I should be able to select the Trial
-    And In the Trial Identification below fields should match
+    And I want to Import the trial with NCT ID "NCT03103750" in PA
+    Then the import should be "Message. Trial NCT03103750 has been imported and registered in CTRP system successfully." in PA
+    And I should be able to search with the NCT ID "NCT03103750"
+    And I navigate to Trial Validation page using NCT ID "NCT03103750"
+    And In the Trial Validation below fields should match
       | CTRP field                                     | value                               |
       | Identifier Type: Lead Organization Trial ID    | ct.gov.id_info.org_study_id         |
       | Identifier Type: ClinicalTrials.gov Identifier | ct.gov.id_info.nct_id               |
       | Identifier Type: Other Identifier              | ct.gov.secondary_id                 |
-      | Abbreviated Trial?                             | Yes                                 |
+      | Abbreviated Trial?                             | true                                |
       | Official Title                                 | ct.gov.official_title               |
       | Trial Phase                                    | ct.gov.phase                        |
-      | Is this a Pilot?                               |                                     |
       | Primary Purpose                                | ct.gov.study_design.Primary Purpose |
       | Lead Organization                              | ct.gov.sponsors.lead_sponsor.agency |
-      | Prinicipal Investigator                        |                                     |
       | Sponsor                                        | ct.gov.sponsors.lead_sponsor.agency |
-      | Responsible Party                              |                                     |
-      | Data Table 4 Funding Category                  |                                     |
-      | Data Table 4 Funding Source                    |                                     |
 
 
 

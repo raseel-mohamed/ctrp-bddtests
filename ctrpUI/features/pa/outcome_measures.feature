@@ -58,7 +58,7 @@ Feature: Outcome Measures
 
   @PA_HIGH  @FDAAA  @PA @CTRPMICRO-247
   Scenario: Verify the details filled are saved in Outcome Measures section(PA) for an Imported trial
-    Given I login into CTRP and search for an Imported trial with NCI ID "NCI-2017-00968"
+    Given I login into CTRP and search for an Imported trial with NCI ID "NCI-2017-01096"
     When I go to Outcome Measures section in PA app
     And I fill all details and click save in Outcome Measures section(PA)
     Then I verify confirm message "Message. Record Created." is displayed
