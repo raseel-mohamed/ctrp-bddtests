@@ -46,8 +46,8 @@ Given(/^I send a GET request for "([^"]*)" for ClinicalResearchStaff$/) do |url|
 end
 
 
-Then(/^the JSON response should be as below for Organization:$/) do |string|
-  expect(@Organization_JSON).to eq JSON.parse(string)
+Then(/^the JSON response should be displayed for Organization$/) do
+  expect(@Organization_JSON['name']['part'][0]['value']).to eq('Case Western Reserve University')
 end
 
 Then(/^the JSON response should be as below for HealthCareFacility:$/) do |string|

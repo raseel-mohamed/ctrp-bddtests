@@ -57,25 +57,25 @@ Feature: Import Trial from PA
       | Trial Type                    | ct.gov.study_type           |
       | Lead Organization Trial ID    | ct.gov.id_info.org_study_id |
       | ClinicalTrials.gov Identifier | ct.gov.id_info.nct_id       |
-      #| Other Identifier              | ct.gov.secondary_id         |
+      | Other Identifier              | ct.gov.secondary_id         |
       | Abbreviated Trial?            | Yes                         |
-      #| Last Verification Date        | ct.gov.verification_date    |
+      | Last Verification Date        | ct.gov.verification_date    |
       | Official Title                | ct.gov.official_title       |
       | Submission Source             | ClinicalTrials.gov          |
 
   @IMPORT_CT_UI_HIGH
   Scenario: IMPORT_CT_UI_07 Import Trial from PA and validate screen: Trial Validation
     Given I am logged in to PA
-    And I want to Import the trial with NCT ID "NCT03093337" in PA
-    Then the import should be "Message. Trial NCT03093337 has been imported and registered in CTRP system successfully." in PA
-    And I should be able to search with the NCT ID "NCT03093337"
-    And I navigate to Trial Validation page using NCT ID "NCT03093337"
+    And I want to Import the trial with NCT ID "NCT03103750" in PA
+    Then the import should be "Message. Trial NCT03103750 has been imported and registered in CTRP system successfully." in PA
+    And I should be able to search with the NCT ID "NCT03103750"
+    And I navigate to Trial Validation page using NCT ID "NCT03103750"
     And In the Trial Validation below fields should match
       | CTRP field                                     | value                               |
       | Identifier Type: Lead Organization Trial ID    | ct.gov.id_info.org_study_id         |
       | Identifier Type: ClinicalTrials.gov Identifier | ct.gov.id_info.nct_id               |
-      #| Identifier Type: Other Identifier              | ct.gov.secondary_id                 |
-      | Abbreviated Trial?                             | true                                 |
+      | Identifier Type: Other Identifier              | ct.gov.secondary_id                 |
+      | Abbreviated Trial?                             | true                                |
       | Official Title                                 | ct.gov.official_title               |
       | Trial Phase                                    | ct.gov.phase                        |
       | Primary Purpose                                | ct.gov.study_design.Primary Purpose |
