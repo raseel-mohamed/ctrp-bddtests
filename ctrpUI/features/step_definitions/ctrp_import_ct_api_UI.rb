@@ -283,5 +283,4 @@ And(/^In the Trial Validation below fields should match$/) do |table|
   expect(expected_lead_organization).to eq actual_lead_organization
   expect(expected_sponsor).to eq actual_sponsor
 
-
 end

@@ -47,15 +47,15 @@ end
 
 
 Then(/^the JSON response should be displayed for Organization$/) do
-  expect(@Organization_JSON['name']['part'][0]['value']).to eq('Case Western Reserve University')
+  expect(@Organization_JSON['identifier']['extension']).to eq('OH029')
 end
 
 Then(/^the JSON response should be as below for HealthCareFacility:$/) do |string|
   expect(@HealthCareFacility_JSON).to eq JSON.parse(string)
 end
 
-Then(/^the JSON response should be as below for Person:$/) do |string|
-  expect(@Person_JSON).to eq JSON.parse(string)
+Then(/^the JSON response should be displayed for Person$/) do
+  expect(@Person_JSON['identifier']['extension']).to eq('513057')
 end
 
 Then(/^the JSON response should be as below for HealthCareProvider:$/) do |string|
