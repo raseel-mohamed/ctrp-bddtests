@@ -16,3 +16,8 @@ Feature: UAT test for Registry
       | Identifier              | NCT01725633                                                                                                                       | true   |
       | Identifier              | abcd1234                                                                                                                          | false  |
       | Search By Trial Catgory | Abbreviated                                                                                                                       | true   |
+
+  Scenario: #2 Create a Trial
+    Given I am logged in to the Registry
+    And I want to register a "National" trial
+

@@ -82,6 +82,14 @@ Then(/^the field "([^"]*)" should be there$/) do |arg1|
         assert_equal(@post_prior_to_approval.text, 'Yes', 'Validating post_prior_to_approval')
       end
 
+    when 'oversight_info.post_prior_to_approval = No'
+      @post_prior_to_approval = @data_xml_export.xpath("//clinical_study//oversight_info//post_prior_to_approval")
+      if @post_prior_to_approval.empty?
+        flunk "Element @post_prior_to_approval Not found"
+      else
+        assert_equal(@post_prior_to_approval.text, 'No', 'Validating post_prior_to_approval')
+      end
+
     when 'oversight_info.ped_postmarket_surv = Yes'
       @ped_postmarket_surv_xml = @data_xml_export.xpath("//clinical_study//oversight_info//ped_postmarket_surv")
       if @ped_postmarket_surv_xml.empty?
@@ -89,6 +97,15 @@ Then(/^the field "([^"]*)" should be there$/) do |arg1|
       else
         assert_equal(@ped_postmarket_surv_xml.text, 'Yes', 'Validating @ped_postmarket_surv')
       end
+
+    when 'oversight_info.ped_postmarket_surv = No'
+      @ped_postmarket_surv_xml = @data_xml_export.xpath("//clinical_study//oversight_info//ped_postmarket_surv")
+      if @ped_postmarket_surv_xml.empty?
+        flunk "Element @ped_postmarket_surv Not found"
+      else
+        assert_equal(@ped_postmarket_surv_xml.text, 'No', 'Validating @ped_postmarket_surv')
+      end
+
     when 'oversight_info.exported_from_us = Yes'
       @exported_from_us_xml = @data_xml_export.xpath("//clinical_study//oversight_info//exported_from_us")
       if @exported_from_us_xml.empty?
@@ -150,7 +167,23 @@ Then(/^the field "([^"]*)" should be there$/) do |arg1|
       if @expanded_access_nct_id_xml.empty?
         flunk "Element @expanded_access_nct_id Not found"
       else
-        assert_equal(@expanded_access_nct_id_xml.text, 'No', 'Validating @expanded_access_nct_id')
+        assert_equal(@expanded_access_nct_id_xml.text, 'NCT03102580', 'Validating @expanded_access_nct_id')
+      end
+
+    when 'delayed_posting = Yes'
+      @delayed_posting_xml = @data_xml_export.xpath("//clinical_study//delayed_posting")
+      if @delayed_posting_xml.empty?
+        flunk "Element delayed_posting Not found"
+      else
+        assert_equal(@delayed_posting_xml.text, 'Yes', 'Validating delayed_posting')
+      end
+
+    when 'delayed_posting = No'
+      @delayed_posting_xml = @data_xml_export.xpath("//clinical_study//delayed_posting")
+      if @delayed_posting_xml.empty?
+        flunk "Element delayed_posting Not found"
+      else
+        assert_equal(@delayed_posting_xml.text, 'No', 'Validating delayed_posting')
       end
 
     else
@@ -160,12 +193,77 @@ end
 
 Then(/^the field "([^"]*)" should not be there$/) do |arg1|
   case arg1
+
+    when 'oversight_info.fda_regulated_drug'
+      @fda_regulated_drug_xml = @data_xml_export.xpath("//clinical_study//oversight_info//fda_regulated_drug")
+      if @fda_regulated_drug_xml.empty?
+        puts "fda_regulated_drug element not there as Expected"
+      else
+        flunk "Element fda_regulated_drug should not be there"
+      end
+
+    when 'oversight_info.fda_regulated_device'
+      @fda_regulated_device_xml = @data_xml_export.xpath("//clinical_study//oversight_info//fda_regulated_device")
+      if @fda_regulated_device_xml.empty?
+        puts "fda_regulated_device element not there as Expected"
+      else
+        flunk "Element fda_regulated_device should not be there"
+      end
+
+    when 'oversight_info.post_prior_to_approval'
+      @post_prior_to_approval_xml = @data_xml_export.xpath("//clinical_study//oversight_info//post_prior_to_approval")
+      if @post_prior_to_approval_xml.empty?
+        puts "post_prior_to_approval element not there as Expected"
+      else
+        flunk "Element post_prior_to_approval should not be there"
+      end
+
+    when 'oversight_info.ped_postmarket_surv'
+      @ped_postmarket_surv_xml = @data_xml_export.xpath("//clinical_study//oversight_info//ped_postmarket_surv")
+      if @ped_postmarket_surv_xml.empty?
+        puts "ped_postmarket_surv element not there as Expected"
+      else
+        flunk "Element ped_postmarket_surv should not be there"
+      end
+
+    when 'oversight_info.exported_from_us'
+      @exported_from_us_xml = @data_xml_export.xpath("//clinical_study//oversight_info//exported_from_us")
+      if @exported_from_us_xml.empty?
+        puts "exported_from_us element not there as Expected"
+      else
+        flunk "Element exported_from_us should not be there"
+      end
+
+    when 'ind_info.expanded_access_nct_id'
+      @expanded_access_nct_id_xml = @data_xml_export.xpath("//clinical_study//ind_info//expanded_access_nct_id")
+      if @expanded_access_nct_id_xml.empty?
+        puts "expanded_access_nct_id element not there as Expected"
+      else
+        flunk "Element expanded_access_nct_id should not be there"
+      end
+
+    when 'ind_info.expanded_access_status'
+      @expanded_access_status_xml = @data_xml_export.xpath("//clinical_study//ind_info//expanded_access_status")
+      if @expanded_access_status_xml.empty?
+        puts "expanded_access_status element not there as Expected"
+      else
+        flunk "Element expanded_access_status should not be there"
+      end
+
+    when 'delayed_posting'
+      @delayed_posting_xml = @data_xml_export.xpath("//clinical_study//delayed_posting")
+      if @delayed_posting_xml.empty?
+        puts "@delayed_posting element not there as Expected"
+      else
+        flunk "Element @delayed_posting should not be there"
+      end
+
     when 'study_design.interventional_design.model_description'
       @model_description_xml = @data_xml_export.xpath("//clinical_study//study_design//interventional_design//model_description")
       if @model_description_xml.empty?
         puts "Model description element not there as Expected"
       else
-        flunk "Element model_description should have been removed"
+        flunk "Element model_description should not be there"
       end
 
     when 'study_design.interventional_design.masking_description'
@@ -173,7 +271,7 @@ Then(/^the field "([^"]*)" should not be there$/) do |arg1|
       if @masking_description_xml.empty?
         puts "Masking description element not there as Expected"
       else
-        flunk "Element masking_description should have been removed"
+        flunk "Element masking_description should not be there"
       end
 
     when 'Eligibility.gender_based'
@@ -181,7 +279,7 @@ Then(/^the field "([^"]*)" should not be there$/) do |arg1|
       if @gender_based_xml.empty?
         puts "@gender_based element not there as Expected"
       else
-        flunk "Element @gender_based should have been removed"
+        flunk "Element @gender_based should not be there"
       end
 
     when 'Eligibility.gender_description'
@@ -189,7 +287,7 @@ Then(/^the field "([^"]*)" should not be there$/) do |arg1|
       if @gender_description_xml.empty?
         puts "@gender_description element not there as Expected"
       else
-        flunk "Element @gender_description_xml should have been removed"
+        flunk "Element @gender_description_xml should not be there"
       end
 
     when 'oversight_info.regulatory_authority'
@@ -230,6 +328,22 @@ Then(/^the field "([^"]*)" should not be there$/) do |arg1|
         puts "Masking element not there as Expected"
       else
         flunk "Element masking should have been removed"
+      end
+
+    when 'indinfo.has_expanded_access'
+      @has_expanded_access_xml = @data_xml_export.xpath("//clinical_study//ind_info//has_expanded_access")
+      if @has_expanded_access_xml.empty?
+        puts "has_expanded_access element not there as Expected"
+      else
+        flunk "Element has_expanded_access should have been removed"
+      end
+
+    when 'expanded_access_status'
+      @expanded_access_status_xml = @data_xml_export.xpath("//clinical_study//expanded_access_status")
+      if @expanded_access_status_xml.empty?
+        puts "expanded_access_status element not there as Expected"
+      else
+        flunk "Element expanded_access_status should have been removed"
       end
 
     else
@@ -313,13 +427,6 @@ Then(/^the field "([^"]*)" should be populated$/) do |arg1|
       else
         assert_equal(@completion_date_xml.text, '2015-07-17', 'Validating completion_date')
       end
-    when 'delayed_posting'
-      @delayed_posting_xml = @data_xml_export.xpath("//clinical_study//delayed_posting")
-      if @delayed_posting_xml.empty?
-        flunk "Element delayed_posting Not found"
-      else
-        assert_equal(@delayed_posting_xml.text, 'Yes', 'Validating delayed_posting')
-      end
 
     else
       flunk 'Please choose correct case.'
@@ -367,21 +474,21 @@ Then(/^the field "([^"]*)" with "([^"]*)" should be there$/) do |arg1, arg2|
         assert_equal(@gender_xml.text, 'All', 'Validating @gender')
       end
     when 'indinfo.has_expanded_accessYes'
-      @has_expanded_access_xml = @data_xml_export.xpath("//clinical_study//indinfo//has_expanded_access")
+      @has_expanded_access_xml = @data_xml_export.xpath("//clinical_study//ind_info//has_expanded_access")
       if @has_expanded_access_xml.empty?
         flunk "Element @has_expanded_access Not found"
       else
         assert_equal(@has_expanded_access_xml.text, 'Yes', 'Validating @has_expanded_access')
       end
     when 'indinfo.has_expanded_accessNo'
-      @has_expanded_access_xml = @data_xml_export.xpath("//clinical_study//indinfo//has_expanded_access")
+      @has_expanded_access_xml = @data_xml_export.xpath("//clinical_study//ind_info//has_expanded_access")
       if @has_expanded_access_xml.empty?
         flunk "Element @has_expanded_access Not found"
       else
         assert_equal(@has_expanded_access_xml.text, 'No', 'Validating @has_expanded_access')
       end
     when 'indinfo.has_expanded_accessUnknown'
-      @has_expanded_access_xml = @data_xml_export.xpath("//clinical_study//indinfo//has_expanded_access")
+      @has_expanded_access_xml = @data_xml_export.xpath("//clinical_study//ind_info//has_expanded_access")
       if @has_expanded_access_xml.empty?
         flunk "Element @has_expanded_access Not found"
       else

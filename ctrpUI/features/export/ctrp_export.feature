@@ -11,6 +11,11 @@ Feature: Export
     Then the field "oversight_info.fda_regulated_drug = No" should be there
 
   @EXPORT_HIGH
+  Scenario: EXPORT_01b Validate the new FDAAA field: fda_regulated_drug if empty then it should not be there
+    Given I click to view xml of "NCI-2017-00390"
+    Then the field "oversight_info.fda_regulated_drug" should not be there
+
+  @EXPORT_HIGH
   Scenario: EXPORT_02 Validate the new FDAAA field: fda_regulated_device = Yes
     Given I click to view xml of "NCI-2017-00384"
     Then the field "oversight_info.fda_regulated_device = Yes" should be there
@@ -21,14 +26,39 @@ Feature: Export
     Then the field "oversight_info.fda_regulated_device = No" should be there
 
   @EXPORT_HIGH
+  Scenario: EXPORT_02b Validate the new FDAAA field: fda_regulated_device if empty then it should not be there
+    Given I click to view xml of "NCI-2017-00390"
+    Then the field "oversight_info.fda_regulated_device" should not be there
+
+  @EXPORT_HIGH
   Scenario: EXPORT_03 Validate the new FDAAA field: post_prior_to_approval = Yes
     Given I click to view xml of "NCI-2017-00384"
     Then the field "oversight_info.post_prior_to_approval = Yes" should be there
 
   @EXPORT_HIGH
+  Scenario: EXPORT_03a Validate the new FDAAA field: post_prior_to_approval = NO
+    Given I click to view xml of "NCI-2017-00381"
+    Then the field "oversight_info.post_prior_to_approval = No" should be there
+
+  @EXPORT_HIGH
+  Scenario: EXPORT_03b Validate the new FDAAA field: post_prior_to_approval if empty then it should not be there
+    Given I click to view xml of "NCI-2017-00385"
+    Then the field "oversight_info.post_prior_to_approval" should not be there
+
+  @EXPORT_HIGH
   Scenario: EXPORT_04 Validate the new FDAAA field: ped_postmarket_surv = Yes
     Given I click to view xml of "NCI-2017-00384"
     Then the field "oversight_info.ped_postmarket_surv = Yes" should be there
+
+  @EXPORT_HIGH
+  Scenario: EXPORT_04a Validate the new FDAAA field: ped_postmarket_surv = NO
+    Given I click to view xml of "NCI-2017-00391"
+    Then the field "oversight_info.ped_postmarket_surv = No" should be there
+
+  @EXPORT_HIGH
+  Scenario: EXPORT_04b Validate the new FDAAA field: ped_postmarket_surv if empty then it should not be there
+    Given I click to view xml of "NCI-2017-00389"
+    Then the field "oversight_info.ped_postmarket_surv" should not be there
 
   @EXPORT_HIGH
   Scenario: EXPORT_05 Validate the new FDAAA field: exported_from_us = Yes
@@ -39,6 +69,11 @@ Feature: Export
   Scenario: EXPORT_05a Validate the new FDAAA field: exported_from_us = No
     Given I click to view xml of "NCI-2017-00387"
     Then the field "oversight_info.exported_from_us = No" should be there
+
+  @EXPORT_HIGH
+  Scenario: EXPORT_05b Validate the new FDAAA field: exported_from_us if empty then it should not be there
+    Given I click to view xml of "NCI-2017-00390"
+    Then the field "oversight_info.exported_from_us" should not be there
 
   @EXPORT_HIGH
   Scenario: EXPORT_06 Validate the new FDAAA field: model_description
@@ -87,8 +122,13 @@ Feature: Export
 
   @EXPORT_HIGH
   Scenario: EXPORT_10 Validate the new FDAAA field: expanded_access_nct_id
-    Given I click to view xml of "NCI-2017-00391"
+    Given I click to view xml of "NCI-2017-00384"
     Then the field "ind_info.expanded_access_nct_id" should be there
+
+  @EXPORT_HIGH
+  Scenario: EXPORT_10a Validate the new FDAAA field: expanded_access_nct_id EMPTY
+    Given I click to view xml of "NCI-2017-00387"
+    Then the field "ind_info.expanded_access_nct_id" should not be there
 
   @EXPORT_HIGH
   Scenario: EXPORT_11 Validate the field: regulatory_authority has been removed
@@ -156,9 +196,19 @@ Feature: Export
     Then the field "completion_date_type" should be populated
 
   @EXPORT_HIGH
-  Scenario: EXPORT_24 Validate the field: delayed_posting
+  Scenario: EXPORT_24 Validate the field: delayed_posting = Yes
     Given I click to view xml of "NCI-2017-00384"
-    Then the field "delayed_posting" should be populated
+    Then the field "delayed_posting = Yes" should be there
+
+  @EXPORT_HIGH
+  Scenario: EXPORT_24a Validate the new FDAAA field: delayed_posting = NO
+    Given I click to view xml of "NCI-2017-00391"
+    Then the field "delayed_posting = No" should be there
+
+  @EXPORT_HIGH
+  Scenario: EXPORT_24b Validate the new FDAAA field: delayed_posting if empty then it should not be there
+    Given I click to view xml of "NCI-2017-00389"
+    Then the field "delayed_posting" should not be there
 
   @EXPORT_HIGH
   Scenario: EXPORT_25 Validate the new value: Early Phase I has been added in Phase
@@ -192,15 +242,25 @@ Feature: Export
 
   @EXPORT_HIGH
   Scenario: EXPORT_31 Validate the field: has_expanded_access = Yes
-    Given I click to view xml of "NCI-2017-00391"
+    Given I click to view xml of "NCI-2017-00384"
     Then the field "indinfo.has_expanded_access" with "Yes" should be there
 
   @EXPORT_HIGH
   Scenario: EXPORT_32 Validate the field: has_expanded_access = No
-    Given I click to view xml of "NCI-2017-00384"
+    Given I click to view xml of "NCI-2017-00391"
     Then the field "indinfo.has_expanded_access" with "No" should be there
 
   @EXPORT_HIGH
   Scenario: EXPORT_33 Validate the field: has_expanded_access = Unknown
     Given I click to view xml of "NCI-2017-00387"
     Then the field "indinfo.has_expanded_access" with "Unknown" should be there
+
+  @EXPORT_HIGH
+  Scenario: EXPORT_33a Validate the field: has_expanded_access if not selected then it should not be there
+    Given I click to view xml of "NCI-2017-00390"
+    Then the field "indinfo.has_expanded_access" should not be there
+
+  @EXPORT_HIGH
+  Scenario: EXPORT_34 Validate the field: expanded_access_status has been removed
+    Given I click to view xml of "NCI-2017-00391"
+    Then the field "expanded_access_status" should not be there
