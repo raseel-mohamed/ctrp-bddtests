@@ -12,12 +12,9 @@ Given(/^I login into CTRP and search with NCI ID "([^"]*)"$/) do |arg1|
   step %[I click on element having id "#{HomePagePA.login_id}"]
   step %[I click on element having id "#{HomePagePA.accept_disclaimer_id}"]
   step %[I click on element having id "#{LeftMenuNavigation.search_trial_menu_id}"]
-  step %[I wait for 2 sec]
   step %[I enter "#{arg1}" into input field having id "#{SearchTrial.trial_search_text_id}"]
   step %[I click on element having class "#{SearchTrial.trial_search_button_id}"]
   step %[I click on link having text "#{arg1}"]
-
-  step %[I wait for 2 sec]
 end
 
 When(/^I click on "([^"]*)" link$/) do |link_text|
@@ -89,10 +86,8 @@ end
 
 Then(/^Gender Based eligibility description (is|is not) available$/) do |arg|
   if arg.eql?('is')
-    sleep(2)
     step %[element having xpath "#{EligiblityCriteria.gender_desc_xpath}" should be present]
   else
-    sleep(2)
     step %[element having xpath "#{EligiblityCriteria.gender_desc_xpath}" should not be present]
   end
 
@@ -137,7 +132,6 @@ And(/^I fill all details and click save in Eligibility Criteria page$/) do
   step %[I enter "25" into input field having id "#{EligiblityCriteria.max_age_id}"]
   step %[I select "Months" option by text from dropdown having id "#{EligiblityCriteria.min_age_unit_id}"]
   step %[I select "Years" option by text from dropdown having id "#{EligiblityCriteria.max_age_unit_id}"]
-  step %[I wait for 5 sec]
   step %[I click on element having xpath "//span[@class='save']"]
 end
 

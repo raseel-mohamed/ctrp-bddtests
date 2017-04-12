@@ -133,9 +133,7 @@ Given(/^I login into CTRP and search for an Imported trial with NCI ID "([^"]*)"
   step %[I click on element having id "#{HomePagePA.login_id}"]
   step %[I click on element having id "#{HomePagePA.accept_disclaimer_id}"]
   step %[I click on element having id "#{LeftMenuNavigation.search_trial_menu_id}"]
-  step %[I wait for 2 sec]
   step %[I enter "#{arg1}" into input field having id "#{SearchTrial.trial_search_text_id}"]
   step %[I click on element having class "#{SearchTrial.trial_search_button_id}"]
   step %[I click on link having text "#{arg1}"]
-  step %[I wait for 2 sec]
 end

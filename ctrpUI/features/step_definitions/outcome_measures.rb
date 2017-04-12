@@ -52,7 +52,6 @@ def outcome_measures_fill_data(data, error_message)
   step %[I clear input field having id "#{OutcomeMeasures.time_frame_id}"]
   step %[I enter "#{data['time_frame']}" into input field having id "#{OutcomeMeasures.time_frame_id}"]
   step %[I click on element having xpath "//span[@class='save']"]
-  step %[I wait for 2 sec]
   check_element_text("xpath", error_message, "//ul[@class='errorMessage']", true)
 end
 
