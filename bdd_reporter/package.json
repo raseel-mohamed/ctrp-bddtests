@@ -15,10 +15,10 @@
   "bugs": {
     "url": "https://github.com/CBIIT/ctrp-bddtests/issues"
   },
-  "homepage": "https://github.com/CBIIT/ctrp-bddtests”,
+  "homepage": "https://github.com/CBIIT/ctrp-bddtests",
   "devDependencies": {
-    "cucumber-html-reporter": "0.2.16"
   },
   "dependencies": {
+    "cucumber-html-reporter": "0.2.16"
   }
 }
