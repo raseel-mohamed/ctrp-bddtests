@@ -34,7 +34,7 @@ before_script:
   - gem --version
   - ls -alh
   - cd ctrp-bddtests/bdd_reporter
-  - npm install
+  #- npm install
   - cd ../..
 
   # Database drop and recreate
