@@ -32,8 +32,8 @@ before_script:
   - ruby -v
   - bundle --version
   - gem --version
-
-  - cd bdd_reporter
+  - ls -alh
+  - cd ctrpbdd_reporter
   - npm install
   - cd ..
 
