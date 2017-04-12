@@ -33,9 +33,9 @@ before_script:
   - bundle --version
   - gem --version
   - ls -alh
-  - cd ctrpbdd_reporter
+  - cd ctrp-bddttests/bdd_reporter
   - npm install
-  - cd ..
+  - cd ../..
 
   # Database drop and recreate
   # PA database
