@@ -33,7 +33,7 @@ before_script:
   - bundle --version
   - gem --version
   - ls -alh
-  - cd ctrp-bddttests/bdd_reporter
+  - cd ctrp-bddtests/bdd_reporter
   - npm install
   - cd ../..
 
