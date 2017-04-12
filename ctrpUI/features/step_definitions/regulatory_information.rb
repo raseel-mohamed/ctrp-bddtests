@@ -115,6 +115,8 @@ Then(/^newly added fields with options should be there$/) do |table|
        step %[element having xpath "#{RegulatoryInformation.drug_id_xpath_yes}" should have text as "#{@yes_val}"]
        step %[element having xpath "#{RegulatoryInformation.device_id_xpath_no}" should have text as "#{@no_val}"]
        step %[element having xpath "#{RegulatoryInformation.device_id_xpath_yes}" should have text as "#{@yes_val}"]
+       step %[I select "Yes" option by text from dropdown having xpath "//select[@id='device']"]
+       step %[I select "Yes" option by text from dropdown having xpath "//select[@id='delpostindid']"]
        step %[element having xpath "#{RegulatoryInformation.post_prior_xpath_no}" should have text as "#{@no_val}"]
        step %[element having xpath "#{RegulatoryInformation.post_prior_xpath_yes}" should have text as "#{@yes_val}"]
        step %[element having xpath "#{RegulatoryInformation.pediatric_xpath_no}" should have text as "#{@no_val}"]
@@ -177,6 +179,8 @@ end
 #@CTRPMICRO-75
 
 When(/^Post Prior to U\.S\. FDA Approval or Clearance is (Yes)$/) do |condition|
+  step %[I select "Yes" option by text from dropdown having xpath "//select[@id='device']"]
+  step %[I select "Yes" option by text from dropdown having xpath "//select[@id='delpostindid']"]
   select_option_from_dropdown('id', 'text', condition, 'approval')
 end
 

@@ -2,7 +2,7 @@ Feature: CTEP ECM Updates in PO
 
   @PA_HIGH  @PO @ECMUI @CTRPMICRO-1233
   Scenario: CTEPECM_UI101. Verify if the Org is updated with Change Request
-    Given I run the MOCK service for the JMS Notification
+    #Given I run the MOCK service for the JMS Notification
     When I Login into CTRP PO and Navigate to Org search screen
     Then The Org with Change Request section is updated
     And  Search for the Org "181802" and Change Requestion section should be displayed
@@ -26,8 +26,11 @@ Feature: CTEP ECM Updates in PO
   Scenario: CTEPECM_UI104. Verify if the Person is updated in PO
     Given I run the MOCK service for the JMS Notification
     When I Login into CTRP PO and Navigate to Person search screen
-    And Search for Person "513057" and navigate to the Person Information section
+    And Search for Person "509866" and navigate to the Person Information section
     Then The Person is updated with new values from CTEP
+      | Existing First Name  | New First Name             |
+      | Rosita               | Rositha                    |
+
 
   @PA_HIGH  @PO @ECMUI @CTRPMICRO-ABC
   Scenario: CTEPECM_UI105. Verify if the HealthCareProvider is updated in PO

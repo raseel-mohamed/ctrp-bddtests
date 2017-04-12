@@ -1,11 +1,14 @@
 class PoLeftMenuNavigation
 
-  @search_org_menu_id = "html/body/div[1]/div[3]/div[2]/ul[1]/li[6]/a"
+  @org_search_id = "SearchOrganization"
+  @person_search_id = "SearchPerson"
 
-
-  def self.search_org_menu_id
-    @search_org_menu_id
+  def self.org_search_id
+    @org_search_id
   end
 
+  def self.person_search_id
+    @person_search_id
+  end
 
 end

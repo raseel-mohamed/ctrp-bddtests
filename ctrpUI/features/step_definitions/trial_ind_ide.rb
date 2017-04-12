@@ -51,7 +51,8 @@ end
 When(/^I fill all details and click save in IND\/IDE\(PA\) screen$/) do
   step %[I select radio button having id "#{TrialINDIDE.ind_ide_type_id}"]
   step %[I clear input field having id "#{TrialINDIDE.number_id}"]
-  step %[I enter "3" into input field having id "#{TrialINDIDE.number_id}"]
+  random_number = rand 1..99999
+  step %[I enter "#{random_number}" into input field having id "#{TrialINDIDE.number_id}"]
   step %[I select "CDRH" option by text from dropdown having id "#{TrialINDIDE.grantor_id}"]
   step %[I select "Investigator" option by text from dropdown having id "#{TrialINDIDE.holder_type_id}"]
   step %[I select "No" option by text from dropdown having id "#{TrialINDIDE.ava_of_ex_acc_id}"]

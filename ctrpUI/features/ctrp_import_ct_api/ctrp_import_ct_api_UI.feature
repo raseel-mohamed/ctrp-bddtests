@@ -59,7 +59,7 @@ Feature: Import Trial from PA
       | ClinicalTrials.gov Identifier | ct.gov.id_info.nct_id       |
       | Other Identifier              | ct.gov.secondary_id         |
       | Abbreviated Trial?            | Yes                         |
-      | Last Verification Date        | ct.gov.verification_date    |
+      #| Last Verification Date        | ct.gov.verification_date    |
       | Official Title                | ct.gov.official_title       |
       | Submission Source             | ClinicalTrials.gov          |
 
@@ -77,7 +77,7 @@ Feature: Import Trial from PA
       | Identifier Type: Other Identifier              | ct.gov.secondary_id                 |
       | Abbreviated Trial?                             | true                                |
       | Official Title                                 | ct.gov.official_title               |
-      | Trial Phase                                    | ct.gov.phase                        |
+      #| Trial Phase                                    | ct.gov.phase                        |
       | Primary Purpose                                | ct.gov.study_design.Primary Purpose |
       | Lead Organization                              | ct.gov.sponsors.lead_sponsor.agency |
       | Sponsor                                        | ct.gov.sponsors.lead_sponsor.agency |

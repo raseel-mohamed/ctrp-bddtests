@@ -20,8 +20,14 @@ end
 
 #@CTRPMICRO-204
 Given(/^I send a GET request for "([^"]*)" for Organization$/) do |url|
-  @response = RestClient.get(url)
-  @Organization_JSON = JSON.parse(@response)
+  begin
+    @response = RestClient.get(url)
+    @Organization_JSON = JSON.parse(@response)
+  rescue Exception => e
+    response = e.response
+    @response_JSON = JSON.parse(response)
+  end
+
 end
 
 #@CTRPMICRO-204
@@ -45,7 +51,6 @@ Given(/^I send a GET request for "([^"]*)" for ClinicalResearchStaff$/) do |url|
   @ClinicalResearchStaff_JSON = JSON.parse(@response)
 end
 
-
 Then(/^the JSON response should be displayed for Organization$/) do
   expect(@Organization_JSON['identifier']['extension']).to eq('OH029')
 end
@@ -64,4 +69,10 @@ end
 
 Then(/^the JSON response should be as below for ClinicalResearchStaff:$/) do |string|
   expect(@ClinicalResearchStaff_JSON).to eq JSON.parse(string)
+end
+
+Then(/^I should see error in JSON response for Organization$/) do
+  expect(@response_JSON['code']).to eq 1
+  expect(@response_JSON['type']).to eq 'CTEPEntException'
+  expect(@response_JSON['message']).to  include('No such file or directory')
 end

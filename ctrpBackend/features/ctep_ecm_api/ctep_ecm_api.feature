@@ -17,6 +17,11 @@ Feature: Tests for CTRP ECM Microservice for DTO messages from CTEP
     Then the response status code should be '200'
     Then the JSON response should be displayed for Organization
 
+  @PA_HIGH @FDAAA @PO @CTRPMICRO-xyz
+  Scenario: CTEPECM_API03. GET Organization from from ECM service
+    Given I send a GET request for "http://ctrp-inttest-alb-backend-1739456098.us-east-1.elb.amazonaws.com:3300/api/v1/ecmservice/Organization/0OH029" for Organization
+    Then I should see error in JSON response for Organization
+
   @PA_HIGH @FDAAA @PO @CTRPMICRO-208
   Scenario: CTEPECM_API04. GET HealthCareFacility from from ECM service
     Given I send a GET request for "http://129.43.165.163:3300/api/v1/ecmservice/HealthCareFacility/WA082" for HealthCareFacility

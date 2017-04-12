@@ -37,7 +37,7 @@ Feature: IND/IDE
     And I navigate to IND/IDE screen
     When I click on Add button
     And I fill all details and click save in IND/IDE(PA) screen
-    #Then I verify confirm message "Message. Record Created." is displayed
+    Then I verify confirm message "Message. Record Created." is displayed
 
 
   @pa_high @FDAAA @pa @CTRPMICRO-236
@@ -72,4 +72,4 @@ Feature: IND/IDE
     And I navigate to IND/IDE screen
     When I click on Add button
     And I fill all details and click save in IND/IDE(PA) screen
-    #Then I verify confirm message "Message. Record Created." is displayed
+    Then I verify confirm message "Message. Record Created." is displayed
